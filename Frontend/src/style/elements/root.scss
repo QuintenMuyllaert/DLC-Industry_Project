@@ -1,0 +1,19 @@
+:root {
+	.dark {
+		--global-color-background: #000000;
+		--global-color-text: #ffffff;
+	}
+
+	.light {
+		--global-color-background: #ffffff;
+		--global-color-text: #000000;
+	}
+}
+
+/*
+@media (prefers-color-scheme: dark) {
+	:root {
+		--global-color-background: var(#222222);
+	}
+}
+*/

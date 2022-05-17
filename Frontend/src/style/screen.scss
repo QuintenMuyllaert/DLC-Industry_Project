@@ -1,0 +1,12 @@
+// @import -> maakt scss file beschikbaar verderop in de imports
+// @use -> gebruikt file in huidige scope
+
+// GENERIC
+@import "./generic/reset";
+
+// ELEMENTS
+@import "./elements/fonts.scss";
+@import "./elements/root.scss";
+@import "./elements/page.scss";
+
+// COMPONENTS
