@@ -1,4 +1,5 @@
 :root {
+	--global-border-size: 0.125rem;
 	.dark {
 		--global-color-background: #000000;
 		--global-color-text: #ffffff;
@@ -7,6 +8,12 @@
 	.light {
 		--global-color-background: #ffffff;
 		--global-color-text: #000000;
+
+		/*Black button*/
+		--global-color-button-background: #000000;
+		--global-color-button-border: #000000;
+		--global-color-button-icon: #ffffff;
+		--global-color-button-text: #ffffff;
 	}
 }
 

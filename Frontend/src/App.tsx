@@ -1,6 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Root from "./components/Root";
-import About from "./components/About";
+import Login from "./pages/Login";
 
 import "./style/screen.scss";
 
@@ -9,8 +8,7 @@ export const App = () => {
 		<Router>
 			<div className="App dark">
 				<Routes>
-					<Route path="/" element={<Root />} />
-					<Route path="about" element={<About />} />
+					<Route path="/" element={<Login />} />
 				</Routes>
 			</div>
 		</Router>

@@ -1,0 +1,50 @@
+.dark {
+	--global-color-button-border: #ffffff;
+}
+
+.light {
+	--global-color-button-border: #000000;
+}
+
+.c-iconbutton.black {
+	/*Black button*/
+	--global-color-button-background: #000000;
+	--global-color-button-icon: #ffffff;
+	--global-color-button-text: #ffffff;
+}
+
+.c-iconbutton.white {
+	/*White button*/
+	--global-color-button-background: #ffffff;
+
+	--global-color-button-icon: #000000;
+	--global-color-button-text: #000000;
+}
+
+.c-iconbutton {
+	position: relative;
+	width: 100%;
+	height: min-content;
+	height: 3.25rem;
+	display: grid;
+	grid-template-columns: min-content 1fr;
+	gap: 1rem;
+	padding-inline: 1rem;
+	align-items: center;
+
+	color: var(--global-color-button-text);
+	border: var(--global-border-size) solid var(--global-color-button-border);
+	background-color: var(--global-color-button-background);
+	font-family: Rajdhani;
+	font-weight: 700;
+	font-size: 2rem;
+
+	div,
+	svg {
+		width: 1.5rem;
+		height: 1.5rem;
+
+		background-color: var(--global-color-button-icon);
+		fill: var(--global-color-button-icon);
+	}
+}
