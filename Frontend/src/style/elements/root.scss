@@ -3,17 +3,23 @@
 	.dark {
 		--global-color-background: #000000;
 		--global-color-text: #ffffff;
+
+		/*White input*/
+		--global-color-input-border: #ffffff;
+
+		/*Button*/
+		--global-color-button-border: #ffffff;
 	}
 
 	.light {
 		--global-color-background: #ffffff;
 		--global-color-text: #000000;
 
-		/*Black button*/
-		--global-color-button-background: #000000;
+		/*Input*/
+		--global-color-input-border: #000000;
+
+		/*Button*/
 		--global-color-button-border: #000000;
-		--global-color-button-icon: #ffffff;
-		--global-color-button-text: #ffffff;
 	}
 }
 
