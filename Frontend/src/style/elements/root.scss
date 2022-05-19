@@ -1,5 +1,8 @@
 :root {
 	--global-border-size: 0.125rem;
+	/*--global-border-radius: 0.5rem;*/
+	--global-border-radius: 0;
+
 	.dark {
 		--global-color-background: #000000;
 		--global-color-text: #ffffff;
