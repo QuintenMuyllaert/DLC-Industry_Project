@@ -1,7 +1,9 @@
-export const IconButton = ({ title, color }: { title: string; color: string }) => {
+import { ReactElement } from "React";
+
+export const IconButton = ({ title, color, icon }: { title: string; color: string; icon?: ReactElement }) => {
 	return (
 		<button className={`c-iconbutton ${color}`}>
-			<div></div>
+			<>{icon ? icon : <div></div>}</>
 			{title}
 		</button>
 	);

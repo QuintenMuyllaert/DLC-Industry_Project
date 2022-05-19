@@ -32,11 +32,13 @@
 	border-radius: var(--global-border-radius);
 
 	div,
-	svg {
+	svg,
+	img,
+	object {
 		width: 1.5rem;
 		height: 1.5rem;
 
-		background-color: var(--global-color-button-icon);
-		fill: var(--global-color-button-icon);
+		color: var(--global-color-button-icon);
+		stroke: var(--global-color-button-icon);
 	}
 }
