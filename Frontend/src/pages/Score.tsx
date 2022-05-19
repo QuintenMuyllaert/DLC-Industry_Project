@@ -4,7 +4,7 @@ import { Clock } from "../components/Clock";
 import { Digit } from "../components/Digit";
 import { IconButton } from "../components/IconButton";
 
-export const Login = () => {
+export const Score = () => {
 	return (
 		<div className="p-score">
 			<Clock time="15:39"></Clock>
@@ -44,4 +44,4 @@ export const Login = () => {
 	);
 };
 
-export default Login;
+export default Score;
