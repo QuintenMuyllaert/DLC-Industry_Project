@@ -11,6 +11,8 @@ body,
 .App {
 	width: 100vw;
 	height: 100vh;
+	display: grid;
+	justify-items: center;
 
 	color: var(--global-color-text);
 	font-family: Raleway;
