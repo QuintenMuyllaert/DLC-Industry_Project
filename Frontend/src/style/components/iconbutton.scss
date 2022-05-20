@@ -17,6 +17,14 @@
 	text-align: center;
 }
 
+.c-iconbutton.nolabel {
+	display: grid;
+	grid-template-columns: 1fr;
+	grid-template-rows: 1fr;
+	place-items: center;
+	background-color: var(--global-color-button-background);
+}
+
 .c-iconbutton {
 	position: relative;
 	width: 100%;
@@ -42,7 +50,6 @@
 	object {
 		width: 1.5rem;
 		height: 1.5rem;
-
 		color: var(--global-color-button-icon);
 		stroke: var(--global-color-button-icon);
 	}
