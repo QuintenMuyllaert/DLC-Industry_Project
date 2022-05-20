@@ -1,10 +1,10 @@
 import { ReactElement } from "React";
 
-export const IconButton = ({ title, color, icon }: { title: string; color: string; icon?: ReactElement }) => {
+export const IconButton = ({ label, color, icon, onClick }: { label: string; color: string; icon?: ReactElement; onClick?: (event?: any) => any }) => {
 	return (
-		<button className={`c-iconbutton ${color} ${!icon ? "center" : ""}`}>
+		<button className={`c-iconbutton ${color} ${!icon ? "center" : ""}`} onClick={onClick ? onClick : () => {}}>
 			<>{icon ? icon : <></>}</>
-			{title}
+			{label}
 		</button>
 	);
 };
