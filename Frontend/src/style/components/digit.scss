@@ -2,10 +2,6 @@
 	text-align: center;
 	overflow: hidden;
 	width: 100%;
-	.teamname {
-		font-family: Rajdhani;
-		font-size: 2rem;
-	}
 
 	.teamscore {
 		font-family: DSEG7-Classic;
@@ -27,5 +23,16 @@
 		color: var(--global-color-background);
 		font-weight: 900;
 		font-size: 2rem;
+	}
+}
+
+.c-digit.t-rocker {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+
+	> * {
+		width: min(7.5rem, 20vmin);
 	}
 }

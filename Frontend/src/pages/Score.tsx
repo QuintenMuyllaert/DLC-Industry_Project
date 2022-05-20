@@ -14,9 +14,13 @@ export const Score = () => {
 				<div className="empty"></div>
 				<Flag top="blue" bottom="yellow" />
 
-				<Digit name="TORHOUT" value={2} />
+				<h2 className="teamname">{"TORHOUT"}</h2>
+				<div className="empty"></div>
+				<h2 className="teamname">{"KORTRIJK"}</h2>
+
+				<Digit value={2} style="^v" />
 				<p className="seperator">-</p>
-				<Digit name="KORTRIJK" value={0} />
+				<Digit value={0} style="^v" />
 			</div>
 
 			<IconButton

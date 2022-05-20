@@ -18,13 +18,25 @@
 		justify-items: center;
 	}
 
+	.teamname {
+		font-family: Rajdhani;
+		font-size: 2rem;
+	}
+
 	.seperator {
 		text-align: center;
 		justify-self: center;
 		font-family: DSEG7-Classic;
 		font-weight: 500;
 		font-size: min(7.5rem, 20vmin);
-		align-self: center;
+		align-self: start;
 		width: min-content;
+	}
+
+	.t-rocker + .seperator {
+		height: 100%;
+		text-align: center center;
+		display: grid;
+		place-items: center;
 	}
 }
