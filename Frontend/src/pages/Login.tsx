@@ -1,9 +1,42 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Input } from "../components/Input";
 import { Logo } from "../components/Logo";
 import { IconButton } from "../components/IconButton";
+import { LooseObject } from "../utils/Interfaces";
 
 export const Login = () => {
+	const defaultState: LooseObject = {
+		username: "",
+		password: "",
+	};
+
+	const [state, setState] = useState(defaultState);
+
+	const updateState = (key: string, value: string) => {
+		state[key] = value;
+		setState(state);
+	};
+
+	const sendAuthRequest = async () => {
+		const res = await fetch(`${document.location.origin}/auth`, {
+			method: "POST",
+			mode: "cors",
+			cache: "no-cache",
+			credentials: "same-origin",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			redirect: "follow",
+			referrerPolicy: "no-referrer",
+			body: JSON.stringify(state),
+		});
+
+		if (res.status === 202) {
+			document.location.href = "/score";
+		}
+	};
+
 	return (
 		<div className="p-login">
 			<header>
@@ -14,8 +47,22 @@ export const Login = () => {
 			</header>
 
 			<div className="u-grid-vertical-gap p-login-maxwidth">
-				<Input title="e-mail" type="text" />
-				<Input title="wachtwoord" type="password" />
+				<Input
+					id="username"
+					label="e-mail"
+					type="text"
+					onChange={(event: React.FormEvent<HTMLInputElement>) => {
+						updateState("username", event.currentTarget.value);
+					}}
+				/>
+				<Input
+					id="password"
+					label="wachtwoord"
+					type="password"
+					onChange={(event: React.FormEvent<HTMLInputElement>) => {
+						updateState("password", event.currentTarget.value);
+					}}
+				/>
 			</div>
 			<div className="u-grid-vertical-gap p-login-maxwidth">
 				<IconButton
@@ -34,8 +81,9 @@ export const Login = () => {
 							<line x1="15" y1="12" x2="3" y2="12"></line>
 						</svg>
 					}
-					title="LOGIN"
+					label="LOGIN"
 					color="white"
+					onClick={sendAuthRequest}
 				/>
 				<IconButton
 					icon={
@@ -52,7 +100,7 @@ export const Login = () => {
 							<circle cx="12" cy="12" r="3"></circle>
 						</svg>
 					}
-					title="SPECTATE"
+					label="SPECTATE"
 					color="black"
 				/>
 			</div>
