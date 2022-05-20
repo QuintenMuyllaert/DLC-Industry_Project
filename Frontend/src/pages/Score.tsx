@@ -34,11 +34,11 @@ export const Score = () => {
 					</svg>
 				}
 				color="white"
-				title="WIJZIG BERICHT"></IconButton>
+				label="WIJZIG BERICHT"></IconButton>
 
 			<div className="u-grid-horizontal-2">
-				<IconButton color="white" title="Scorebord"></IconButton>
-				<IconButton color="black" title="Sponsors"></IconButton>
+				<IconButton color="white" label="Scorebord"></IconButton>
+				<IconButton color="black" label="Sponsors"></IconButton>
 			</div>
 		</div>
 	);
