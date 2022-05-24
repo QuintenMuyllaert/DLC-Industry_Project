@@ -1,5 +1,4 @@
-const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
-
+import { delay } from "./Utils";
 export const findLocalIp = async (ipv4Only: boolean = true) => {
 	let ips: string[] = await new Promise((resolve, reject) => {
 		if (typeof window.RTCPeerConnection == "undefined") {
@@ -47,7 +46,7 @@ export const ping = async (uri: string) => {
 		return uri;
 	} catch (err) {
 		await delay(10000);
-		return -1;
+		return false;
 	}
 };
 
@@ -55,7 +54,7 @@ export const findApi = async () => {
 	const ips = await findLocalIp();
 	if (!ips.length) {
 		console.error("Couldn't find local IP, API detection not possible.");
-		return "http://127.0.0.1:1234";
+		return false;
 	}
 
 	let pings = [];
