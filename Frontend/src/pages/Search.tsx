@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import { IconButton } from "../components/IconButton";
 import BottomTab from "../components/BottomTab";
 import Logo from "../components/Logo";
 
