@@ -6,11 +6,13 @@ body,
 	overflow-x: hidden;
 	font-size: 100%;
 	line-height: 1.5;
+	background-color: var(--global-color-background);
 }
 
 .App {
 	width: 100vw;
 	height: 100vh;
+	overflow: hidden;
 	display: grid;
 	grid-template-rows: 1fr auto;
 	justify-items: center;
