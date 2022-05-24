@@ -1,7 +1,11 @@
 export const BottomTab = () => {
+	const goToTemplates = async () => {
+		document.location.href = "/templates";
+	};
+
 	return (
 		<div className="c-bottomtab">
-			<div className="c-bottomtab__page c-bottomtab__page-active">
+			<div className="c-bottomtab__page c-bottomtab__page-active" onClick={goToTemplates}>
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
 					width="24"
