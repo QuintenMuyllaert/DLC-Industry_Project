@@ -1,0 +1,37 @@
+.p-spectate {
+	height: 100%;
+	padding-inline: 1rem;
+
+	display: grid;
+	grid-template-rows: auto;
+
+	width: min(24rem, 100%);
+	padding-top: 2rem;
+	overflow: hidden;
+
+	.team {
+		padding-top: 2rem;
+
+		.teamname {
+			height: fit-content;
+			font-family: Rajdhani;
+			font-size: 2rem;
+			text-align: center;
+		}
+
+		.flag {
+			padding-bottom: 2rem;
+		}
+	}
+
+	p {
+		font-family: DSEG7 Classic;
+		font-size: 6.9rem;
+		margin-bottom: 1rem;
+		text-align: center;
+	}
+
+	.maxwidth {
+		width: min(18rem, 70%);
+	}
+}
