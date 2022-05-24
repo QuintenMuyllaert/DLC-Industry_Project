@@ -1,16 +1,18 @@
 .p-matchsetup {
 	height: 100%;
-	margin-top: 4.5rem;
 	padding-bottom: 3rem;
 	padding-inline: 1rem;
+
+	display: grid;
+	gap: 1rem;
+	grid-template-rows: auto;
+
 	width: min(24rem, 100%);
-	align-items: center;
-	justify-content: center;
+	padding: 1rem;
 
 	.teamsettings-container {
 		display: flex;
 		justify-content: space-around;
-		margin-bottom: 4.5rem;
 
 		.flagcontainer {
 			text-align: center;
@@ -19,14 +21,13 @@
 	}
 
 	.matchsettings-container {
-		margin-bottom: 7rem;
+		padding-bottom: 3rem;
 
 		.match-helft {
-			margin-top: 1rem;
 			display: flex;
 			justify-content: space-between;
 			gap: 1rem;
-			margin-bottom: 2rem;
+			padding-bottom: 1rem;
 
 			.helft {
 				width: 35%;
@@ -38,10 +39,11 @@
 	}
 
 	h1 {
+		padding-top: 2rem;
+		height: fit-content;
 		font-family: Rajdhani;
 		font-size: 2.2rem;
 		font-weight: 600;
-		margin-bottom: 2rem;
 		text-align: center;
 	}
 
