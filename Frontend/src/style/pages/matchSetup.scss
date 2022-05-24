@@ -1,0 +1,59 @@
+.p-matchsetup {
+	height: 100%;
+	padding-bottom: 3rem;
+	padding-inline: 1rem;
+
+	display: grid;
+	gap: 1rem;
+	grid-template-rows: auto;
+
+	width: min(24rem, 100%);
+	padding: 1rem;
+
+	.teamsettings-container {
+		display: flex;
+		justify-content: space-around;
+
+		.flagcontainer {
+			text-align: center;
+			min-width: 30%;
+		}
+	}
+
+	.matchsettings-container {
+		padding-bottom: 3rem;
+
+		.match-helft {
+			display: flex;
+			justify-content: space-between;
+			gap: 1rem;
+			padding-bottom: 1rem;
+
+			.helft {
+				width: 35%;
+			}
+			.duur {
+				width: 65%;
+			}
+		}
+	}
+
+	h1 {
+		padding-top: 2rem;
+		height: fit-content;
+		font-family: Rajdhani;
+		font-size: 2.2rem;
+		font-weight: 600;
+		text-align: center;
+	}
+
+	p {
+		font-family: Rajdhani;
+		font-size: 1.9rem;
+		margin-bottom: 1rem;
+	}
+
+	.maxwidth {
+		width: min(18rem, 70%);
+	}
+}
