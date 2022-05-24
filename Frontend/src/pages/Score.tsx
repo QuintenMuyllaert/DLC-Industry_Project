@@ -42,11 +42,18 @@ export const Score = () => {
 	useEffect(() => {
 		if (state.first) {
 			updateState("first", false);
+
+			//Screen to scoreboard
+			fetch(`${API}/update?Keuze=P0`, { mode: "no-cors" });
+
+			//Reset timer
 			fetch(`${API}/update?Timer=Ti1`, { mode: "no-cors" });
 
+			//Reset both teams
 			fetch(`${API}/update?G1=T0`, { mode: "no-cors" });
 			fetch(`${API}/update?G2=U0`, { mode: "no-cors" });
 
+			//Set team colors
 			fetch(`${API}/update?K1B=${colorLUT[state.colorsHome[0]]}`, { mode: "no-cors" });
 			fetch(`${API}/update?K1O=${colorLUT[state.colorsHome[1]]}`, { mode: "no-cors" });
 			fetch(`${API}/update?K2B=${colorLUT[state.colorsOut[0]]}`, { mode: "no-cors" });
