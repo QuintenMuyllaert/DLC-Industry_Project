@@ -4,6 +4,7 @@ import MatchSetup from "./pages/MatchSetup";
 import Score from "./pages/Score";
 import Search from "./pages/Search";
 import SearchError from "./pages/SearchError";
+import SearchSuccess from "./pages/SearchSuccess";
 
 import "./style/screen.scss";
 
@@ -17,6 +18,7 @@ export const App = () => {
 					<Route path="/matchsetup" element={<MatchSetup />} />
 					<Route path="/search" element={<Search />} />
 					<Route path="/searcherror" element={<SearchError />} />
+					<Route path="/searchsuccess" element={<SearchSuccess />} />
 				</Routes>
 			</div>
 		</Router>
