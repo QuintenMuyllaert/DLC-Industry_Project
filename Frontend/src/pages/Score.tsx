@@ -3,6 +3,7 @@ import { Flag } from "../components/Flag";
 import { Clock } from "../components/Clock";
 import { Digit } from "../components/Digit";
 import { IconButton } from "../components/IconButton";
+import { BottomTab } from "../components/BottomTab";
 
 export const Score = () => {
 	return (
@@ -46,7 +47,7 @@ export const Score = () => {
 					<IconButton color="black" label="Sponsors"></IconButton>
 				</div>
 			</div>
-			<div className="c-bottomtab"></div>
+			<BottomTab />
 		</>
 	);
 };
