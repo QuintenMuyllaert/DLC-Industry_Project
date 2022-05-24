@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { IconButton } from "../components/IconButton";
 import BottomTab from "../components/BottomTab";
 
-export const Search = () => {
+export const SearchSuccess = () => {
 	return (
 		<>
 			<div className="p-search">
@@ -33,4 +33,4 @@ export const Search = () => {
 	);
 };
 
-export default Search;
+export default SearchSuccess;
