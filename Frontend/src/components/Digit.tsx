@@ -1,6 +1,13 @@
 import { IconButton } from "./IconButton";
 
-export const Digit = ({ value, style }: { value: number; style?: "+-" | "^v" }) => {
+interface params {
+	value: number;
+	style?: "+-" | "^v";
+	onClickUp?: (event?: any) => any;
+	onClickDown?: (event?: any) => any;
+}
+
+export const Digit = ({ value, style, onClickUp, onClickDown }: params) => {
 	style = style || "^v";
 
 	return style == "^v" ? (
@@ -20,6 +27,7 @@ export const Digit = ({ value, style }: { value: number; style?: "+-" | "^v" }) 
 						<polyline points="18 15 12 9 6 15"></polyline>
 					</svg>
 				}
+				onClick={onClickUp}
 			/>
 			<p className="teamscore">{value}</p>
 			<IconButton
@@ -37,14 +45,15 @@ export const Digit = ({ value, style }: { value: number; style?: "+-" | "^v" }) 
 						<polyline points="6 9 12 15 18 9"></polyline>
 					</svg>
 				}
+				onClick={onClickDown}
 			/>
 		</div>
 	) : (
 		<div className="c-digit">
 			<p className="teamscore">{value}</p>
 			<div className="controlpanel">
-				<button>-</button>
-				<button>+</button>
+				<button onClick={onClickDown}>-</button>
+				<button onClick={onClickUp}>+</button>
 			</div>
 		</div>
 	);
