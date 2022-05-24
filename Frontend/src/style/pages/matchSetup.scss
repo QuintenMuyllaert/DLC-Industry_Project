@@ -1,22 +1,57 @@
 .p-matchsetup {
-	width: 100%;
 	height: 100%;
-	display: grid;
-	grid-template-columns: 1fr;
-	grid-template-rows: fit-content fit-content fit-content;
-	justify-items: center;
+	margin-top: 4.5rem;
+	padding-bottom: 3rem;
+	padding-inline: 1rem;
+	width: min(24rem, 100%);
+	align-items: center;
+	justify-content: center;
 
-	header {
-		width: 100%;
-		justify-items: center;
-		display: grid;
-		grid-template-columns: 1fr;
-		grid-template-rows: 1fr;
-		height: fit-content;
-		padding-bottom: 2rem;
+	.teamsettings-container {
+		display: flex;
+		justify-content: space-around;
+		margin-bottom: 4.5rem;
+
+		.flagcontainer {
+			text-align: center;
+			min-width: 30%;
+		}
 	}
 
-	.p-matchsetup-maxwidth {
+	.matchsettings-container {
+		margin-bottom: 7rem;
+
+		.match-helft {
+			margin-top: 1rem;
+			display: flex;
+			justify-content: space-between;
+			gap: 1rem;
+			margin-bottom: 2rem;
+
+			.helft {
+				width: 35%;
+			}
+			.duur {
+				width: 65%;
+			}
+		}
+	}
+
+	h1 {
+		font-family: Rajdhani;
+		font-size: 2.2rem;
+		font-weight: 600;
+		margin-bottom: 2rem;
+		text-align: center;
+	}
+
+	p {
+		font-family: Rajdhani;
+		font-size: 1.9rem;
+		margin-bottom: 1rem;
+	}
+
+	.maxwidth {
 		width: min(18rem, 70%);
 	}
 }
