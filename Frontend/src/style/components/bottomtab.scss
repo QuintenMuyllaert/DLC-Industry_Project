@@ -6,12 +6,14 @@
 	padding: 0.5rem;
 	display: flex;
 	justify-content: space-between;
+	align-items: center;
 	gap: 0;
 
 	&__page {
 		display: flex;
-		padding: 1rem 1.25rem;
-		border-radius: 200px;
+		align-items: center;
+		padding: 0.25rem 0.5rem;
+		border-radius: 1rem;
 		cursor: pointer;
 
 		&-name {
@@ -31,6 +33,10 @@
 				display: block;
 				padding-left: 0.25rem;
 			}
+		}
+
+		> svg {
+			height: 1.2rem;
 		}
 	}
 }
