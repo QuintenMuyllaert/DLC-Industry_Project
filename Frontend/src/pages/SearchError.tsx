@@ -49,7 +49,7 @@ export const SearchError = () => {
 					label="HERPROBEER"
 					color="white"
 					onClick={() => {
-						document.location.href = "/";
+						document.location.href = "/search";
 					}}
 				/>
 				<IconButton
