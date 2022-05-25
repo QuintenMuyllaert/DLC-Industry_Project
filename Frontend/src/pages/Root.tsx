@@ -1,6 +1,5 @@
 export const Root = () => {
-	document.location.href = "/search";
-
+	document.location.href = "/login";
 	return <div></div>;
 };
 
