@@ -50,8 +50,11 @@ export const ping = async (uri: string) => {
 	}
 };
 
+export const trigger = ping;
+
 export const findApi = async () => {
 	const ips = await findLocalIp();
+	console.log("LOCAL IP : ", ips);
 	if (!ips.length) {
 		console.error("Couldn't find local IP, API detection not possible.");
 		return false;
@@ -64,5 +67,32 @@ export const findApi = async () => {
 			pings.push(ping(`http://${subnet}.${i}:1234`));
 		}
 	}
-	return await Promise.race(pings);
+
+	/*const apis = await Promise.all(pings);
+	console.log(apis);
+	const api = apis.shift();*/
+	const api = await Promise.race(pings);
+	console.log("REMOTE IP : ", api);
+	return api;
 };
+
+/*
+//Mixed content bypass attempt : doesn't work on mobile 
+export const trigger = async (uri: string) => {
+	return await new Promise((resolve, reject) => {
+		let img = document.createElement("img");
+		img.onload = (err) => {
+			resolve(uri);
+		};
+		img.onerror = async (err) => {
+			resolve(uri);
+		};
+		img.src = uri;
+		setTimeout(() => {
+			resolve(false);
+		}, 10 * 1000);
+	});
+};
+
+export const ping = trigger;
+*/
