@@ -1,16 +1,29 @@
 .p-manual {
-	width: min(24rem, 100%);
-	padding: 1rem;
+	width: 100%;
 	height: auto;
-	display: grid;
-	gap: 1rem;
+
 	grid-template-rows: auto;
 	overflow: hidden;
 
 	&__header {
+		padding-block: 4rem;
+		padding-inline: 2rem;
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
-		max-height: 50%;
+		max-height: 1rem;
+		background-color: black;
+	}
+
+	.content {
+		margin-left: auto;
+		margin-right: auto;
+		width: min(24rem, 100%);
+		padding-top: 4rem;
+		padding-inline: 1rem;
+
+		.button {
+			margin-top: 8rem;
+		}
 	}
 }
