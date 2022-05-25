@@ -1,0 +1,16 @@
+.p-manual {
+	width: min(24rem, 100%);
+	padding: 1rem;
+	height: auto;
+	display: grid;
+	gap: 1rem;
+	grid-template-rows: auto;
+	overflow: hidden;
+
+	&__header {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		max-height: 50%;
+	}
+}
