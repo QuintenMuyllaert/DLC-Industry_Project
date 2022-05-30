@@ -5,7 +5,7 @@ export const SearchSuccess = () => {
 	useEffect(() => {
 		(async () => {
 			await delay(1500);
-			document.location.href = "/score";
+			//document.location.href = "/score";
 		})();
 
 		return () => {};
@@ -17,12 +17,12 @@ export const SearchSuccess = () => {
 				<div className="p-search-topbar"></div>
 				<div className="p-search-iconcontainer">
 					<svg
+						className="icon"
 						xmlns="http://www.w3.org/2000/svg"
 						width="11rem"
 						height="11rem"
 						viewBox="0 0 24 24"
 						fill="none"
-						stroke="currentColor"
 						stroke-width="2"
 						stroke-linecap="round"
 						stroke-linejoin="round">
@@ -31,7 +31,7 @@ export const SearchSuccess = () => {
 					</svg>
 				</div>
 			</header>
-			<div className="p-search-message">
+			<div className="p-search-message-single-line">
 				<p>SCOREBORD GEVONDEN!</p>
 			</div>
 		</div>
