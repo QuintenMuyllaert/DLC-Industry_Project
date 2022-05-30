@@ -7,7 +7,7 @@
 	&__overlay {
 		opacity: 0.7;
 		z-index: 1;
-		background-color: #000000;
+		background-color: #121212;
 		position: absolute;
 		top: 0;
 		left: 0;
@@ -16,14 +16,14 @@
 	}
 
 	&__container {
-		padding: 20px;
+		padding: 1.25rem;
 		background-color: #eeeeee;
 		height: 90vh;
 		overflow-y: auto;
 		width: 90%;
 		margin: auto;
 		z-index: 2;
-		max-width: 400px;
+		max-width: 25rem;
 	}
 
 	&__hidden {
@@ -31,7 +31,7 @@
 	}
 
 	& .c-flag {
-		margin-bottom: 30px;
+		margin-bottom: 1.875rem;
 	}
 
 	&__close {
@@ -43,12 +43,12 @@
 	& p {
 		color: #121212;
 		text-align: center;
-		margin-bottom: 20px;
+		margin-bottom: 1.25rem;
 	}
 
 	&__colors {
-		gap: 15px 0;
-		margin-bottom: 30px;
+		gap: 0.9375rem 0;
+		margin-bottom: 1.875rem;
 		display: grid;
 		grid-template-columns: 25% 25% 25% 25%;
 		justify-content: space-between;
@@ -57,19 +57,19 @@
 		justify-items: center;
 
 		&-color {
-			width: 60px;
-			height: 60px;
-			border-radius: 8px;
+			width: 3.75rem;
+			height: 3.75rem;
+			border-radius: 0.5rem;
 			position: relative;
 
 			@media screen and (max-width: 460px) {
-				width: 40px;
-				height: 40px;
+				width: 2.5rem;
+				height: 2.5rem;
 			}
 
 			@media screen and (max-width: 295px) {
-				width: 30px;
-				height: 30px;
+				width: 1.875rem;
+				height: 1.875rem;
 			}
 		}
 
@@ -82,45 +82,45 @@
 			display: flex;
 			justify-content: center;
 			align-items: center;
-			background-color: #000;
+			background-color: #121212;
 			opacity: 0.5;
-			border-radius: 8px;
+			border-radius: 0.5rem;
 		}
 
 		&-colorAdd {
-			background-color: #000;
+			background-color: #121212;
 			opacity: 0.5;
-			border-radius: 8px;
-			width: 60px;
-			height: 60px;
-			border: 1px dashed #fff;
+			border-radius: 0.5rem;
+			width: 3.75rem;
+			height: 3.75rem;
+			border: var(--global-border-size) dashed #eee;
 			display: flex;
 			align-items: center;
 			justify-content: center;
 
 			& svg {
-				stroke-width: 4px;
-				stroke: #fff;
+				stroke-width: 0.25rem;
+				stroke: #eee;
 
 				@media screen and (max-width: 460px) {
-					stroke-width: 2px;
+					stroke-width: 0.125rem;
 				}
 			}
 
 			@media screen and (max-width: 460px) {
-				width: 40px;
-				height: 40px;
+				width: 2.5rem;
+				height: 2.5rem;
 			}
 
 			@media screen and (max-width: 295px) {
-				width: 30px;
-				height: 30px;
+				width: 1.875rem;
+				height: 1.875rem;
 			}
 		}
 	}
 
 	& .c-iconbutton {
-		max-width: 250px;
+		max-width: 15.625rem;
 		margin: 0 auto;
 	}
 }
