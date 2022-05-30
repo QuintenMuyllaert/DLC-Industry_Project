@@ -36,6 +36,7 @@ export const Color = ({
 					: () => {
 							updateColorState(SetValue(team, side), color);
 							updateScoreState(SetValue(team, side), color);
+							console.log("updating value state");
 					  }
 			}></div>
 	);

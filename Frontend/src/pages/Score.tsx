@@ -11,7 +11,7 @@ import Colorpicker from "../components/Colorpicker";
 
 export const Score = () => {
 	const defaultState: LooseObject = {
-		API: "http://192.168.1.248:1234",
+		API: "http://127.0.0.1:1234",
 		scoreHome: 0,
 		scoreOut: 0,
 		nameHome: "THUIS",
@@ -61,10 +61,10 @@ export const Score = () => {
 				trigger(`${state.API}/update?G2=U0`);
 
 				//Set team colors
-				trigger(`${state.API}/update?K1B=${colorLUT[state.colorsHome[0]]}`);
-				trigger(`${state.API}/update?K1O=${colorLUT[state.colorsHome[1]]}`);
-				trigger(`${state.API}/update?K2B=${colorLUT[state.colorsOut[0]]}`);
-				trigger(`${state.API}/update?K2O=${colorLUT[state.colorsOut[1]]}`);
+				trigger(`${state.API}/update?K1B=${colorLUT[state.colorsHomeTop]}`);
+				trigger(`${state.API}/update?K1O=${colorLUT[state.colorsHomeBottom]}`);
+				trigger(`${state.API}/update?K2B=${colorLUT[state.colorsOutTop]}`);
+				trigger(`${state.API}/update?K2O=${colorLUT[state.colorsOutBottom]}`);
 			})();
 		}
 
@@ -91,9 +91,9 @@ export const Score = () => {
 			<div className="p-score">
 				<Clock time={state.clock}></Clock>
 				<div className="scorevalue-container">
-					<Flag top={state.colorsHome[0]} bottom={state.colorsHome[1]} />
+					<Flag top={state.colorsHomeTop} bottom={state.colorsHomeBottom} />
 					<div className="empty"></div>
-					<Flag top={state.colorsOut[0]} bottom={state.colorsOut[1]} />
+					<Flag top={state.colorsOutTop} bottom={state.colorsOutBottom} />
 
 					<h2 className="teamname">{state.nameHome}</h2>
 					<div className="empty"></div>
@@ -145,7 +145,7 @@ export const Score = () => {
 				</div>
 			</div>
 			<BottomTab />
-			<Colorpicker team={1} updateScoreState={updateState} />
+			<Colorpicker team={2} updateScoreState={updateState} />
 		</>
 	);
 };

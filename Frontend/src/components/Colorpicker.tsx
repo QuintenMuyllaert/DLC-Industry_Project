@@ -7,14 +7,11 @@ import IconButton from "./IconButton";
 
 export const Colorpicker = ({ team, updateScoreState, onClick }: { team: number; updateScoreState: Function; onClick?: (event?: any) => any }) => {
 	const defaultState: LooseObject = {
-		API: "http://192.168.1.248:1234",
-		scoreHome: 0,
-		scoreOut: 0,
-		nameHome: "THUIS",
-		nameOut: "UIT",
-		colorsHome: ["red", "blue"],
-		colorsOut: ["yellow", "green"],
-		clock: 0,
+		API: "http://127.0.0.1:1234",
+		ColorsHomeTop: "red",
+		colorsHomeBottom: "blue",
+		colorsOutTop: "yellow",
+		colorsOutBottom: "green",
 		first: true,
 	};
 
@@ -40,22 +37,6 @@ export const Colorpicker = ({ team, updateScoreState, onClick }: { team: number;
 
 	let colors = Object.keys(colorLUT);
 
-	useEffect(() => {
-		if (state.first) {
-			updateState("first", false);
-
-			(async () => {
-				updateState("API", (await findApi()) || state.API);
-
-				//Set team colors
-				trigger(`${state.API}/update?K1B=${colorLUT[state.colorsHome[0]]}`);
-				trigger(`${state.API}/update?K1O=${colorLUT[state.colorsHome[1]]}`);
-				trigger(`${state.API}/update?K2B=${colorLUT[state.colorsOut[0]]}`);
-				trigger(`${state.API}/update?K2O=${colorLUT[state.colorsOut[1]]}`);
-			})();
-		}
-	}, [state]);
-
 	return (
 		<>
 			<div className="c-colorpicker__overlay"></div>
@@ -69,14 +50,14 @@ export const Colorpicker = ({ team, updateScoreState, onClick }: { team: number;
 							viewBox="0 0 24 24"
 							fill="none"
 							stroke="currentColor"
-							stroke-width="2"
-							stroke-linecap="round"
-							stroke-linejoin="round">
+							strokeWidth="2"
+							strokeLinecap="round"
+							strokeLinejoin="round">
 							<line x1="18" y1="6" x2="6" y2="18"></line>
 							<line x1="6" y1="6" x2="18" y2="18"></line>
 						</svg>
 					</div>
-					<Flag top={state.colorsOut[0]} bottom={state.colorsOut[1]} />
+					<Flag top={state.colorsOutTop} bottom={state.colorsOutBottom} />
 					<p>Kies een kleur voor de bovenkant</p>
 					<div className="c-colorpicker__colors">
 						<Color updateColorState={updateState} updateScoreState={updateScoreState} side={"B"} team={team} color={colors[0]} />
@@ -97,9 +78,9 @@ export const Colorpicker = ({ team, updateScoreState, onClick }: { team: number;
 								viewBox="0 0 24 24"
 								fill="none"
 								stroke="currentColor"
-								stroke-width="2"
-								stroke-linecap="round"
-								stroke-linejoin="round">
+								strokeWidth="2"
+								strokeLinecap="round"
+								strokeLinejoin="round">
 								<line x1="12" y1="5" x2="12" y2="19"></line>
 								<line x1="5" y1="12" x2="19" y2="12"></line>
 							</svg>
@@ -125,9 +106,9 @@ export const Colorpicker = ({ team, updateScoreState, onClick }: { team: number;
 								viewBox="0 0 24 24"
 								fill="none"
 								stroke="currentColor"
-								stroke-width="2"
-								stroke-linecap="round"
-								stroke-linejoin="round">
+								strokeWidth="2"
+								strokeLinecap="round"
+								strokeLinejoin="round">
 								<line x1="12" y1="5" x2="12" y2="19"></line>
 								<line x1="5" y1="12" x2="19" y2="12"></line>
 							</svg>
