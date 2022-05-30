@@ -11,6 +11,15 @@
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
+
+		& svg {
+			stroke: var(--global-color-text);
+		}
+
+		& svg:last-of-type {
+			fill: var(--global-color-text);
+			stroke: none;
+		}
 	}
 
 	&__formgroup {
@@ -33,7 +42,7 @@
 			display: flex;
 			justify-content: space-between;
 			align-items: center;
-			background-color: #fff;
+			background-color: var(--global-color-text);
 			color: var(--global-color-background);
 			padding: 1rem 1.125rem;
 		}
