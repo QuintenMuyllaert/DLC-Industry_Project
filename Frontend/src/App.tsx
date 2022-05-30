@@ -11,6 +11,8 @@ import SearchSuccess from "./pages/SearchSuccess";
 import Spectate from "./pages/Spectate";
 
 import "./style/screen.scss";
+import Manual from "./pages/Manual";
+import ChangePassword from "./pages/ChangePassword";
 
 export const App = () => {
 	return (
@@ -19,9 +21,11 @@ export const App = () => {
 				<Routes>
 					<Route path="/" element={<Root />} />
 					<Route path="/login" element={<Login />} />
+					<Route path="/changepassword" element={<ChangePassword />} />
 					<Route path="/score" element={<Score />} />
 					<Route path="/templates" element={<Templates />} />
 					<Route path="/matchsetup" element={<MatchSetup />} />
+					<Route path="/manual" element={<Manual />} />
 					<Route path="/search" element={<Search />} />
 					<Route path="/searcherror" element={<SearchError />} />
 					<Route path="/searchsuccess" element={<SearchSuccess />} />

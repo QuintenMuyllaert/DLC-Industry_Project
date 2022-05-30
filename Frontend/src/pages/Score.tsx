@@ -6,8 +6,8 @@ import { Digit } from "../components/Digit";
 import { IconButton } from "../components/IconButton";
 import { BottomTab } from "../components/BottomTab";
 import { LooseObject } from "../utils/Interfaces";
-import { findApi } from "../utils/Networking";
 import Color from "../components/Color";
+import { findApi, trigger } from "../utils/Networking";
 
 const colorLUT: LooseObject = {
 	green: "Groen",
@@ -24,11 +24,11 @@ const colorLUT: LooseObject = {
 
 export const Score = () => {
 	const defaultState: LooseObject = {
-		API: "http://0.0.0.0:1234",
+		API: "http://192.168.1.248:1234",
 		scoreHome: 0,
 		scoreOut: 0,
-		nameHome: "TORHOUT",
-		nameOut: "KORTRIJK",
+		nameHome: "THUIS",
+		nameOut: "UIT",
 		colorsHome: ["red", "blue"],
 		colorsOut: ["yellow", "green"],
 		clock: 0,
@@ -47,22 +47,22 @@ export const Score = () => {
 			updateState("first", false);
 
 			(async () => {
-				updateState("API", await findApi());
+				updateState("API", (await findApi()) || state.API);
 				//Screen to scoreboard
-				fetch(`${state.API}/update?Keuze=P0`, { mode: "no-cors" });
+				trigger(`${state.API}/update?Keuze=P0`);
 
 				//Reset timer
-				fetch(`${state.API}/update?Timer=Ti1`, { mode: "no-cors" });
+				trigger(`${state.API}/update?Timer=Ti1`);
 
 				//Reset both teams
-				fetch(`${state.API}/update?G1=T0`, { mode: "no-cors" });
-				fetch(`${state.API}/update?G2=U0`, { mode: "no-cors" });
+				trigger(`${state.API}/update?G1=T0`);
+				trigger(`${state.API}/update?G2=U0`);
 
 				//Set team colors
-				fetch(`${state.API}/update?K1B=${colorLUT[state.colorsHome[0]]}`, { mode: "no-cors" });
-				fetch(`${state.API}/update?K1O=${colorLUT[state.colorsHome[1]]}`, { mode: "no-cors" });
-				fetch(`${state.API}/update?K2B=${colorLUT[state.colorsOut[0]]}`, { mode: "no-cors" });
-				fetch(`${state.API}/update?K2O=${colorLUT[state.colorsOut[1]]}`, { mode: "no-cors" });
+				trigger(`${state.API}/update?K1B=${colorLUT[state.colorsHome[0]]}`);
+				trigger(`${state.API}/update?K1O=${colorLUT[state.colorsHome[1]]}`);
+				trigger(`${state.API}/update?K2B=${colorLUT[state.colorsOut[0]]}`);
+				trigger(`${state.API}/update?K2O=${colorLUT[state.colorsOut[1]]}`);
 			})();
 		}
 
@@ -80,7 +80,7 @@ export const Score = () => {
 			return;
 		}
 
-		fetch(`${state.API}/update?${name}=${dir}`, { mode: "no-cors" });
+		trigger(`${state.API}/update?${name}=${dir}`);
 		updateState(team, state[team] + amt);
 	};
 

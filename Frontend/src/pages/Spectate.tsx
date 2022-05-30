@@ -8,7 +8,7 @@ export const Spectate = () => {
 		<>
 			<div className="p-spectate maxwidth">
 				<header></header>
-				<Clock time="15:39" />
+				<Clock time={0} />
 				<div className="team">
 					<div className="flag">
 						<Flag top="#FF0000" bottom="#00FF5D" />
