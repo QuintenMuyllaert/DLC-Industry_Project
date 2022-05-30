@@ -11,3 +11,11 @@ export const hslToHex = (h: number, s: number, l: number): string => {
 	};
 	return `#${f(0)}${f(8)}${f(4)}`;
 };
+
+export const to2digits = (n: number): string => {
+	return ("0" + n).slice(-2);
+};
+
+export const clockify = (n: number): string => {
+	return to2digits(Math.floor(n / 60)) + ":" + to2digits(n % 60);
+};
