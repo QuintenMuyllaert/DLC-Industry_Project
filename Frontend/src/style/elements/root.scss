@@ -4,25 +4,25 @@
 	--global-border-radius: 0;
 
 	.dark {
-		--global-color-background: #000000;
-		--global-color-text: #ffffff;
+		--global-color-background: #121212;
+		--global-color-text: #eee;
 
 		/*White input*/
-		--global-color-input-border: #ffffff;
+		--global-color-input-border: #eee;
 
 		/*Button*/
-		--global-color-button-border: #ffffff;
+		--global-color-button-border: #eee;
 	}
 
 	.light {
-		--global-color-background: #ffffff;
-		--global-color-text: #000000;
+		--global-color-background: #eee;
+		--global-color-text: #121212;
 
 		/*Input*/
-		--global-color-input-border: #000000;
+		--global-color-input-border: #121212;
 
 		/*Button*/
-		--global-color-button-border: #000000;
+		--global-color-button-border: #121212;
 	}
 }
 
