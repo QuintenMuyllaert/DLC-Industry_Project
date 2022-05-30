@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" color="inherit" dur="indefinite" height="100%" id="rUgTzxeHMW" viewBox="0 0 336 168" viewport-fill="none" width="100%">
+ <spx:properties xmlns:spx="http://www.spinetix.com/namespace/1.0/spx" dur="auto" xml:id="zsvSTVqHHZ">
+  <spx:version date="$Date: 2016-04-05 10:42:54 +0200 (Tue, 05 Apr 2016) $" revision="$Revision: 28352 $"/>
+  <spx:json-array defaultPage="yes" name="Layers" preview="#layers" xlink:href="#jsonLayers">
+   <spx:json-layer name="Layers" positionable="yes" repeatDur="indefinite"/>
+  </spx:json-array>
+  <spx:dialog name="layout"/>
+ </spx:properties>
+ <script xlink:href="http://download.spinetix.com/spxjslibs/jSignage.js"/>
+ <script xlink:href="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.1/socket.io.js"/>
+ <script><![CDATA[
+	$(function(){
+		//Quinten Muyllaert 30-05-2022
+		var log = function(msg) { socket.emit("data", msg); };
+		
+		const socket = io('http://192.168.15.153:1234');
+		
+		socket.emit("data","X3462L7L"); // send serial number to server TODO: get serial number from device
+		
+		socket.on("data",function (element,thing,type,value){
+			//$("#wauw").attr('style',dat[0]+": "+dat[1]); // update data
+			if(value){
+				$(element)[thing](type,value);
+			}else{
+				$(element)[thing](type);
+			}
+		});
+   });
+ ]]></script> 
+ 
+
+<rect fill="black" height="168" id="background" stroke="none" width="336"/>
+<rect fill="red" x="10" y="14" height="16" id="hb" stroke="none" width="48"/>
+<rect fill="green" x="10" y="30" height="16" id="ho" stroke="none" width="48"/>
+<rect fill="blue" x="278" y="14" height="16" id="ub" stroke="none" width="48"/>
+<rect fill="orange" x="278" y="30" height="16" id="uo" stroke="none" width="48"/>
+
+<text id="timer" x="168" y="50" font-family="arial" font-size="44" text-anchor="middle" fill="white">00:00</text>
+<text id="t1" x="84" y="100" font-family="arial" font-size="48" text-anchor="middle" fill="white">0</text>
+<text id="t2" x="252" y="100" font-family="arial" font-size="48" text-anchor="middle" fill="white">0</text>
+
+<text id="message" x="168" y="155" font-family="arial" font-size="32" text-anchor="middle" fill="white">test message</text>
+
+</svg>
