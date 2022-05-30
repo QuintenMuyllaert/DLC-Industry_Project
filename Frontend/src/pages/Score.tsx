@@ -7,6 +7,7 @@ import { IconButton } from "../components/IconButton";
 import { BottomTab } from "../components/BottomTab";
 import { LooseObject } from "../utils/Interfaces";
 import { findApi } from "../utils/Networking";
+import Color from "../components/Color";
 
 const colorLUT: LooseObject = {
 	green: "Groen",
@@ -18,7 +19,7 @@ const colorLUT: LooseObject = {
 	yellow: "Geel",
 	red: "Rood",
 	orange: "Oranje",
-	darkred: "Bordeaux",
+	darkred: "bordeaux",
 };
 
 export const Score = () => {
@@ -83,6 +84,8 @@ export const Score = () => {
 		updateState(team, state[team] + amt);
 	};
 
+	let colors = Object.keys(colorLUT);
+
 	return (
 		<>
 			<div className="p-score">
@@ -142,6 +145,84 @@ export const Score = () => {
 				</div>
 			</div>
 			<BottomTab />
+			<div className="c-colorpicker__overlay"></div>
+			<div className="c-colorpicker">
+				<div className="c-colorpicker__container scrollbar">
+					<div className="c-colorpicker__close">
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							width="24"
+							height="24"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="2"
+							stroke-linecap="round"
+							stroke-linejoin="round">
+							<line x1="18" y1="6" x2="6" y2="18"></line>
+							<line x1="6" y1="6" x2="18" y2="18"></line>
+						</svg>
+					</div>
+					<Flag top={state.colorsOut[0]} bottom={state.colorsOut[1]} />
+					<p>Kies een kleur voor de bovenkant</p>
+					<div className="c-colorpicker__colors">
+						<Color color={colors[0]} />
+						<Color color={colors[1]} />
+						<Color color={colors[2]} />
+						<Color color={colors[3]} />
+						<Color color={colors[4]} />
+						<Color color={colors[5]} />
+						<Color color={colors[6]} />
+						<Color color={colors[7]} />
+						<Color color={colors[8]} />
+						<Color color={colors[9]} />
+						<div className="c-colorpicker__colors-colorAdd">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								width="24"
+								height="24"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="2"
+								stroke-linecap="round"
+								stroke-linejoin="round">
+								<line x1="12" y1="5" x2="12" y2="19"></line>
+								<line x1="5" y1="12" x2="19" y2="12"></line>
+							</svg>
+						</div>
+					</div>
+					<p>Kies een kleur voor de onderkant</p>
+					<div className="c-colorpicker__colors">
+						<Color color={colors[0]} />
+						<Color color={colors[1]} />
+						<Color color={colors[2]} />
+						<Color color={colors[3]} />
+						<Color color={colors[4]} />
+						<Color color={colors[5]} />
+						<Color color={colors[6]} />
+						<Color color={colors[7]} />
+						<Color color={colors[8]} />
+						<Color color={colors[9]} />
+						<div className="c-colorpicker__colors-colorAdd">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								width="24"
+								height="24"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="2"
+								stroke-linecap="round"
+								stroke-linejoin="round">
+								<line x1="12" y1="5" x2="12" y2="19"></line>
+								<line x1="5" y1="12" x2="19" y2="12"></line>
+							</svg>
+						</div>
+					</div>
+					<IconButton color="black" label="Opslaan"></IconButton>
+				</div>
+			</div>
 		</>
 	);
 };
