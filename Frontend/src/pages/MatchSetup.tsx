@@ -7,18 +7,6 @@ import Flag from "../components/Flag";
 import BottomTab from "../components/BottomTab";
 
 export const MatchSetup = () => {
-	const defaultState: LooseObject = {
-		username: "",
-		password: "",
-	};
-
-	const [state, setState] = useState(defaultState);
-
-	const updateState = (key: string, value: string) => {
-		state[key] = value;
-		setState(state);
-	};
-
 	return (
 		<>
 			<div className="p-matchsetup maxwidth">

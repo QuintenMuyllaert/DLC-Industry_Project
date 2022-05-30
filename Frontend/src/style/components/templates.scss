@@ -1,6 +1,6 @@
 .p-templates {
 	width: min(24rem, 100%);
-	padding: 1rem;
+	padding: 0 1rem 1rem 1rem;
 	height: 100%;
 	display: grid;
 	gap: 1rem;
@@ -11,13 +11,16 @@
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
+		background-color: #121212;
+		padding: 0.5rem;
 
 		& svg {
-			stroke: var(--global-color-text);
+			stroke: #eee;
+			align-self: start;
 		}
 
 		& svg:last-of-type {
-			fill: var(--global-color-text);
+			fill: #eee;
 			stroke: none;
 		}
 	}
@@ -36,7 +39,7 @@
 		height: 100%;
 		display: flex;
 		flex-direction: column;
-		gap: 20px;
+		gap: 1.25rem;
 
 		&-item {
 			display: flex;
@@ -50,32 +53,32 @@
 		&-naam {
 			& p {
 				font-family: Raleway, "sans-serif";
-				font-size: 21px;
+				font-size: 1.3125rem;
 				font-weight: bold;
 			}
 		}
 
 		&-detail {
 			display: flex;
-			gap: 20px;
+			gap: 1.25rem;
 
 			&_helften {
 				display: flex;
-				gap: 10px;
+				gap: 0.625rem;
 			}
 
 			&_duur {
 				display: flex;
-				gap: 10px;
+				gap: 0.625rem;
 			}
 		}
 
 		&-btn {
 			display: flex;
-			gap: 15px;
+			gap: 0.9375rem;
 
 			& svg {
-				width: 25px;
+				width: 1.5625rem;
 			}
 		}
 	}

@@ -6,33 +6,35 @@ import { Digit } from "../components/Digit";
 import { IconButton } from "../components/IconButton";
 import { BottomTab } from "../components/BottomTab";
 import { LooseObject } from "../utils/Interfaces";
-import Color from "../components/Color";
 import { findApi, trigger } from "../utils/Networking";
-
-const colorLUT: LooseObject = {
-	green: "Groen",
-	lightblue: "LichtBlauw",
-	darkblue: "DonkerBlauw",
-	blue: "Blauw",
-	white: "Wit",
-	black: "Zwart",
-	yellow: "Geel",
-	red: "Rood",
-	orange: "Oranje",
-	darkred: "bordeaux",
-};
+import Colorpicker from "../components/Colorpicker";
 
 export const Score = () => {
 	const defaultState: LooseObject = {
-		API: "http://192.168.1.248:1234",
+		API: "http://127.0.0.1:1234",
 		scoreHome: 0,
 		scoreOut: 0,
 		nameHome: "THUIS",
 		nameOut: "UIT",
-		colorsHome: ["red", "blue"],
-		colorsOut: ["yellow", "green"],
+		colorsHomeTop: "red",
+		colorsHomeBottom: "blue",
+		colorsOutTop: "yellow",
+		colorsOutBottom: "green",
 		clock: 0,
 		first: true,
+	};
+
+	const colorLUT: LooseObject = {
+		green: "Groen",
+		lightblue: "LichtBlauw",
+		darkblue: "DonkerBlauw",
+		blue: "Blauw",
+		white: "Wit",
+		black: "Zwart",
+		yellow: "Geel",
+		red: "Rood",
+		orange: "Oranje",
+		darkred: "bordeaux",
 	};
 
 	const [state, setState] = useState(defaultState);
@@ -40,6 +42,7 @@ export const Score = () => {
 	const updateState = (key: string, value: any) => {
 		state[key] = value;
 		setState({ ...state }); // React voodoo magic
+		//console.log(key, value);
 	};
 
 	useEffect(() => {
@@ -59,10 +62,10 @@ export const Score = () => {
 				trigger(`${state.API}/update?G2=U0`);
 
 				//Set team colors
-				trigger(`${state.API}/update?K1B=${colorLUT[state.colorsHome[0]]}`);
-				trigger(`${state.API}/update?K1O=${colorLUT[state.colorsHome[1]]}`);
-				trigger(`${state.API}/update?K2B=${colorLUT[state.colorsOut[0]]}`);
-				trigger(`${state.API}/update?K2O=${colorLUT[state.colorsOut[1]]}`);
+				trigger(`${state.API}/update?K1B=${colorLUT[state.colorsHomeTop]}`);
+				trigger(`${state.API}/update?K1O=${colorLUT[state.colorsHomeBottom]}`);
+				trigger(`${state.API}/update?K2B=${colorLUT[state.colorsOutTop]}`);
+				trigger(`${state.API}/update?K2O=${colorLUT[state.colorsOutBottom]}`);
 			})();
 		}
 
@@ -84,16 +87,14 @@ export const Score = () => {
 		updateState(team, state[team] + amt);
 	};
 
-	let colors = Object.keys(colorLUT);
-
 	return (
 		<>
 			<div className="p-score">
 				<Clock time={state.clock}></Clock>
 				<div className="scorevalue-container">
-					<Flag top={state.colorsHome[0]} bottom={state.colorsHome[1]} />
+					<Flag top={state.colorsHomeTop} bottom={state.colorsHomeBottom} />
 					<div className="empty"></div>
-					<Flag top={state.colorsOut[0]} bottom={state.colorsOut[1]} />
+					<Flag top={state.colorsOutTop} bottom={state.colorsOutBottom} />
 
 					<h2 className="teamname">{state.nameHome}</h2>
 					<div className="empty"></div>
@@ -145,84 +146,7 @@ export const Score = () => {
 				</div>
 			</div>
 			<BottomTab />
-			<div className="c-colorpicker__overlay"></div>
-			<div className="c-colorpicker">
-				<div className="c-colorpicker__container scrollbar">
-					<div className="c-colorpicker__close">
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							width="24"
-							height="24"
-							viewBox="0 0 24 24"
-							fill="none"
-							stroke="currentColor"
-							stroke-width="2"
-							stroke-linecap="round"
-							stroke-linejoin="round">
-							<line x1="18" y1="6" x2="6" y2="18"></line>
-							<line x1="6" y1="6" x2="18" y2="18"></line>
-						</svg>
-					</div>
-					<Flag top={state.colorsOut[0]} bottom={state.colorsOut[1]} />
-					<p>Kies een kleur voor de bovenkant</p>
-					<div className="c-colorpicker__colors">
-						<Color color={colors[0]} />
-						<Color color={colors[1]} />
-						<Color color={colors[2]} />
-						<Color color={colors[3]} />
-						<Color color={colors[4]} />
-						<Color color={colors[5]} />
-						<Color color={colors[6]} />
-						<Color color={colors[7]} />
-						<Color color={colors[8]} />
-						<Color color={colors[9]} />
-						<div className="c-colorpicker__colors-colorAdd">
-							<svg
-								xmlns="http://www.w3.org/2000/svg"
-								width="24"
-								height="24"
-								viewBox="0 0 24 24"
-								fill="none"
-								stroke="currentColor"
-								stroke-width="2"
-								stroke-linecap="round"
-								stroke-linejoin="round">
-								<line x1="12" y1="5" x2="12" y2="19"></line>
-								<line x1="5" y1="12" x2="19" y2="12"></line>
-							</svg>
-						</div>
-					</div>
-					<p>Kies een kleur voor de onderkant</p>
-					<div className="c-colorpicker__colors">
-						<Color color={colors[0]} />
-						<Color color={colors[1]} />
-						<Color color={colors[2]} />
-						<Color color={colors[3]} />
-						<Color color={colors[4]} />
-						<Color color={colors[5]} />
-						<Color color={colors[6]} />
-						<Color color={colors[7]} />
-						<Color color={colors[8]} />
-						<Color color={colors[9]} />
-						<div className="c-colorpicker__colors-colorAdd">
-							<svg
-								xmlns="http://www.w3.org/2000/svg"
-								width="24"
-								height="24"
-								viewBox="0 0 24 24"
-								fill="none"
-								stroke="currentColor"
-								stroke-width="2"
-								stroke-linecap="round"
-								stroke-linejoin="round">
-								<line x1="12" y1="5" x2="12" y2="19"></line>
-								<line x1="5" y1="12" x2="19" y2="12"></line>
-							</svg>
-						</div>
-					</div>
-					<IconButton color="black" label="Opslaan"></IconButton>
-				</div>
-			</div>
+			<Colorpicker team={2} updateScoreState={updateState} />
 		</>
 	);
 };

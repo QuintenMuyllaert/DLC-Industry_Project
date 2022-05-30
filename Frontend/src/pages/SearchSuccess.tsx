@@ -5,7 +5,7 @@ export const SearchSuccess = () => {
 	useEffect(() => {
 		(async () => {
 			await delay(1500);
-			//document.location.href = "/score";
+			document.location.href = "/score";
 		})();
 
 		return () => {};
