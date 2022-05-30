@@ -5,7 +5,7 @@ import Color from "./Color";
 import Flag from "./Flag";
 import IconButton from "./IconButton";
 
-export const Colorpicker = () => {
+export const Colorpicker = ({ team, updateScoreState, onClick }: { team: number; updateScoreState: Function; onClick?: (event?: any) => any }) => {
 	const defaultState: LooseObject = {
 		API: "http://192.168.1.248:1234",
 		scoreHome: 0,
@@ -79,16 +79,16 @@ export const Colorpicker = () => {
 					<Flag top={state.colorsOut[0]} bottom={state.colorsOut[1]} />
 					<p>Kies een kleur voor de bovenkant</p>
 					<div className="c-colorpicker__colors">
-						<Color color={colors[0]} />
-						<Color color={colors[1]} />
-						<Color color={colors[2]} />
-						<Color color={colors[3]} />
-						<Color color={colors[4]} />
-						<Color color={colors[5]} />
-						<Color color={colors[6]} />
-						<Color color={colors[7]} />
-						<Color color={colors[8]} />
-						<Color color={colors[9]} />
+						<Color updateColorState={updateState} updateScoreState={updateScoreState} side={"B"} team={team} color={colors[0]} />
+						<Color updateColorState={updateState} updateScoreState={updateScoreState} side={"B"} team={team} color={colors[1]} />
+						<Color updateColorState={updateState} updateScoreState={updateScoreState} side={"B"} team={team} color={colors[2]} />
+						<Color updateColorState={updateState} updateScoreState={updateScoreState} side={"B"} team={team} color={colors[3]} />
+						<Color updateColorState={updateState} updateScoreState={updateScoreState} side={"B"} team={team} color={colors[4]} />
+						<Color updateColorState={updateState} updateScoreState={updateScoreState} side={"B"} team={team} color={colors[5]} />
+						<Color updateColorState={updateState} updateScoreState={updateScoreState} side={"B"} team={team} color={colors[6]} />
+						<Color updateColorState={updateState} updateScoreState={updateScoreState} side={"B"} team={team} color={colors[7]} />
+						<Color updateColorState={updateState} updateScoreState={updateScoreState} side={"B"} team={team} color={colors[8]} />
+						<Color updateColorState={updateState} updateScoreState={updateScoreState} side={"B"} team={team} color={colors[9]} />
 						<div className="c-colorpicker__colors-colorAdd">
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
@@ -107,16 +107,16 @@ export const Colorpicker = () => {
 					</div>
 					<p>Kies een kleur voor de onderkant</p>
 					<div className="c-colorpicker__colors">
-						<Color color={colors[0]} />
-						<Color color={colors[1]} />
-						<Color color={colors[2]} />
-						<Color color={colors[3]} />
-						<Color color={colors[4]} />
-						<Color color={colors[5]} />
-						<Color color={colors[6]} />
-						<Color color={colors[7]} />
-						<Color color={colors[8]} />
-						<Color color={colors[9]} />
+						<Color updateColorState={updateState} updateScoreState={updateScoreState} side={"O"} team={team} color={colors[0]} />
+						<Color updateColorState={updateState} updateScoreState={updateScoreState} side={"O"} team={team} color={colors[1]} />
+						<Color updateColorState={updateState} updateScoreState={updateScoreState} side={"O"} team={team} color={colors[2]} />
+						<Color updateColorState={updateState} updateScoreState={updateScoreState} side={"O"} team={team} color={colors[3]} />
+						<Color updateColorState={updateState} updateScoreState={updateScoreState} side={"O"} team={team} color={colors[4]} />
+						<Color updateColorState={updateState} updateScoreState={updateScoreState} side={"O"} team={team} color={colors[5]} />
+						<Color updateColorState={updateState} updateScoreState={updateScoreState} side={"O"} team={team} color={colors[6]} />
+						<Color updateColorState={updateState} updateScoreState={updateScoreState} side={"O"} team={team} color={colors[7]} />
+						<Color updateColorState={updateState} updateScoreState={updateScoreState} side={"O"} team={team} color={colors[8]} />
+						<Color updateColorState={updateState} updateScoreState={updateScoreState} side={"O"} team={team} color={colors[9]} />
 						<div className="c-colorpicker__colors-colorAdd">
 							<svg
 								xmlns="http://www.w3.org/2000/svg"

@@ -6,13 +6,6 @@ import { IconButton } from "../components/IconButton";
 import { LooseObject } from "../utils/Interfaces";
 
 export const Manual = () => {
-	const defaultState: LooseObject = {
-		username: "",
-		password: "",
-	};
-
-	const [state, setState] = useState(defaultState);
-
 	return (
 		<div className="p-manual">
 			<div className="p-manual__header">

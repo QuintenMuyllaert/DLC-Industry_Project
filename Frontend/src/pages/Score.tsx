@@ -16,8 +16,10 @@ export const Score = () => {
 		scoreOut: 0,
 		nameHome: "THUIS",
 		nameOut: "UIT",
-		colorsHome: ["red", "blue"],
-		colorsOut: ["yellow", "green"],
+		ColorsHomeTop: "red",
+		colorsHomeBottom: "blue",
+		colorsOutTop: "yellow",
+		colorsOutBottom: "green",
 		clock: 0,
 		first: true,
 	};
@@ -143,7 +145,7 @@ export const Score = () => {
 				</div>
 			</div>
 			<BottomTab />
-			<Colorpicker />
+			<Colorpicker team={1} updateScoreState={updateState} />
 		</>
 	);
 };
