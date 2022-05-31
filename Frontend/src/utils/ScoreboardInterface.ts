@@ -1,7 +1,23 @@
-import { trigger } from "../utils/Networking";
+import { ping } from "../utils/Networking";
 import { colorLUT } from "../utils/Utils";
 
 const usingHTTP = true;
+
+export class InterfaceScoreboard {
+	uri: string;
+	constructor(uri: string) {
+		this.uri = uri;
+	}
+	// TODO : Implement
+	changeColor(team: `${1 | 2}${"B" | "O"}`, color: string) {}
+	resetScore() {}
+	addScore(team: "G1" | "G2", score: number) {}
+	resetTimer() {}
+	setTimer(time: number) {}
+	sendMessage(message: string) {}
+	getMessage() {}
+	setScreen(screen: `P${number}`) {}
+}
 
 export class InterfaceHTTP {
 	uri: string;
@@ -12,40 +28,33 @@ export class InterfaceHTTP {
 		this.uri = uri;
 	}
 	changeColor(team: `${1 | 2}${"B" | "O"}`, color: string) {
-		trigger(`${this.uri}/update?K1B=${colorLUT[color]}`);
+		ping(`${this.uri}/update?K1B=${colorLUT[color]}`);
 	}
 	resetScore() {
 		//Reset both teams
-		trigger(`${this.uri}/update?G1=T0`);
-		trigger(`${this.uri}/update?G2=U0`);
+		ping(`${this.uri}/update?G1=T0`);
+		ping(`${this.uri}/update?G2=U0`);
 	}
-	addScore(team: "G1" | "G2", score: number) {
-		//TODO: this is not working
-		/*const dir = score >= 1 ? "NEXT" : "PREVIOUS";
-
-		if (state[team] == 0 && score <= 0) {
-			return;
-		}
-
-		trigger(`${state.API}/update?${team}=${dir}`);
-		updateState(team, state[team] + amt);*/
+	addScore(team: "G1" | "G2", amt: number) {
+		const dir = amt >= 1 ? "NEXT" : "PREVIOUS";
+		ping(`${this.uri}/update?${team}=${dir}`);
 	}
 	resetTimer() {
 		//Reset timer
-		trigger(`${this.uri}/update?Timer=Ti1`);
+		ping(`${this.uri}/update?Timer=Ti1`);
 	}
 	setTimer(time: number) {
 		//TODO : Implement
 		//ISSUE : http api from DLC doesnt support this
 	}
 	sendMessage(message: string) {
-		trigger(`${this.uri}/update?message=${encodeURI(message)}&submit=Send+message`);
+		ping(`${this.uri}/update?message=${encodeURI(message)}&submit=Send+message`);
 	}
 	getMessage() {
 		return this.message;
 	}
 	setScreen(screen: `P${number}`) {
-		trigger(`${this.uri}/update?Keuze=${screen}`);
+		ping(`${this.uri}/update?Keuze=${screen}`);
 	}
 }
 
@@ -55,6 +64,14 @@ export class InterfaceSocket {
 		this.uri = uri;
 	}
 	// TODO : Implement
+	changeColor(team: `${1 | 2}${"B" | "O"}`, color: string) {}
+	resetScore() {}
+	addScore(team: "G1" | "G2", score: number) {}
+	resetTimer() {}
+	setTimer(time: number) {}
+	sendMessage(message: string) {}
+	getMessage() {}
+	setScreen(screen: `P${number}`) {}
 }
 
-export const scoreboardInterface = usingHTTP ? new InterfaceHTTP("http://127.0.0.1:1234") : new InterfaceSocket("wss://127.0.0.1");
+export const scoreboardInterface: InterfaceScoreboard = usingHTTP ? new InterfaceHTTP("http://127.0.0.1:1234") : new InterfaceSocket("wss://127.0.0.1");

@@ -40,7 +40,11 @@ export const findLocalIp = async (ipv4Only: boolean = true) => {
 	}
 };
 
-export const ping = async (uri: string) => {
+export const ping = async (uri: string, log: boolean = false) => {
+	if (log) {
+		console.log("trigger @", uri);
+	}
+
 	try {
 		await fetch(uri, { mode: "no-cors" });
 		return uri;
@@ -50,7 +54,9 @@ export const ping = async (uri: string) => {
 	}
 };
 
-export const trigger = ping;
+export const trigger = (uri: string) => {
+	ping(uri, true);
+};
 
 export const findApi = async () => {
 	const ips = await findLocalIp();

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { LooseObject } from "../utils/Interfaces";
-import { trigger } from "../utils/Networking";
 import IconButton from "./IconButton";
+import { scoreboardInterface } from "../utils/ScoreboardInterface";
 
 export const TextEdit = ({
 	active,
@@ -83,8 +83,8 @@ export const TextEdit = ({
 							onClickSendMessage
 								? onClickSendMessage
 								: () => {
-										console.log("sending message :", state.message);
-										trigger(`${state.API}/update?message=${encodeURI(state.message)}&submit=Send+message`);
+										//console.log("sending message :", state.message);
+										scoreboardInterface.sendMessage(state.message);
 								  }
 						}></IconButton>
 				</div>
