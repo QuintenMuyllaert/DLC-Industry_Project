@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.querySelector("#t2").innerHTML = score;
   });
 
-  socket.on("msg", (msg) => {
+  socket.on("message", (msg) => {
     document.querySelector("#msg").innerHTML = msg;
   });
 
