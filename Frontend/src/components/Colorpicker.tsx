@@ -39,8 +39,8 @@ export const Colorpicker = ({ team, updateScoreState, onClick }: { team: number;
 
 	return (
 		<>
-			<div className="c-colorpicker__overlay"></div>
-			<div className="c-colorpicker">
+			<div className="c-colorpicker__overlay c-colorpicker__hidden"></div>
+			<div className="c-colorpicker c-colorpicker__hidden">
 				<div className="c-colorpicker__container scrollbar">
 					<div className="c-colorpicker__close">
 						<svg

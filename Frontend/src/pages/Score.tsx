@@ -8,6 +8,8 @@ import { BottomTab } from "../components/BottomTab";
 import { LooseObject } from "../utils/Interfaces";
 import { findApi, trigger } from "../utils/Networking";
 import Colorpicker from "../components/Colorpicker";
+import TextEdit from "../components/TextEdit";
+// import TextEdit from "../components/textEdit";
 
 export const Score = () => {
 	const defaultState: LooseObject = {
@@ -22,6 +24,7 @@ export const Score = () => {
 		colorsOutBottom: "green",
 		clock: 0,
 		first: true,
+		messagePopup: false,
 	};
 
 	const colorLUT: LooseObject = {
@@ -38,6 +41,7 @@ export const Score = () => {
 	};
 
 	const [state, setState] = useState(defaultState);
+	// const [messagePopup, setMessagePopup] = useState(false);
 
 	const updateState = (key: string, value: any) => {
 		state[key] = value;
@@ -84,6 +88,10 @@ export const Score = () => {
 
 		trigger(`${state.API}/update?${name}=${dir}`);
 		updateState(team, state[team] + amt);
+	};
+
+	const handleClickMessage = () => {
+		updateState("messagePopup", !state.messagePopup);
 	};
 
 	return (
@@ -137,15 +145,19 @@ export const Score = () => {
 						</svg>
 					}
 					color="white"
-					label="WIJZIG BERICHT"></IconButton>
+					label="WIJZIG BERICHT"
+					onClick={handleClickMessage}></IconButton>
 
 				<div className="u-grid-horizontal-2">
 					<IconButton color="white" label="Scorebord"></IconButton>
 					<IconButton color="black" label="Sponsors"></IconButton>
 				</div>
 			</div>
+
 			<BottomTab />
+
 			<Colorpicker team={2} updateScoreState={updateState} />
+			<TextEdit active={state.messagePopup} handleClickMessage={handleClickMessage} />
 		</>
 	);
 };
