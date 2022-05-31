@@ -5,11 +5,14 @@ import bodyParser from "body-parser";
 import dotenv from "dotenv";
 import path from "path";
 import jwt from "jsonwebtoken";
+import http from "http";
+import { Server } from "socket.io";
 
 import { writeFileSync, existsSync } from "fs";
 import { randomBytes } from "crypto";
 
 import { login, register } from "./auth";
+import { hslToHex, to2digits } from "./util";
 
 const dirname = process.cwd();
 
@@ -22,10 +25,47 @@ if (!existsSync("./.env")) {
 // get config vars
 dotenv.config();
 
-const app = express();
 const port = 80; // TODO : Move to config
-
 const protectedRoutes = ["/score"]; // TODO : Move to config
+
+const app = express();
+
+const server = http.createServer(app);
+const io = new Server(server);
+
+// WS(S) server
+io.on("connection", (socket) => {
+	console.log("a user connected", socket.id);
+
+	const dt = 10; //ms
+	const interval = setInterval(() => {
+		const now = Date.now();
+		const color = hslToHex((0.1 * now) % 360, 100, 50);
+
+		const d = new Date(now);
+		//TODO : Actually use logic.
+
+		// In the API this is a dynamic JQuerry call.
+		// socket.emit("data",element,thing,type,value); === $(element)[thing](type,?value);
+
+		socket.emit("data", "#hb", "attr", "style", `fill:${color}`);
+		socket.emit("data", "#ub", "attr", "style", `fill:${color}`);
+		socket.emit("data", "#timer", "text", to2digits(d.getHours()) + ":" + to2digits(d.getMinutes()));
+		socket.emit("data", "#message", "attr", "x", 1.2 * 336 - ((performance.now() * 0.04) % (336 * 2 * 1.2)));
+		socket.emit("data", "#message", "text", "Quinten was here SOCKETIO WORKS :D");
+	}, dt);
+
+	socket.on("data", (data: any) => {
+		console.log(socket.id, data);
+	});
+
+	socket.on("disconnect", () => {
+		console.log("user disconnected", socket.id);
+		clearInterval(interval);
+	});
+});
+
+// HTTP(S) webserver
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -84,6 +124,6 @@ app.use((req: Request, res: Response, next: Function) => {
 app.use(express.static(path.join(dirname, "../Frontend/dist")));
 
 // start the Express server
-app.listen(port, "0.0.0.0", () => {
+server.listen(port, "0.0.0.0", () => {
 	console.log(`server started at http://0.0.0.0:${port}`);
 });

@@ -18,7 +18,7 @@ export const Score = () => {
 		scoreOut: 0,
 		nameHome: "THUIS",
 		nameOut: "UIT",
-		ColorsHomeTop: "red",
+		colorsHomeTop: "red",
 		colorsHomeBottom: "blue",
 		colorsOutTop: "yellow",
 		colorsOutBottom: "green",
@@ -46,6 +46,7 @@ export const Score = () => {
 	const updateState = (key: string, value: any) => {
 		state[key] = value;
 		setState({ ...state }); // React voodoo magic
+		//console.log(key, value);
 	};
 
 	useEffect(() => {

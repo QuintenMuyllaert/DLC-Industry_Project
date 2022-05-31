@@ -1,5 +1,10 @@
+import { useState } from "react";
+import { LooseObject } from "../utils/Interfaces";
+import { trigger } from "../utils/Networking";
+
 export const Color = ({
 	color,
+	Ecolor,
 	team,
 	side,
 	updateColorState,
@@ -7,36 +12,43 @@ export const Color = ({
 	onClick,
 }: {
 	color: string;
+	Ecolor: string;
 	team: number;
 	side: string;
 	updateColorState: Function;
 	updateScoreState: Function;
 	onClick?: (event?: any) => any;
 }) => {
+	const defaultState: LooseObject = {
+		API: "http://127.0.0.1:1234",
+	};
+
+	const [state] = useState(defaultState);
+
 	const SetValue = (team: number, side: string) => {
 		switch (team.toString() + side) {
 			case "1B":
-				return "ColorsHomeTop";
+				return "colorsHomeTop";
 			case "1O":
-				return "ColorsHomeBottom";
+				return "colorsHomeBottom";
 			case "2B":
-				return "ColorsOutTop";
+				return "colorsOutTop";
 			case "2O":
-				return "ColorsOutBottom";
+				return "colorsOutBottom";
 		}
 	};
 
 	return (
 		<div
 			className="c-colorpicker__colors-color"
-			style={{ backgroundColor: color }}
+			style={{ backgroundColor: Ecolor }}
 			onClick={
 				onClick
 					? onClick
 					: () => {
-							updateColorState(SetValue(team, side), color);
-							updateScoreState(SetValue(team, side), color);
-							console.log("updating value state");
+							updateColorState(SetValue(team, side), Ecolor);
+							updateScoreState(SetValue(team, side), Ecolor);
+							trigger(`${state.API}/update?K${team.toString()}${side}=${color}`);
 					  }
 			}></div>
 	);

@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
 import { LooseObject } from "../utils/Interfaces";
-import { findApi, trigger } from "../utils/Networking";
 import Color from "./Color";
 import Flag from "./Flag";
 import IconButton from "./IconButton";
 
-export const Colorpicker = ({ team, updateScoreState, onClick }: { team: number; updateScoreState: Function; onClick?: (event?: any) => any }) => {
+export const Colorpicker = ({ team, updateScoreState }: { team: number; updateScoreState: Function }) => {
 	const defaultState: LooseObject = {
 		API: "http://127.0.0.1:1234",
 		ColorsHomeTop: "red",
@@ -35,7 +34,8 @@ export const Colorpicker = ({ team, updateScoreState, onClick }: { team: number;
 		darkred: "bordeaux",
 	};
 
-	let colors = Object.keys(colorLUT);
+	let colors = Object.values(colorLUT);
+	let Ecolors = Object.keys(colorLUT);
 
 	return (
 		<>
@@ -60,16 +60,16 @@ export const Colorpicker = ({ team, updateScoreState, onClick }: { team: number;
 					<Flag top={state.colorsOutTop} bottom={state.colorsOutBottom} />
 					<p>Kies een kleur voor de bovenkant</p>
 					<div className="c-colorpicker__colors">
-						<Color updateColorState={updateState} updateScoreState={updateScoreState} side={"B"} team={team} color={colors[0]} />
-						<Color updateColorState={updateState} updateScoreState={updateScoreState} side={"B"} team={team} color={colors[1]} />
-						<Color updateColorState={updateState} updateScoreState={updateScoreState} side={"B"} team={team} color={colors[2]} />
-						<Color updateColorState={updateState} updateScoreState={updateScoreState} side={"B"} team={team} color={colors[3]} />
-						<Color updateColorState={updateState} updateScoreState={updateScoreState} side={"B"} team={team} color={colors[4]} />
-						<Color updateColorState={updateState} updateScoreState={updateScoreState} side={"B"} team={team} color={colors[5]} />
-						<Color updateColorState={updateState} updateScoreState={updateScoreState} side={"B"} team={team} color={colors[6]} />
-						<Color updateColorState={updateState} updateScoreState={updateScoreState} side={"B"} team={team} color={colors[7]} />
-						<Color updateColorState={updateState} updateScoreState={updateScoreState} side={"B"} team={team} color={colors[8]} />
-						<Color updateColorState={updateState} updateScoreState={updateScoreState} side={"B"} team={team} color={colors[9]} />
+						<Color updateColorState={updateState} updateScoreState={updateScoreState} side={"B"} team={team} color={colors[0]} Ecolor={Ecolors[0]} />
+						<Color updateColorState={updateState} updateScoreState={updateScoreState} side={"B"} team={team} color={colors[1]} Ecolor={Ecolors[1]} />
+						<Color updateColorState={updateState} updateScoreState={updateScoreState} side={"B"} team={team} color={colors[2]} Ecolor={Ecolors[2]} />
+						<Color updateColorState={updateState} updateScoreState={updateScoreState} side={"B"} team={team} color={colors[3]} Ecolor={Ecolors[3]} />
+						<Color updateColorState={updateState} updateScoreState={updateScoreState} side={"B"} team={team} color={colors[4]} Ecolor={Ecolors[4]} />
+						<Color updateColorState={updateState} updateScoreState={updateScoreState} side={"B"} team={team} color={colors[5]} Ecolor={Ecolors[5]} />
+						<Color updateColorState={updateState} updateScoreState={updateScoreState} side={"B"} team={team} color={colors[6]} Ecolor={Ecolors[6]} />
+						<Color updateColorState={updateState} updateScoreState={updateScoreState} side={"B"} team={team} color={colors[7]} Ecolor={Ecolors[7]} />
+						<Color updateColorState={updateState} updateScoreState={updateScoreState} side={"B"} team={team} color={colors[8]} Ecolor={Ecolors[8]} />
+						<Color updateColorState={updateState} updateScoreState={updateScoreState} side={"B"} team={team} color={colors[9]} Ecolor={Ecolors[9]} />
 						<div className="c-colorpicker__colors-colorAdd">
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
@@ -88,16 +88,16 @@ export const Colorpicker = ({ team, updateScoreState, onClick }: { team: number;
 					</div>
 					<p>Kies een kleur voor de onderkant</p>
 					<div className="c-colorpicker__colors">
-						<Color updateColorState={updateState} updateScoreState={updateScoreState} side={"O"} team={team} color={colors[0]} />
-						<Color updateColorState={updateState} updateScoreState={updateScoreState} side={"O"} team={team} color={colors[1]} />
-						<Color updateColorState={updateState} updateScoreState={updateScoreState} side={"O"} team={team} color={colors[2]} />
-						<Color updateColorState={updateState} updateScoreState={updateScoreState} side={"O"} team={team} color={colors[3]} />
-						<Color updateColorState={updateState} updateScoreState={updateScoreState} side={"O"} team={team} color={colors[4]} />
-						<Color updateColorState={updateState} updateScoreState={updateScoreState} side={"O"} team={team} color={colors[5]} />
-						<Color updateColorState={updateState} updateScoreState={updateScoreState} side={"O"} team={team} color={colors[6]} />
-						<Color updateColorState={updateState} updateScoreState={updateScoreState} side={"O"} team={team} color={colors[7]} />
-						<Color updateColorState={updateState} updateScoreState={updateScoreState} side={"O"} team={team} color={colors[8]} />
-						<Color updateColorState={updateState} updateScoreState={updateScoreState} side={"O"} team={team} color={colors[9]} />
+						<Color updateColorState={updateState} updateScoreState={updateScoreState} side={"O"} team={team} color={colors[0]} Ecolor={Ecolors[0]} />
+						<Color updateColorState={updateState} updateScoreState={updateScoreState} side={"O"} team={team} color={colors[1]} Ecolor={Ecolors[1]} />
+						<Color updateColorState={updateState} updateScoreState={updateScoreState} side={"O"} team={team} color={colors[2]} Ecolor={Ecolors[2]} />
+						<Color updateColorState={updateState} updateScoreState={updateScoreState} side={"O"} team={team} color={colors[3]} Ecolor={Ecolors[3]} />
+						<Color updateColorState={updateState} updateScoreState={updateScoreState} side={"O"} team={team} color={colors[4]} Ecolor={Ecolors[4]} />
+						<Color updateColorState={updateState} updateScoreState={updateScoreState} side={"O"} team={team} color={colors[5]} Ecolor={Ecolors[5]} />
+						<Color updateColorState={updateState} updateScoreState={updateScoreState} side={"O"} team={team} color={colors[6]} Ecolor={Ecolors[6]} />
+						<Color updateColorState={updateState} updateScoreState={updateScoreState} side={"O"} team={team} color={colors[7]} Ecolor={Ecolors[7]} />
+						<Color updateColorState={updateState} updateScoreState={updateScoreState} side={"O"} team={team} color={colors[8]} Ecolor={Ecolors[8]} />
+						<Color updateColorState={updateState} updateScoreState={updateScoreState} side={"O"} team={team} color={colors[9]} Ecolor={Ecolors[9]} />
 						<div className="c-colorpicker__colors-colorAdd">
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
