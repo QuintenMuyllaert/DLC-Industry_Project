@@ -58,7 +58,13 @@ export const trigger = (uri: string) => {
 	ping(uri, true);
 };
 
-export const findApi = async () => {
+export let cachedApi: string | boolean | null = null;
+
+export const findApi = async (allowCache: boolean = false) => {
+	if (allowCache && cachedApi !== null) {
+		return cachedApi;
+	}
+
 	const ips = await findLocalIp();
 	console.log("LOCAL IP : ", ips);
 	if (!ips.length) {
@@ -79,6 +85,7 @@ export const findApi = async () => {
 	const api = apis.shift();*/
 	const api = await Promise.race(pings);
 	console.log("REMOTE IP : ", api);
+	cachedApi = api;
 	return api;
 };
 
