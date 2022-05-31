@@ -1,6 +1,36 @@
+import { useState } from "react";
+import { LooseObject } from "../utils/Interfaces";
+import { trigger } from "../utils/Networking";
 import IconButton from "./IconButton";
 
-export const TextEdit = ({ active, handleClickMessage }: { active: boolean; handleClickMessage?: (event?: any) => any }) => {
+export const TextEdit = ({
+	active,
+	onClickSendMessage,
+	handleClickMessage,
+}: {
+	active: boolean;
+	onClickSendMessage?: (event?: any) => any;
+	handleClickMessage?: (event?: any) => any;
+}) => {
+	const defaultState: LooseObject = {
+		API: "http://127.0.0.1:1234",
+		message: "",
+	};
+
+	const [state, setState] = useState(defaultState);
+
+	const updateState = (key: string, value: string) => {
+		if (state[key] == value) {
+			return;
+		}
+		state[key] = value;
+		setState(state);
+	};
+
+	const onTextUpdate = (event: any) => {
+		updateState("message", event.target.value);
+	};
+
 	return (
 		<>
 			<div className={active ? "c-textedit__overlay" : "c-textedit__overlay c-textedit__hidden"}></div>
@@ -43,10 +73,20 @@ export const TextEdit = ({ active, handleClickMessage }: { active: boolean; hand
 					</div>
 					<div className="c-textedit__textarea">
 						<label htmlFor="scrolltext">Tekst</label>
-						<textarea placeholder="Oude tekst..." name="scrolltext" id="scrolltext"></textarea>
+						<textarea placeholder="Oude tekst..." name="scrolltext" id="scrolltext" onChange={onTextUpdate}></textarea>
 					</div>
 
-					<IconButton color="black" label="Bericht verzenden"></IconButton>
+					<IconButton
+						color="black"
+						label="Bericht verzenden"
+						onClick={
+							onClickSendMessage
+								? onClickSendMessage
+								: () => {
+										console.log("sending message :", state.message);
+										trigger(`${state.API}/update?message=${encodeURI(state.message)}&submit=Send+message`);
+								  }
+						}></IconButton>
 				</div>
 			</div>
 		</>
