@@ -27,6 +27,8 @@ export const Score = () => {
 		clock: 0,
 		first: true,
 		messagePopup: false,
+		teamColorTeam1Popup: false,
+		teamColorTeam2Popup: false,
 	};
 
 	const colorLUT: LooseObject = {
@@ -91,14 +93,22 @@ export const Score = () => {
 		updateState("messagePopup", !state.messagePopup);
 	};
 
+	const handleClickTeam1Color = () => {
+		updateState("teamColorTeam1Popup", !state.teamColorTeam1Popup);
+	};
+
+	const handleClickTeam2Color = () => {
+		updateState("teamColorTeam2Popup", !state.teamColorTeam2Popup);
+	};
+
 	return (
 		<>
 			<div className="p-score">
 				<Clock time={state.clock}></Clock>
 				<div className="scorevalue-container">
-					<Flag top={state.colorsHomeTop} bottom={state.colorsHomeBottom} />
+					<Flag top={state.colorsHomeTop} bottom={state.colorsHomeBottom} handleClickPopup={handleClickTeam1Color} />
 					<div className="empty"></div>
-					<Flag top={state.colorsOutTop} bottom={state.colorsOutBottom} />
+					<Flag top={state.colorsOutTop} bottom={state.colorsOutBottom} handleClickPopup={handleClickTeam2Color} />
 
 					<h2 className="teamname">{state.nameHome}</h2>
 					<div className="empty"></div>
@@ -153,7 +163,8 @@ export const Score = () => {
 
 			<BottomTab />
 
-			<Colorpicker team={2} updateScoreState={updateState} />
+			<Colorpicker team={1} updateScoreState={updateState} active={state.teamColorTeam1Popup} handleClickPopup={handleClickTeam1Color} />
+			<Colorpicker team={2} updateScoreState={updateState} active={state.teamColorTeam2Popup} handleClickPopup={handleClickTeam2Color} />
 			<TextEdit active={state.messagePopup} handleClickMessage={handleClickMessage} />
 		</>
 	);
