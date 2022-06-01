@@ -1,46 +1,39 @@
-export const admin = {
-	username: "",
-	password: "",
-	parent: false,
-	serialnumber: "",
-};
+export interface admin {
+	username: string;
+	password: string;
+	parent: false;
+	serialnumber: string;
+}
 
-export const user = {
-	username: "",
-	password: "",
-	parent: "",
-	firstLogin: true,
-};
+export interface user {
+	username: string;
+	password: string;
+	parent: string;
+	firstLogin: boolean;
+}
 
-export const scoreboard = {
-	isPlaying: true,
-	K1B: "Rood",
-	K2B: "Rood",
-	K1O: "Rood",
-	K2O: "Rood",
-	scoreHome: 0,
-	scoreOut: 0,
-	matchStart: new Date(),
-	serialnumber: "",
-	lastKnownIp: "",
-};
+export interface scoreboard {
+	isPlaying: boolean;
+	K1B: string;
+	K2B: string;
+	K1O: string;
+	K2O: string;
+	scoreHome: number;
+	scoreOut: number;
+	matchStart: Date;
+	serialnumber: string;
+	lastKnownIp: string;
+}
 
-export const template = {
-	name: "",
-	K1B: "Rood",
-	K2B: "Rood",
-	K1O: "Rood",
-	K2O: "Rood",
-	sponsers: [""],
-	nameHome: "",
-	nameOut: "",
-	periods: 2,
-	periodLength: 24,
-};
-
-export default {
-	admin,
-	user,
-	scoreboard,
-	template,
-};
+export interface template {
+	name: number;
+	K1B: string;
+	K2B: string;
+	K1O: string;
+	K2O: string;
+	sponsers: Array<string>;
+	nameHome: number;
+	nameOut: number;
+	periods: number;
+	periodLength: number;
+}
