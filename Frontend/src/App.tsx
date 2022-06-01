@@ -13,6 +13,7 @@ import Spectate from "./pages/Spectate";
 import "./style/screen.scss";
 import Manual from "./pages/Manual";
 import ChangePassword from "./pages/ChangePassword";
+import Livestream from "./pages/Livestream";
 
 export const App = () => {
 	return (
@@ -21,6 +22,7 @@ export const App = () => {
 				<Routes>
 					<Route path="/" element={<Root />} />
 					<Route path="/login" element={<Login />} />
+					<Route path="/livestream" element={<Livestream />} />
 					<Route path="/changepassword" element={<ChangePassword />} />
 					<Route path="/score" element={<Score />} />
 					<Route path="/templates" element={<Templates />} />

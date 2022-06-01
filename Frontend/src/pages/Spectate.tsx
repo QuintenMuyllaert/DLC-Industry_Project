@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import BottomTab from "../components/BottomTab";
 import Clock from "../components/Clock";
 import Flag from "../components/Flag";
 
@@ -24,7 +23,6 @@ export const Spectate = () => {
 					</div>
 				</div>
 			</div>
-			<BottomTab />
 		</>
 	);
 };
