@@ -1,8 +1,14 @@
 import { Link } from "react-router-dom";
 
-export const Livestream = () => {
+export const Livestream = ({ theme }: any) => {
+	theme("png");
+
 	return (
-		<main className="p-livestream">
+		<main
+			className="p-livestream"
+			onLoad={(e) => {
+				console.log(e);
+			}}>
 			<header>
 				<div className="scoreboard">
 					<div className="teamcolors">

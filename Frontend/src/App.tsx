@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import Root from "./pages/Root";
@@ -16,13 +17,15 @@ import ChangePassword from "./pages/ChangePassword";
 import Livestream from "./pages/Livestream";
 
 export const App = () => {
+	const [state, setState] = useState("dark");
+
 	return (
 		<Router>
-			<div className="App dark">
+			<div className={`App ${state}`}>
 				<Routes>
 					<Route path="/" element={<Root />} />
 					<Route path="/login" element={<Login />} />
-					<Route path="/livestream" element={<Livestream />} />
+					<Route path="/livestream" element={<Livestream theme={setState} />} />
 					<Route path="/changepassword" element={<ChangePassword />} />
 					<Route path="/score" element={<Score />} />
 					<Route path="/templates" element={<Templates />} />
