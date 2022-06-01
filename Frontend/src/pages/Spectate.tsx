@@ -24,7 +24,6 @@ export const Spectate = () => {
 					</div>
 				</div>
 			</div>
-			<BottomTab />
 		</>
 	);
 };
