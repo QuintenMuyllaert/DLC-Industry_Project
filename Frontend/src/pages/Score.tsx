@@ -6,10 +6,12 @@ import { Digit } from "../components/Digit";
 import { IconButton } from "../components/IconButton";
 import { BottomTab } from "../components/BottomTab";
 import { LooseObject } from "../utils/Interfaces";
-import { findApi, trigger } from "../utils/Networking";
+import { findApi } from "../utils/Networking";
 import Colorpicker from "../components/Colorpicker";
 import TextEdit from "../components/TextEdit";
 // import TextEdit from "../components/textEdit";
+
+import { scoreboardInterface } from "../utils/ScoreboardInterface";
 
 export const Score = () => {
 	const defaultState: LooseObject = {
@@ -56,20 +58,15 @@ export const Score = () => {
 			(async () => {
 				updateState("API", (await findApi()) || state.API);
 				//Screen to scoreboard
-				trigger(`${state.API}/update?Keuze=P0`);
+				scoreboardInterface.setScreen("P0");
 
-				//Reset timer
-				trigger(`${state.API}/update?Timer=Ti1`);
+				scoreboardInterface.resetScore();
+				scoreboardInterface.resetTimer();
 
-				//Reset both teams
-				trigger(`${state.API}/update?G1=T0`);
-				trigger(`${state.API}/update?G2=U0`);
-
-				//Set team colors
-				trigger(`${state.API}/update?K1B=${colorLUT[state.colorsHomeTop]}`);
-				trigger(`${state.API}/update?K1O=${colorLUT[state.colorsHomeBottom]}`);
-				trigger(`${state.API}/update?K2B=${colorLUT[state.colorsOutTop]}`);
-				trigger(`${state.API}/update?K2O=${colorLUT[state.colorsOutBottom]}`);
+				scoreboardInterface.changeColor("1B", state.colorsHomeTop);
+				scoreboardInterface.changeColor("1O", state.colorsHomeBottom);
+				scoreboardInterface.changeColor("2B", state.colorsOutTop);
+				scoreboardInterface.changeColor("2O", state.colorsOutBottom);
 			})();
 		}
 
@@ -81,13 +78,12 @@ export const Score = () => {
 
 	const score = (team: string, amt: number) => {
 		const name = team == "scoreHome" ? "G1" : "G2";
-		const dir = amt >= 1 ? "NEXT" : "PREVIOUS";
 
 		if (state[team] == 0 && amt <= 0) {
 			return;
 		}
 
-		trigger(`${state.API}/update?${name}=${dir}`);
+		scoreboardInterface.addScore(name, amt);
 		updateState(team, state[team] + amt);
 	};
 
