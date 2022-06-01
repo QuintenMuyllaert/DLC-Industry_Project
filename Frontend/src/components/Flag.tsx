@@ -1,9 +1,9 @@
-export const Flag = ({ top, bottom }: { top: string; bottom: string }) => {
+export const Flag = ({ top, bottom, handleClickPopup }: { top: string; bottom: string; handleClickPopup?: (event?: any) => any }) => {
 	return (
-		<div className="c-flag">
+		<button className="c-flag" onClick={handleClickPopup ? handleClickPopup : () => {}}>
 			<div className="top" style={{ backgroundColor: top }}></div>
 			<div className="bottom" style={{ backgroundColor: bottom }}></div>
-		</div>
+		</button>
 	);
 };
 

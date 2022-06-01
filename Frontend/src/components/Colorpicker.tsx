@@ -4,7 +4,17 @@ import Color from "./Color";
 import Flag from "./Flag";
 import IconButton from "./IconButton";
 
-export const Colorpicker = ({ team, updateScoreState }: { team: number; updateScoreState: Function }) => {
+export const Colorpicker = ({
+	team,
+	updateScoreState,
+	active,
+	handleClickPopup,
+}: {
+	team: number;
+	updateScoreState: Function;
+	active: boolean;
+	handleClickPopup?: (event?: any) => any;
+}) => {
 	const defaultState: LooseObject = {
 		API: "http://127.0.0.1:1234",
 		ColorsHomeTop: "red",
@@ -36,13 +46,12 @@ export const Colorpicker = ({ team, updateScoreState }: { team: number; updateSc
 
 	let colors = Object.values(colorLUT);
 	let Ecolors = Object.keys(colorLUT);
-
 	return (
 		<>
-			<div className="c-colorpicker__overlay c-colorpicker__hidden"></div>
-			<div className="c-colorpicker c-colorpicker__hidden">
+			<div className={active ? "c-colorpicker__overlay" : "c-colorpicker__overlay c-colorpicker__hidden"}></div>
+			<div className={active ? "c-colorpicker" : "c-colorpicker c-colorpicker__hidden"}>
 				<div className="c-colorpicker__container scrollbar">
-					<div className="c-colorpicker__close">
+					<button className="c-colorpicker__close" onClick={handleClickPopup ? handleClickPopup : () => {}}>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							width="24"
@@ -56,8 +65,8 @@ export const Colorpicker = ({ team, updateScoreState }: { team: number; updateSc
 							<line x1="18" y1="6" x2="6" y2="18"></line>
 							<line x1="6" y1="6" x2="18" y2="18"></line>
 						</svg>
-					</div>
-					<Flag top={state.colorsOutTop} bottom={state.colorsOutBottom} />
+					</button>
+					<Flag top={team == 1 ? state.colorsHomeTop : state.colorsOutTop} bottom={team == 1 ? state.colorsHomeBottom : state.colorsOutBottom} />
 					<p>Kies een kleur voor de bovenkant</p>
 					<div className="c-colorpicker__colors">
 						<Color updateColorState={updateState} updateScoreState={updateScoreState} side={"B"} team={team} color={colors[0]} Ecolor={Ecolors[0]} />
@@ -114,7 +123,7 @@ export const Colorpicker = ({ team, updateScoreState }: { team: number; updateSc
 							</svg>
 						</div>
 					</div>
-					<IconButton color="black" label="Opslaan"></IconButton>
+					<IconButton color="black" label="Opslaan" onClick={handleClickPopup ? handleClickPopup : () => {}}></IconButton>
 				</div>
 			</div>
 		</>
