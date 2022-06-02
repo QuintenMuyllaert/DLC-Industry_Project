@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 import { Request, Response } from "express";
 
-import { validateUser, generateUser } from "./database";
+import { validateUser, generateUserAdmin } from "./database";
 
 const generateAccessToken = (body: any) => {
 	const key = process.env?.TOKEN_SECRET?.toString() || "";
@@ -30,7 +30,7 @@ export const login = async (req: Request, res: Response) => {
 
 export const register = async (req: Request, res: Response) => {
 	const { username, password, serialnumber } = req.body;
-	const created = await generateUser(username, password, serialnumber);
+	const created = await generateUserAdmin(username, password, serialnumber);
 
 	if (!created) {
 		res.status(409); //Conflict
