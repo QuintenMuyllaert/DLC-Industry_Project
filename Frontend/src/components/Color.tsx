@@ -20,13 +20,13 @@ export const Color = ({
 	const SetValue = (team: number, side: string) => {
 		switch (team.toString() + side) {
 			case "1B":
-				return "colorsHomeTop";
+				return "hb";
 			case "1O":
-				return "colorsHomeBottom";
+				return "ho";
 			case "2B":
-				return "colorsOutTop";
+				return "ub";
 			case "2O":
-				return "colorsOutBottom";
+				return "uo";
 		}
 	};
 

@@ -5,15 +5,18 @@ export let globalSetState: any;
 
 export const defaultState: LooseObject = {
 	color: "dark",
-	scoreHome: 0,
-	scoreOut: 0,
 	nameHome: "THUIS",
 	nameOut: "UIT",
-	colorsHomeTop: "red",
-	colorsHomeBottom: "blue",
-	colorsOutTop: "yellow",
-	colorsOutBottom: "green",
-	clock: 0,
+	t1: 0,
+	t2: 0,
+	hb: "black",
+	ho: "black",
+	ub: "black",
+	uo: "black",
+	timer: 0,
+	message: "Quinten was hier",
+	screen: "P0",
+
 	first: true,
 	messagePopup: false,
 	teamColorTeam1Popup: false,
@@ -26,22 +29,24 @@ export const attachUseState = (state: any, setState: any) => {
 };
 
 export const setGlobalState = (val: any) => {
+	console.log("setGlobalState", val);
 	globalSetState(val);
 };
 
 export const getGlobalState = () => {
+	console.log("getGlobalState", globalState);
 	return globalState;
 };
 
 export const updateGlobalState = (key: string, value: any) => {
 	globalState[key] = value;
-	globalSetState({ ...globalState }); // React voodoo magic
+	setGlobalState({ ...globalState }); // React voodoo magic
 	//console.log(key, value);
 };
 
 export const mergeGlobalState = (state: any) => {
 	globalState = { ...globalState, ...state };
-	globalSetState({ ...globalState }); // React voodoo magic
+	setGlobalState({ ...globalState }); // React voodoo magic
 };
 
 export default {

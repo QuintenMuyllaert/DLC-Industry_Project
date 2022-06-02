@@ -20,14 +20,14 @@ export const Score = () => {
 		scoreboardInterface.resetScore();
 		scoreboardInterface.resetTimer();
 
-		scoreboardInterface.changeColor("1B", state.colorsHomeTop);
-		scoreboardInterface.changeColor("1O", state.colorsHomeBottom);
-		scoreboardInterface.changeColor("2B", state.colorsOutTop);
-		scoreboardInterface.changeColor("2O", state.colorsOutBottom);
+		scoreboardInterface.changeColor("1B", state.hb);
+		scoreboardInterface.changeColor("1O", state.ho);
+		scoreboardInterface.changeColor("2B", state.ub);
+		scoreboardInterface.changeColor("2O", state.uo);
 	}
 
 	const score = (team: string, amt: number) => {
-		const name = team == "scoreHome" ? "G1" : "G2";
+		const name = team == "t1" ? "G1" : "G2";
 
 		if (state[team] == 0 && amt <= 0) {
 			return;
@@ -38,12 +38,10 @@ export const Score = () => {
 	};
 
 	const handleClickMessage = () => {
-		console.log("hallo");
 		updateState("messagePopup", !state.messagePopup);
 	};
 
 	const handleClickSendMessage = (message: string) => {
-		console.log("hallo");
 		updateState("messagePopup", !state.messagePopup);
 		scoreboardInterface.sendMessage(message);
 		console.log(message);
@@ -60,35 +58,35 @@ export const Score = () => {
 	return (
 		<>
 			<div className="p-score">
-				<Clock time={state.clock}></Clock>
+				<Clock time={state.timer}></Clock>
 				<div className="scorevalue-container">
-					<Flag top={state.colorsHomeTop} bottom={state.colorsHomeBottom} handleClickPopup={handleClickTeam1Color} />
+					<Flag top={state.hb} bottom={state.ho} handleClickPopup={handleClickTeam1Color} />
 					<div className="empty"></div>
-					<Flag top={state.colorsOutTop} bottom={state.colorsOutBottom} handleClickPopup={handleClickTeam2Color} />
+					<Flag top={state.ub} bottom={state.uo} handleClickPopup={handleClickTeam2Color} />
 
 					<h2 className="teamname">{state.nameHome}</h2>
 					<div className="empty"></div>
 					<h2 className="teamname">{state.nameOut}</h2>
 
 					<Digit
-						value={state.scoreHome}
+						value={state.t1}
 						style="^v"
 						onClickUp={() => {
-							score("scoreHome", 1);
+							score("t1", 1);
 						}}
 						onClickDown={() => {
-							score("scoreHome", -1);
+							score("t1", -1);
 						}}
 					/>
 					<p className="seperator">-</p>
 					<Digit
-						value={state.scoreOut}
+						value={state.t2}
 						style="^v"
 						onClickUp={() => {
-							score("scoreOut", 1);
+							score("t2", 1);
 						}}
 						onClickDown={() => {
-							score("scoreOut", -1);
+							score("t2", -1);
 						}}
 					/>
 				</div>

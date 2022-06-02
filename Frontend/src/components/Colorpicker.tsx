@@ -4,6 +4,8 @@ import Color from "./Color";
 import Flag from "./Flag";
 import IconButton from "./IconButton";
 
+import { updateGlobalState as updateState, globalState as state } from "../utils/Appstate";
+
 export const Colorpicker = ({
 	team,
 	updateScoreState,
@@ -15,22 +17,6 @@ export const Colorpicker = ({
 	active: boolean;
 	handleClickPopup?: (event?: any) => any;
 }) => {
-	const defaultState: LooseObject = {
-		API: "http://127.0.0.1:1234",
-		ColorsHomeTop: "red",
-		colorsHomeBottom: "blue",
-		colorsOutTop: "yellow",
-		colorsOutBottom: "green",
-		first: true,
-	};
-
-	const [state, setState] = useState(defaultState);
-
-	const updateState = (key: string, value: any) => {
-		state[key] = value;
-		setState({ ...state }); // React voodoo magic
-	};
-
 	const colorLUT: LooseObject = {
 		green: "Groen",
 		lightblue: "LichtBlauw",
@@ -66,7 +52,7 @@ export const Colorpicker = ({
 							<line x1="6" y1="6" x2="18" y2="18"></line>
 						</svg>
 					</button>
-					<Flag top={team == 1 ? state.colorsHomeTop : state.colorsOutTop} bottom={team == 1 ? state.colorsHomeBottom : state.colorsOutBottom} />
+					<Flag top={team == 1 ? state.hb : state.ub} bottom={team == 1 ? state.ho : state.uo} />
 					<p>Kies een kleur voor de bovenkant</p>
 					<div className="c-colorpicker__colors">
 						<Color updateColorState={updateState} updateScoreState={updateScoreState} side={"B"} team={team} color={colors[0]} Ecolor={Ecolors[0]} />

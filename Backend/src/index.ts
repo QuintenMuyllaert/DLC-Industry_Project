@@ -91,7 +91,7 @@ io.on("connection", (socket: any) => {
 			ho: "black",
 			ub: "black",
 			uo: "black",
-			timer: "00:00",
+			timer: 0,
 			message: "Quinten was hier",
 			screen: "P0",
 		};
@@ -201,6 +201,7 @@ io.on("connection", (socket: any) => {
 				break;
 			}
 		}
+		io.emit("state", scoreboardSocket.data);
 	});
 });
 
