@@ -14,7 +14,7 @@
 		//Quinten Muyllaert 30-05-2022
 		var log = function(msg) { socket.emit("data", msg); };
 		
-		const socket = io('http://192.168.15.153',{
+		const socket = io('https://industryproject.computernetwork.be',{
 			'forceNew':true,
    		});
 
