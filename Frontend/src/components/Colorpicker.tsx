@@ -10,7 +10,7 @@ export const Colorpicker = ({
 	active,
 	handleClickPopup,
 }: {
-	team: number;
+	team: 1 | 2;
 	updateScoreState: Function;
 	active: boolean;
 	handleClickPopup?: (event?: any) => any;
