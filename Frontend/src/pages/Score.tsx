@@ -20,7 +20,7 @@ export const Score = () => {
 		scoreOut: 0,
 		nameHome: "THUIS",
 		nameOut: "UIT",
-		colorsHomeTop: "red",
+		colorsHomeTop: "blue",
 		colorsHomeBottom: "blue",
 		colorsOutTop: "yellow",
 		colorsOutBottom: "green",

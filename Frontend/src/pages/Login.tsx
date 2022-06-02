@@ -33,7 +33,8 @@ export const Login = () => {
 		});
 
 		if (res.status === 202) {
-			document.location.href = "/search";
+			//document.location.href = "/search";
+			document.location.href = "/score";
 		}
 	};
 

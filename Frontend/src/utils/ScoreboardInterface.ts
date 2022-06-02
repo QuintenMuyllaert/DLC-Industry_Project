@@ -74,7 +74,7 @@ export class InterfaceSocket {
 	message: string = "";
 	constructor(uri: string) {
 		this.uri = uri;
-		this.socket = io();
+		this.socket = io(this.uri);
 		this.socket.on("data", (data: any) => {});
 	}
 	changeColor(team: `${1 | 2}${"B" | "O"}`, color: string) {
@@ -109,4 +109,4 @@ export class InterfaceSocket {
 	};
 }
 
-export const scoreboardInterface: InterfaceScoreboard = usingHTTP ? new InterfaceHTTP("http://127.0.0.1:1234") : new InterfaceSocket("127.0.0.1");
+export const scoreboardInterface: InterfaceScoreboard = usingHTTP ? new InterfaceHTTP("http://127.0.0.1:1234") : new InterfaceSocket(document.location.origin);
