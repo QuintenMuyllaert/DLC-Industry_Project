@@ -21,14 +21,12 @@
 		width: min(24rem, 100%);
 		padding-top: 6rem;
 		padding-inline: 1rem;
+		display: grid;
+		gap: 10.625rem;
 
 		.text {
 			margin-bottom: 1rem;
 			text-align: center;
-		}
-
-		.button {
-			margin-top: 15rem;
 		}
 	}
 }
