@@ -37,3 +37,8 @@ export interface template {
 	periods: number;
 	periodLength: number;
 }
+
+export interface color {
+	serial: string;
+	colorValue: string;
+}
