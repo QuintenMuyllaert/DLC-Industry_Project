@@ -72,7 +72,7 @@ io.on("connection", (socket: any) => {
 
 		//socket.emit("data", "#hb", "attr", "style", `fill:${color}`);
 		//socket.emit("data", "#ub", "attr", "style", `fill:${color}`);
-		//socket.emit("data", "#timer", "text", to2digits(d.getHours()) + ":" + to2digits(d.getMinutes()));
+		socket.emit("data", "#timer", "text", to2digits(d.getHours()) + ":" + to2digits(d.getMinutes()));
 		//socket.emit("data", "#message", "attr", "x", 1.2 * 336 - ((performance.now() * 0.04) % (336 * 2 * 1.2)));
 		//socket.emit("data", "#message", "text", "test 1234");
 	}, dt);
