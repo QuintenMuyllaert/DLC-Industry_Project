@@ -85,6 +85,7 @@
 			background-color: #121212;
 			opacity: 0.5;
 			border-radius: 0.5rem;
+			outline: #00000000;
 		}
 
 		&-colorAdd {
@@ -94,9 +95,45 @@
 			width: 3.75rem;
 			height: 3.75rem;
 			border: var(--global-border-size) dashed #eee;
-			display: flex;
-			align-items: center;
+			display: grid;
 			justify-content: center;
+			align-items: center;
+
+			::-moz-color-swatch {
+				border: none;
+			}
+
+			&-input {
+				grid-area: a;
+				height: 100%;
+				outline: none;
+				border: none;
+				background-color: transparent;
+				opacity: 0;
+			}
+
+			&-label {
+				padding: 1rem;
+				grid-area: a;
+				grid-template-columns: 1;
+				grid-template-rows: 1;
+				z-index: 1;
+
+				@media screen and (max-width: 460px) {
+					padding: 0.5rem;
+				}
+
+				@media screen and (max-width: 295px) {
+					padding: 0.2rem;
+				}
+
+				.icon {
+					align-self: center;
+					justify-self: center;
+					grid-area: 1;
+					z-index: 10;
+				}
+			}
 
 			& svg {
 				stroke-width: 0.25rem;

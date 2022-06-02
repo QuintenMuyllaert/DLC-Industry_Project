@@ -80,19 +80,23 @@ export const Colorpicker = ({
 						<Color updateColorState={updateState} updateScoreState={updateScoreState} side={"B"} team={team} color={colors[8]} Ecolor={Ecolors[8]} />
 						<Color updateColorState={updateState} updateScoreState={updateScoreState} side={"B"} team={team} color={colors[9]} Ecolor={Ecolors[9]} />
 						<div className="c-colorpicker__colors-colorAdd">
-							<svg
-								xmlns="http://www.w3.org/2000/svg"
-								width="24"
-								height="24"
-								viewBox="0 0 24 24"
-								fill="none"
-								stroke="currentColor"
-								strokeWidth="2"
-								strokeLinecap="round"
-								strokeLinejoin="round">
-								<line x1="12" y1="5" x2="12" y2="19"></line>
-								<line x1="5" y1="12" x2="19" y2="12"></line>
-							</svg>
+							<input className="c-colorpicker__colors-colorAdd-input" type="color" id="newColorTop" />
+							<label className="c-colorpicker__colors-colorAdd-label" htmlFor="newColorTop">
+								<svg
+									className="icon"
+									xmlns="http://www.w3.org/2000/svg"
+									width="24"
+									height="24"
+									viewBox="0 0 24 24"
+									fill="none"
+									stroke="currentColor"
+									strokeWidth="2"
+									strokeLinecap="round"
+									strokeLinejoin="round">
+									<line x1="12" y1="5" x2="12" y2="19"></line>
+									<line x1="5" y1="12" x2="19" y2="12"></line>
+								</svg>
+							</label>
 						</div>
 					</div>
 					<p>Kies een kleur voor de onderkant</p>
@@ -108,19 +112,23 @@ export const Colorpicker = ({
 						<Color updateColorState={updateState} updateScoreState={updateScoreState} side={"O"} team={team} color={colors[8]} Ecolor={Ecolors[8]} />
 						<Color updateColorState={updateState} updateScoreState={updateScoreState} side={"O"} team={team} color={colors[9]} Ecolor={Ecolors[9]} />
 						<div className="c-colorpicker__colors-colorAdd">
-							<svg
-								xmlns="http://www.w3.org/2000/svg"
-								width="24"
-								height="24"
-								viewBox="0 0 24 24"
-								fill="none"
-								stroke="currentColor"
-								strokeWidth="2"
-								strokeLinecap="round"
-								strokeLinejoin="round">
-								<line x1="12" y1="5" x2="12" y2="19"></line>
-								<line x1="5" y1="12" x2="19" y2="12"></line>
-							</svg>
+							<input className="c-colorpicker__colors-colorAdd-input" type="color" id="newColorBottom" />
+							<label className="c-colorpicker__colors-colorAdd-label" htmlFor="newColorBottom">
+								<svg
+									className="icon"
+									xmlns="http://www.w3.org/2000/svg"
+									width="24"
+									height="24"
+									viewBox="0 0 24 24"
+									fill="none"
+									stroke="currentColor"
+									strokeWidth="2"
+									strokeLinecap="round"
+									strokeLinejoin="round">
+									<line x1="12" y1="5" x2="12" y2="19"></line>
+									<line x1="5" y1="12" x2="19" y2="12"></line>
+								</svg>
+							</label>
 						</div>
 					</div>
 					<IconButton color="black" label="Opslaan" onClick={handleClickPopup ? handleClickPopup : () => {}}></IconButton>
