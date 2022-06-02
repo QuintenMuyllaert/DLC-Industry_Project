@@ -1,7 +1,9 @@
 import { ping, findApi } from "../utils/Networking";
+import { io } from "socket.io-client";
+
 import { colorLUT } from "../utils/Utils";
 
-const usingHTTP = true;
+const usingHTTP = false;
 const loopback = "http://127.0.0.1:1234";
 
 export class InterfaceScoreboard {
@@ -68,20 +70,43 @@ export class InterfaceHTTP {
 
 export class InterfaceSocket {
 	uri: string;
+	socket: any;
+	message: string = "";
 	constructor(uri: string) {
 		this.uri = uri;
+		this.socket = io();
+		this.socket.on("data", (data: any) => {});
 	}
-	changeColor(team: `${1 | 2}${"B" | "O"}`, color: string) {}
-	resetScore() {}
-	addScore(team: "G1" | "G2", score: number) {}
-	resetTimer() {}
-	setTimer(time: number) {}
-	sendMessage(message: string) {}
-	getMessage() {}
-	setScreen(screen: `P${number}`) {}
+	changeColor(team: `${1 | 2}${"B" | "O"}`, color: string) {
+		this.socket.emit("input", team, color);
+	}
+	resetScore() {
+		this.socket.emit("input", "G1", "reset");
+		this.socket.emit("input", "G2", "reset");
+	}
+	addScore(team: "G1" | "G2", score: number) {
+		this.socket.emit("input", team, score);
+	}
+	resetTimer() {
+		this.socket.emit("input", "time", 0);
+	}
+	setTimer(time: number) {
+		this.socket.emit("input", "time", time);
+	}
+	sendMessage(message: string) {
+		this.message = message;
+		this.socket.emit("input", "message", message);
+	}
+	getMessage() {
+		//TODO : Get from server
+		return this.message;
+	}
+	setScreen(screen: `P${number}`) {
+		this.socket.emit("input", "screen", screen);
+	}
 	detect = async () => {
-		return "";
+		return this.uri;
 	};
 }
 
-export const scoreboardInterface: InterfaceScoreboard = usingHTTP ? new InterfaceHTTP("http://127.0.0.1:1234") : new InterfaceSocket("wss://127.0.0.1");
+export const scoreboardInterface: InterfaceScoreboard = usingHTTP ? new InterfaceHTTP("http://127.0.0.1:1234") : new InterfaceSocket("127.0.0.1");
