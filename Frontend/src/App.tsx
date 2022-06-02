@@ -17,6 +17,7 @@ import "./style/screen.scss";
 import Manual from "./pages/Manual";
 import ChangePassword from "./pages/ChangePassword";
 import Livestream from "./pages/Livestream";
+import Users from "./pages/Users";
 
 export const App = () => {
 	Appstate.attachUseState(...useState(Appstate.defaultState));
@@ -38,6 +39,7 @@ export const App = () => {
 					<Route path="/searcherror" element={<SearchError />} />
 					<Route path="/searchsuccess" element={<SearchSuccess />} />
 					<Route path="/spectate" element={<Spectate />} />
+					<Route path="/users" element={<Users />} />
 				</Routes>
 			</div>
 		</Router>
