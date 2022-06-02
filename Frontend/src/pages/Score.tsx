@@ -90,7 +90,15 @@ export const Score = () => {
 	};
 
 	const handleClickMessage = () => {
+		console.log("hallo");
 		updateState("messagePopup", !state.messagePopup);
+	};
+
+	const handleClickSendMessage = (message: string) => {
+		console.log("hallo");
+		updateState("messagePopup", !state.messagePopup);
+		scoreboardInterface.sendMessage(message);
+		console.log(message);
 	};
 
 	const handleClickTeam1Color = () => {
@@ -165,7 +173,7 @@ export const Score = () => {
 
 			<Colorpicker team={1} updateScoreState={updateState} active={state.teamColorTeam1Popup} handleClickPopup={handleClickTeam1Color} />
 			<Colorpicker team={2} updateScoreState={updateState} active={state.teamColorTeam2Popup} handleClickPopup={handleClickTeam2Color} />
-			<TextEdit active={state.messagePopup} handleClickMessage={handleClickMessage} />
+			<TextEdit active={state.messagePopup} handleClickMessage={handleClickMessage} handleClickSendMessage={handleClickSendMessage} />
 		</>
 	);
 };

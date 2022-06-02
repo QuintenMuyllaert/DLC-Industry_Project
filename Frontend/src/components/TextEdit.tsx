@@ -2,18 +2,21 @@ import { useState } from "react";
 import { LooseObject } from "../utils/Interfaces";
 import IconButton from "./IconButton";
 import { scoreboardInterface } from "../utils/ScoreboardInterface";
+import { trigger } from "../utils/Networking";
 
 export const TextEdit = ({
 	active,
 	onClickSendMessage,
 	handleClickMessage,
+	handleClickSendMessage,
 }: {
 	active: boolean;
 	onClickSendMessage?: (event?: any) => any;
 	handleClickMessage?: (event?: any) => any;
+	handleClickSendMessage?: (event?: any) => any;
 }) => {
 	const defaultState: LooseObject = {
-		API: "http://127.0.0.1:1234",
+		API: "http://localhost:1234",
 		message: "",
 	};
 
@@ -29,6 +32,27 @@ export const TextEdit = ({
 
 	const onTextUpdate = (event: any) => {
 		updateState("message", event.target.value);
+	};
+
+	const handleClickSend = (handleClick: any) => {
+		console.log("hoi");
+		console.log(handleClick);
+
+		handleClick ? handleClick : () => {};
+	};
+
+	const handleSend = () => {
+		// console.log("c", handleClickMessage, onClickSendMessage);
+
+		handleClickMessage ? handleClickMessage : () => {};
+		// scoreboardInterface.sendMessage(state.message);
+		onClickSendMessage
+			? onClickSendMessage
+			: () => {
+					console.log("sending message :", state.message);
+					scoreboardInterface.sendMessage(state.message);
+					handleClickMessage;
+			  };
 	};
 
 	return (
@@ -55,6 +79,7 @@ export const TextEdit = ({
 								</svg>
 							</button>
 							<button onClick={handleClickMessage ? handleClickMessage : () => {}}>
+								{/* <link href="#" onClick={(event) => { func1(event); func2();}}>Trigger here</link> */}
 								<svg
 									xmlns="http://www.w3.org/2000/svg"
 									width="24"
@@ -79,14 +104,9 @@ export const TextEdit = ({
 					<IconButton
 						color="black"
 						label="Bericht verzenden"
-						onClick={
-							onClickSendMessage
-								? onClickSendMessage
-								: () => {
-										//console.log("sending message :", state.message);
-										scoreboardInterface.sendMessage(state.message);
-								  }
-						}></IconButton>
+						onClick={(event) => {
+							handleClickSendMessage ? handleClickSendMessage(state.message) : () => {};
+						}}></IconButton>
 				</div>
 			</div>
 		</>
