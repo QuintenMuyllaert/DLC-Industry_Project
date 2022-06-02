@@ -1,7 +1,7 @@
-import { Link } from "react-router-dom";
+import { updateGlobalState } from "../utils/Appstate";
 
-export const Livestream = ({ theme }: any) => {
-	theme("png");
+export const Livestream = () => {
+	updateGlobalState("color", "png");
 
 	return (
 		<main

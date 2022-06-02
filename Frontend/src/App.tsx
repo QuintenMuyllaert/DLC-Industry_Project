@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
+import Appstate from "./utils/Appstate";
+
 import Root from "./pages/Root";
 import Login from "./pages/Login";
 import MatchSetup from "./pages/MatchSetup";
@@ -17,15 +19,16 @@ import ChangePassword from "./pages/ChangePassword";
 import Livestream from "./pages/Livestream";
 
 export const App = () => {
-	const [state, setState] = useState("dark");
+	Appstate.attachUseState(...useState(Appstate.defaultState));
+	const state = Appstate.getGlobalState();
 
 	return (
 		<Router>
-			<div className={`App ${state}`}>
+			<div className={`App ${state.color}`}>
 				<Routes>
 					<Route path="/" element={<Root />} />
 					<Route path="/login" element={<Login />} />
-					<Route path="/livestream" element={<Livestream theme={setState} />} />
+					<Route path="/livestream" element={<Livestream />} />
 					<Route path="/changepassword" element={<ChangePassword />} />
 					<Route path="/score" element={<Score />} />
 					<Route path="/templates" element={<Templates />} />

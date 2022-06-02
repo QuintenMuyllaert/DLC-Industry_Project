@@ -1,82 +1,30 @@
-import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import { Flag } from "../components/Flag";
 import { Clock } from "../components/Clock";
 import { Digit } from "../components/Digit";
 import { IconButton } from "../components/IconButton";
 import { BottomTab } from "../components/BottomTab";
-import { LooseObject } from "../utils/Interfaces";
-import { findApi } from "../utils/Networking";
 import Colorpicker from "../components/Colorpicker";
 import TextEdit from "../components/TextEdit";
-// import TextEdit from "../components/textEdit";
 
 import { scoreboardInterface } from "../utils/ScoreboardInterface";
 
+import { updateGlobalState as updateState, globalState as state } from "../utils/Appstate";
+
 export const Score = () => {
-	const defaultState: LooseObject = {
-		API: "http://127.0.0.1:1234",
-		scoreHome: 0,
-		scoreOut: 0,
-		nameHome: "THUIS",
-		nameOut: "UIT",
-		colorsHomeTop: "red",
-		colorsHomeBottom: "blue",
-		colorsOutTop: "yellow",
-		colorsOutBottom: "green",
-		clock: 0,
-		first: true,
-		messagePopup: false,
-		teamColorTeam1Popup: false,
-		teamColorTeam2Popup: false,
-	};
+	if (state.first) {
+		updateState("first", false);
 
-	const colorLUT: LooseObject = {
-		green: "Groen",
-		lightblue: "LichtBlauw",
-		darkblue: "DonkerBlauw",
-		blue: "Blauw",
-		white: "Wit",
-		black: "Zwart",
-		yellow: "Geel",
-		red: "Rood",
-		orange: "Oranje",
-		darkred: "bordeaux",
-	};
+		//Screen to scoreboard
+		scoreboardInterface.setScreen("P0");
 
-	const [state, setState] = useState(defaultState);
-	// const [messagePopup, setMessagePopup] = useState(false);
+		scoreboardInterface.resetScore();
+		scoreboardInterface.resetTimer();
 
-	const updateState = (key: string, value: any) => {
-		state[key] = value;
-		setState({ ...state }); // React voodoo magic
-		//console.log(key, value);
-	};
-
-	useEffect(() => {
-		if (state.first) {
-			updateState("first", false);
-
-			(async () => {
-				updateState("API", (await findApi()) || state.API);
-				//Screen to scoreboard
-				scoreboardInterface.setScreen("P0");
-
-				scoreboardInterface.resetScore();
-				scoreboardInterface.resetTimer();
-
-				scoreboardInterface.changeColor("1B", state.colorsHomeTop);
-				scoreboardInterface.changeColor("1O", state.colorsHomeBottom);
-				scoreboardInterface.changeColor("2B", state.colorsOutTop);
-				scoreboardInterface.changeColor("2O", state.colorsOutBottom);
-			})();
-		}
-
-		const interval = setInterval(() => {
-			updateState("clock", state.clock + 1);
-		}, 1000);
-		return () => clearInterval(interval);
-	}, [state]);
+		scoreboardInterface.changeColor("1B", state.colorsHomeTop);
+		scoreboardInterface.changeColor("1O", state.colorsHomeBottom);
+		scoreboardInterface.changeColor("2B", state.colorsOutTop);
+		scoreboardInterface.changeColor("2O", state.colorsOutBottom);
+	}
 
 	const score = (team: string, amt: number) => {
 		const name = team == "scoreHome" ? "G1" : "G2";

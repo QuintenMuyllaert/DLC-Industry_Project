@@ -2,6 +2,7 @@ import { ping, findApi } from "../utils/Networking";
 import { io } from "socket.io-client";
 
 import { colorLUT } from "../utils/Utils";
+import Appstate from "./Appstate";
 
 const usingHTTP = false;
 const loopback = "http://127.0.0.1:1234";
@@ -76,6 +77,9 @@ export class InterfaceSocket {
 		this.uri = uri;
 		this.socket = io(this.uri);
 		this.socket.on("data", (data: any) => {});
+		this.socket.on("state", (data: any) => {
+			Appstate.mergeGlobalState(data);
+		});
 	}
 	changeColor(team: `${1 | 2}${"B" | "O"}`, color: string) {
 		this.socket.emit("input", team, color);
