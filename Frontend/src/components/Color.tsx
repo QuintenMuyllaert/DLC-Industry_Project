@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { LooseObject } from "../utils/Interfaces";
-import { trigger } from "../utils/Networking";
+import { scoreboardInterface } from "../utils/ScoreboardInterface";
 
 export const Color = ({
 	color,
@@ -13,8 +13,8 @@ export const Color = ({
 }: {
 	color: string;
 	Ecolor: string;
-	team: number;
-	side: string;
+	team: 1 | 2;
+	side: "B" | "O";
 	updateColorState: Function;
 	updateScoreState: Function;
 	onClick?: (event?: any) => any;
@@ -43,12 +43,14 @@ export const Color = ({
 			className="c-colorpicker__colors-color"
 			style={{ backgroundColor: Ecolor }}
 			onClick={
+				//somethings not right here.
 				onClick
 					? onClick
 					: () => {
 							updateColorState(SetValue(team, side), Ecolor);
 							updateScoreState(SetValue(team, side), Ecolor);
-							trigger(`${state.API}/update?K${team.toString()}${side}=${color}`);
+
+							scoreboardInterface.changeColor(`${team}${side}`, Ecolor);
 					  }
 			}></div>
 	);
