@@ -14,7 +14,7 @@
 		//Quinten Muyllaert 30-05-2022
 		var log = function(msg) { socket.emit("data", msg); };
 		
-		const socket = io('https://industryproject.computernetwork.be',{
+		const socket = io('http://192.168.15.153',{
 			'forceNew':true,
    		});
 
@@ -33,29 +33,6 @@
    });
  ]]></script> 
  
-<defs>
-	<style>
-		@font-face {
-			font-family: DSEG7-Classic;
-			src: url("http://192.168.15.153/font/DSEG7-Classic/DSEG7Classic-Light.woff2");
-			font-weight: 200;
-		}
-
-		@font-face {
-			font-family: DSEG7-Classic;
-			src: url("http://192.168.15.153/font/DSEG7-Classic/DSEG7Classic-Regular.woff2");
-			font-weight: 400;
-		}
-
-		@font-face {
-			font-family: DSEG7-Classic;
-			src: url("http://192.168.15.153/font/DSEG7-Classic/DSEG7Classic-Bold.woff2");
-			font-weight: 700;
-		}
-
-	</style>
-</defs>
-
 <rect fill="black" height="168" id="background" stroke="none" width="336"/>
 
 <rect fill="white" x="9" y="13" height="34" stroke="none" width="50"/>
@@ -66,10 +43,9 @@
 <rect fill="white" x="278" y="14" height="16" id="ub" stroke="none" width="48"/>
 <rect fill="white" x="278" y="30" height="16" id="uo" stroke="none" width="48"/>
 
-<text id="timer" x="168" y="50" font-family="DSEG7-Classic" font-size="44" text-anchor="middle" fill="white">00:00</text>
-<text id="t1" x="84" y="100" font-family="DSEG7-Classic" font-size="48" text-anchor="middle" fill="white">0</text>
-<text id="t2" x="252" y="100" font-family="DSEG7-Classic" font-size="48" text-anchor="middle" fill="white">0</text>
+<text id="timer" x="168" y="50" font-family="DSEG7 Classic" font-size="42" text-anchor="middle" fill="white">00:00</text>
+<text id="t1" x="84" y="100" font-family="DSEG7 Classic" font-size="36" text-anchor="middle" fill="white">0</text>
+<text id="t2" x="252" y="100" font-family="DSEG7 Classic" font-size="36" text-anchor="middle" fill="white">0</text>
 
-<text id="message" x="168" y="155" font-family="arial" font-size="32" text-anchor="middle" fill="white">test message</text>
-
+<text id="message" x="168" y="155" font-family="Raleway-VariableFont_wght" font-size="32" text-anchor="middle" fill="white">test message</text>
 </svg>
