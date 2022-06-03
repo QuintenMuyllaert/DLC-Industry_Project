@@ -26,21 +26,23 @@
 	}
 
 	h1 {
+		padding: 1.6rem 0;
+	}
+
+	.list {
+		overflow-y: auto;
+		height: 100%;
+		display: flex;
+		flex-direction: column;
+		gap: 1.25rem;
 	}
 
 	.userlist {
 		padding-top: 4rem;
+		overflow-y: hidden;
 
 		.title {
 			padding-bottom: 2rem;
-		}
-
-		.list {
-			overflow-y: auto;
-			height: 100%;
-			display: flex;
-			flex-direction: column;
-			gap: 1.25rem;
 		}
 	}
 }
