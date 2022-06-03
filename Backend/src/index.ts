@@ -32,7 +32,6 @@ dotenv.config();
 
 const port = 80; // TODO : Move to config
 const protectedRoutes = ["/score", "/register-user"]; // TODO : Move to config
-const antiProtectedRoutes = ["/login"]; // TODO : Move to config
 
 const app = express();
 
@@ -212,7 +211,7 @@ app.use(bodyParser.json());
 
 app.use((req: Request, res: Response, next: Function) => {
 	//Check protectedRoutes
-	if (!protectedRoutes.includes(req.path) && !antiProtectedRoutes.includes(req.path)) {
+	if (!protectedRoutes.includes(req.path)) {
 		next();
 		return;
 	}
@@ -222,12 +221,7 @@ app.use((req: Request, res: Response, next: Function) => {
 	jwt.verify(token, process.env.TOKEN_SECRET as string, (err: any, body: any) => {
 		if (!err) {
 			//Token is valid!
-			if (!antiProtectedRoutes.includes(req.path)) {
-				next();
-			} else {
-				res.status(403);
-				res.redirect("/score");
-			}
+			next();
 			return;
 		}
 

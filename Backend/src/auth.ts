@@ -10,6 +10,8 @@ const generateAccessToken = (body: any) => {
 
 export const login = async (req: Request, res: Response) => {
 	const { username, password } = req.body;
+	res.cookie("auth", false, { maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: false });
+
 	if (!(username && password)) {
 		res.status(400); // Bad Request
 		res.send("Invalid / Missing username and/or password");
@@ -23,6 +25,7 @@ export const login = async (req: Request, res: Response) => {
 	}
 
 	res.cookie("bearer", generateAccessToken({ username }), { maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true });
+	res.cookie("auth", true, { maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: false });
 	res.status(202); // Accepted
 	res.send("AUTH OK");
 	return true;

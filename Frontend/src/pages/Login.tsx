@@ -4,8 +4,14 @@ import { Input } from "../components/Input";
 import { Logo } from "../components/Logo";
 import { IconButton } from "../components/IconButton";
 import { LooseObject } from "../utils/Interfaces";
+import { getCookies } from "../utils/Utils";
 
 export const Login = () => {
+	const cookie = getCookies();
+	if (cookie.auth && cookie.auth === true) {
+		document.location.href = "/score";
+	}
+
 	const defaultState: LooseObject = {
 		username: "",
 		password: "",
