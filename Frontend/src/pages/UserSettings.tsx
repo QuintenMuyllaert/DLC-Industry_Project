@@ -40,12 +40,18 @@ export const UserSettings = () => {
 					</div>
 					<div className="item">
 						<p className="title">email:</p>
-						<UserSetting content="Jef.Bezos@gmail.com" />
+						<UserSetting content="jef.bezos@gmail.com" />
 					</div>
 					<div className="item">
 						<p className="title">wachtwoord:</p>
 						<UserSetting content="●●●●●●●●●●" />
 					</div>
+				</div>
+				<div className="buttons">
+					<label className="switch">
+						<input type="checkbox" />
+						<span className="slider"></span>
+					</label>
 				</div>
 			</div>
 			<BottomTab />
