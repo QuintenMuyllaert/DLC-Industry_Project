@@ -14,3 +14,19 @@ export const colorLUT: LooseObject = {
 	orange: "Oranje",
 	darkred: "bordeaux",
 };
+
+export const getCookies = () => {
+	const arrayb = document.cookie.split(";");
+	const cookies: LooseObject = {};
+	for (const item of arrayb) {
+		const key = item.split("=")[0];
+		try {
+			const value = JSON.parse(item.replace(`${key}=`, ""));
+			cookies[key] = value;
+		} catch (err) {
+			const value = item.replace(`${key}=`, "");
+			cookies[key] = value;
+		}
+	}
+	return cookies;
+};
