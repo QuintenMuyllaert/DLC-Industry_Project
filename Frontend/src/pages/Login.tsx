@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Input } from "../components/Input";
 import { Logo } from "../components/Logo";
 import { IconButton } from "../components/IconButton";
@@ -9,8 +9,10 @@ import { getCookies } from "../utils/Utils";
 export const Login = () => {
 	const cookie = getCookies();
 	if (cookie.auth && cookie.auth === true) {
-		document.location.href = "/score";
+		document.location.href = "/score"; //DONT CHANGE THIS TO "navigate"!!!
 	}
+
+	const navigate = useNavigate();
 
 	const defaultState: LooseObject = {
 		username: "",
@@ -39,8 +41,7 @@ export const Login = () => {
 		});
 
 		if (res.status === 202) {
-			//document.location.href = "/search";
-			document.location.href = "/score";
+			document.location.href = "/score"; //DONT CHANGE THIS TO "navigate"!!!
 		}
 	};
 
@@ -110,7 +111,8 @@ export const Login = () => {
 					label="SPECTATE"
 					color="black"
 					onClick={() => {
-						document.location.href = "/spectate";
+						//document.location.href = "/spectate";
+						navigate("/spectate");
 					}}
 				/>
 				<IconButton
@@ -132,7 +134,8 @@ export const Login = () => {
 					label="NIEUW"
 					color="black"
 					onClick={() => {
-						document.location.href = "/manual";
+						//document.location.href = "/manual";
+						navigate("/manual");
 					}}
 				/>
 			</div>
