@@ -1,3 +1,5 @@
+//Dead code
+
 import { useEffect } from "react";
 import { delay } from "../utils/Utils";
 
