@@ -12,14 +12,17 @@
  <script><![CDATA[
 	$(function(){
 		//Quinten Muyllaert 30-05-2022
-		var log = function(msg) { socket.emit("data", msg); };
-		
-		const socket = io('http://192.168.15.153',{
-			'forceNew':true,
-   		});
+		//$("#background").attr("style","fill: #444444");
+		var len = 16;
 
+		var socket = io('https://industryproject.computernetwork.be',{
+			'forceNew':true,
+			'transports': ["polling"]
+   		});
+		   
 		socket.on('connect', function() {
 			socket.emit("data","X3462L7L"); // send serial number to server TODO: get serial number from device
+			//$("#background").attr("style","fill: #000000");
 		});
 		
 		socket.on("data",function (element,thing,type,value){
@@ -29,7 +32,24 @@
 			}else{
 				$(element)[thing](type); 
 			}
+
+			if(element == "#message" && thing == "text"){
+				len = type.length;
+			}
 		});
+
+		socket.on("invokeuri",function (uri){
+			$.get(uri);
+		});
+
+		var pos = 336;
+		setInterval(function(){
+			$("#message").attr("x",pos);
+			pos = pos - 1;//0.2;
+			if(pos < -len * 16){
+				pos = 336;
+			}
+		},16);
    });
  ]]></script> 
  
@@ -47,5 +67,5 @@
 <text id="t1" x="84" y="100" font-family="DSEG7 Classic" font-size="36" text-anchor="middle" fill="white">0</text>
 <text id="t2" x="252" y="100" font-family="DSEG7 Classic" font-size="36" text-anchor="middle" fill="white">0</text>
 
-<text id="message" x="168" y="155" font-family="Raleway-VariableFont_wght" font-size="32" text-anchor="middle" fill="white">test message</text>
+<text id="message" x="168" y="155" font-family="Raleway-VariableFont_wght" font-size="32" text-anchor="left" fill="white">DLC Sportsystems</text>
 </svg>
