@@ -200,7 +200,7 @@ io.on("connection", (socket: any) => {
 				break;
 			}
 		}
-		io.emit("state", scoreboardSocket.data);
+		socket.broadcast.emit("state", scoreboardSocket.data);
 	});
 });
 
