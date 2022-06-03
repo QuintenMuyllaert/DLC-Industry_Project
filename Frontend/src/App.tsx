@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import Appstate from "./utils/Appstate";
 
+import Protect from "./components/Protect";
 import Root from "./pages/Root";
 import Login from "./pages/Login";
 import MatchSetup from "./pages/MatchSetup";
@@ -32,16 +33,13 @@ export const App = () => {
 					<Route path="/login" element={<Login />} />
 					<Route path="/livestream" element={<Livestream />} />
 					<Route path="/changepassword" element={<ChangePassword />} />
-					<Route path="/score" element={<Score />} />
-					<Route path="/templates" element={<Templates />} />
-					<Route path="/matchsetup" element={<MatchSetup />} />
+					<Route path="/score" element={<Protect element={<Score />} />} />
+					<Route path="/templates" element={<Protect element={<Templates />} />} />
+					<Route path="/matchsetup" element={<Protect element={<Score />} />} />
 					<Route path="/manual" element={<Manual />} />
-					<Route path="/search" element={<Search />} />
-					<Route path="/searcherror" element={<SearchError />} />
-					<Route path="/searchsuccess" element={<SearchSuccess />} />
 					<Route path="/spectate" element={<Spectate />} />
-					<Route path="/users" element={<Users />} />
-					<Route path="/usersettings" element={<UserSettings />} />
+					<Route path="/users" element={<Protect element={<Users />} />} />
+					<Route path="/usersettings" element={<Protect element={<UserSettings />} />} />
 				</Routes>
 			</div>
 		</Router>

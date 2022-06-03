@@ -7,6 +7,7 @@ import path from "path";
 import jwt from "jsonwebtoken";
 import http from "http";
 import cookie from "cookie";
+import util from "util";
 import { Server } from "socket.io";
 
 import { writeFileSync, existsSync } from "fs";
@@ -33,7 +34,6 @@ if (!existsSync("./.env")) {
 dotenv.config();
 
 const port = 80; // TODO : Move to config
-const protectedRoutes = ["/score", "/register-user"]; // TODO : Move to config
 
 const app = express();
 
@@ -215,29 +215,40 @@ app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-app.use((req: Request, res: Response, next: Function) => {
-	//Check protectedRoutes
-	if (!protectedRoutes.includes(req.path)) {
-		next();
+const jwtverifyAsync = async (token: string) => {
+	let ret = { valid: false, body: {} };
+
+	ret = await new Promise((resolve, reject) => {
+		jwt.verify(token, process.env.TOKEN_SECRET as string, (err: any, body: any) => {
+			if (!err) {
+				//Token is valid!
+				resolve({ valid: true, body });
+			}
+
+			//Token is invalid!
+			resolve({ valid: false, body });
+		});
+	});
+
+	return ret;
+};
+
+//DEFINE API ROUTES BELOW !!!
+app.get("/status", async (req, res) => {
+	const token = req.cookies?.bearer;
+	const { valid, body } = await jwtverifyAsync(token);
+
+	console.log(valid, body);
+
+	if (valid) {
+		res.status(200);
+		res.send("true");
 		return;
 	}
 
-	//Check and verify the JWT token
-	const token = req.cookies?.bearer;
-	jwt.verify(token, process.env.TOKEN_SECRET as string, (err: any, body: any) => {
-		if (!err) {
-			//Token is valid!
-			next();
-			return;
-		}
-
-		//Token is invalid!
-		res.status(401);
-		res.redirect("/");
-	});
+	res.status(401);
+	res.send("false");
 });
-
-//DEFINE API ROUTES BELOW !!!
 
 app.post("/auth", login);
 

@@ -7,12 +7,11 @@ import { LooseObject } from "../utils/Interfaces";
 import { getCookies } from "../utils/Utils";
 
 export const Login = () => {
+	const navigate = useNavigate();
 	const cookie = getCookies();
 	if (cookie.auth && cookie.auth === true) {
-		document.location.href = "/score"; //DONT CHANGE THIS TO "navigate"!!!
+		navigate("/score");
 	}
-
-	const navigate = useNavigate();
 
 	const defaultState: LooseObject = {
 		username: "",
@@ -41,7 +40,7 @@ export const Login = () => {
 		});
 
 		if (res.status === 202) {
-			document.location.href = "/score"; //DONT CHANGE THIS TO "navigate"!!!
+			navigate("/score");
 		}
 	};
 
@@ -111,7 +110,6 @@ export const Login = () => {
 					label="SPECTATE"
 					color="black"
 					onClick={() => {
-						//document.location.href = "/spectate";
 						navigate("/spectate");
 					}}
 				/>
@@ -134,7 +132,6 @@ export const Login = () => {
 					label="NIEUW"
 					color="black"
 					onClick={() => {
-						//document.location.href = "/manual";
 						navigate("/manual");
 					}}
 				/>
