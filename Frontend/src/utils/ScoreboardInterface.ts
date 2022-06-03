@@ -75,7 +75,7 @@ export class InterfaceSocket {
 	message: string = "";
 	constructor(uri: string) {
 		this.uri = uri;
-		this.socket = io(this.uri);
+		this.socket = io(this.uri, { transports: ["polling"] });
 		this.socket.on("data", (data: any) => {});
 		this.socket.on("state", (data: any) => {
 			Appstate.mergeGlobalState(data);
