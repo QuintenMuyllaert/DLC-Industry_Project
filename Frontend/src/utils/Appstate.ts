@@ -39,6 +39,10 @@ export const getGlobalState = () => {
 };
 
 export const updateGlobalState = (key: string, value: any) => {
+	if (globalState[key] === value) {
+		//is same
+		return;
+	}
 	globalState[key] = value;
 	setGlobalState({ ...globalState }); // React voodoo magic
 	//console.log(key, value);
