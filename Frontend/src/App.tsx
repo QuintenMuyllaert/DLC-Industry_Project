@@ -18,6 +18,7 @@ import Manual from "./pages/Manual";
 import ChangePassword from "./pages/ChangePassword";
 import Livestream from "./pages/Livestream";
 import Users from "./pages/Users";
+import UserSettings from "./pages/UserSettings";
 
 export const App = () => {
 	Appstate.attachUseState(...useState(Appstate.defaultState));
@@ -40,6 +41,7 @@ export const App = () => {
 					<Route path="/searchsuccess" element={<SearchSuccess />} />
 					<Route path="/spectate" element={<Spectate />} />
 					<Route path="/users" element={<Users />} />
+					<Route path="/usersettings" element={<UserSettings />} />
 				</Routes>
 			</div>
 		</Router>
