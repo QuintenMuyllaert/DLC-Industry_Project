@@ -44,25 +44,6 @@ export const Login = () => {
 		}
 	};
 
-	const sendRegisterRequest = async () => {
-		const res = await fetch(`${document.location.origin}/register`, {
-			method: "POST",
-			mode: "cors",
-			cache: "no-cache",
-			credentials: "same-origin",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			redirect: "follow",
-			referrerPolicy: "no-referrer",
-			body: JSON.stringify({ ...state, serialnumber: "001d5010184a" }),
-		});
-
-		if (res.status === 202 || res.status === 201) {
-			document.location.href = "/score";
-		}
-	};
-
 	return (
 		<div className="p-login">
 			<header>
@@ -128,7 +109,9 @@ export const Login = () => {
 					}
 					label="SPECTATE"
 					color="black"
-					onClick={sendRegisterRequest} //TODO : move this to an actual register page
+					onClick={() => {
+						document.location.href = "/spectate";
+					}}
 				/>
 				<IconButton
 					icon={
@@ -148,7 +131,9 @@ export const Login = () => {
 					}
 					label="NIEUW"
 					color="black"
-					onClick={sendRegisterRequest} //TODO : move this to an actual register page
+					onClick={() => {
+						document.location.href = "/manual";
+					}}
 				/>
 			</div>
 		</div>
