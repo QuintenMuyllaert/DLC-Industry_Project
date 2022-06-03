@@ -54,19 +54,19 @@ export const Users = () => {
 
 				<IconButton label="Toevoegen" color="white" />
 
-				<div className="userlist">
-					<h1 className="title">Deze mensen hebben toegang</h1>
-					<div className="list scrollbar">
-						<User userName="Milan" />
-						<User userName="Quinten" />
-						<User userName="Anton" />
-						<User userName="Jef" />
-						<User userName="Jos" />
-						<User userName="Jezus" />
-						<User userName="Peter" />
-						<User userName="Glenn" />
-					</div>
+				{/* <div className="userlist"> */}
+				<h1 className="title">Deze mensen hebben toegang</h1>
+				<div className="list scrollbar">
+					<User userName="Milan" />
+					<User userName="Quinten" />
+					<User userName="Anton" />
+					<User userName="Jef" />
+					<User userName="Jos" />
+					<User userName="Jezus" />
+					<User userName="Peter" />
+					<User userName="Glenn" />
 				</div>
+				{/* </div> */}
 			</div>
 			<BottomTab />
 		</>
