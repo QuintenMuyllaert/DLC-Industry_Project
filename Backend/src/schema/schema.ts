@@ -20,9 +20,15 @@ export interface scoreboard {
 	K2O: string;
 	scoreHome: number;
 	scoreOut: number;
-	matchStart: Date;
+	nameHome: string;
+	nameOut: string;
+	timerStart: Date;
+	timerOffset: Date;
+	pauseStart: Date;
+	pauseStop: Date;
 	serialnumber: string;
 	lastKnownIp: string;
+	hasAdmin: boolean;
 }
 
 export interface template {
