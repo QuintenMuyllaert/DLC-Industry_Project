@@ -4,6 +4,8 @@
 	grid-template-rows: 1fr 1fr;
 	width: 100%;
 	justify-items: center;
+	cursor: pointer;
+	
 	.top {
 		background-color: attr(colorvalue);
 		width: min(100%, 9rem);
