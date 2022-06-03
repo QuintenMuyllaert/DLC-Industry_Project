@@ -45,7 +45,12 @@ export const updateGlobalState = (key: string, value: any) => {
 };
 
 export const mergeGlobalState = (state: any) => {
-	globalState = { ...globalState, ...state };
+	const newState = { ...globalState, ...state };
+	if (JSON.stringify(globalState) === JSON.stringify(newState)) {
+		//is same
+		return;
+	}
+	globalState = newState;
 	setGlobalState({ ...globalState }); // React voodoo magic
 };
 
