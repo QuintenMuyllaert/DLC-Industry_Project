@@ -15,6 +15,8 @@ import { randomBytes } from "crypto";
 import { login, register } from "./auth";
 import { hslToHex, to2digits } from "./util";
 
+import { generateScoreboard } from "./database";
+
 interface LooseObject {
 	[key: string]: any;
 }
@@ -59,7 +61,7 @@ io.on("connection", (socket: any) => {
 			}
 		});
 	}
-	const dt = 10; //ms
+	const dt = 500; //ms
 	const interval = setInterval(() => {
 		const now = Date.now();
 		const color = hslToHex((0.1 * now) % 360, 100, 50);
@@ -72,12 +74,13 @@ io.on("connection", (socket: any) => {
 
 		//socket.emit("data", "#hb", "attr", "style", `fill:${color}`);
 		//socket.emit("data", "#ub", "attr", "style", `fill:${color}`);
+		//socket.emit("data", "#timer", "text", to2digits(d.getHours()) + ":" + to2digits(d.getMinutes()));
 		socket.emit("data", "#timer", "text", to2digits(d.getHours()) + ":" + to2digits(d.getMinutes()));
 		//socket.emit("data", "#message", "attr", "x", 1.2 * 336 - ((performance.now() * 0.04) % (336 * 2 * 1.2)));
 		//socket.emit("data", "#message", "text", "test 1234");
 	}, dt);
 
-	socket.on("data", (data: any) => {
+	socket.on("data", async (data: any) => {
 		console.log(socket.id, data);
 		if (!data) {
 			return;
@@ -107,6 +110,8 @@ io.on("connection", (socket: any) => {
 		scoreboards[socket.serial] = socket;
 
 		console.log("Scoreboards connected : ", Object.keys(scoreboards).length, Object.keys(scoreboards));
+		const didGenerateBoard = await generateScoreboard(socket.serial);
+		console.log(didGenerateBoard ? "Generated scoreboard" : "Failed to generate scoreboard (Exists)");
 	});
 
 	socket.on("disconnect", () => {
@@ -125,6 +130,7 @@ io.on("connection", (socket: any) => {
 	});
 
 	socket.on("input", (type: any, value: any) => {
+		console.log("Input received", type, value);
 		if (type === undefined || value === undefined) {
 			console.log("No type or value");
 			return;

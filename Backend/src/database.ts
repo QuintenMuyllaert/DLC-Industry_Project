@@ -17,13 +17,12 @@ export const connect = async () => {
 
 export const checkExistence = async (collectionName: string, obj: any) => {
 	await connect();
+	console.log("Finding in", collectionName, obj);
 	const db = database.db(dbName);
 	const collection = db.collection(collectionName);
 	const checkExistence = await collection.find(obj).toArray();
-	if (checkExistence.length) {
-		return false;
-	}
-	return collection || true;
+	console.log("Reply", checkExistence, checkExistence.length);
+	return checkExistence || [];
 };
 
 export const generateUserAdmin = async (username: string, password: string, serialnumber: string) => {
@@ -34,7 +33,7 @@ export const generateUserAdmin = async (username: string, password: string, seri
 	const existSerienummer = await checkExistence("accounts", { serialnumber });
 	const existUsername = await checkExistence("accounts", { username });
 
-	if (existSerienummer || existUsername) {
+	if (existSerienummer.length || existUsername.length) {
 		return false;
 	}
 
@@ -49,7 +48,6 @@ export const generateUserAdmin = async (username: string, password: string, seri
 	const db = database.db(dbName);
 	const collection = db.collection("accounts");
 	await collection.insertOne(adminObj);
-
 	return true;
 };
 
@@ -61,7 +59,7 @@ export const generateUserModerator = async (username: string, password: string, 
 	const existSerienummer = await checkExistence("accounts", { username: parent });
 	const existUsername = await checkExistence("accounts", { username });
 
-	if (existSerienummer || existUsername) {
+	if (existSerienummer.length || existUsername.length) {
 		return false;
 	}
 
@@ -77,6 +75,39 @@ export const generateUserModerator = async (username: string, password: string, 
 	const collection = db.collection("accounts");
 	await collection.insertOne(userObj);
 
+	return true;
+};
+
+export const generateScoreboard = async (serialnumber: string) => {
+	const reply = await checkExistence("scoreboards", { serialnumber });
+	console.log("reply from db", reply);
+	if (reply.length) {
+		return false;
+	}
+
+	const scoreboardObj: scoreboard = {
+		serialnumber,
+		isPlaying: false,
+		K1B: "black",
+		K2B: "black",
+		K1O: "black",
+		K2O: "black",
+		scoreHome: 0,
+		scoreOut: 0,
+		nameHome: "THUIS",
+		nameOut: "UIT",
+		timerStart: new Date(),
+		timerOffset: new Date(),
+		pauseStart: new Date(),
+		pauseStop: new Date(),
+		lastKnownIp: "0.0.0.0",
+		hasAdmin: false,
+	};
+
+	await connect();
+	const db = database.db(dbName);
+	const collection = db.collection("scoreboards");
+	await collection.insertOne(scoreboardObj);
 	return true;
 };
 
