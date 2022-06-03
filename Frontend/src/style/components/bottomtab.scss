@@ -1,7 +1,9 @@
 // WIP
 .c-bottomtab {
 	width: 100%;
-	background-color: #353535;
+	//background-color: #353535;
+	background-color: #000000;
+	border-top: var(--global-border-size) solid var(--global-color-text);
 	padding: 0.5rem;
 	display: flex;
 	justify-content: space-between;
@@ -21,7 +23,8 @@
 		}
 
 		&-active {
-			background-color: #2a2a2a;
+			//background-color: #2a2a2a;
+			background-color: #121212;
 
 			& .c-bottomtab__page-icon {
 				stroke: #95d1b5;
