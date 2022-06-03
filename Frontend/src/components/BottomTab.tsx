@@ -1,18 +1,27 @@
+import { useNavigate } from "react-router-dom";
 export const BottomTab = () => {
+	const navigate = useNavigate();
+
+	//Navigate is faster, but doesn't check auth. (TODO: Check auth)
+	//Altho no pages show bottom tabs when using is not logged in, so it should be fine.
 	const goToTemplates = async () => {
-		document.location.href = "/templates";
+		//document.location.href = "/templates";
+		navigate("/templates");
 	};
 
 	const goToCurrentMatch = async () => {
-		document.location.href = "/score";
+		//document.location.href = "/score";
+		navigate("/score");
 	};
 
 	const goToUsers = async () => {
-		document.location.href = "/users";
+		//document.location.href = "/users";
+		navigate("/users");
 	};
 
 	const goToUserSettings = async () => {
-		document.location.href = "/usersettings";
+		//document.location.href = "/usersettings";
+		navigate("/usersettings");
 	};
 
 	return (
