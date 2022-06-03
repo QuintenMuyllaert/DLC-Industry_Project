@@ -1,0 +1,47 @@
+.p-usersettings {
+	width: min(24rem, 100%);
+	padding: 0 1rem 1rem 1rem;
+	height: 100%;
+	display: grid;
+	gap: 1rem;
+	grid-template-rows: fit-content 1fr;
+	grid-template-columns: 1fr;
+	overflow: hidden;
+
+	.userheader {
+		width: 100%;
+		justify-items: center;
+		display: grid;
+		grid-template-columns: 1fr;
+		grid-template-rows: 1fr;
+		height: fit-content;
+
+		.iconcontainer {
+			grid-area: 1/1/1/1;
+			width: fit-content;
+			height: fit-content;
+			padding: 2rem;
+			padding-top: 4rem;
+			background-color: #121212;
+			z-index: 1;
+
+			.icon {
+				width: 10rem;
+				height: 10rem;
+			}
+		}
+	}
+
+	.content {
+		.item {
+			padding-bottom: 2rem;
+
+			.title {
+				padding-bottom: 0.8rem;
+				font-family: Raleway;
+				font-weight: 500;
+				margin-left: 0.5rem;
+			}
+		}
+	}
+}
