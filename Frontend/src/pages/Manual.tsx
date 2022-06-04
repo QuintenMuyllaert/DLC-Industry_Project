@@ -27,7 +27,7 @@ export const Manual = () => {
 			return;
 		}
 
-		const res = await fetch(`${document.location.origin}/register-admin`, {
+		const res = await fetch(`${document.location.origin}/register`, {
 			method: "POST",
 			mode: "cors",
 			cache: "no-cache",

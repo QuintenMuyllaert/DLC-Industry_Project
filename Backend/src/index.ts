@@ -119,10 +119,12 @@ io.on("connection", async (socket: any) => {
 				break;
 			}
 			case "message": {
+				scoreboardSocket.data.message = value;
 				scoreboardSocket.emitDisplays("data", "#message", "text", value);
 				break;
 			}
 			case "timer": {
+				scoreboardSocket.data.timer = value;
 				scoreboardSocket.emitDisplays("data", "#timer", "text", value);
 				break;
 			}
@@ -186,28 +188,28 @@ app.get("/status", async (req, res) => {
 
 app.post("/auth", login);
 
-app.post("/register-admin", async (req: Request, res: Response) => {
-	const { username, password, serialnumber } = req.body;
-	if (!(username && password && serialnumber)) {
+app.post("/register", async (req: Request, res: Response) => {
+	console.log("Got register request");
+	const { username, password, serial } = req.body;
+	if (!(username && password && serial)) {
+		console.log("Missing params on register");
 		res.status(400); // Bad Request
 		res.send("Invalid / Missing username, password and/or serialnumber");
 		return;
 	}
 
-	await register(req, res);
-	await login(req, res);
-});
+	console.log("Register attempt");
+	if (await register(req, res)) {
+		console.log("Login attempt post register");
 
-app.post("/register-user", async (req: Request, res: Response) => {
-	const { username, password, serialnumber } = req.body;
-	if (!(username && password && serialnumber)) {
-		res.status(400); // Bad Request
-		res.send("Invalid / Missing username, password and/or serialnumber");
-		return;
+		if (await login(req, res)) {
+			console.log("Login successful");
+		} else {
+			console.log("Login failed, CODE ISSUE!");
+		}
+	} else {
+		console.log("Register failed");
 	}
-
-	await register(req, res);
-	await login(req, res);
 });
 
 //DEFINE API ROUTES ABOVE !!!

@@ -15,7 +15,7 @@ export const connect = async () => {
 	console.log("Connected to database");
 };
 
-export const checkExistence = async (collectionName: string, obj: any) => {
+export const checkExistence = async (collectionName: "accounts" | "scoreboards", obj: any) => {
 	await connect();
 	//console.log("Finding in", collectionName, obj);
 	const db = database.db(dbName);
@@ -25,12 +25,12 @@ export const checkExistence = async (collectionName: string, obj: any) => {
 	return checkExistence || [];
 };
 
-export const generateUserAdmin = async (username: string, password: string, serialnumber: string) => {
+export const generateUserAdmin = async (username: string, password: string, serial: string) => {
 	if (!connstr || connstr == null) {
 		return true;
 	}
 
-	const existSerienummer = await checkExistence("accounts", { serialnumber });
+	const existSerienummer = await checkExistence("accounts", { serial });
 	const existUsername = await checkExistence("accounts", { username });
 
 	if (existSerienummer.length || existUsername.length) {
@@ -38,7 +38,7 @@ export const generateUserAdmin = async (username: string, password: string, seri
 	}
 
 	const adminObj: admin = {
-		serialnumber,
+		serial,
 		username,
 		password: await hash(password),
 		parent: false,
@@ -78,13 +78,13 @@ export const generateUserModerator = async (username: string, password: string, 
 	return true;
 };
 
-export const getScoreboardData = async (serialnumber: string) => {
-	return await checkExistence("scoreboards", { serialnumber });
+export const getScoreboardData = async (serial: string) => {
+	return await checkExistence("scoreboards", { serial });
 };
 
-export const generateScoreboard = async (serialnumber: string) => {
+export const generateScoreboard = async (serial: string) => {
 	const scoreboardObj: scoreboard = {
-		serialnumber,
+		serial,
 		isPlaying: false,
 		hb: "black",
 		ho: "black",
@@ -108,7 +108,7 @@ export const generateScoreboard = async (serialnumber: string) => {
 	const db = database.db(dbName);
 	const collection = db.collection("scoreboards");
 	await collection.insertOne(scoreboardObj);
-	return getScoreboardData(serialnumber);
+	return getScoreboardData(serial);
 };
 
 export const validateUser = async (username: string, password: string) => {
