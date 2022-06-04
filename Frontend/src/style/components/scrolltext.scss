@@ -28,9 +28,9 @@
 
 @keyframes scrollText {
 	from {
-		transform: translateX(100vw);
+		transform: translateX(calc(100vw + 1em));
 	}
 	to {
-		transform: translateX(-100%);
+		transform: translateX(calc(-100% - 1em));
 	}
 }
