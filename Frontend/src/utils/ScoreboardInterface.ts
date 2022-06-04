@@ -1,7 +1,7 @@
 import { ping, findApi } from "../utils/Networking";
 import { io } from "socket.io-client";
 
-import { colorLUT } from "../utils/Utils";
+import { colorLUT, getQuery } from "../utils/Utils";
 import Appstate from "./Appstate";
 
 const usingHTTP = false;
@@ -76,7 +76,40 @@ export class InterfaceSocket {
 	constructor(uri: string) {
 		this.uri = uri;
 		this.socket = io(this.uri, { transports: ["websocket"] });
-		this.socket.on("data", (data: any) => {});
+
+		this.socket.on("connect", () => {
+			const { serial } = getQuery();
+			if (serial && serial.length) {
+				console.log(serial);
+				this.socket.emit("data", serial); // send serial number to server TODO: get serial number from device
+
+				this.socket.on("data", function (element: string, thing: string, type: string, value: string) {
+					//$("#wauw").attr('style',dat[0]+": "+dat[1]); // update data
+					console.log(element, thing, type, value);
+
+					if (["#hb", "#ub", "#ho", "#uo"].includes(element)) {
+						Appstate.updateGlobalState(element.replace("#", ""), value.replace("fill:", ""));
+					}
+					if (element == "#timer" && thing == "text") {
+						Appstate.updateGlobalState("timer", type);
+					}
+					if (element == "#t1" && thing == "text") {
+						Appstate.updateGlobalState("t1", type);
+					}
+					if (element == "#t2" && thing == "text") {
+						Appstate.updateGlobalState("t2", type);
+					}
+					if (element == "#message" && thing == "text") {
+						Appstate.updateGlobalState("message", type);
+					}
+				});
+
+				this.socket.on("invokeuri", function (uri: string) {
+					//NYI
+				});
+			}
+		});
+
 		this.socket.on("state", (data: any) => {
 			Appstate.mergeGlobalState(data);
 		});

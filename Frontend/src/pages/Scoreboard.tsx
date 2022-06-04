@@ -1,6 +1,7 @@
 import Clock from "../components/Clock";
 import Flag from "../components/Flag";
 import Scrolltext from "../components/Scrolltext";
+import { globalState } from "../utils/Appstate";
 
 export const Scoreboard = () => {
 	return (
@@ -9,28 +10,28 @@ export const Scoreboard = () => {
 				<header>
 					<div className="team">
 						<div className="flag">
-							<Flag top="#FF0000" bottom="#00FF5D" />
+							<Flag top={globalState.hb} bottom={globalState.ho} />
 						</div>
 					</div>
-					<Clock time={0} />
+					<Clock time={globalState.timer} />
 					<div className="team">
 						<div className="flag">
-							<Flag top="#1900FF" bottom="#FFEE00" />
+							<Flag top={globalState.ub} bottom={globalState.uo} />
 						</div>
 					</div>
 				</header>
 				<section>
-					<h1 className="teamname">Torhout</h1>
+					<h1 className="teamname">{globalState.nameHome}</h1>
 					<h3 style={{ opacity: 0 }}>-</h3>
-					<h1 className="teamname">Kortrijk</h1>
+					<h1 className="teamname">{globalState.nameOut}</h1>
 				</section>
 				<main>
-					<h2 className="teamscore">2</h2>
-					<h2 className="teamscore">0</h2>
+					<h2 className="teamscore">{globalState.t1}</h2>
+					<h2 className="teamscore">{globalState.t2}</h2>
 				</main>
 			</div>
 			<footer>
-				<Scrolltext text={"DLC Sportsystems QMA Simulator"} />
+				<Scrolltext text={globalState.message} />
 			</footer>
 		</div>
 	);
