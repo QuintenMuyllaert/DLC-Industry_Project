@@ -7,7 +7,6 @@ import path from "path";
 import jwt from "jsonwebtoken";
 import http from "http";
 import cookie from "cookie";
-import util from "util";
 import { Server } from "socket.io";
 
 import { writeFileSync, existsSync } from "fs";
