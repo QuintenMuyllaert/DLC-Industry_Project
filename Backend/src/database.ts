@@ -17,11 +17,11 @@ export const connect = async () => {
 
 export const checkExistence = async (collectionName: string, obj: any) => {
 	await connect();
-	console.log("Finding in", collectionName, obj);
+	//console.log("Finding in", collectionName, obj);
 	const db = database.db(dbName);
 	const collection = db.collection(collectionName);
 	const checkExistence = await collection.find(obj).toArray();
-	console.log("Reply", checkExistence, checkExistence.length);
+	//console.log("Reply", checkExistence, checkExistence.length);
 	return checkExistence || [];
 };
 
@@ -78,22 +78,22 @@ export const generateUserModerator = async (username: string, password: string, 
 	return true;
 };
 
-export const generateScoreboard = async (serialnumber: string) => {
-	const reply = await checkExistence("scoreboards", { serialnumber });
-	console.log("reply from db", reply);
-	if (reply.length) {
-		return false;
-	}
+export const getScoreboardData = async (serialnumber: string) => {
+	return await checkExistence("scoreboards", { serialnumber });
+};
 
+export const generateScoreboard = async (serialnumber: string) => {
 	const scoreboardObj: scoreboard = {
 		serialnumber,
 		isPlaying: false,
-		K1B: "black",
-		K2B: "black",
-		K1O: "black",
-		K2O: "black",
-		scoreHome: 0,
-		scoreOut: 0,
+		hb: "black",
+		ho: "black",
+		ub: "black",
+		uo: "black",
+		t1: 0,
+		t2: 0,
+		message: "DLC Sportsystems QMA",
+		timer: "00:00",
 		nameHome: "THUIS",
 		nameOut: "UIT",
 		timerStart: new Date(),
@@ -108,7 +108,7 @@ export const generateScoreboard = async (serialnumber: string) => {
 	const db = database.db(dbName);
 	const collection = db.collection("scoreboards");
 	await collection.insertOne(scoreboardObj);
-	return true;
+	return getScoreboardData(serialnumber);
 };
 
 export const validateUser = async (username: string, password: string) => {

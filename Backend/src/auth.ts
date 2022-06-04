@@ -24,7 +24,7 @@ export const login = async (req: Request, res: Response) => {
 		return false;
 	}
 
-	res.cookie("bearer", generateAccessToken({ username }), { maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true });
+	res.cookie("bearer", generateAccessToken({ username, serial: "TESTBOARD" }), { maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true });
 	res.cookie("auth", true, { maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: false });
 	res.status(202); // Accepted
 	res.send("AUTH OK");

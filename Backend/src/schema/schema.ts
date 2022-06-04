@@ -14,12 +14,15 @@ export interface user {
 
 export interface scoreboard {
 	isPlaying: boolean;
-	K1B: string;
-	K2B: string;
-	K1O: string;
-	K2O: string;
-	scoreHome: number;
-	scoreOut: number;
+	hb: string;
+	ho: string;
+	ub: string;
+	uo: string;
+	t1: number;
+	t2: number;
+	message: string;
+	timer: string;
+
 	nameHome: string;
 	nameOut: string;
 	timerStart: Date;
