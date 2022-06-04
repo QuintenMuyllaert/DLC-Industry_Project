@@ -30,3 +30,15 @@ export const getCookies = () => {
 	}
 	return cookies;
 };
+
+export const getQuery = () => {
+	const query = window.location.search.substring(1);
+	const arrayb = query.split("&");
+	const querryObject: LooseObject = {};
+	for (const item of arrayb) {
+		const key = item.split("=")[0];
+		const value = item.replace(`${key}=`, "");
+		querryObject[key] = value;
+	}
+	return querryObject;
+};
