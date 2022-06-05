@@ -23,6 +23,30 @@ export const MatchSetup = () => {
 				</div>
 				<h1>Match instellingen</h1>
 				<div className="matchsettings-container">
+					{/* <Input id="template" label="Template selecteren" type="text" /> */}
+
+					<div className="c-option">
+						<label htmlFor="selectedTemplate">Template selecteren</label>
+						<select id="selectedTemplate">
+							<option value="voetbal">Voetbal</option>
+							<option value="voetbaljeugd">Voetbal jeugd</option>
+						</select>
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							width="24"
+							height="24"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="2"
+							stroke-linecap="round"
+							stroke-linejoin="round">
+							<polyline points="6 9 12 15 18 9"></polyline>
+						</svg>
+					</div>
+
+					<Input id="sport" label="Naam sport" type="text" />
+
 					<div className="match-helft">
 						<div className="helft">
 							<Input label="Helften" type="number" id="helften-aantal" />
@@ -31,7 +55,10 @@ export const MatchSetup = () => {
 							<Input label="Duur helft" type="number" id="helften-tijd" />
 						</div>
 					</div>
-					<Input label="Sponsor selectie" type="text" id="sponsors" />
+					<div className="c-checkbox">
+						<input type="checkbox" id="saveTemplate" name="saveTemplate" value="Yes" />
+						<label htmlFor="saveTemplate">Deze instellingen opslaan als template</label>
+					</div>
 				</div>
 				<IconButton color="white" label="Start match"></IconButton>
 			</div>
