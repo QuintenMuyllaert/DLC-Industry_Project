@@ -17,21 +17,13 @@ export const Colorpicker = ({
 	active: boolean;
 	handleClickPopup?: (event?: any) => any;
 }) => {
-	const colorLUT: LooseObject = {
-		green: "Groen",
-		lightblue: "LichtBlauw",
-		darkblue: "DonkerBlauw",
-		blue: "Blauw",
-		white: "Wit",
-		black: "Zwart",
-		yellow: "Geel",
-		red: "Rood",
-		orange: "Oranje",
-		darkred: "bordeaux",
-	};
+	const colorsB = [];
+	const colorsO = [];
+	for (const color of state.colors) {
+		colorsB.push(<Color updateColorState={updateState} updateScoreState={updateScoreState} side={"B"} team={team} color={color} Ecolor={color} />);
+		colorsO.push(<Color updateColorState={updateState} updateScoreState={updateScoreState} side={"O"} team={team} color={color} Ecolor={color} />);
+	}
 
-	let colors = Object.values(colorLUT);
-	let Ecolors = Object.keys(colorLUT);
 	return (
 		<>
 			<div className={active ? "c-colorpicker__overlay" : "c-colorpicker__overlay c-colorpicker__hidden"}></div>
@@ -55,16 +47,7 @@ export const Colorpicker = ({
 					<Flag top={team == 1 ? state.hb : state.ub} bottom={team == 1 ? state.ho : state.uo} />
 					<p>Kies een kleur voor de bovenkant</p>
 					<div className="c-colorpicker__colors">
-						<Color updateColorState={updateState} updateScoreState={updateScoreState} side={"B"} team={team} color={colors[0]} Ecolor={Ecolors[0]} />
-						<Color updateColorState={updateState} updateScoreState={updateScoreState} side={"B"} team={team} color={colors[1]} Ecolor={Ecolors[1]} />
-						<Color updateColorState={updateState} updateScoreState={updateScoreState} side={"B"} team={team} color={colors[2]} Ecolor={Ecolors[2]} />
-						<Color updateColorState={updateState} updateScoreState={updateScoreState} side={"B"} team={team} color={colors[3]} Ecolor={Ecolors[3]} />
-						<Color updateColorState={updateState} updateScoreState={updateScoreState} side={"B"} team={team} color={colors[4]} Ecolor={Ecolors[4]} />
-						<Color updateColorState={updateState} updateScoreState={updateScoreState} side={"B"} team={team} color={colors[5]} Ecolor={Ecolors[5]} />
-						<Color updateColorState={updateState} updateScoreState={updateScoreState} side={"B"} team={team} color={colors[6]} Ecolor={Ecolors[6]} />
-						<Color updateColorState={updateState} updateScoreState={updateScoreState} side={"B"} team={team} color={colors[7]} Ecolor={Ecolors[7]} />
-						<Color updateColorState={updateState} updateScoreState={updateScoreState} side={"B"} team={team} color={colors[8]} Ecolor={Ecolors[8]} />
-						<Color updateColorState={updateState} updateScoreState={updateScoreState} side={"B"} team={team} color={colors[9]} Ecolor={Ecolors[9]} />
+						<>{colorsB}</>
 						<div className="c-colorpicker__colors-colorAdd">
 							<input className="c-colorpicker__colors-colorAdd-input" type="color" id="newColorTop" />
 							<label className="c-colorpicker__colors-colorAdd-label" htmlFor="newColorTop">
@@ -87,16 +70,7 @@ export const Colorpicker = ({
 					</div>
 					<p>Kies een kleur voor de onderkant</p>
 					<div className="c-colorpicker__colors">
-						<Color updateColorState={updateState} updateScoreState={updateScoreState} side={"O"} team={team} color={colors[0]} Ecolor={Ecolors[0]} />
-						<Color updateColorState={updateState} updateScoreState={updateScoreState} side={"O"} team={team} color={colors[1]} Ecolor={Ecolors[1]} />
-						<Color updateColorState={updateState} updateScoreState={updateScoreState} side={"O"} team={team} color={colors[2]} Ecolor={Ecolors[2]} />
-						<Color updateColorState={updateState} updateScoreState={updateScoreState} side={"O"} team={team} color={colors[3]} Ecolor={Ecolors[3]} />
-						<Color updateColorState={updateState} updateScoreState={updateScoreState} side={"O"} team={team} color={colors[4]} Ecolor={Ecolors[4]} />
-						<Color updateColorState={updateState} updateScoreState={updateScoreState} side={"O"} team={team} color={colors[5]} Ecolor={Ecolors[5]} />
-						<Color updateColorState={updateState} updateScoreState={updateScoreState} side={"O"} team={team} color={colors[6]} Ecolor={Ecolors[6]} />
-						<Color updateColorState={updateState} updateScoreState={updateScoreState} side={"O"} team={team} color={colors[7]} Ecolor={Ecolors[7]} />
-						<Color updateColorState={updateState} updateScoreState={updateScoreState} side={"O"} team={team} color={colors[8]} Ecolor={Ecolors[8]} />
-						<Color updateColorState={updateState} updateScoreState={updateScoreState} side={"O"} team={team} color={colors[9]} Ecolor={Ecolors[9]} />
+						<>{colorsO}</>
 						<div className="c-colorpicker__colors-colorAdd">
 							<input className="c-colorpicker__colors-colorAdd-input" type="color" id="newColorBottom" />
 							<label className="c-colorpicker__colors-colorAdd-label" htmlFor="newColorBottom">

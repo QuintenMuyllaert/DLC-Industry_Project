@@ -21,6 +21,7 @@ export const defaultState: LooseObject = {
 	messagePopup: false,
 	teamColorTeam1Popup: false,
 	teamColorTeam2Popup: false,
+	colors: ["green", "lightblue", "darkblue", "purple", "white", "black", "yellow", "red", "orange", "darkred"],
 };
 
 export const attachUseState = (state: any, setState: any) => {
