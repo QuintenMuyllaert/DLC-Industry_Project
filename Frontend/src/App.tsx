@@ -2,6 +2,7 @@ import { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import Appstate from "./utils/Appstate";
+import "./style/screen.scss";
 
 import Protect from "./components/Protect";
 import Root from "./pages/Root";
@@ -11,14 +12,13 @@ import Score from "./pages/Score";
 import Templates from "./pages/Templates";
 import Spectate from "./pages/Spectate";
 import Scoreboard from "./pages/Scoreboard";
-
-import "./style/screen.scss";
 import Manual from "./pages/Manual";
 import ChangePassword from "./pages/ChangePassword";
 import Livestream from "./pages/Livestream";
 import Users from "./pages/Users";
 import UserSettings from "./pages/UserSettings";
 import SponsorTemplates from "./pages/SponsorTemplates";
+import TemplateSettings from "./pages/TemplateSettings";
 
 export const App = () => {
 	Appstate.attachUseState(...useState(Appstate.defaultState));
@@ -35,6 +35,7 @@ export const App = () => {
 					<Route path="/changepassword" element={<ChangePassword />} />
 					<Route path="/score" element={<Protect element={<Score />} />} />
 					<Route path="/templates" element={<Protect element={<Templates />} />} />
+					<Route path="/templatesettings" element={<Protect element={<TemplateSettings />} />} />
 					<Route path="/matchsetup" element={<Protect element={<MatchSetup />} />} />
 					<Route path="/manual" element={<Manual />} />
 					<Route path="/spectate" element={<Spectate />} />
