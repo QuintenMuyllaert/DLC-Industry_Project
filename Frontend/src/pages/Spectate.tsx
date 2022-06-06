@@ -6,7 +6,6 @@ export const Spectate = () => {
 	return (
 		<>
 			<div className="p-spectate maxwidth">
-				<header></header>
 				<Clock time={globalState.timer} />
 				<div className="team">
 					<div className="flag">
