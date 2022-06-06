@@ -51,7 +51,9 @@ export const TemplateSettings = () => {
 						<UserSetting content="30 minuten" />
 					</div>
 				</div>
-				<IconButton label="OPSLAAN" color="white" />
+				<div className="p-templatesettings__btn">
+					<IconButton label="OPSLAAN" color="white" />
+				</div>
 			</div>
 			<BottomTab />
 		</>

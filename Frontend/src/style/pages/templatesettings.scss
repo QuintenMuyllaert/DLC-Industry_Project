@@ -1,10 +1,12 @@
 .p-templatesettings {
-	width: min(24rem, 100%);
-	padding: 0 1rem 1rem 1rem;
+	padding: 0 0rem 1rem 0rem;
 	height: 100%;
 	display: grid;
 	gap: 1rem;
 	grid-template-rows: auto auto 1fr auto auto;
+	overflow: hidden;
+	width: 100%;
+	max-width: 450px;
 
 	overflow: hidden;
 
@@ -36,6 +38,7 @@
 		display: grid;
 		grid-template-rows: auto;
 		grid-template-columns: 1fr;
+		padding: 0 1rem;
 
 		gap: 2rem;
 
@@ -44,5 +47,9 @@
 				padding-bottom: 0.5rem;
 			}
 		}
+	}
+
+	&__btn {
+		padding: 0 1rem;
 	}
 }
