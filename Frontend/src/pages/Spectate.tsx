@@ -1,25 +1,24 @@
-import { Link } from "react-router-dom";
 import Clock from "../components/Clock";
 import Flag from "../components/Flag";
+import { globalState } from "../utils/Appstate";
 
 export const Spectate = () => {
 	return (
 		<>
 			<div className="p-spectate maxwidth">
-				<header></header>
-				<Clock time={0} />
+				<Clock time={globalState.timer} />
 				<div className="team">
 					<div className="flag">
-						<Flag top="#FF0000" bottom="#00FF5D" />
+						<Flag top={globalState.hb} bottom={globalState.ho} />
 					</div>
-					<h1 className="teamname">Torhout</h1>
-					<p>2</p>
+					<h1 className="teamname">{globalState.nameHome}</h1>
+					<p>{globalState.t1}</p>
 				</div>
 				<div className="team">
-					<h1 className="teamname">Kortrijk</h1>
-					<p>0</p>
+					<h1 className="teamname">{globalState.nameOut}</h1>
+					<p>{globalState.t2}</p>
 					<div className="flag">
-						<Flag top="#1900FF" bottom="#FFEE00" />
+						<Flag top={globalState.ub} bottom={globalState.uo} />
 					</div>
 				</div>
 			</div>

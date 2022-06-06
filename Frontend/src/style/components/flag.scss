@@ -5,16 +5,22 @@
 	width: 100%;
 	justify-items: center;
 	cursor: pointer;
-	border: var(--global-border-size) solid var(--global-color-button-border);
+
+	.top,
+	.bottom {
+		border: var(--global-border-size) solid var(--global-color-button-border);
+	}
 
 	.top {
 		background-color: attr(colorvalue);
 		width: min(100%, 9rem);
 		height: 2rem;
+		border-bottom: none;
 	}
 	.bottom {
 		background-color: attr(colorvalue);
 		width: min(100%, 9rem);
 		height: 2rem;
+		border-top: none;
 	}
 }

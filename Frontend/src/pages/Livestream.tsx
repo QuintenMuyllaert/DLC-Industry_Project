@@ -1,4 +1,4 @@
-import { updateGlobalState } from "../utils/Appstate";
+import { updateGlobalState, globalState } from "../utils/Appstate";
 
 export const Livestream = () => {
 	updateGlobalState("color", "png");
@@ -12,21 +12,21 @@ export const Livestream = () => {
 			<header>
 				<div className="scoreboard">
 					<div className="teamcolors">
-						<div className="color-home-top"></div>
-						<div className="color-home-bottom"></div>
+						<div style={{ backgroundColor: globalState.hb }} className="color-home-top"></div>
+						<div style={{ backgroundColor: globalState.ho }} className="color-home-bottom"></div>
 					</div>
 					<div className="score-container">
-						<p className="score">1</p>
+						<p className="score">{globalState.t1}</p>
 					</div>
 					<div className="time-container">
-						<p className="time">00:00</p>
+						<p className="time">{globalState.timer}</p>
 					</div>
 					<div className="score-container">
-						<p className="score">0</p>
+						<p className="score">{globalState.t2}</p>
 					</div>
 					<div className="teamcolors">
-						<div className="color-out-top"></div>
-						<div className="color-out-bottom"></div>
+						<div style={{ backgroundColor: globalState.ub }} className="color-out-top"></div>
+						<div style={{ backgroundColor: globalState.uo }} className="color-out-bottom"></div>
 					</div>
 				</div>
 			</header>
