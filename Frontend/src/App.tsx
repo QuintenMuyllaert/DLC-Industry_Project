@@ -18,6 +18,7 @@ import ChangePassword from "./pages/ChangePassword";
 import Livestream from "./pages/Livestream";
 import Users from "./pages/Users";
 import UserSettings from "./pages/UserSettings";
+import SponsorTemplates from "./pages/SponsorTemplates";
 
 export const App = () => {
 	Appstate.attachUseState(...useState(Appstate.defaultState));
@@ -39,6 +40,7 @@ export const App = () => {
 					<Route path="/spectate" element={<Spectate />} />
 					<Route path="/users" element={<Protect element={<Users />} />} />
 					<Route path="/usersettings" element={<Protect element={<UserSettings />} />} />
+					<Route path="/sponsortemplates" element={<Protect element={<SponsorTemplates />} />} />
 				</Routes>
 			</div>
 		</Router>
