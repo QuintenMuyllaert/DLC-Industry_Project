@@ -55,7 +55,7 @@ export const Users = () => {
 				<IconButton label="Toevoegen" color="white" />
 
 				{/* <div className="userlist"> */}
-				<h1 className="title">Deze mensen hebben toegang</h1>
+				<h1 className="subtitle">Deze mensen hebben toegang</h1>
 				<div className="list scrollbar">
 					<User userName="Milan" />
 					<User userName="Quinten" />
