@@ -1,10 +1,9 @@
 "use-strict";
-import express, { Express, Request, Response } from "express";
+import express, { Request, Response } from "express";
 import cookieParser from "cookie-parser";
 import bodyParser from "body-parser";
 import dotenv from "dotenv";
 import path from "path";
-import jwt from "jsonwebtoken";
 import http from "http";
 import cookie from "cookie";
 import { Server } from "socket.io";
@@ -13,9 +12,9 @@ import { writeFileSync, existsSync } from "fs";
 import { randomBytes } from "crypto";
 
 import { login, register } from "./auth";
-import { hslToHex, to2digits } from "./util";
-
-import { generateScoreboard } from "./database";
+import { jwtverifyAsync } from "./crypto";
+import { generateScoreboard, getScoreboardData } from "./database";
+import { SocketNamespace } from "./socketnamespace";
 
 interface LooseObject {
 	[key: string]: any;
@@ -33,7 +32,6 @@ if (!existsSync("./.env")) {
 dotenv.config();
 
 const port = 80; // TODO : Move to config
-const protectedRoutes = ["/score", "/register-user"]; // TODO : Move to config
 
 const app = express();
 
@@ -41,109 +39,54 @@ const server = http.createServer(app);
 const io = new Server(server);
 
 // WS(S) server
-const scoreboards: LooseObject = {};
+const namespaces: LooseObject = {};
+const gengetNamespace = async (serial: string, allowGeneration: boolean) => {
+	if (!namespaces[serial]) {
+		let reply = await getScoreboardData(serial);
+		if (!reply.length && allowGeneration) {
+			reply = await generateScoreboard(serial);
+		}
 
-io.on("connection", (socket: any) => {
+		namespaces[serial] = new SocketNamespace(serial, reply[0]);
+	}
+	return namespaces[serial];
+};
+
+io.on("connection", async (socket: any) => {
 	const cookief = socket.handshake.headers.cookie;
 	const cookies = cookief ? cookie.parse(socket.handshake.headers.cookie) : {};
-	console.log("a user connected", socket.id, cookies);
+	console.log(socket.id, "Connection made to websocket");
 
-	socket.auth = false;
-
-	if (cookies.bearer) {
-		//Check and verify the JWT token
-		const token = cookies?.bearer;
-		jwt.verify(token, process.env.TOKEN_SECRET as string, (err: any, body: any) => {
-			if (!err) {
-				//Token is valid!
-				socket.auth = true;
-				return;
-			}
-		});
-	}
-	const dt = 500; //ms
-	const interval = setInterval(() => {
-		const now = Date.now();
-		const color = hslToHex((0.1 * now) % 360, 100, 50);
-
-		const d = new Date(now);
-		//TODO : Actually use logic.
-
-		// In the API this is a dynamic JQuerry call.
-		// socket.emit("data",element,thing,type,value); === $(element)[thing](type,?value);
-
-		//socket.emit("data", "#hb", "attr", "style", `fill:${color}`);
-		//socket.emit("data", "#ub", "attr", "style", `fill:${color}`);
-		//socket.emit("data", "#timer", "text", to2digits(d.getHours()) + ":" + to2digits(d.getMinutes()));
-		socket.emit("data", "#timer", "text", to2digits(d.getHours()) + ":" + to2digits(d.getMinutes()));
-		//socket.emit("data", "#message", "attr", "x", 1.2 * 336 - ((performance.now() * 0.04) % (336 * 2 * 1.2)));
-		//socket.emit("data", "#message", "text", "test 1234");
-	}, dt);
-
-	socket.on("data", async (data: any) => {
-		console.log(socket.id, data);
-		if (!data) {
+	socket.on("data", async (serial: any) => {
+		//When display sends serial number over wss.
+		console.log(socket.id, "SERIAL :", serial);
+		if (!serial) {
 			return;
 		}
-		socket.serial = data;
-		socket.data = {
-			t1: 0,
-			t2: 0,
-			hb: "black",
-			ho: "black",
-			ub: "black",
-			uo: "black",
-			timer: 0,
-			message: "Quinten was hier",
-			screen: "P0",
-		};
-
-		socket.emit("data", "#hb", "attr", "style", `fill:${socket.data.hb}`);
-		socket.emit("data", "#ub", "attr", "style", `fill:${socket.data.ub}`);
-		socket.emit("data", "#ho", "attr", "style", `fill:${socket.data.ho}`);
-		socket.emit("data", "#uo", "attr", "style", `fill:${socket.data.uo}`);
-		socket.emit("data", "#message", "text", socket.data.message);
-		socket.emit("data", "#timer", "text", socket.data.timer);
-		socket.emit("data", "#t1", "text", socket.data.t1);
-		socket.emit("data", "#t2", "text", socket.data.t2);
-
-		scoreboards[socket.serial] = socket;
-
-		console.log("Scoreboards connected : ", Object.keys(scoreboards).length, Object.keys(scoreboards));
-		const didGenerateBoard = await generateScoreboard(socket.serial);
-		console.log(didGenerateBoard ? "Generated scoreboard" : "Failed to generate scoreboard (Exists)");
-	});
-
-	socket.on("disconnect", () => {
-		console.log("user disconnected", socket.id);
-		clearInterval(interval);
-		const keys = Object.keys(scoreboards);
-		for (const key of keys) {
-			if (scoreboards[key].id === socket.id) {
-				//remove the scoreboard
-				console.log("user was scoreboard", socket.serial);
-				delete scoreboards[key];
-				break;
-			}
-		}
-		console.log("Scoreboards connected : ", Object.keys(scoreboards).length, Object.keys(scoreboards));
+		socket.serial = serial;
+		const ns = await gengetNamespace(serial, true);
+		ns.addDisplay(socket);
 	});
 
 	socket.on("input", (type: any, value: any) => {
+		//When user sends input
 		console.log("Input received", type, value);
 		if (type === undefined || value === undefined) {
 			console.log("No type or value");
 			return;
 		}
 
-		//TODO : link board to auth
 		if (!socket.auth) {
 			console.log("No auth");
 			return;
 		}
 
-		//TODO : link scoreboard v
-		const scoreboardSocket = Object.values(scoreboards)[0];
+		if (!socket.body) {
+			console.log("No body");
+			return;
+		}
+
+		const scoreboardSocket = namespaces[body.serial];
 		if (!scoreboardSocket) {
 			console.log("No scoreboard");
 			return;
@@ -153,22 +96,22 @@ io.on("connection", (socket: any) => {
 		switch (type) {
 			case "1B": {
 				scoreboardSocket.data.hb = value;
-				scoreboardSocket.emit("data", "#hb", "attr", "style", `fill:${value}`);
+				scoreboardSocket.emitDisplays("data", "#hb", "attr", "style", `fill:${value}`);
 				break;
 			}
 			case "2B": {
 				scoreboardSocket.data.ub = value;
-				scoreboardSocket.emit("data", "#ub", "attr", "style", `fill:${value}`);
+				scoreboardSocket.emitDisplays("data", "#ub", "attr", "style", `fill:${value}`);
 				break;
 			}
 			case "1O": {
 				scoreboardSocket.data.ho = value;
-				scoreboardSocket.emit("data", "#ho", "attr", "style", `fill:${value}`);
+				scoreboardSocket.emitDisplays("data", "#ho", "attr", "style", `fill:${value}`);
 				break;
 			}
 			case "2O": {
 				scoreboardSocket.data.uo = value;
-				scoreboardSocket.emit("data", "#uo", "attr", "style", `fill:${value}`);
+				scoreboardSocket.emitDisplays("data", "#uo", "attr", "style", `fill:${value}`);
 				break;
 			}
 			case "screen": {
@@ -176,11 +119,13 @@ io.on("connection", (socket: any) => {
 				break;
 			}
 			case "message": {
-				scoreboardSocket.emit("data", "#message", "text", value);
+				scoreboardSocket.data.message = value;
+				scoreboardSocket.emitDisplays("data", "#message", "text", value);
 				break;
 			}
 			case "timer": {
-				scoreboardSocket.emit("data", "#timer", "text", value);
+				scoreboardSocket.data.timer = value;
+				scoreboardSocket.emitDisplays("data", "#timer", "text", value);
 				break;
 			}
 			case "G1": {
@@ -189,7 +134,7 @@ io.on("connection", (socket: any) => {
 				} else {
 					scoreboardSocket.data.t1 += value;
 				}
-				scoreboardSocket.emit("data", "#t1", "text", scoreboardSocket.data.t1);
+				scoreboardSocket.emitDisplays("data", "#t1", "text", scoreboardSocket.data.t1);
 				break;
 			}
 			case "G2": {
@@ -198,7 +143,7 @@ io.on("connection", (socket: any) => {
 				} else {
 					scoreboardSocket.data.t2 += value;
 				}
-				scoreboardSocket.emit("data", "#t2", "text", scoreboardSocket.data.t2);
+				scoreboardSocket.emitDisplays("data", "#t2", "text", scoreboardSocket.data.t2);
 				break;
 			}
 			default: {
@@ -206,8 +151,17 @@ io.on("connection", (socket: any) => {
 				break;
 			}
 		}
-		socket.broadcast.emit("state", scoreboardSocket.data);
+		scoreboardSocket.emitUsers("state", scoreboardSocket.data);
 	});
+
+	const { valid, body } = await jwtverifyAsync(cookies.bearer);
+	socket.auth = valid;
+	socket.body = body;
+	console.log(socket.id, "JWT :", valid, body);
+	if (socket.auth && body.serial) {
+		const ns = await gengetNamespace(body.serial, true);
+		ns.addUser(socket);
+	}
 });
 
 // HTTP(S) webserver
@@ -215,54 +169,47 @@ app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-app.use((req: Request, res: Response, next: Function) => {
-	//Check protectedRoutes
-	if (!protectedRoutes.includes(req.path)) {
-		next();
+//DEFINE API ROUTES BELOW !!!
+app.get("/status", async (req, res) => {
+	const token = req.cookies?.bearer;
+	const { valid, body } = await jwtverifyAsync(token);
+
+	console.log(valid, body);
+
+	if (valid) {
+		res.status(200);
+		res.send("true");
 		return;
 	}
 
-	//Check and verify the JWT token
-	const token = req.cookies?.bearer;
-	jwt.verify(token, process.env.TOKEN_SECRET as string, (err: any, body: any) => {
-		if (!err) {
-			//Token is valid!
-			next();
-			return;
-		}
-
-		//Token is invalid!
-		res.status(401);
-		res.redirect("/");
-	});
+	res.status(401);
+	res.send("false");
 });
-
-//DEFINE API ROUTES BELOW !!!
 
 app.post("/auth", login);
 
-app.post("/register-admin", async (req: Request, res: Response) => {
-	const { username, password, serialnumber } = req.body;
-	if (!(username && password && serialnumber)) {
+app.post("/register", async (req: Request, res: Response) => {
+	console.log("Got register request");
+	const { username, password, serial } = req.body;
+	if (!(username && password && serial)) {
+		console.log("Missing params on register");
 		res.status(400); // Bad Request
 		res.send("Invalid / Missing username, password and/or serialnumber");
 		return;
 	}
 
-	await register(req, res);
-	await login(req, res);
-});
+	console.log("Register attempt");
+	if (await register(req, res)) {
+		console.log("Login attempt post register");
 
-app.post("/register-user", async (req: Request, res: Response) => {
-	const { username, password, serialnumber } = req.body;
-	if (!(username && password && serialnumber)) {
-		res.status(400); // Bad Request
-		res.send("Invalid / Missing username, password and/or serialnumber");
-		return;
+		if (await login(req, res)) {
+			console.log("Login successful");
+		} else {
+			console.log("Login failed, CODE ISSUE!");
+		}
+	} else {
+		console.log("Register failed");
 	}
-
-	await register(req, res);
-	await login(req, res);
 });
 
 //DEFINE API ROUTES ABOVE !!!

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Input } from "../components/Input";
 import { Logo } from "../components/Logo";
 import { IconButton } from "../components/IconButton";
@@ -7,9 +7,10 @@ import { LooseObject } from "../utils/Interfaces";
 import { getCookies } from "../utils/Utils";
 
 export const Login = () => {
+	const navigate = useNavigate();
 	const cookie = getCookies();
 	if (cookie.auth && cookie.auth === true) {
-		document.location.href = "/score";
+		navigate("/score");
 	}
 
 	const defaultState: LooseObject = {
@@ -39,27 +40,8 @@ export const Login = () => {
 		});
 
 		if (res.status === 202) {
-			//document.location.href = "/search";
-			document.location.href = "/score";
-		}
-	};
-
-	const sendRegisterRequest = async () => {
-		const res = await fetch(`${document.location.origin}/register`, {
-			method: "POST",
-			mode: "cors",
-			cache: "no-cache",
-			credentials: "same-origin",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			redirect: "follow",
-			referrerPolicy: "no-referrer",
-			body: JSON.stringify({ ...state, serialnumber: "001d5010184a" }),
-		});
-
-		if (res.status === 202 || res.status === 201) {
-			document.location.href = "/score";
+			//navigate("/score");
+			document.location.href = "/score"; // Socket needs to reconnect after login
 		}
 	};
 
@@ -128,7 +110,9 @@ export const Login = () => {
 					}
 					label="SPECTATE"
 					color="black"
-					onClick={sendRegisterRequest} //TODO : move this to an actual register page
+					onClick={() => {
+						navigate("/spectate");
+					}}
 				/>
 				<IconButton
 					icon={
@@ -139,16 +123,18 @@ export const Login = () => {
 							viewBox="0 0 24 24"
 							fill="none"
 							stroke="currentColor"
-							stroke-width="2"
-							stroke-linecap="round"
-							stroke-linejoin="round">
+							strokeWidth="2"
+							strokeLinecap="round"
+							strokeLinejoin="round">
 							<line x1="12" y1="5" x2="12" y2="19"></line>
 							<line x1="5" y1="12" x2="19" y2="12"></line>
 						</svg>
 					}
 					label="NIEUW"
 					color="black"
-					onClick={sendRegisterRequest} //TODO : move this to an actual register page
+					onClick={() => {
+						navigate("/manual");
+					}}
 				/>
 			</div>
 		</div>

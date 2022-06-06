@@ -6,6 +6,45 @@ import { IconButton } from "../components/IconButton";
 import { LooseObject } from "../utils/Interfaces";
 
 export const Manual = () => {
+	const defaultState: LooseObject = {
+		serial: "",
+		username: "",
+		password: "",
+		confirmPassword: "",
+		email: "",
+	};
+
+	const [state, setState] = useState(defaultState);
+
+	const updateState = (key: string, value: string) => {
+		state[key] = value;
+		setState(state);
+	};
+
+	const sendRegisterRequest = async () => {
+		if (state.password !== state.confirmPassword) {
+			//TODO : Add an error message
+			return;
+		}
+
+		const res = await fetch(`${document.location.origin}/register`, {
+			method: "POST",
+			mode: "cors",
+			cache: "no-cache",
+			credentials: "same-origin",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			redirect: "follow",
+			referrerPolicy: "no-referrer",
+			body: JSON.stringify({ ...state }),
+		});
+
+		if (res.status === 202 || res.status === 201) {
+			document.location.href = "/score";
+		}
+	};
+
 	return (
 		<div className="p-manual">
 			<div className="p-manual__header">
@@ -27,10 +66,38 @@ export const Manual = () => {
 			</div>
 			<div className="content">
 				<div className="u-grid-vertical-gap">
-					<Input id="serienummer" label="serienummer" type="text" />
-					<Input id="username" label="e-mail" type="text" />
-					<Input id="password" label="wachtwoord" type="password" />
-					<Input id="confpassword" label="bevestig wachtwoord" type="password" />
+					<Input
+						id="serienummer"
+						label="serienummer"
+						type="text"
+						onChange={(event: React.FormEvent<HTMLInputElement>) => {
+							updateState("serial", event.currentTarget.value);
+						}}
+					/>
+					<Input
+						id="username"
+						label="e-mail"
+						type="text"
+						onChange={(event: React.FormEvent<HTMLInputElement>) => {
+							updateState("username", event.currentTarget.value);
+						}}
+					/>
+					<Input
+						id="password"
+						label="wachtwoord"
+						type="password"
+						onChange={(event: React.FormEvent<HTMLInputElement>) => {
+							updateState("password", event.currentTarget.value);
+						}}
+					/>
+					<Input
+						id="confirmpassword"
+						label="bevestig wachtwoord"
+						type="password"
+						onChange={(event: React.FormEvent<HTMLInputElement>) => {
+							updateState("confirmPassword", event.currentTarget.value);
+						}}
+					/>
 				</div>
 				<div className="button">
 					<IconButton
@@ -52,6 +119,7 @@ export const Manual = () => {
 						}
 						label="REGISTREREN"
 						color="white"
+						onClick={sendRegisterRequest}
 					/>
 				</div>
 			</div>

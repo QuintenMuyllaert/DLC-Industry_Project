@@ -1,6 +1,7 @@
+import { Navigate } from "react-router-dom";
+
 export const Root = () => {
-	document.location.href = "/login";
-	return <div></div>;
+	return <Navigate replace to="/login" />;
 };
 
 export default Root;

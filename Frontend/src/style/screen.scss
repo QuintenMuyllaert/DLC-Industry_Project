@@ -23,6 +23,8 @@
 @import "./pages/livestream.scss";
 @import "./pages/users.scss";
 @import "./pages/usersettings.scss";
+@import "./pages/scoreboard.scss";
+@import "./pages/templates.scss";
 
 // COMPONENTS
 @import "./components/input.scss";
@@ -31,9 +33,11 @@
 @import "./components/flag.scss";
 @import "./components/digit.scss";
 @import "./components/bottomtab.scss";
-@import "./components/templates.scss";
 @import "./components/colorpicker.scss";
 @import "./components/scrollbar.scss";
 @import "./components/textedit.scss";
 @import "./components/user.scss";
 @import "./components/usersetting.scss";
+@import "./components/scrolltext.scss";
+@import "./components/option.scss";
+@import "./components/checkbox.scss";

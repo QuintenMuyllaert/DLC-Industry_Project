@@ -11,6 +11,7 @@ import { scoreboardInterface } from "../utils/ScoreboardInterface";
 import { updateGlobalState as updateState, globalState as state } from "../utils/Appstate";
 
 export const Score = () => {
+	/*	//Dead code?, moving to backend before declaring it dead code.
 	if (state.first) {
 		updateState("first", false);
 
@@ -25,6 +26,7 @@ export const Score = () => {
 		scoreboardInterface.changeColor("2B", state.ub);
 		scoreboardInterface.changeColor("2O", state.uo);
 	}
+	*/
 
 	const score = (team: string, amt: number) => {
 		const name = team == "t1" ? "G1" : "G2";

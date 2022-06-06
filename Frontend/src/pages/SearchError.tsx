@@ -1,3 +1,5 @@
+//Dead code
+
 import { IconButton } from "../components/IconButton";
 
 export const SearchError = () => {

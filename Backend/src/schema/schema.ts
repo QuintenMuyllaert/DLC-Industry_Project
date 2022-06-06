@@ -2,7 +2,7 @@ export interface admin {
 	username: string;
 	password: string;
 	parent: false;
-	serialnumber: string;
+	serial: string;
 }
 
 export interface user {
@@ -14,19 +14,22 @@ export interface user {
 
 export interface scoreboard {
 	isPlaying: boolean;
-	K1B: string;
-	K2B: string;
-	K1O: string;
-	K2O: string;
-	scoreHome: number;
-	scoreOut: number;
+	hb: string;
+	ho: string;
+	ub: string;
+	uo: string;
+	t1: number;
+	t2: number;
+	message: string;
+	timer: string;
+
 	nameHome: string;
 	nameOut: string;
 	timerStart: Date;
 	timerOffset: Date;
 	pauseStart: Date;
 	pauseStop: Date;
-	serialnumber: string;
+	serial: string;
 	lastKnownIp: string;
 	hasAdmin: boolean;
 }

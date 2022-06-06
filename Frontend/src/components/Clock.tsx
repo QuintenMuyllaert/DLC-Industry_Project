@@ -1,20 +1,26 @@
-export const Clock = ({ time }: { time: number }) => {
-	let sec: number | string = time % 60;
-	let min: number | string = (time - sec) / 60;
+export const Clock = ({ time }: { time: number | `${number}:${number}` }) => {
+	let display = "";
 
-	if (min < 10) {
-		min = `0${min}`;
-	}
+	if (typeof time === "string") {
+		display = time;
+	} else {
+		let sec: number | string = time % 60;
+		let min: number | string = (time - sec) / 60;
 
-	if (sec < 10) {
-		sec = `0${sec}`;
+		if (min < 10) {
+			min = `0${min}`;
+		}
+
+		if (sec < 10) {
+			sec = `0${sec}`;
+		}
+
+		display = `${min}:${sec}`;
 	}
 
 	return (
 		<div className="c-clock">
-			<h1 className="time">
-				{min}:{sec}
-			</h1>
+			<h1 className="time">{display}</h1>
 		</div>
 	);
 };
