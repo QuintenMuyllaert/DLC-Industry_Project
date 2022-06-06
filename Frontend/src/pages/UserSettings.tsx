@@ -2,6 +2,7 @@ import { useState } from "react";
 import { LooseObject } from "../utils/Interfaces";
 import BottomTab from "../components/BottomTab";
 import UserSetting from "../components/UserSetting";
+import IconButton from "../components/IconButton";
 
 export const UserSettings = () => {
 	const template: LooseObject = {};
@@ -48,10 +49,16 @@ export const UserSettings = () => {
 					</div>
 				</div>
 				<div className="buttons">
-					<label className="switch">
-						<input type="checkbox" />
-						<span className="slider"></span>
-					</label>
+					<div>
+						<p className="title">theme:</p>
+						<label className="switch">
+							<input type="checkbox" />
+							<span className="slider"></span>
+						</label>
+					</div>
+					<div className="save">
+						<IconButton label="OPSLAAN" color="white" />
+					</div>
 				</div>
 			</div>
 			<BottomTab />
