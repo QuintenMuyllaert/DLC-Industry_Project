@@ -19,6 +19,7 @@ import Livestream from "./pages/Livestream";
 import Users from "./pages/Users";
 import UserSettings from "./pages/UserSettings";
 import SponsorTemplates from "./pages/SponsorTemplates";
+import Sponsors from "./pages/Sponsors";
 
 export const App = () => {
 	Appstate.attachUseState(...useState(Appstate.defaultState));
@@ -41,6 +42,7 @@ export const App = () => {
 					<Route path="/users" element={<Protect element={<Users />} />} />
 					<Route path="/usersettings" element={<Protect element={<UserSettings />} />} />
 					<Route path="/sponsortemplates" element={<Protect element={<SponsorTemplates />} />} />
+					<Route path="/sponsors" element={<Protect element={<Sponsors />} />} />
 				</Routes>
 			</div>
 		</Router>

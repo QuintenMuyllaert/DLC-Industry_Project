@@ -23,7 +23,7 @@ export const SponsorTemplates = () => {
 
 					<Logo width="4rem" height="4rem" />
 				</div>
-				<h1>Sponsor templates</h1>
+				<h1>Sponsor bundels</h1>
 				<div className="p-sponsorTemplates__list">
 					<SponsorTemplate />
 					<SponsorTemplate />
