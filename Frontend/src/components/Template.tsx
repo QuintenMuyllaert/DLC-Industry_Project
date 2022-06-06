@@ -1,6 +1,15 @@
+import { useNavigate } from "react-router-dom";
+
 export const Template = ({ sportNaam, aantalHelften, duurHelft }: { sportNaam: string; aantalHelften: number; duurHelft: string }) => {
+	const navigate = useNavigate();
+
+	const goToTemplateSettings = async () => {
+		//document.location.href = "/usersettings";
+		navigate("/templatesettings");
+	};
+
 	return (
-		<article className="p-templates__list-item">
+		<article className="p-templates__list-item" onClick={goToTemplateSettings}>
 			<div className="p-templates__list-info">
 				<div className="p-templates__list-naam">
 					<p>{sportNaam}</p>
