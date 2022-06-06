@@ -1,10 +1,11 @@
-.p-users {
+.p-templatesettings {
 	width: min(24rem, 100%);
 	padding: 0 1rem 1rem 1rem;
 	height: 100%;
 	display: grid;
 	gap: 1rem;
-	grid-template-rows: auto;
+	grid-template-rows: auto auto 1fr auto auto;
+
 	overflow: hidden;
 
 	.header {
@@ -13,6 +14,7 @@
 		align-items: center;
 		background-color: #121212;
 		padding: 0.5rem;
+		height: auto;
 
 		& svg {
 			stroke: #eee;
@@ -25,29 +27,22 @@
 		}
 	}
 
-	h1 {
-		padding: 1.6rem 0;
-	}
-
-	.subtitle {
-		padding-bottom: 1rem;
-		font-size: 1.5rem;
-	}
-
-	.list {
-		overflow-y: auto;
-		height: 100%;
-		display: flex;
-		flex-direction: column;
-		gap: 1.25rem;
-	}
-
-	.userlist {
+	.pagetitle {
 		padding-top: 4rem;
-		overflow-y: hidden;
+	}
 
-		.title {
-			padding-bottom: 2rem;
+	.content {
+		align-self: center;
+		display: grid;
+		grid-template-rows: auto;
+		grid-template-columns: 1fr;
+
+		gap: 2rem;
+
+		.item {
+			.title {
+				padding-bottom: 0.5rem;
+			}
 		}
 	}
 }
