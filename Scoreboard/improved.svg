@@ -16,8 +16,7 @@
 		var len = 16;
 
 		var socket = io('https://industryproject.computernetwork.be',{
-			'forceNew':true,
-			'transports': ["polling"]
+			'forceNew':true
    		});
 		   
 		socket.on('connect', function() {
@@ -67,5 +66,5 @@
 <text id="t1" x="84" y="100" font-family="DSEG7 Classic" font-size="36" text-anchor="middle" fill="white">0</text>
 <text id="t2" x="252" y="100" font-family="DSEG7 Classic" font-size="36" text-anchor="middle" fill="white">0</text>
 
-<text id="message" x="168" y="155" font-family="Raleway-VariableFont_wght" font-size="32" text-anchor="left" fill="white">DLC Sportsystems</text>
+<text id="message" x="168" y="155" font-family="Raleway" font-size="32" text-anchor="left" fill="white">DLC Sportsystems</text>
 </svg>
