@@ -10,13 +10,21 @@
 		<link rel="manifest" href="/pwa.webmanifest" />
 		<link rel="apple-touch-icon" href="/img/apple-touch.png" />
 
+		<link rel="preload" href="/font/DSEG7-Classic/DSEG7Classic-Regular.woff2" as="font" type="font/woff2" crossorigin />
+		<link rel="preload" href="/font/Rajdhani/Rajdhani-SemiBold.ttf" as="font" type="font/ttf" crossorigin />
+		<link rel="preload" href="/font/Rajdhani/Rajdhani-Bold.ttf" as="font" type="font/ttf" crossorigin />
+		<link rel="preload" href="/font/Raleway/Raleway-VariableFont_wght.ttf" as="font" type="font/ttf" crossorigin />
+
+		<link rel="prefetch" href="/favicon.svg" as="image" type="image/svg+xml" />
+		<link rel="manifest" href="/pwa.webmanifest" />
+
 		<script src="/pwa.js" defer></script>
-		<script src="/resize.js"></script>
+		<script src="/resize.js" defer></script>
 
 		<title>IndustryProject</title>
 	</head>
 	<body>
 		<div id="root"></div>
-		<script type="module" src="/src/main.tsx"></script>
+		<script type="module" src="/src/main.tsx" defer></script>
 	</body>
 </html>

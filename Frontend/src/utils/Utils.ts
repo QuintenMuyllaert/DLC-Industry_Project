@@ -42,3 +42,13 @@ export const getQuery = () => {
 	}
 	return querryObject;
 };
+
+export const xml2json = (xml: string) => {
+	const json: LooseObject = {};
+	for (const res of xml.matchAll(/(?:<(\w*)(?:\s[^>]*)*>)((?:(?!<\1).)*)(?:<\/\1>)|<(\w*)(?:\s*)*\/>/gm)) {
+		const key = res[1] || res[3];
+		const value = res[2] && xml2json(res[2]);
+		json[key] = (value && Object.keys(value).length ? value : res[2]) || null;
+	}
+	return json;
+};

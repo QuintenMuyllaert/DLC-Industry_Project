@@ -57,6 +57,11 @@ io.on("connection", async (socket: any) => {
 	const cookies = cookief ? cookie.parse(socket.handshake.headers.cookie) : {};
 	console.log(socket.id, "Connection made to websocket");
 
+	socket.on("echo", (...args: any[]) => {
+		console.log("echo", ...args);
+		socket.emit("echo", ...args);
+	});
+
 	socket.on("data", async (serial: any) => {
 		//When display sends serial number over wss.
 		console.log(socket.id, "SERIAL :", serial);
