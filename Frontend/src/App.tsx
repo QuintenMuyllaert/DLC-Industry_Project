@@ -20,6 +20,7 @@ import UserSettings from "./pages/UserSettings";
 import SponsorTemplates from "./pages/SponsorTemplates";
 import Sponsors from "./pages/Sponsors";
 import TemplateSettings from "./pages/TemplateSettings";
+import AddSponsor from "./pages/AddSponsor";
 
 export const App = () => {
 	Appstate.attachUseState(...useState(Appstate.defaultState));
@@ -44,6 +45,7 @@ export const App = () => {
 					<Route path="/usersettings" element={<Protect element={<UserSettings />} />} />
 					<Route path="/sponsortemplates" element={<Protect element={<SponsorTemplates />} />} />
 					<Route path="/sponsors" element={<Protect element={<Sponsors />} />} />
+					<Route path="/addsponsor" element={<Protect element={<AddSponsor />} />} />
 				</Routes>
 			</div>
 		</Router>
