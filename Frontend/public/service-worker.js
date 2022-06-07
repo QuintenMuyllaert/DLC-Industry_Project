@@ -6,7 +6,7 @@ caches.open(cacheName).then(async function (cache) {
 });
 
 //cache EVERYTHING with .EXT
-const static = ["woff", "woff2", "ttf", "webp", "jpg", "png", "jpeg"];
+const static = ["woff", "woff2", "ttf", "webp", "jpg", "png", "jpeg", "svg", "ico"];
 const reply = async function (event) {
 	//caching logic
 	const cache = await caches.open(cacheName);
