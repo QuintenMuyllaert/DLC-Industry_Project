@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useRef, useLayoutEffect, useState, useEffect } from "react";
 import { LooseObject } from "../utils/Interfaces";
 import Color from "./Color";
 import Flag from "./Flag";
@@ -17,12 +17,48 @@ export const Colorpicker = ({
 	active: boolean;
 	handleClickPopup?: (event?: any) => any;
 }) => {
+	const [focused, setFocused] = useState(false);
+
 	const colorsB = [];
 	const colorsO = [];
 	for (const color of state.colors) {
 		colorsB.push(<Color updateColorState={updateState} updateScoreState={updateScoreState} side={"B"} team={team} color={color} Ecolor={color} />);
 		colorsO.push(<Color updateColorState={updateState} updateScoreState={updateScoreState} side={"O"} team={team} color={color} Ecolor={color} />);
 	}
+
+	let newC = "";
+
+	useEffect(() => {
+		const cb = () => {
+			console.log(focused);
+			console.log("clicked");
+			if (focused) {
+				console.log("blur");
+				console.log(newC);
+				setFocused(false);
+				if (newC && newC != "") {
+					updateState("colors", [...state.colors, newC]);
+				}
+			}
+		};
+
+		document.body.addEventListener("click", cb);
+
+		return () => {
+			document.body.removeEventListener("click", cb);
+		};
+	});
+
+	const changeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+		newC = event.target.value;
+	};
+
+	const onFocusHandler = (event: any) => {
+		setTimeout(() => {
+			setFocused(true);
+			console.log(focused);
+		});
+	};
 
 	return (
 		<>
@@ -49,7 +85,15 @@ export const Colorpicker = ({
 					<div className="c-colorpicker__colors">
 						<>{colorsB}</>
 						<div className="c-colorpicker__colors-colorAdd">
-							<input className="c-colorpicker__colors-colorAdd-input" type="color" id="newColorTop" />
+							<input
+								onChange={changeHandler}
+								onClick={(e) => {
+									onFocusHandler(e);
+								}}
+								className="c-colorpicker__colors-colorAdd-input"
+								type="color"
+								id="newColorTop"
+							/>
 							<label className="c-colorpicker__colors-colorAdd-label" htmlFor="newColorTop">
 								<svg
 									className="icon"
@@ -72,7 +116,15 @@ export const Colorpicker = ({
 					<div className="c-colorpicker__colors">
 						<>{colorsO}</>
 						<div className="c-colorpicker__colors-colorAdd">
-							<input className="c-colorpicker__colors-colorAdd-input" type="color" id="newColorBottom" />
+							<input
+								onChange={changeHandler}
+								onClick={(e) => {
+									onFocusHandler(e);
+								}}
+								className="c-colorpicker__colors-colorAdd-input"
+								type="color"
+								id="newColorBottom"
+							/>
 							<label className="c-colorpicker__colors-colorAdd-label" htmlFor="newColorBottom">
 								<svg
 									className="icon"
