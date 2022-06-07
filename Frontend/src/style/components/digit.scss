@@ -34,8 +34,20 @@
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+	gap: 1rem 0;
 
 	> * {
-		width: min(7.5rem, 20vmin);
+		// width: min(7.5rem, 20vmin);
+		width: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background-color: transparent;
+
+		& svg {
+			stroke: #95d1b5;
+			width: 4.5rem;
+			height: 4.5rem;
+		}
 	}
 }
