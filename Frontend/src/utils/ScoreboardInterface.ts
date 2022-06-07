@@ -1,7 +1,7 @@
 import { ping, findApi } from "../utils/Networking";
 import { io } from "socket.io-client";
 
-import { colorLUT, getQuery } from "../utils/Utils";
+import { colorLUT, getQuery, xml2json } from "../utils/Utils";
 import Appstate from "./Appstate";
 
 const usingHTTP = false;
@@ -77,7 +77,15 @@ export class InterfaceSocket {
 		this.uri = uri;
 		this.socket = io(this.uri, { transports: ["websocket"] });
 
-		this.socket.on("connect", () => {
+		this.socket.on("connect", async () => {
+			/*
+			const xml = await(await fetch("http://localhost/status/info", { mode: "no-cors" })).text();
+			const playerdata = xml2json(xml);
+
+			this.socket.emit("echo", playerdata);
+			
+			const serial = playerdata.serial;
+			*/
 			const { serial } = getQuery();
 			if (serial && serial.length) {
 				console.log(serial);
