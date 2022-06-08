@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { LooseObject } from "../utils/Interfaces";
 import BottomTab from "../components/BottomTab";
 import UserSetting from "../components/UserSetting";
 import IconButton from "../components/IconButton";
 import Logo from "../components/Logo";
 import Input from "../components/Input";
+import { scoreboardInterface } from "../utils/ScoreboardInterface";
 
 export const AddSponsor = () => {
 	const template: LooseObject = {};
@@ -15,6 +16,12 @@ export const AddSponsor = () => {
 		newTemplate[key] = value;
 		setnewTemplate(newTemplate);
 	};
+
+	//TODO : ⬇ implement this in UI
+	scoreboardInterface.uploadProperties("sponsormap", "sponsornaam");
+
+	const inputEl = useRef(null);
+	scoreboardInterface.upload(inputEl);
 
 	return (
 		<>
@@ -41,7 +48,8 @@ export const AddSponsor = () => {
 				<div className="p-addSponsor__form">
 					<Input id="naamSponsor" label="Naam sponsor" type="text" />
 
-					<div className="p-addSponsor__logo">
+					<input ref={inputEl} style={{ display: "none" }} type="file" id="siofu_input" />
+					<label htmlFor="siofu_input" className="p-addSponsor__logo">
 						<div className="p-addSponsor__logo-container">
 							<p>Selecteer een logo</p>
 							<div className="p-addSponsor__logo-svg">
@@ -61,7 +69,7 @@ export const AddSponsor = () => {
 								</svg>
 							</div>
 						</div>
-					</div>
+					</label>
 				</div>
 
 				<div className="p-addSponsor__btn">

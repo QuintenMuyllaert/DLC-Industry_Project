@@ -9,6 +9,7 @@ import TextEdit from "../components/TextEdit";
 import { scoreboardInterface } from "../utils/ScoreboardInterface";
 
 import { updateGlobalState as updateState, globalState as state } from "../utils/Appstate";
+import ToggleSponsors from "../components/ToggleSponsors";
 
 export const Score = () => {
 	/*	//Dead code?, moving to backend before declaring it dead code.
@@ -55,6 +56,14 @@ export const Score = () => {
 
 	const handleClickTeam2Color = () => {
 		updateState("teamColorTeam2Popup", !state.teamColorTeam2Popup);
+	};
+
+	const handleClickToggle = (clicked: string) => {
+		if (clicked == "left" && state.scorbordSponsorsToggle != "left") {
+			updateState("scorbordSponsorsToggle", "left");
+		} else if (clicked == "right" && state.scorbordSponsorsToggle != "right") {
+			updateState("scorbordSponsorsToggle", "right");
+		}
 	};
 
 	return (
@@ -111,10 +120,7 @@ export const Score = () => {
 					label="WIJZIG BERICHT"
 					onClick={handleClickMessage}></IconButton>
 
-				<div className="u-grid-horizontal-2">
-					<IconButton color="white" label="Scorebord"></IconButton>
-					<IconButton color="black" label="Sponsors"></IconButton>
-				</div>
+				<ToggleSponsors handleClickToggle={handleClickToggle} />
 			</div>
 
 			<BottomTab />

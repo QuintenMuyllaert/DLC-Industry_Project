@@ -6,6 +6,11 @@ import dotenv from "dotenv";
 import path from "path";
 import http from "http";
 import cookie from "cookie";
+import { mkdirSync, renameSync } from "fs";
+
+//@ts-ignore
+import siofu from "socketio-file-upload";
+
 import { Server } from "socket.io";
 
 import { writeFileSync, existsSync } from "fs";
@@ -164,8 +169,67 @@ io.on("connection", async (socket: any) => {
 	socket.body = body;
 	console.log(socket.id, "JWT :", valid, body);
 	if (socket.auth && body.serial) {
+		let uploadDetails: any = {
+			gotten: false,
+			folder: "",
+			name: "",
+		};
+
+		try {
+			console.log("making dir");
+			mkdirSync(`www/${body.serial}`);
+		} catch (err) {
+			console.log("dir exists");
+		}
+
+		socket.on("upload", (folder: string, name: string) => {
+			if (folder.includes(".")) {
+				console.log("NO");
+				return;
+			}
+			let fulln = folder + name;
+			if (fulln.includes("/") || fulln.includes("\\") || fulln.includes("..")) {
+				console.log("NO");
+				return;
+			}
+
+			uploadDetails = {
+				gotten: true,
+				folder: folder,
+				name: name,
+			};
+
+			try {
+				console.log("making dir");
+				mkdirSync(`www/${body.serial}/${folder}`);
+			} catch (err) {
+				console.log("dir exists");
+			}
+		});
+
 		const ns = await gengetNamespace(body.serial, true);
 		ns.addUser(socket);
+
+		const uploader = new siofu();
+		uploader.dir = `www/${body.serial}`;
+		uploader.on("saved", (data: any) => {
+			console.log(data, uploadDetails);
+			const { gotten, folder, name } = uploadDetails;
+			if (gotten && folder && name) {
+				try {
+					const from = data.file.pathName;
+					const to = `www/${body.serial}/${uploadDetails.folder}/${uploadDetails.name}.${data.file.name.split(".").pop()}`;
+					console.log(from, to);
+					renameSync(from, to);
+				} catch (e) {
+					console.log(e);
+				}
+			}
+		});
+		uploader.on("error", function (event: any) {
+			console.log("Error from uploader", event);
+		});
+		uploader.listen(socket);
 	}
 });
 
@@ -173,6 +237,7 @@ io.on("connection", async (socket: any) => {
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(siofu.router);
 
 //DEFINE API ROUTES BELOW !!!
 app.get("/status", async (req, res) => {

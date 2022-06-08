@@ -20,7 +20,7 @@
    		});
 		   
 		socket.on('connect', function() {
-			socket.emit("data","X3462L7L"); // send serial number to server TODO: get serial number from device
+			socket.emit("data",DEVICE_NAME); // send serial number to server TODO: get serial number from device
 			//$("#background").attr("style","fill: #000000");
 		});
 		
