@@ -26,6 +26,7 @@ export class InterfaceScoreboard {
 	};
 	upload = (element: any) => {};
 	uploadProperties = (folder: string, name: string) => {};
+	updateColorArray(colorArray: string[]) {}
 }
 
 export class InterfaceHTTP {
@@ -71,6 +72,7 @@ export class InterfaceHTTP {
 	};
 	upload = (element: any) => {};
 	uploadProperties = (folder: string, name: string) => {};
+	updateColorArray(colorArray: string[]) {}
 }
 
 export class InterfaceSocket {
@@ -134,6 +136,11 @@ export class InterfaceSocket {
 			}
 		});
 
+		this.socket.on("disconnect", () => {
+			console.log("disconnected");
+			this.socket.reconnect();
+		});
+
 		this.socket.on("state", (data: any) => {
 			Appstate.mergeGlobalState(data);
 		});
@@ -176,6 +183,9 @@ export class InterfaceSocket {
 	uploadProperties = (folder: string, name: string) => {
 		this.socket.emit("upload", folder, name);
 	};
+	updateColorArray(colorArray: string[]) {
+		this.socket.emit("input", "COLORS", colorArray);
+	}
 }
 
 export const scoreboardInterface: InterfaceScoreboard = usingHTTP ? new InterfaceHTTP("http://127.0.0.1:1234") : new InterfaceSocket(document.location.origin);

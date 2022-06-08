@@ -1,11 +1,13 @@
 import { useId, useRef, useLayoutEffect, useState, useEffect } from "react";
 import { LooseObject } from "../utils/Interfaces";
-import { useLongPress } from "react-use";
+//import { useLongPress } from "react-use";
 import Color from "./Color";
 import Flag from "./Flag";
 import IconButton from "./IconButton";
+import useLongPress from "../utils/useLongPress";
 
 import { updateGlobalState as updateState, globalState as state } from "../utils/Appstate";
+import { scoreboardInterface } from "../utils/ScoreboardInterface";
 
 export const Colorpicker = ({
 	team,
@@ -21,16 +23,20 @@ export const Colorpicker = ({
 	const [focused, setFocused] = useState(false);
 	const id = useId();
 
-	const defaultOptions = {
-		shouldPreventDefaul: true,
-		delay: 500,
-	};
-
 	const onLongPress = () => {
 		console.log("longpress is triggered");
 	};
 
-	const longPressEvent = useLongPress(onLongPress, defaultOptions);
+	const onClick = () => {
+		console.log("click is triggered");
+	};
+
+	const defaultOptions = {
+		shouldPreventDefault: true,
+		delay: 500,
+	};
+
+	const longPressEvent = useLongPress(onLongPress, onClick, defaultOptions);
 
 	const colorsB = [];
 	const colorsO = [];
@@ -69,6 +75,7 @@ export const Colorpicker = ({
 				setFocused(false);
 				if (newC && newC != "") {
 					updateState("colors", [...state.colors, newC]);
+					scoreboardInterface.updateColorArray(state.colors);
 				}
 			}
 		};
@@ -156,7 +163,6 @@ export const Colorpicker = ({
 								type="color"
 								id="newColorBottom"
 								name="newColorBottomName"
-								{...longPressEvent}
 							/>
 							<label className="c-colorpicker__colors-colorAdd-label" htmlFor="newColorBottom">
 								<svg

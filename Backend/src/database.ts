@@ -2,7 +2,7 @@ import dotenv from "dotenv";
 import { MongoClient } from "mongodb";
 
 import { hash, validateHash } from "./crypto";
-import { admin, user, scoreboard, template } from "./schema/schema";
+import { admin, user, scoreboard, template, defaultScoreboard } from "./schema/schema";
 
 dotenv.config();
 
@@ -15,19 +15,31 @@ export const connect = async () => {
 	console.log("Connected to database");
 };
 
-export const checkExistence = async (collectionName: "accounts" | "scoreboards", obj: any) => {
-	await connect();
-	//console.log("Finding in", collectionName, obj);
-	const db = database.db(dbName);
-	const collection = db.collection(collectionName);
-	const checkExistence = await collection.find(obj).toArray();
-	//console.log("Reply", checkExistence, checkExistence.length);
-	return checkExistence || [];
+export const checkExistence = async (collectionName: "accounts" | "scoreboards" | "colors", obj: any) => {
+	console.log("DB asking ", collectionName, obj);
+	try {
+		await connect();
+		//console.log("Finding in", collectionName, obj);
+		const db = database.db(dbName);
+		const collection = db.collection(collectionName);
+		const checkExistence = await collection.find(obj).toArray();
+		//console.log("Reply", checkExistence, checkExistence.length);
+		return checkExistence || [];
+	} catch (err) {
+		console.log("error asking db", collectionName, obj);
+		return [];
+	}
 };
 
 export const generateUserAdmin = async (username: string, password: string, serial: string) => {
 	if (!connstr || connstr == null) {
 		return true;
+	}
+
+	const existScoreboard = await checkExistence("scoreboards", { serial, hasAdmin: false });
+
+	if (!existScoreboard.length) {
+		return;
 	}
 
 	const existSerienummer = await checkExistence("accounts", { serial });
@@ -47,7 +59,13 @@ export const generateUserAdmin = async (username: string, password: string, seri
 	await connect();
 	const db = database.db(dbName);
 	const collection = db.collection("accounts");
+	console.log("Making admin obj");
 	await collection.insertOne(adminObj);
+
+	existScoreboard[0].hasAdmin = true;
+	const scoreboardObj: scoreboard = { ...defaultScoreboard, ...existScoreboard[0] } as scoreboard;
+
+	updateScoreboard(serial, scoreboardObj);
 	return true;
 };
 
@@ -73,6 +91,7 @@ export const generateUserModerator = async (username: string, password: string, 
 	await connect();
 	const db = database.db(dbName);
 	const collection = db.collection("accounts");
+	console.log("Making user obj");
 	await collection.insertOne(userObj);
 
 	return true;
@@ -83,30 +102,12 @@ export const getScoreboardData = async (serial: string) => {
 };
 
 export const generateScoreboard = async (serial: string) => {
-	const scoreboardObj: scoreboard = {
-		serial,
-		isPlaying: false,
-		hb: "black",
-		ho: "black",
-		ub: "black",
-		uo: "black",
-		t1: 0,
-		t2: 0,
-		message: "DLC Sportsystems QMA",
-		timer: "00:00",
-		nameHome: "THUIS",
-		nameOut: "UIT",
-		timerStart: new Date(),
-		timerOffset: new Date(),
-		pauseStart: new Date(),
-		pauseStop: new Date(),
-		lastKnownIp: "0.0.0.0",
-		hasAdmin: false,
-	};
+	const scoreboardObj: scoreboard = { ...defaultScoreboard, serial };
 
 	await connect();
 	const db = database.db(dbName);
 	const collection = db.collection("scoreboards");
+	console.log("Making scoreboard obj");
 	await collection.insertOne(scoreboardObj);
 	return getScoreboardData(serial);
 };
@@ -132,4 +133,18 @@ export const validateUser = async (username: string, password: string) => {
 	return true;
 };
 
-export default { connect, generateUserAdmin, generateUserModerator, validateUser };
+export const updateScoreboard = async (serial: string, data: scoreboard) => {
+	const board = await checkExistence("scoreboards", { serial });
+	if (!board.length) {
+		return false;
+	}
+
+	await connect();
+	const db = database.db(dbName);
+	const collection = db.collection("scoreboards");
+	console.log("Making update board");
+	await collection.updateOne({ serial }, { $set: data });
+	console.log("Done");
+};
+
+export default { connect, generateUserAdmin, generateUserModerator, validateUser, updateScoreboard, getScoreboardData, generateScoreboard };

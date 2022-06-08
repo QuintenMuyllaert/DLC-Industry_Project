@@ -14,14 +14,14 @@ export const defaultState: LooseObject = {
 	ub: "black",
 	uo: "black",
 	timer: 0,
-	message: "Quinten was hier",
+	message: "",
 	screen: "P0",
 
 	first: true,
 	messagePopup: false,
 	teamColorTeam1Popup: false,
 	teamColorTeam2Popup: false,
-	colors: ["green", "lightblue", "darkblue", "purple", "white", "black", "yellow", "red", "orange", "darkred"],
+	colors: [],
 	scorbordSponsorsToggle: "left",
 	sponsors: [],
 };

@@ -18,7 +18,7 @@ import { randomBytes } from "crypto";
 
 import { login, register } from "./auth";
 import { jwtverifyAsync } from "./crypto";
-import { generateScoreboard, getScoreboardData } from "./database";
+import { generateScoreboard, getScoreboardData, updateScoreboard } from "./database";
 import { SocketNamespace } from "./socketnamespace";
 
 interface LooseObject {
@@ -156,12 +156,16 @@ io.on("connection", async (socket: any) => {
 				scoreboardSocket.emitDisplays("data", "#t2", "text", scoreboardSocket.data.t2);
 				break;
 			}
+			case "COLORS": {
+				scoreboardSocket.data.colors = value;
+			}
 			default: {
 				console.log("No type");
 				break;
 			}
 		}
 		scoreboardSocket.emitUsers("state", scoreboardSocket.data);
+		updateScoreboard(scoreboardSocket.serial, scoreboardSocket.data);
 	});
 
 	const { valid, body } = await jwtverifyAsync(cookies.bearer);
@@ -248,12 +252,12 @@ app.get("/status", async (req, res) => {
 
 	if (valid) {
 		res.status(200);
-		res.send("true");
+		res.send(body);
 		return;
 	}
 
 	res.status(401);
-	res.send("false");
+	res.send({ username: "N/A", serial: "N/A", isAdmin: false });
 });
 
 app.post("/auth", login);
@@ -280,6 +284,12 @@ app.post("/register", async (req: Request, res: Response) => {
 	} else {
 		console.log("Register failed");
 	}
+});
+
+app.get("/logout", (req, res) => {
+	res.clearCookie("bearer");
+	res.clearCookie("auth");
+	res.redirect("/");
 });
 
 app.get("/sponsors", async (req, res) => {
