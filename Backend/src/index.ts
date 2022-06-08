@@ -295,6 +295,7 @@ app.use((req: Request, res: Response, next: Function) => {
 });
 
 //Static files
+app.use("/data", express.static(path.join(dirname, "www")));
 app.use(express.static(path.join(dirname, "../Frontend/dist")));
 
 // start the Express server
