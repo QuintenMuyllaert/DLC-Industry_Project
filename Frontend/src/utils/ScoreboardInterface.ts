@@ -24,6 +24,8 @@ export class InterfaceScoreboard {
 	detect = async () => {
 		return loopback;
 	};
+	upload = (element: any) => {};
+	uploadProperties = (folder: string, name: string) => {};
 }
 
 export class InterfaceHTTP {
@@ -67,12 +69,15 @@ export class InterfaceHTTP {
 		const api = await findApi(true);
 		return api ? (api as string) : loopback;
 	};
+	upload = (element: any) => {};
+	uploadProperties = (folder: string, name: string) => {};
 }
 
 export class InterfaceSocket {
 	uri: string;
 	socket: any;
 	message: string = "";
+	uploader: any;
 	constructor(uri: string) {
 		this.uri = uri;
 		this.socket = io(this.uri, { transports: ["websocket"] });
@@ -93,6 +98,9 @@ export class InterfaceSocket {
 			const data = await res.text();
 			this.socket.emit("echo", data);
 			*/
+
+			//@ts-ignore SIFO...
+			this.uploader = new SocketIOFileUpload(this.socket);
 
 			const { serial } = getQuery();
 			if (serial && serial.length) {
@@ -159,6 +167,14 @@ export class InterfaceSocket {
 	}
 	detect = async () => {
 		return this.uri;
+	};
+	upload = (element: any) => {
+		setTimeout(() => {
+			this.uploader.listenOnInput(element.current);
+		}, 1000);
+	};
+	uploadProperties = (folder: string, name: string) => {
+		this.socket.emit("upload", folder, name);
 	};
 }
 
