@@ -6,7 +6,7 @@ import dotenv from "dotenv";
 import path from "path";
 import http from "http";
 import cookie from "cookie";
-import { mkdirSync, renameSync } from "fs";
+import { mkdirSync, renameSync, readdirSync, statSync } from "fs";
 
 //@ts-ignore
 import siofu from "socketio-file-upload";
@@ -280,6 +280,39 @@ app.post("/register", async (req: Request, res: Response) => {
 	} else {
 		console.log("Register failed");
 	}
+});
+
+app.get("/sponsors", async (req, res) => {
+	const queryParams = req.query;
+	const { serial } = queryParams;
+	if (!serial) {
+		res.status(400);
+		res.send("Invalid / Missing serialnumber");
+		return;
+	}
+
+	let tree: LooseObject = {};
+	let newTree: LooseObject = [];
+	const readDirectory = (folder: string, folderName: string = "") => {
+		const files = readdirSync(folder);
+		for (const file of files) {
+			const stat = statSync(`${folder}/${file}`);
+			if (!stat.isFile()) {
+				tree[file] = [];
+				newTree.push({
+					name: file,
+					children: readdirSync(path.join(folder, file)),
+				});
+				readDirectory(path.join(folder, file), file);
+			} else {
+				tree[folderName].push(file);
+			}
+		}
+	};
+
+	readDirectory(`www/${serial}/`);
+	res.status(200);
+	res.send(JSON.stringify(newTree, null, 4));
 });
 
 //DEFINE API ROUTES ABOVE !!!
