@@ -92,7 +92,7 @@ export const generateScoreboard = async (serial: string) => {
 		uo: "black",
 		t1: 0,
 		t2: 0,
-		message: "DLC Sportsystems QMA",
+		message: "DLC Sportsystems - Made with 💙 by QMA",
 		timer: "00:00",
 		nameHome: "THUIS",
 		nameOut: "UIT",
