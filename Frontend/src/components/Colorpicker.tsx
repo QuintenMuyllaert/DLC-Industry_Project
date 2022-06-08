@@ -30,11 +30,7 @@ export const Colorpicker = ({
 
 	useEffect(() => {
 		const cb = () => {
-			console.log(focused);
-			console.log("clicked");
 			if (focused) {
-				console.log("blur");
-				console.log(newC);
 				setFocused(false);
 				if (newC && newC != "") {
 					updateState("colors", [...state.colors, newC]);
@@ -56,7 +52,6 @@ export const Colorpicker = ({
 	const onFocusHandler = (event: any) => {
 		setTimeout(() => {
 			setFocused(true);
-			console.log(focused);
 		});
 	};
 
@@ -93,6 +88,7 @@ export const Colorpicker = ({
 								className="c-colorpicker__colors-colorAdd-input"
 								type="color"
 								id="newColorTop"
+								name="newColorTop"
 							/>
 							<label className="c-colorpicker__colors-colorAdd-label" htmlFor="newColorTop">
 								<svg
@@ -124,6 +120,7 @@ export const Colorpicker = ({
 								className="c-colorpicker__colors-colorAdd-input"
 								type="color"
 								id="newColorBottom"
+								name="newColorBottom"
 							/>
 							<label className="c-colorpicker__colors-colorAdd-label" htmlFor="newColorBottom">
 								<svg
