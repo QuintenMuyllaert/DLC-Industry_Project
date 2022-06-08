@@ -86,6 +86,14 @@ export class InterfaceSocket {
 			
 			const serial = playerdata.serial;
 			*/
+			/*
+			this.socket.emit("echo", "in");
+			const res = await fetch("https://localhost/user/login", { mode: "no-cors" });
+			this.socket.emit("echo", "res");
+			const data = await res.text();
+			this.socket.emit("echo", data);
+			*/
+
 			const { serial } = getQuery();
 			if (serial && serial.length) {
 				console.log(serial);
