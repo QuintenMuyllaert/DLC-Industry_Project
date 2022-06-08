@@ -18,7 +18,7 @@ import { randomBytes } from "crypto";
 
 import { login, register } from "./auth";
 import { jwtverifyAsync } from "./crypto";
-import { generateScoreboard, getScoreboardData } from "./database";
+import { generateScoreboard, getScoreboardData, updateScoreboard } from "./database";
 import { SocketNamespace } from "./socketnamespace";
 
 interface LooseObject {
@@ -162,6 +162,7 @@ io.on("connection", async (socket: any) => {
 			}
 		}
 		scoreboardSocket.emitUsers("state", scoreboardSocket.data);
+		updateScoreboard(scoreboardSocket.serial, scoreboardSocket.data);
 	});
 
 	const { valid, body } = await jwtverifyAsync(cookies.bearer);

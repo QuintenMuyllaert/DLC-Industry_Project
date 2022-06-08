@@ -2,7 +2,7 @@ import dotenv from "dotenv";
 import { MongoClient } from "mongodb";
 
 import { hash, validateHash } from "./crypto";
-import { admin, user, scoreboard, template } from "./schema/schema";
+import { admin, user, scoreboard, template, defaultScoreboard } from "./schema/schema";
 
 dotenv.config();
 
@@ -30,6 +30,12 @@ export const generateUserAdmin = async (username: string, password: string, seri
 		return true;
 	}
 
+	const existScoreboard = await checkExistence("scoreboards", { serial, hasAdmin: false });
+
+	if (!existScoreboard.length) {
+		return;
+	}
+
 	const existSerienummer = await checkExistence("accounts", { serial });
 	const existUsername = await checkExistence("accounts", { username });
 
@@ -48,6 +54,11 @@ export const generateUserAdmin = async (username: string, password: string, seri
 	const db = database.db(dbName);
 	const collection = db.collection("accounts");
 	await collection.insertOne(adminObj);
+
+	existScoreboard[0].hasAdmin = true;
+	const scoreboardObj: scoreboard = { ...defaultScoreboard, ...existScoreboard[0] } as scoreboard;
+
+	updateScoreboard(serial, scoreboardObj);
 	return true;
 };
 
@@ -83,26 +94,7 @@ export const getScoreboardData = async (serial: string) => {
 };
 
 export const generateScoreboard = async (serial: string) => {
-	const scoreboardObj: scoreboard = {
-		serial,
-		isPlaying: false,
-		hb: "black",
-		ho: "black",
-		ub: "black",
-		uo: "black",
-		t1: 0,
-		t2: 0,
-		message: "DLC Sportsystems - Made with 💙 by QMA",
-		timer: "00:00",
-		nameHome: "THUIS",
-		nameOut: "UIT",
-		timerStart: new Date(),
-		timerOffset: new Date(),
-		pauseStart: new Date(),
-		pauseStop: new Date(),
-		lastKnownIp: "0.0.0.0",
-		hasAdmin: false,
-	};
+	const scoreboardObj: scoreboard = defaultScoreboard;
 
 	await connect();
 	const db = database.db(dbName);
@@ -132,4 +124,16 @@ export const validateUser = async (username: string, password: string) => {
 	return true;
 };
 
-export default { connect, generateUserAdmin, generateUserModerator, validateUser };
+export const updateScoreboard = async (serial: string, data: scoreboard) => {
+	const board = await checkExistence("scoreboards", { serial });
+	if (!board.length) {
+		return false;
+	}
+
+	await connect();
+	const db = database.db(dbName);
+	const collection = db.collection("scoreboards");
+	await collection.updateOne({ serial }, { $set: data });
+};
+
+export default { connect, generateUserAdmin, generateUserModerator, validateUser, updateScoreboard, getScoreboardData, generateScoreboard };
