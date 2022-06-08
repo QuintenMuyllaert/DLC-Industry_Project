@@ -248,12 +248,12 @@ app.get("/status", async (req, res) => {
 
 	if (valid) {
 		res.status(200);
-		res.send("true");
+		res.send(body);
 		return;
 	}
 
 	res.status(401);
-	res.send("false");
+	res.send({ username: "N/A", serial: "N/A", isAdmin: false });
 });
 
 app.post("/auth", login);
