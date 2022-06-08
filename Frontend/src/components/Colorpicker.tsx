@@ -1,5 +1,6 @@
 import { useRef, useLayoutEffect, useState, useEffect } from "react";
 import { LooseObject } from "../utils/Interfaces";
+import { useLongPress } from "use-long-press";
 import Color from "./Color";
 import Flag from "./Flag";
 import IconButton from "./IconButton";
@@ -19,11 +20,30 @@ export const Colorpicker = ({
 }) => {
 	const [focused, setFocused] = useState(false);
 
+	const bind = useLongPress(() => {
+		console.log("Long pressed!");
+	});
+
+	const print = () => {
+		console.log("pressed!");
+	};
+
 	const colorsB = [];
 	const colorsO = [];
 	for (const color of state.colors) {
-		colorsB.push(<Color updateColorState={updateState} updateScoreState={updateScoreState} side={"B"} team={team} color={color} Ecolor={color} />);
-		colorsO.push(<Color updateColorState={updateState} updateScoreState={updateScoreState} side={"O"} team={team} color={color} Ecolor={color} />);
+		colorsB.push(<Color {...bind()} updateColorState={updateState} updateScoreState={updateScoreState} side={"B"} team={team} color={color} Ecolor={color} />);
+		colorsO.push(
+			<Color
+				onClick={print}
+				updateColorState={updateState}
+				updateScoreState={updateScoreState}
+				side={"O"}
+				team={team}
+				color={color}
+				Ecolor={color}
+				{...bind()}
+			/>,
+		);
 	}
 
 	let newC = "";
