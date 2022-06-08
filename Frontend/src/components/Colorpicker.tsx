@@ -1,6 +1,6 @@
-import { useRef, useLayoutEffect, useState, useEffect } from "react";
+import { useId, useRef, useLayoutEffect, useState, useEffect } from "react";
 import { LooseObject } from "../utils/Interfaces";
-import { useLongPress } from "use-long-press";
+import { useLongPress } from "react-use";
 import Color from "./Color";
 import Flag from "./Flag";
 import IconButton from "./IconButton";
@@ -19,29 +19,44 @@ export const Colorpicker = ({
 	handleClickPopup?: (event?: any) => any;
 }) => {
 	const [focused, setFocused] = useState(false);
+	const id = useId();
 
-	const bind = useLongPress(() => {
-		console.log("Long pressed!");
-	});
-
-	const print = () => {
-		console.log("pressed!");
+	const defaultOptions = {
+		shouldPreventDefaul: true,
+		delay: 500,
 	};
+
+	const onLongPress = () => {
+		console.log("longpress is triggered");
+	};
+
+	const longPressEvent = useLongPress(onLongPress, defaultOptions);
 
 	const colorsB = [];
 	const colorsO = [];
 	for (const color of state.colors) {
-		colorsB.push(<Color {...bind()} updateColorState={updateState} updateScoreState={updateScoreState} side={"B"} team={team} color={color} Ecolor={color} />);
+		colorsB.push(
+			<Color
+				key={id}
+				updateColorState={updateState}
+				updateScoreState={updateScoreState}
+				side={"B"}
+				team={team}
+				color={color}
+				Ecolor={color}
+				{...longPressEvent}
+			/>,
+		);
 		colorsO.push(
 			<Color
-				onClick={print}
+				key={id}
 				updateColorState={updateState}
 				updateScoreState={updateScoreState}
 				side={"O"}
 				team={team}
 				color={color}
 				Ecolor={color}
-				{...bind()}
+				{...longPressEvent}
 			/>,
 		);
 	}
@@ -108,7 +123,7 @@ export const Colorpicker = ({
 								className="c-colorpicker__colors-colorAdd-input"
 								type="color"
 								id="newColorTop"
-								name="newColorTop"
+								name="newColorTopName"
 							/>
 							<label className="c-colorpicker__colors-colorAdd-label" htmlFor="newColorTop">
 								<svg
@@ -140,7 +155,8 @@ export const Colorpicker = ({
 								className="c-colorpicker__colors-colorAdd-input"
 								type="color"
 								id="newColorBottom"
-								name="newColorBottom"
+								name="newColorBottomName"
+								{...longPressEvent}
 							/>
 							<label className="c-colorpicker__colors-colorAdd-label" htmlFor="newColorBottom">
 								<svg
