@@ -282,6 +282,12 @@ app.post("/register", async (req: Request, res: Response) => {
 	}
 });
 
+app.get("/logout", (req, res) => {
+	res.clearCookie("bearer");
+	res.clearCookie("auth");
+	res.redirect("/");
+});
+
 app.get("/sponsors", async (req, res) => {
 	const queryParams = req.query;
 	const { serial } = queryParams;
