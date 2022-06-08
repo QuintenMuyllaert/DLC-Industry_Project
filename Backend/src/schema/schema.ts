@@ -32,6 +32,7 @@ export interface scoreboard {
 	serial: string;
 	lastKnownIp: string;
 	hasAdmin: boolean;
+	colors: string[];
 }
 
 export interface template {
@@ -45,11 +46,6 @@ export interface template {
 	nameOut: number;
 	periods: number;
 	periodLength: number;
-}
-
-export interface color {
-	serial: string;
-	colorValue: string;
 }
 
 export const defaultScoreboard: scoreboard = {
@@ -70,5 +66,6 @@ export const defaultScoreboard: scoreboard = {
 	pauseStart: new Date(),
 	pauseStop: new Date(),
 	lastKnownIp: "0.0.0.0",
+	colors: ["green", "lightblue", "darkblue", "purple", "white", "black", "yellow", "red", "orange", "darkred"],
 	hasAdmin: false,
 };

@@ -156,6 +156,9 @@ io.on("connection", async (socket: any) => {
 				scoreboardSocket.emitDisplays("data", "#t2", "text", scoreboardSocket.data.t2);
 				break;
 			}
+			case "COLORS": {
+				scoreboardSocket.data.colors = value;
+			}
 			default: {
 				console.log("No type");
 				break;

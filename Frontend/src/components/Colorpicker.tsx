@@ -7,6 +7,7 @@ import IconButton from "./IconButton";
 import useLongPress from "../utils/useLongPress";
 
 import { updateGlobalState as updateState, globalState as state } from "../utils/Appstate";
+import { scoreboardInterface } from "../utils/ScoreboardInterface";
 
 export const Colorpicker = ({
 	team,
@@ -74,6 +75,7 @@ export const Colorpicker = ({
 				setFocused(false);
 				if (newC && newC != "") {
 					updateState("colors", [...state.colors, newC]);
+					scoreboardInterface.updateColorArray(state.colors);
 				}
 			}
 		};
