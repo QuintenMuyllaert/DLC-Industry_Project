@@ -23,6 +23,7 @@ export const defaultState: LooseObject = {
 	teamColorTeam2Popup: false,
 	colors: ["green", "lightblue", "darkblue", "purple", "white", "black", "yellow", "red", "orange", "darkred"],
 	scorbordSponsorsToggle: "left",
+	sponsors: [],
 };
 
 export const attachUseState = (state: any, setState: any) => {

@@ -7,6 +7,7 @@
 	font-weight: bold;
 	height: 36px;
 	position: relative;
+	z-index: 1;
 
 	&__btn {
 		width: 50%;
@@ -38,6 +39,30 @@
 
 		&-right {
 			transform: translate(96%, 0%);
+		}
+	}
+
+	&__select {
+		width: 50%;
+		position: absolute;
+		right: 0;
+		top: 0;
+		height: 100%;
+		z-index: 2;
+
+		& select {
+			width: 100%;
+			height: 100%;
+
+			& option {
+				background-color: #353535;
+				color: #eee;
+				padding: 0 10px;
+			}
+
+			& option[value="0"] {
+				display: none;
+			}
 		}
 	}
 }
