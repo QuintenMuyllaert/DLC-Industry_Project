@@ -134,6 +134,11 @@ export class InterfaceSocket {
 			}
 		});
 
+		this.socket.on("disconnect", () => {
+			console.log("disconnected");
+			this.socket.reconnect();
+		});
+
 		this.socket.on("state", (data: any) => {
 			Appstate.mergeGlobalState(data);
 		});

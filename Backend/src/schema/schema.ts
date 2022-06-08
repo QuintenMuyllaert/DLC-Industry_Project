@@ -51,3 +51,24 @@ export interface color {
 	serial: string;
 	colorValue: string;
 }
+
+export const defaultScoreboard: scoreboard = {
+	serial: "N/A",
+	isPlaying: false,
+	hb: "black",
+	ho: "black",
+	ub: "black",
+	uo: "black",
+	t1: 0,
+	t2: 0,
+	message: "DLC Sportsystems - Made with 💙 by QMA",
+	timer: "00:00",
+	nameHome: "THUIS",
+	nameOut: "UIT",
+	timerStart: new Date(),
+	timerOffset: new Date(),
+	pauseStart: new Date(),
+	pauseStop: new Date(),
+	lastKnownIp: "0.0.0.0",
+	hasAdmin: false,
+};
