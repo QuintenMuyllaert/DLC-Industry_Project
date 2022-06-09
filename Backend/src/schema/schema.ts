@@ -35,7 +35,7 @@ export interface scoreboard {
 	colors: string[];
 }
 
-export interface template {
+/*export interface template {
 	name: number;
 	K1B: string;
 	K2B: string;
@@ -46,7 +46,21 @@ export interface template {
 	nameOut: number;
 	periods: number;
 	periodLength: number;
+}*/
+
+export interface template {
+	serial: string;
+	name: string;
+	parts: number;
+	duration: number;
 }
+
+export const defaultTemplate: template = {
+	serial: "N/A",
+	name: "N/A",
+	parts: 0,
+	duration: 0,
+};
 
 export const defaultScoreboard: scoreboard = {
 	serial: "N/A",
