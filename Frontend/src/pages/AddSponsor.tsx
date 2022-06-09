@@ -6,22 +6,46 @@ import IconButton from "../components/IconButton";
 import Logo from "../components/Logo";
 import Input from "../components/Input";
 import { scoreboardInterface } from "../utils/ScoreboardInterface";
+import { getQuery } from "../utils/Utils";
+import { useNavigate } from "react-router-dom";
 
 export const AddSponsor = () => {
-	const template: LooseObject = {};
+	const navigate = useNavigate();
+	// const template: LooseObject = {};
 
-	const [newTemplate, setnewTemplate] = useState(template);
+	// const [newTemplate, setnewTemplate] = useState(template);
+	const [sponsorNaam, setSponsorNaam] = useState("");
+	const [disabled, setDisabled] = useState(true);
+	const [validatieNaam, setValidatieNaam] = useState(false);
 
-	const updateNewTemplate = (key: any, value: string) => {
-		newTemplate[key] = value;
-		setnewTemplate(newTemplate);
-	};
+	// const updateNewTemplate = (key: any, value: string) => {
+	// 	newTemplate[key] = value;
+	// 	setnewTemplate(newTemplate);
+	// };
 
 	//TODO : ⬇ implement this in UI
-	scoreboardInterface.uploadProperties("sponsormap", "sponsornaam");
+	// scoreboardInterface.uploadProperties("sponsormap", "sponsornaam");
 
 	const inputEl = useRef(null);
 	scoreboardInterface.upload(inputEl);
+
+	const enableInput = (str: string) => {
+		if (str != "") {
+			setDisabled(false);
+			setValidatieNaam(false);
+		}
+	};
+
+	const { bundel } = getQuery();
+
+	const handleClickNewSponsor = () => {
+		if (sponsorNaam) {
+			scoreboardInterface.uploadProperties(bundel, sponsorNaam);
+			navigate(`/sponsors?bundel=${bundel}`);
+		} else {
+			setValidatieNaam(true);
+		}
+	};
 
 	return (
 		<>
@@ -46,9 +70,19 @@ export const AddSponsor = () => {
 				<h1>Nieuwe sponsor</h1>
 
 				<div className="p-addSponsor__form">
-					<Input id="naamSponsor" label="Naam sponsor" type="text" />
-
-					<input ref={inputEl} style={{ display: "none" }} type="file" id="siofu_input" />
+					<div className="c-input">
+						<label htmlFor="naamSponsor">Naam sponsor</label>
+						<input
+							id="naamSponsor"
+							type="text"
+							onChange={(event: React.FormEvent<HTMLInputElement>) => {
+								setSponsorNaam(event.currentTarget.value);
+								enableInput(event.currentTarget.value);
+							}}
+						/>
+					</div>
+					<p className={validatieNaam ? "p-addSponsor__validatie" : "p-addSponsor__validatie p-addSponsor__hidden"}>Vul de naam van de sponsor in</p>
+					<input ref={inputEl} style={{ display: "none" }} type="file" id="siofu_input" disabled={disabled} />
 					<label htmlFor="siofu_input" className="p-addSponsor__logo">
 						<div className="p-addSponsor__logo-container">
 							<p>Selecteer een logo</p>
@@ -73,7 +107,7 @@ export const AddSponsor = () => {
 				</div>
 
 				<div className="p-addSponsor__btn">
-					<IconButton label="OPSLAAN" color="white" />
+					<IconButton label="OPSLAAN" color="white" onClick={handleClickNewSponsor} />
 				</div>
 			</div>
 			<BottomTab />

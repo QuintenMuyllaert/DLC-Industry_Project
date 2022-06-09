@@ -5,8 +5,11 @@ import BottomTab from "../components/BottomTab";
 import Logo from "../components/Logo";
 import Sponsor from "../components/Sponsor";
 import { getQuery } from "../utils/Utils";
+import { useNavigate } from "react-router-dom";
 
 export const Sponsors = () => {
+	const navigate = useNavigate();
+
 	const fetchSponsors = async () => {
 		const res = await fetch(`/sponsors?serial=X3462L7L`, { mode: "no-cors", method: "GET" });
 		const json = await res.json();
@@ -28,6 +31,15 @@ export const Sponsors = () => {
 			}
 		}
 	}
+
+	// 	const handleClickNewSponsor = () {
+	//  onClick={handleClickNewSponsor}
+	// 	}
+
+	const handleClickNewSponsor = async () => {
+		navigate(`/addsponsor?bundel=${bundel}`);
+	};
+
 	return (
 		<>
 			<div className="p-sponsors element">
@@ -52,7 +64,7 @@ export const Sponsors = () => {
 
 				<div className="p-sponsors__list">{sponsors}</div>
 
-				<div className="p-sponsors__add">
+				<button className="p-sponsors__add" onClick={handleClickNewSponsor}>
 					<div className="p-sponsors__add-placeholder">
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
@@ -69,7 +81,7 @@ export const Sponsors = () => {
 						</svg>
 					</div>
 					<p>Nieuwe sponsor</p>
-				</div>
+				</button>
 			</div>
 			<BottomTab />
 		</>
