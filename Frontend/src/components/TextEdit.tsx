@@ -2,7 +2,7 @@ import { useState } from "react";
 import { LooseObject } from "../utils/Interfaces";
 import IconButton from "./IconButton";
 import { scoreboardInterface } from "../utils/ScoreboardInterface";
-import { updateGlobalState as updateState, globalState as globalstate } from "../utils/Appstate";
+import { updateGlobalState as updateState, globalState as state } from "../utils/Appstate";
 import { trigger } from "../utils/Networking";
 
 export const TextEdit = ({
@@ -16,21 +16,6 @@ export const TextEdit = ({
 	handleClickMessage?: (event?: any) => any;
 	handleClickSendMessage?: (event?: any) => any;
 }) => {
-	const defaultState: LooseObject = {
-		API: "http://localhost:1234",
-		message: "",
-	};
-
-	const [state, setState] = useState(defaultState);
-
-	const updateState = (key: string, value: string) => {
-		if (state[key] == value) {
-			return;
-		}
-		state[key] = value;
-		setState(state);
-	};
-
 	const onTextUpdate = (event: any) => {
 		updateState("message", event.target.value);
 	};
@@ -84,7 +69,7 @@ export const TextEdit = ({
 					</div>
 					<div className="c-textedit__textarea">
 						<label htmlFor="scrolltext">Tekst</label>
-						<textarea placeholder={state.currentMessage} name="scrolltext" id="scrolltext" onChange={onTextUpdate}></textarea>
+						<textarea value={state.message} name="scrolltext" id="scrolltext" onChange={onTextUpdate}></textarea>
 					</div>
 
 					<IconButton
