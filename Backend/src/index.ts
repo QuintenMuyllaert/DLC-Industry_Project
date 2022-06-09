@@ -18,7 +18,7 @@ import { randomBytes } from "crypto";
 
 import { login, register } from "./auth";
 import { jwtverifyAsync } from "./crypto";
-import { generateScoreboard, getScoreboardData, updateScoreboard } from "./database";
+import { generateScoreboard, getScoreboardData, updateScoreboard, generateTemplate, getTemplates } from "./database";
 import { SocketNamespace } from "./socketnamespace";
 
 interface LooseObject {
@@ -366,6 +366,57 @@ app.delete("/sponsors", async (req, res) => {
 
 	unlinkSync(`www/${serial}/${bundle}/${file}`);
 	res.status(200);
+});
+
+app.post("/template", async (req: Request, res: Response) => {
+	console.log("Got template gen request");
+	const token = req.cookies?.bearer;
+	const { valid, body } = await jwtverifyAsync(token);
+
+	if (!valid) {
+		res.status(403);
+		res.send("Forbidden");
+		return;
+	}
+
+	const { serial } = body;
+	if (!serial) {
+		res.status(400);
+		res.send("Invalid / Missing serialnumber");
+		return;
+	}
+
+	const { name, parts, duration } = req.body;
+	if (!(name && parts && duration && serial)) {
+		console.log("Missing params on register");
+		res.status(400); // Bad Request
+		res.send("Invalid / Missing username, password and/or serialnumber");
+		return;
+	}
+
+	console.log("Generating template");
+	await generateTemplate({ serial, name, parts, duration });
+});
+
+app.get("/template", async (req, res) => {
+	const token = req.cookies?.bearer;
+	const { valid, body } = await jwtverifyAsync(token);
+	if (!valid) {
+		res.status(403);
+		res.send("Forbidden");
+		return;
+	}
+
+	const { serial } = body;
+	if (!serial) {
+		res.status(400);
+		res.send("Invalid / Missing serialnumber");
+		return;
+	}
+
+	const templates = await getTemplates(serial);
+	res.status(200);
+	res.send(JSON.stringify(templates, null, 4));
 });
 
 //DEFINE API ROUTES ABOVE !!!

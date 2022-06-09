@@ -15,7 +15,7 @@ export const connect = async () => {
 	console.log("Connected to database");
 };
 
-export const checkExistence = async (collectionName: "accounts" | "scoreboards" | "colors", obj: any) => {
+export const checkExistence = async (collectionName: "accounts" | "scoreboards" | "colors" | "templates", obj: any) => {
 	console.log("DB asking ", collectionName, obj);
 	try {
 		await connect();
@@ -145,6 +145,20 @@ export const updateScoreboard = async (serial: string, data: scoreboard) => {
 	console.log("Making update board");
 	await collection.updateOne({ serial }, { $set: data });
 	console.log("Done");
+};
+
+export const generateTemplate = async (data: template) => {
+	await connect();
+	const db = database.db(dbName);
+	const collection = db.collection("templates");
+	console.log("Making template obj");
+
+	await collection.insertOne(data);
+	console.log("Done");
+};
+
+export const getTemplates = async (serial: string) => {
+	return checkExistence("templates", { serial }) || [];
 };
 
 export default { connect, generateUserAdmin, generateUserModerator, validateUser, updateScoreboard, getScoreboardData, generateScoreboard };
