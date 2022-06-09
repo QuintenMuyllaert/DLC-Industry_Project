@@ -40,6 +40,8 @@ export const Color = ({
 				onClick
 					? onClick
 					: () => {
+							console.log(state);
+
 							if (state.isRemove) {
 								let index = state.colors.indexOf(color);
 								let newColorArray: string[] = state.colors;
