@@ -1,8 +1,33 @@
+import { useEffect } from "react";
+
+import { updateGlobalState as updateState, globalState as state } from "../utils/Appstate";
 import BottomTab from "../components/BottomTab";
 import Logo from "../components/Logo";
 import Sponsor from "../components/Sponsor";
+import { getQuery } from "../utils/Utils";
 
 export const Sponsors = () => {
+	const fetchSponsors = async () => {
+		const res = await fetch(`/sponsors?serial=X3462L7L`, { mode: "no-cors", method: "GET" });
+		const json = await res.json();
+		updateState("sponsors", json);
+	};
+
+	useEffect(() => {
+		fetchSponsors();
+	}, []);
+
+	const { bundel } = getQuery();
+
+	let sponsors = [];
+
+	for (const sponsorBundel of state.sponsors) {
+		if (sponsorBundel.name === bundel) {
+			for (const sponsor of sponsorBundel.children) {
+				sponsors.push(<Sponsor img={sponsor} />);
+			}
+		}
+	}
 	return (
 		<>
 			<div className="p-sponsors element">
@@ -23,18 +48,9 @@ export const Sponsors = () => {
 					<Logo width="4rem" height="4rem" />
 				</div>
 
-				<h1>Naam bundel</h1>
+				<h1>{bundel}</h1>
 
-				<div className="p-sponsors__list">
-					<Sponsor />
-					<Sponsor />
-					<Sponsor />
-					<Sponsor />
-					<Sponsor />
-					<Sponsor />
-					<Sponsor />
-					<Sponsor />
-				</div>
+				<div className="p-sponsors__list">{sponsors}</div>
 
 				<div className="p-sponsors__add">
 					<div className="p-sponsors__add-placeholder">

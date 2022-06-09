@@ -1,9 +1,21 @@
-export const SponsorTemplate = () => {
+import { useNavigate } from "react-router-dom";
+
+export const SponsorTemplate = ({ name, aantal }: { name: string; aantal: number }) => {
+	const navigate = useNavigate();
+
+	const goToSponsor = async (bundelNaam: string) => {
+		navigate(`/sponsors?bundel=${bundelNaam}`);
+	};
+
 	return (
-		<article className="p-sponsorTemplates__list-item">
+		<button
+			className="p-sponsorTemplates__list-item"
+			onClick={() => {
+				goToSponsor(name);
+			}}>
 			<div className="p-sponsorTemplates__list-tekst">
-				<p className="p-sponsorTemplates__list-title">Jeugd</p>
-				<p>5 sponsors</p>
+				<p className="p-sponsorTemplates__list-title">{name}</p>
+				<p>{aantal} sponsors</p>
 			</div>
 			<div className="p-sponsorTemplates__list-btn">
 				<svg
@@ -36,7 +48,7 @@ export const SponsorTemplate = () => {
 					<line x1="14" y1="11" x2="14" y2="17"></line>
 				</svg>
 			</div>
-		</article>
+		</button>
 	);
 };
 

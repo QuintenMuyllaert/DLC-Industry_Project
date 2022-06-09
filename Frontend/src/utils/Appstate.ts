@@ -16,7 +16,7 @@ export const defaultState: LooseObject = {
 	timer: 0,
 	message: "",
 	screen: "P0",
-
+	serial: "N/A",
 	first: true,
 	messagePopup: false,
 	teamColorTeam1Popup: false,

@@ -63,7 +63,7 @@ export const TextEdit = ({
 					<div className="c-textedit__header">
 						<p>Type hier je bericht:</p>
 						<div className="c-textedit__header-btn">
-							<button>
+							{/* <button>
 								<svg
 									xmlns="http://www.w3.org/2000/svg"
 									width="24"
@@ -77,7 +77,7 @@ export const TextEdit = ({
 									<path d="M3 2v6h6"></path>
 									<path d="M3 13a9 9 0 1 0 3-7.7L3 8"></path>
 								</svg>
-							</button>
+							</button> */}
 							<button onClick={handleClickMessage ? handleClickMessage : () => {}}>
 								{/* <link href="#" onClick={(event) => { func1(event); func2();}}>Trigger here</link> */}
 								<svg

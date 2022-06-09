@@ -1,8 +1,10 @@
-export const Sponsor = () => {
+import { updateGlobalState as updateState, globalState as state } from "../utils/Appstate";
+
+export const Sponsor = ({ img }: { img: string }) => {
 	return (
 		<article className="p-sponsors__list-item">
-			<div className="p-sponsors__list-img">{/* <img src="../" alt="img" /> */}</div>
-			<p>Naam</p>
+			<div className="p-sponsors__list-img">{/* <img src="https://industryproject.computernetwork.be/data/{state.serial}/MAP/{img}" alt="img" /> */}</div>
+			<p>{img}</p>
 			<div className="p-sponsors__list-btn">
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
