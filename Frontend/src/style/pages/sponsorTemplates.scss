@@ -6,6 +6,8 @@
 	grid-template-rows: auto;
 	overflow: hidden;
 	width: 100%;
+	max-width: 450px;
+	cursor: pointer;
 
 	&__header {
 		display: flex;
@@ -13,6 +15,7 @@
 		align-items: center;
 		background-color: #121212;
 		padding: 1rem;
+		height: fit-content;
 
 		& svg {
 			stroke: #eee;
@@ -49,6 +52,10 @@
 		&-btn {
 			display: flex;
 			gap: 20px;
+
+			& svg {
+				cursor: pointer;
+			}
 		}
 
 		&-title {

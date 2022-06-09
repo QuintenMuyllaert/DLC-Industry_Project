@@ -1,9 +1,29 @@
+import { useEffect } from "react";
+
+import { updateGlobalState as updateState, globalState as state } from "../utils/Appstate";
 import BottomTab from "../components/BottomTab";
 import IconButton from "../components/IconButton";
 import Logo from "../components/Logo";
 import SponsorTemplate from "../components/sponsorTemplate";
 
 export const SponsorTemplates = () => {
+	const fetchSponsors = async () => {
+		// console.log(`/sponsors?serial=X3462L7L`, { mode: "no-cors", method: "GET" });
+
+		const res = await fetch(`/sponsors?serial=X3462L7L`, { mode: "no-cors", method: "GET" });
+		const json = await res.json();
+		updateState("sponsors", json);
+	};
+
+	useEffect(() => {
+		fetchSponsors();
+	}, []);
+
+	let sponsors = [];
+	for (const sponsorBundel of state.sponsors) {
+		sponsors.push(<SponsorTemplate name={sponsorBundel.name} aantal={sponsorBundel.children.length} />);
+	}
+
 	return (
 		<>
 			<div className="p-sponsorTemplates element">
@@ -24,18 +44,7 @@ export const SponsorTemplates = () => {
 					<Logo width="4rem" height="4rem" />
 				</div>
 				<h1>Sponsor bundels</h1>
-				<div className="p-sponsorTemplates__list">
-					<SponsorTemplate />
-					<SponsorTemplate />
-					<SponsorTemplate />
-					<SponsorTemplate />
-					<SponsorTemplate />
-					<SponsorTemplate />
-					<SponsorTemplate />
-					<SponsorTemplate />
-					<SponsorTemplate />
-					<SponsorTemplate />
-				</div>
+				<div className="p-sponsorTemplates__list">{sponsors}</div>
 				<div className="p-sponsorTemplates__btn">
 					<IconButton
 						color="white"
