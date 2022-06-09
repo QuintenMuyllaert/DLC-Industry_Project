@@ -1,4 +1,5 @@
 import { scoreboardInterface } from "../utils/ScoreboardInterface";
+import { updateGlobalState as updateState, globalState as state } from "../utils/Appstate";
 
 export const Color = ({
 	color,
@@ -39,6 +40,17 @@ export const Color = ({
 				onClick
 					? onClick
 					: () => {
+							if (state.isRemove) {
+								let index = state.colors.indexOf(color);
+								let newColorArray: string[] = state.colors;
+								newColorArray.splice(index, 1);
+								console.log("updating state...");
+								updateState("colors", newColorArray);
+								console.log("deleting color...");
+								scoreboardInterface.updateColorArray(newColorArray);
+								console.log(state.colors);
+							}
+
 							updateColorState(SetValue(team, side), Ecolor);
 							updateScoreState(SetValue(team, side), Ecolor);
 

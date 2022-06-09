@@ -19,38 +19,12 @@ export const Colorpicker = ({
 	handleClickPopup?: (event?: any) => any;
 }) => {
 	const [focused, setFocused] = useState(false);
-	const [remove, setRemove] = useState(false);
 	const id = useId();
 
 	const colorsB = [];
 	const colorsO = [];
-
-	const colorClick = (color: string) => {
-		if (remove) {
-			let index = state.colors.indexOf(color);
-			let newColorArray: string[] = state.colors;
-			newColorArray.splice(index, 1);
-			console.log("updating state...");
-			updateState("colors", newColorArray);
-			console.log("deleting color...");
-			scoreboardInterface.updateColorArray(newColorArray);
-			console.log(state.colors);
-		}
-	};
-
 	for (const color of state.colors) {
-		colorsB.push(
-			<Color
-				onClick={() => colorClick(color)}
-				key={id}
-				updateColorState={updateState}
-				updateScoreState={updateScoreState}
-				side={"B"}
-				team={team}
-				color={color}
-				Ecolor={color}
-			/>,
-		);
+		colorsB.push(<Color key={id} updateColorState={updateState} updateScoreState={updateScoreState} side={"B"} team={team} color={color} Ecolor={color} />);
 		colorsO.push(<Color key={id} updateColorState={updateState} updateScoreState={updateScoreState} side={"O"} team={team} color={color} Ecolor={color} />);
 	}
 
@@ -105,7 +79,7 @@ export const Colorpicker = ({
 								<line x1="6" y1="6" x2="18" y2="18"></line>
 							</svg>
 						</button>
-						<button className="garbage" onClick={() => setRemove(!remove)}>
+						<button className="garbage" onClick={() => updateState("isRemove", !state.remove)}>
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
 								width="24"
