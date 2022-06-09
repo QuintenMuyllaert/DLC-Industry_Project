@@ -6,7 +6,7 @@ import dotenv from "dotenv";
 import path from "path";
 import http from "http";
 import cookie from "cookie";
-import { mkdirSync, renameSync, readdirSync, statSync } from "fs";
+import { mkdirSync, renameSync, readdirSync, statSync, unlinkSync } from "fs";
 
 //@ts-ignore
 import siofu from "socketio-file-upload";
@@ -330,6 +330,42 @@ app.get("/sponsors", async (req, res) => {
 	readDirectory(`www/${serial}/`);
 	res.status(200);
 	res.send(JSON.stringify(newTree, null, 4));
+});
+
+app.delete("/sponsors", async (req, res) => {
+	const token = req.cookies?.bearer;
+	const { valid, body } = await jwtverifyAsync(token);
+
+	if (!valid) {
+		res.status(403);
+		res.send("Forbidden");
+		return;
+	}
+
+	const queryParams = req.query;
+	const { bundle, file } = queryParams;
+	if (!bundle || !file) {
+		res.status(400);
+		res.send("Invalid / Missing bundle and/or file");
+		return;
+	}
+
+	const { serial } = body;
+	if (!serial) {
+		res.status(400);
+		res.send("Invalid / Missing serialnumber");
+		return;
+	}
+
+	const exists = existsSync(`www/${serial}/${bundle}/${file}`);
+	if (!exists) {
+		res.status(404);
+		res.send("File not found");
+		return;
+	}
+
+	unlinkSync(`www/${serial}/${bundle}/${file}`);
+	res.status(200);
 });
 
 //DEFINE API ROUTES ABOVE !!!
