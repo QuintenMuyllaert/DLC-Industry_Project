@@ -161,4 +161,13 @@ export const getTemplates = async (serial: string) => {
 	return checkExistence("templates", { serial }) || [];
 };
 
+export const deleteTemplate = async (serial: string, name: string) => {
+	await connect();
+	const db = database.db(dbName);
+	const collection = db.collection("templates");
+	console.log("Deleting template");
+	await collection.deleteOne({ serial, name });
+	console.log("Done");
+};
+
 export default { connect, generateUserAdmin, generateUserModerator, validateUser, updateScoreboard, getScoreboardData, generateScoreboard };

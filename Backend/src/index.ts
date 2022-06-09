@@ -18,7 +18,7 @@ import { randomBytes } from "crypto";
 
 import { login, register } from "./auth";
 import { jwtverifyAsync } from "./crypto";
-import { generateScoreboard, getScoreboardData, updateScoreboard, generateTemplate, getTemplates } from "./database";
+import { generateScoreboard, getScoreboardData, updateScoreboard, generateTemplate, getTemplates, deleteTemplate } from "./database";
 import { SocketNamespace } from "./socketnamespace";
 
 interface LooseObject {
@@ -418,6 +418,35 @@ app.get("/template", async (req, res) => {
 	res.status(200);
 	res.send(JSON.stringify(templates, null, 4));
 });
+
+app.delete("/template", async (req, res) => {
+	const token = req.cookies?.bearer;
+	const { valid, body } = await jwtverifyAsync(token);
+	if (!valid) {
+		res.status(403);
+		res.send("Forbidden");
+		return;
+	}
+
+	const { serial } = body;
+	if (!serial) {
+		res.status(400);
+		res.send("Invalid / Missing serialnumber");
+		return;
+	}
+
+	const { name } = req.body;
+	if (!name) {
+		res.status(400);
+		res.send("Invalid / Missing name");
+		return;
+	}
+
+	console.log("Deleting template");
+	await deleteTemplate(serial, name);
+});
+
+app.put("/template", async (req, res) => {});
 
 //DEFINE API ROUTES ABOVE !!!
 
