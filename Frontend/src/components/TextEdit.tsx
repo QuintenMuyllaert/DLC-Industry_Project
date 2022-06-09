@@ -89,7 +89,7 @@ export const TextEdit = ({
 
 					<IconButton
 						color="black"
-						label={globalstate.currentMessage}
+						label="Send message"
 						onClick={(event) => {
 							handleClickSendMessage ? handleClickSendMessage(state.message) : () => {};
 						}}></IconButton>
