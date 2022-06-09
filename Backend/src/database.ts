@@ -170,4 +170,14 @@ export const deleteTemplate = async (serial: string, name: string) => {
 	console.log("Done");
 };
 
+export const updateTemplate = async (data: template) => {
+	await connect();
+	const db = database.db(dbName);
+	const collection = db.collection("templates");
+	console.log("Updating template");
+	const { serial, name } = data;
+	await collection.updateOne({ serial, name }, { $set: data });
+	console.log("Done");
+};
+
 export default { connect, generateUserAdmin, generateUserModerator, validateUser, updateScoreboard, getScoreboardData, generateScoreboard };

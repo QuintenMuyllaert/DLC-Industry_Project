@@ -18,7 +18,7 @@ import { randomBytes } from "crypto";
 
 import { login, register } from "./auth";
 import { jwtverifyAsync } from "./crypto";
-import { generateScoreboard, getScoreboardData, updateScoreboard, generateTemplate, getTemplates, deleteTemplate } from "./database";
+import { generateScoreboard, getScoreboardData, updateScoreboard, generateTemplate, getTemplates, deleteTemplate, updateTemplate } from "./database";
 import { SocketNamespace } from "./socketnamespace";
 
 interface LooseObject {
@@ -446,7 +446,33 @@ app.delete("/template", async (req, res) => {
 	await deleteTemplate(serial, name);
 });
 
-app.put("/template", async (req, res) => {});
+app.put("/template", async (req, res) => {
+	const token = req.cookies?.bearer;
+	const { valid, body } = await jwtverifyAsync(token);
+	if (!valid) {
+		res.status(403);
+		res.send("Forbidden");
+		return;
+	}
+
+	const { serial } = body;
+	if (!serial) {
+		res.status(400);
+		res.send("Invalid / Missing serialnumber");
+		return;
+	}
+
+	const { name, parts, duration } = req.body;
+	if (!(name && parts && duration && serial)) {
+		console.log("Missing params on register");
+		res.status(400); // Bad Request
+		res.send("Invalid / Missing username, password and/or serialnumber");
+		return;
+	}
+
+	console.log("Updating template");
+	await updateTemplate({ serial, name, parts, duration });
+});
 
 //DEFINE API ROUTES ABOVE !!!
 
