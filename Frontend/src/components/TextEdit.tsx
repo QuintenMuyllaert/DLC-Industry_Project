@@ -64,21 +64,6 @@ export const TextEdit = ({
 					<div className="c-textedit__header">
 						<p>Type hier je bericht:</p>
 						<div className="c-textedit__header-btn">
-							{/* <button>
-								<svg
-									xmlns="http://www.w3.org/2000/svg"
-									width="24"
-									height="24"
-									viewBox="0 0 24 24"
-									fill="none"
-									stroke="currentColor"
-									strokeWidth="2"
-									strokeLinecap="round"
-									strokeLinejoin="round">
-									<path d="M3 2v6h6"></path>
-									<path d="M3 13a9 9 0 1 0 3-7.7L3 8"></path>
-								</svg>
-							</button> */}
 							<button onClick={handleClickMessage ? handleClickMessage : () => {}}>
 								{/* <link href="#" onClick={(event) => { func1(event); func2();}}>Trigger here</link> */}
 								<svg
@@ -99,7 +84,7 @@ export const TextEdit = ({
 					</div>
 					<div className="c-textedit__textarea">
 						<label htmlFor="scrolltext">Tekst</label>
-						<textarea placeholder="Oude tekst..." name="scrolltext" id="scrolltext" onChange={onTextUpdate}></textarea>
+						<textarea placeholder={state.currentMessage} name="scrolltext" id="scrolltext" onChange={onTextUpdate}></textarea>
 					</div>
 
 					<IconButton
