@@ -1,5 +1,7 @@
-import { useState } from "react";
+import { ChangeEvent, useLayoutEffect, useRef, useState } from "react";
 import { LooseObject } from "../utils/Interfaces";
+import { updateGlobalState as updateState, globalState as state } from "../utils/Appstate";
+
 import BottomTab from "../components/BottomTab";
 import UserSetting from "../components/UserSetting";
 import IconButton from "../components/IconButton";
@@ -8,6 +10,17 @@ export const UserSettings = () => {
 	const template: LooseObject = {};
 
 	const [newTemplate, setnewTemplate] = useState(template);
+	const refThemeSwitch = useRef<HTMLInputElement>(null);
+
+	const onThemeChange = () => {
+		console.log(refThemeSwitch.current?.checked);
+
+		if (refThemeSwitch.current?.checked) {
+			updateState("color", "dark");
+		} else {
+			updateState("color", "light");
+		}
+	};
 
 	const updateNewTemplate = (key: any, value: string) => {
 		newTemplate[key] = value;
@@ -51,7 +64,7 @@ export const UserSettings = () => {
 					<div>
 						<p className="title">theme:</p>
 						<label className="switch">
-							<input type="checkbox" />
+							<input ref={refThemeSwitch} type="checkbox" defaultChecked={true} onChange={onThemeChange} />
 							<span className="slider"></span>
 						</label>
 					</div>
