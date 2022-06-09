@@ -25,6 +25,11 @@ export const BottomTab = () => {
 		navigate("/usersettings");
 	};
 
+	const goToSponsors = async () => {
+		//document.location.href = "/usersettings";
+		navigate("/sponsortemplates");
+	};
+
 	return (
 		<div className="c-bottomtab">
 			<div className={document.location.pathname == "/templates" ? "c-bottomtab__page c-bottomtab__page-active" : "c-bottomtab__page"} onClick={goToTemplates}>
@@ -44,6 +49,29 @@ export const BottomTab = () => {
 					<path d="M12 14H3v7h9v-7z"></path>
 				</svg>
 				<p className="c-bottomtab__page-name">Templates</p>
+			</div>
+			<div
+				className={
+					document.location.pathname == "/sponsortemplates" || document.location.pathname == "/sponsors" || document.location.pathname == "/addsponsor"
+						? "c-bottomtab__page c-bottomtab__page-active"
+						: "c-bottomtab__page"
+				}
+				onClick={goToSponsors}>
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					width="24"
+					height="24"
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="2"
+					stroke-linecap="round"
+					stroke-linejoin="round">
+					<path d="M19 5c-1.5 0-2.8 1.4-3 2-3.5-1.5-11-.3-11 5 0 1.8 0 3 2 4.5V20h4v-2h3v2h4v-4c1-.5 1.7-1 2-2h2v-4h-2c0-1-.5-1.5-1-2h0V5z"></path>
+					<path d="M2 9v1c0 1.1.9 2 2 2h1"></path>
+					<path d="M16 11h0"></path>
+				</svg>
+				<p className="c-bottomtab__page-name">Sponsors</p>
 			</div>
 			<div className={document.location.pathname == "/score" ? "c-bottomtab__page c-bottomtab__page-active" : "c-bottomtab__page"} onClick={goToCurrentMatch}>
 				<svg
