@@ -41,4 +41,34 @@
 		display: grid;
 		place-items: center;
 	}
+
+	&__textedit {
+		& .c-iconbutton {
+			position: relative;
+			width: fit-content;
+			height: min-content;
+			gap: 1rem;
+			align-items: center;
+			cursor: pointer;
+			color: #95d1b5;
+			border: none;
+			border: 2px solid #95d1b5;
+			font-family: Rajdhani;
+			font-weight: 700;
+			font-size: 1.2rem;
+			border-radius: var(--global-border-radius);
+			display: flex;
+			align-items: cneter;
+			justify-content: center;
+			align-items: center;
+			margin: 0 auto;
+			padding: 0.5rem 4rem;
+			background-color: #353535;
+			border: none;
+
+			& svg {
+				stroke: #95d1b5;
+			}
+		}
+	}
 }
