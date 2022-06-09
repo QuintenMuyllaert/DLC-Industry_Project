@@ -24,6 +24,8 @@ export const defaultState: LooseObject = {
 	colors: [],
 	scorbordSponsorsToggle: "left",
 	sponsors: [],
+
+	isRemove: false,
 };
 
 export const attachUseState = (state: any, setState: any) => {

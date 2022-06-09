@@ -24,6 +24,23 @@
 		margin: auto;
 		z-index: 2;
 		max-width: 25rem;
+
+		.buttons {
+			display: flex;
+			justify-content: space-between;
+
+			.close {
+				& svg {
+					stroke: #121212;
+				}
+			}
+
+			.garbage {
+				& svg {
+					stroke: #121212;
+				}
+			}
+		}
 	}
 
 	&__hidden {
@@ -32,12 +49,6 @@
 
 	& .c-flag {
 		margin-bottom: 1.875rem;
-	}
-
-	&__close {
-		& svg {
-			stroke: #121212;
-		}
 	}
 
 	& p {

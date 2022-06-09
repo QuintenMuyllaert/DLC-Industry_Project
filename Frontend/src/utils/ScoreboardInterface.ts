@@ -82,63 +82,60 @@ export class InterfaceSocket {
 	uploader: any;
 	constructor(uri: string) {
 		this.uri = uri;
-		this.socket = io(this.uri, { transports: ["websocket"] });
+		this.socket = io(this.uri, {
+			transports: ["websocket"],
+			reconnection: true,
+			reconnectionDelay: 1000,
+			reconnectionDelayMax: 5000,
+			reconnectionAttempts: 999999,
+		});
 
 		this.socket.on("connect", async () => {
-			/*
-			const xml = await(await fetch("http://localhost/status/info", { mode: "no-cors" })).text();
-			const playerdata = xml2json(xml);
-
-			this.socket.emit("echo", playerdata);
-			
-			const serial = playerdata.serial;
-			*/
-			/*
-			this.socket.emit("echo", "in");
-			const res = await fetch("https://localhost/user/login", { mode: "no-cors" });
-			this.socket.emit("echo", "res");
-			const data = await res.text();
-			this.socket.emit("echo", data);
-			*/
-
-			//@ts-ignore SIFO...
-			this.uploader = new SocketIOFileUpload(this.socket);
-
+			console.log("Connected to wss");
 			const { serial } = getQuery();
 			if (serial && serial.length) {
 				console.log(serial);
 				this.socket.emit("data", serial); // send serial number to server TODO: get serial number from device
-
-				this.socket.on("data", function (element: string, thing: string, type: string, value: string) {
-					//$("#wauw").attr('style',dat[0]+": "+dat[1]); // update data
-					console.log(element, thing, type, value);
-
-					if (["#hb", "#ub", "#ho", "#uo"].includes(element)) {
-						Appstate.updateGlobalState(element.replace("#", ""), value.replace("fill:", ""));
-					}
-					if (element == "#timer" && thing == "text") {
-						Appstate.updateGlobalState("timer", type);
-					}
-					if (element == "#t1" && thing == "text") {
-						Appstate.updateGlobalState("t1", type);
-					}
-					if (element == "#t2" && thing == "text") {
-						Appstate.updateGlobalState("t2", type);
-					}
-					if (element == "#message" && thing == "text") {
-						Appstate.updateGlobalState("message", type);
-					}
-				});
-
-				this.socket.on("invokeuri", function (uri: string) {
-					//NYI
-				});
 			}
 		});
 
+		//@ts-ignore SIFO...
+		this.uploader = new SocketIOFileUpload(this.socket);
+
+		const { serial } = getQuery();
+		if (serial && serial.length) {
+			console.log(serial);
+			this.socket.emit("data", serial); // send serial number to server TODO: get serial number from device
+
+			this.socket.on("data", function (element: string, thing: string, type: string, value: string) {
+				//$("#wauw").attr('style',dat[0]+": "+dat[1]); // update data
+				console.log(element, thing, type, value);
+
+				if (["#hb", "#ub", "#ho", "#uo"].includes(element)) {
+					Appstate.updateGlobalState(element.replace("#", ""), value.replace("fill:", ""));
+				}
+				if (element == "#timer" && thing == "text") {
+					Appstate.updateGlobalState("timer", type);
+				}
+				if (element == "#t1" && thing == "text") {
+					Appstate.updateGlobalState("t1", type);
+				}
+				if (element == "#t2" && thing == "text") {
+					Appstate.updateGlobalState("t2", type);
+				}
+				if (element == "#message" && thing == "text") {
+					Appstate.updateGlobalState("message", type);
+				}
+			});
+
+			this.socket.on("invokeuri", function (uri: string) {
+				//NYI
+			});
+		}
+
 		this.socket.on("disconnect", () => {
 			console.log("disconnected");
-			this.socket.reconnect();
+			//this.socket.socket.reconnect();
 		});
 
 		this.socket.on("state", (data: any) => {

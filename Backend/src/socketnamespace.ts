@@ -1,8 +1,10 @@
+import { clockify } from "./util";
 export const SocketNamespace = class SocketNamespace {
 	serial: string;
 	users: Array<any> = [];
 	displays: Array<any> = [];
 	data: any = {};
+	time: number = 0;
 	constructor(serial: string, data: any) {
 		console.log("Created namespace", serial);
 		this.serial = serial;
@@ -23,6 +25,12 @@ export const SocketNamespace = class SocketNamespace {
 		socket.on("disconnect", () => {
 			this.displays.splice(this.displays.indexOf(socket), 1);
 		});
+	}
+	tick() {
+		this.time++;
+		this.data.timer = clockify(this.time);
+		this.emitUsers("state", { timer: this.data.timer });
+		this.emitDisplays("data", "#timer", "text", this.data.timer);
 	}
 	addUser(socket: any) {
 		console.log("Added user to namespace", this.serial);

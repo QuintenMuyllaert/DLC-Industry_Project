@@ -57,6 +57,13 @@ const gengetNamespace = async (serial: string, allowGeneration: boolean) => {
 	return namespaces[serial];
 };
 
+setInterval(() => {
+	const keys = Object.keys(namespaces);
+	for (const key of keys) {
+		namespaces[key].tick();
+	}
+}, 1000);
+
 io.on("connection", async (socket: any) => {
 	const cookief = socket.handshake.headers.cookie;
 	const cookies = cookief ? cookie.parse(socket.handshake.headers.cookie) : {};

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { LooseObject } from "../utils/Interfaces";
 import IconButton from "./IconButton";
 import { scoreboardInterface } from "../utils/ScoreboardInterface";
+import { updateGlobalState as updateState, globalState as globalstate } from "../utils/Appstate";
 import { trigger } from "../utils/Networking";
 
 export const TextEdit = ({
@@ -103,7 +104,7 @@ export const TextEdit = ({
 
 					<IconButton
 						color="black"
-						label="Bericht verzenden"
+						label={globalstate.currentMessage}
 						onClick={(event) => {
 							handleClickSendMessage ? handleClickSendMessage(state.message) : () => {};
 						}}></IconButton>
