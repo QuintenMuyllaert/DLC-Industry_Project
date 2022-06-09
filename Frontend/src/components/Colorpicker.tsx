@@ -1,10 +1,8 @@
 import { useId, useRef, useLayoutEffect, useState, useEffect } from "react";
 import { LooseObject } from "../utils/Interfaces";
-//import { useLongPress } from "react-use";
 import Color from "./Color";
 import Flag from "./Flag";
 import IconButton from "./IconButton";
-import useLongPress from "../utils/useLongPress";
 
 import { updateGlobalState as updateState, globalState as state } from "../utils/Appstate";
 import { scoreboardInterface } from "../utils/ScoreboardInterface";
@@ -21,28 +19,29 @@ export const Colorpicker = ({
 	handleClickPopup?: (event?: any) => any;
 }) => {
 	const [focused, setFocused] = useState(false);
+	const [remove, setRemove] = useState(false);
 	const id = useId();
-
-	const onLongPress = () => {
-		console.log("longpress is triggered");
-	};
-
-	const onClick = () => {
-		console.log("click is triggered");
-	};
-
-	const defaultOptions = {
-		shouldPreventDefault: true,
-		delay: 500,
-	};
-
-	const longPressEvent = useLongPress(onLongPress, onClick, defaultOptions);
 
 	const colorsB = [];
 	const colorsO = [];
+
+	const colorClick = (color: string) => {
+		if (remove) {
+			let index = state.colors.indexOf(color);
+			let newColorArray: string[] = state.colors;
+			newColorArray.splice(index, 1);
+			console.log("updating state...");
+			updateState("colors", newColorArray);
+			console.log("deleting color...");
+			scoreboardInterface.updateColorArray(newColorArray);
+			console.log(state.colors);
+		}
+	};
+
 	for (const color of state.colors) {
 		colorsB.push(
 			<Color
+				onClick={() => colorClick(color)}
 				key={id}
 				updateColorState={updateState}
 				updateScoreState={updateScoreState}
@@ -50,21 +49,9 @@ export const Colorpicker = ({
 				team={team}
 				color={color}
 				Ecolor={color}
-				{...longPressEvent}
 			/>,
 		);
-		colorsO.push(
-			<Color
-				key={id}
-				updateColorState={updateState}
-				updateScoreState={updateScoreState}
-				side={"O"}
-				team={team}
-				color={color}
-				Ecolor={color}
-				{...longPressEvent}
-			/>,
-		);
+		colorsO.push(<Color key={id} updateColorState={updateState} updateScoreState={updateScoreState} side={"O"} team={team} color={color} Ecolor={color} />);
 	}
 
 	let newC = "";
@@ -102,21 +89,39 @@ export const Colorpicker = ({
 			<div className={active ? "c-colorpicker__overlay" : "c-colorpicker__overlay c-colorpicker__hidden"}></div>
 			<div className={active ? "c-colorpicker" : "c-colorpicker c-colorpicker__hidden"}>
 				<div className="c-colorpicker__container scrollbar">
-					<button className="c-colorpicker__close" onClick={handleClickPopup ? handleClickPopup : () => {}}>
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							width="24"
-							height="24"
-							viewBox="0 0 24 24"
-							fill="none"
-							stroke="currentColor"
-							strokeWidth="2"
-							strokeLinecap="round"
-							strokeLinejoin="round">
-							<line x1="18" y1="6" x2="6" y2="18"></line>
-							<line x1="6" y1="6" x2="18" y2="18"></line>
-						</svg>
-					</button>
+					<div className="buttons">
+						<button className="close" onClick={handleClickPopup ? handleClickPopup : () => {}}>
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								width="24"
+								height="24"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								strokeWidth="2"
+								strokeLinecap="round"
+								strokeLinejoin="round">
+								<line x1="18" y1="6" x2="6" y2="18"></line>
+								<line x1="6" y1="6" x2="18" y2="18"></line>
+							</svg>
+						</button>
+						<button className="garbage" onClick={() => setRemove(!remove)}>
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								width="24"
+								height="24"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke-width="2"
+								stroke-linecap="round"
+								stroke-linejoin="round">
+								<polyline points="3 6 5 6 21 6"></polyline>
+								<path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+								<line x1="10" y1="11" x2="10" y2="17"></line>
+								<line x1="14" y1="11" x2="14" y2="17"></line>
+							</svg>
+						</button>
+					</div>
 					<Flag top={team == 1 ? state.hb : state.ub} bottom={team == 1 ? state.ho : state.uo} />
 					<p>Kies een kleur voor de bovenkant</p>
 					<div className="c-colorpicker__colors">
