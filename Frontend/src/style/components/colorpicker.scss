@@ -72,6 +72,11 @@
 			height: 3.75rem;
 			border-radius: 0.5rem;
 			position: relative;
+			text-align: center;
+
+			display: flex;
+			justify-content: center;
+			align-items: center;
 
 			@media screen and (max-width: 460px) {
 				width: 2.5rem;
@@ -81,6 +86,11 @@
 			@media screen and (max-width: 295px) {
 				width: 1.875rem;
 				height: 1.875rem;
+			}
+
+			.delete-icon {
+				stroke: #121212;
+				opacity: 60%;
 			}
 		}
 
