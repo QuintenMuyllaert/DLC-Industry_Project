@@ -41,7 +41,7 @@ export const SocketNamespace = class SocketNamespace {
 		});
 	}
 	emitAll(event: string, ...args: any[]) {
-		console.log(`Sending to ${this.displays.length} displays & ${this.users.length} users in ${this.serial}`);
+		//console.log(`Sending to ${this.displays.length} displays & ${this.users.length} users in ${this.serial}`);
 		this.displays.forEach((display) => {
 			display.emit(event, ...args);
 		});
@@ -50,7 +50,7 @@ export const SocketNamespace = class SocketNamespace {
 		});
 	}
 	emitUsers(event: string, ...args: any[]) {
-		console.log(`Sending to ${this.users.length} users in ${this.serial}`);
+		//console.log(`Sending to ${this.users.length} users in ${this.serial}`);
 		this.users.forEach((user) => {
 			user.emit(event, ...args);
 		});

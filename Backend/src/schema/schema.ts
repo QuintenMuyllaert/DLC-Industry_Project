@@ -1,18 +1,12 @@
-export interface admin {
+export interface User {
 	username: string;
 	password: string;
-	parent: false;
+	isAdmin: boolean;
 	serial: string;
-}
-
-export interface user {
-	username: string;
-	password: string;
-	parent: string;
 	firstLogin: boolean;
 }
 
-export interface scoreboard {
+export interface Scoreboard {
 	isPlaying: boolean;
 	hb: string;
 	ho: string;
@@ -48,21 +42,21 @@ export interface scoreboard {
 	periodLength: number;
 }*/
 
-export interface template {
+export interface Template {
 	serial: string;
 	name: string;
 	parts: number;
 	duration: number;
 }
 
-export const defaultTemplate: template = {
+export const defaultTemplate: Template = {
 	serial: "N/A",
 	name: "N/A",
 	parts: 0,
 	duration: 0,
 };
 
-export const defaultScoreboard: scoreboard = {
+export const defaultScoreboard: Scoreboard = {
 	serial: "N/A",
 	isPlaying: false,
 	hb: "black",
@@ -83,3 +77,7 @@ export const defaultScoreboard: scoreboard = {
 	colors: ["green", "lightblue", "darkblue", "purple", "white", "black", "yellow", "red", "orange", "darkred"],
 	hasAdmin: false,
 };
+
+export interface LooseObject {
+	[key: string]: any;
+}
