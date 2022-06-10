@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import BottomTab from "../components/BottomTab";
 import IconButton from "../components/IconButton";
 
@@ -6,8 +6,37 @@ import Input from "../components/Input";
 import Logo from "../components/Logo";
 import Template from "../components/Template";
 import { LooseObject } from "../utils/Interfaces";
+import { updateGlobalState as updateState, globalState as state } from "../utils/Appstate";
 
 export const Templates = () => {
+	const fetchTemplates = async () => {
+		const res = await fetch(`/template?serial=X3462L7L`, { mode: "no-cors", method: "GET" });
+		const json = await res.json();
+		updateState("templates", json);
+	};
+
+	const handleClickNewTemplate = async () => {
+		// const res = await fetch(`/template?serial=X3462L7L`, { mode: "no-cors", method: "POST", body: JSON.stringify(template) });
+		const res = await fetch(`https://industryproject.computernetwork.be/template?serial=X3462L7L`, {
+			mode: "no-cors",
+			method: "POST",
+			headers: {
+				"content-type": "application/json",
+			},
+			body: JSON.stringify(template),
+		});
+	};
+
+	useEffect(() => {
+		fetchTemplates();
+	}, []);
+
+	let templates = [];
+
+	for (const template of state.templates) {
+		templates.push(<Template sportNaam={template.name} aantalHelften={template.parts} duurHelft={template.duration} />);
+	}
+
 	const template: LooseObject = {
 		naam: "",
 		aantalHelften: 0,
@@ -46,7 +75,8 @@ export const Templates = () => {
 					label="Naam sport"
 					type="text"
 					onChange={(event: React.FormEvent<HTMLInputElement>) => {
-						updateNewTemplate("naamTemplate", event.currentTarget.value);
+						updateNewTemplate("naam", event.currentTarget.value);
+						console.log(template);
 					}}
 				/>
 
@@ -57,6 +87,7 @@ export const Templates = () => {
 						type="number"
 						onChange={(event: React.FormEvent<HTMLInputElement>) => {
 							updateNewTemplate("aantalHelften", event.currentTarget.value);
+							console.log(template);
 						}}
 					/>
 
@@ -66,19 +97,15 @@ export const Templates = () => {
 						type="number"
 						onChange={(event: React.FormEvent<HTMLInputElement>) => {
 							updateNewTemplate("duurHelft", event.currentTarget.value);
+							console.log(template);
 						}}
 					/>
 				</div>
 
-				<IconButton label="Toevoegen" color="white" />
+				<IconButton label="Toevoegen" color="white" onClick={handleClickNewTemplate} />
 
 				<h1>Bestaande templates</h1>
-				<div className="p-templates__list scrollbar">
-					<Template sportNaam="Voetbal" aantalHelften={2} duurHelft="45:00" />
-					<Template sportNaam="Voetbal jeugd" aantalHelften={4} duurHelft="20:00" />
-					<Template sportNaam="Voetbal" aantalHelften={2} duurHelft="45:00" />
-					<Template sportNaam="Voetbal" aantalHelften={2} duurHelft="45:00" />
-				</div>
+				<div className="p-templates__list scrollbar"></div>
 			</div>
 			<BottomTab />
 		</>
