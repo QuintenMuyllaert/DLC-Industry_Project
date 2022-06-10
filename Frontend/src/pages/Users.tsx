@@ -1,25 +1,53 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import BottomTab from "../components/BottomTab";
 import IconButton from "../components/IconButton";
+import { updateGlobalState as updateState, globalState as state } from "../utils/Appstate";
 
 import Input from "../components/Input";
 import Logo from "../components/Logo";
-import Template from "../components/Template";
 import User from "../components/User";
 import { LooseObject } from "../utils/Interfaces";
 
 export const Users = () => {
-	const template: LooseObject = {
-		naam: "",
-		aantalHelften: 0,
-		duurHelft: 0,
+	const user: LooseObject = {
+		serial: "X3462L7L",
+		username: "",
+		password: "password",
 	};
 
-	const [newTemplate, setnewTemplate] = useState(template);
+	const [newUser, setNewUser] = useState(user);
 
-	const updateNewTemplate = (key: any, value: string) => {
-		newTemplate[key] = value;
-		setnewTemplate(newTemplate);
+	let userlist = [];
+
+	useEffect(() => {
+		fetchUsers();
+	}, []);
+
+	const updateNewUser = (key: any, value: string) => {
+		newUser[key] = value;
+		setNewUser(newUser);
+	};
+
+	const fetchUsers = async () => {
+		const res = await fetch(`/users?serial=X3462L7L`, { mode: "no-cors", method: "GET" });
+		const json = await res.json();
+		updateState("users", json);
+		console.log(json);
+	};
+
+	for (const template of state.templates) {
+		userlist.push(<User userName={template.username} />);
+	}
+
+	const handleClickNewUser = async () => {
+		const res = await fetch(`${document.location.origin}/register`, {
+			mode: "no-cors",
+			method: "POST",
+			headers: {
+				"content-type": "application/json",
+			},
+			body: JSON.stringify(user),
+		});
 	};
 
 	return (
@@ -44,28 +72,19 @@ export const Users = () => {
 
 				<h1>Mensen toevoegen</h1>
 				<Input
-					id="addUsername"
+					id="newUsername"
 					label="Naam"
 					type="text"
 					onChange={(event: React.FormEvent<HTMLInputElement>) => {
-						updateNewTemplate("naamTemplate", event.currentTarget.value);
+						updateNewUser("username", event.currentTarget.value);
 					}}
 				/>
 
-				<IconButton label="Toevoegen" color="white" />
+				<IconButton label="Toevoegen" color="white" onClick={handleClickNewUser} />
 
 				{/* <div className="userlist"> */}
 				<h1 className="subtitle">Deze mensen hebben toegang</h1>
-				<div className="list scrollbar">
-					<User userName="Milan" />
-					<User userName="Quinten" />
-					<User userName="Anton" />
-					<User userName="Jef" />
-					<User userName="Jos" />
-					<User userName="Jezus" />
-					<User userName="Peter" />
-					<User userName="Glenn" />
-				</div>
+				<div className="list scrollbar">{userlist}</div>
 				{/* </div> */}
 			</div>
 			<BottomTab />

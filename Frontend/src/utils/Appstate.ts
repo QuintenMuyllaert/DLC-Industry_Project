@@ -24,6 +24,8 @@ export const defaultState: LooseObject = {
 	colors: [],
 	scorbordSponsorsToggle: "left",
 	sponsors: [],
+	templates: [],
+	users: [],
 
 	isRemove: false,
 };
