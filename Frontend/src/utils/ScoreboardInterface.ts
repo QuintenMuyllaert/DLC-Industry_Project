@@ -18,6 +18,9 @@ export class InterfaceScoreboard {
 	addScore(team: "G1" | "G2", score: number) {}
 	resetTimer() {}
 	setTimer(time: number) {}
+	runTimer(time: boolean) {
+		//TODO : Implement
+	}
 	sendMessage(message: string) {}
 	getMessage() {}
 	setScreen(screen: `P${number}`) {}
@@ -56,6 +59,9 @@ export class InterfaceHTTP {
 	setTimer(time: number) {
 		//TODO : Implement
 		//ISSUE : http api from DLC doesnt support this
+	}
+	runTimer(time: boolean) {
+		//TODO : Implement
 	}
 	sendMessage(message: string) {
 		ping(`${this.uri}/update?message=${encodeURI(message)}&submit=Send+message`);
@@ -157,6 +163,9 @@ export class InterfaceSocket {
 	}
 	setTimer(time: number) {
 		this.socket.emit("input", "time", time);
+	}
+	runTimer(time: boolean) {
+		this.socket.emit("time", time);
 	}
 	sendMessage(message: string) {
 		this.message = message;
