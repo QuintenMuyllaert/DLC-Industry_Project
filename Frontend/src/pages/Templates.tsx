@@ -38,10 +38,9 @@ export const Templates = () => {
 	}
 
 	const template: LooseObject = {
-		naam: "",
-		aantalHelften: 0,
-		duurHelft: 0,
-		serial: state.serial,
+		name: "",
+		parts: 0,
+		duration: 0,
 	};
 
 	const [newTemplate, setnewTemplate] = useState(template);
@@ -76,7 +75,7 @@ export const Templates = () => {
 					label="Naam sport"
 					type="text"
 					onChange={(event: React.FormEvent<HTMLInputElement>) => {
-						updateNewTemplate("naam", event.currentTarget.value);
+						updateNewTemplate("name", event.currentTarget.value);
 						console.log(template);
 					}}
 				/>
@@ -87,7 +86,7 @@ export const Templates = () => {
 						label="Aantal helften"
 						type="number"
 						onChange={(event: React.FormEvent<HTMLInputElement>) => {
-							updateNewTemplate("aantalHelften", event.currentTarget.value);
+							updateNewTemplate("parts", event.currentTarget.value);
 							console.log(template);
 						}}
 					/>
@@ -97,7 +96,7 @@ export const Templates = () => {
 						label="Duur helft"
 						type="number"
 						onChange={(event: React.FormEvent<HTMLInputElement>) => {
-							updateNewTemplate("duurHelft", event.currentTarget.value);
+							updateNewTemplate("duration", event.currentTarget.value);
 							console.log(template);
 						}}
 					/>
