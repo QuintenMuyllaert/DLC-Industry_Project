@@ -17,13 +17,14 @@ export const Templates = () => {
 
 	const handleClickNewTemplate = async () => {
 		// const res = await fetch(`/template?serial=X3462L7L`, { mode: "no-cors", method: "POST", body: JSON.stringify(template) });
+		console.log("dddddddddd", newTemplate);
 		const res = await fetch(`https://industryproject.computernetwork.be/template?serial=X3462L7L`, {
 			mode: "no-cors",
 			method: "POST",
 			headers: {
 				"content-type": "application/json",
 			},
-			body: JSON.stringify(template),
+			body: JSON.stringify(newTemplate),
 		});
 	};
 
@@ -38,10 +39,9 @@ export const Templates = () => {
 	}
 
 	const template: LooseObject = {
-		naam: "",
-		aantalHelften: 0,
-		duurHelft: 0,
-		serial: state.serial,
+		name: "",
+		parts: 0,
+		duration: 0,
 	};
 
 	const [newTemplate, setnewTemplate] = useState(template);
@@ -76,7 +76,7 @@ export const Templates = () => {
 					label="Naam sport"
 					type="text"
 					onChange={(event: React.FormEvent<HTMLInputElement>) => {
-						updateNewTemplate("naam", event.currentTarget.value);
+						updateNewTemplate("name", event.currentTarget.value);
 						console.log(template);
 					}}
 				/>
@@ -87,7 +87,7 @@ export const Templates = () => {
 						label="Aantal helften"
 						type="number"
 						onChange={(event: React.FormEvent<HTMLInputElement>) => {
-							updateNewTemplate("aantalHelften", event.currentTarget.value);
+							updateNewTemplate("parts", event.currentTarget.value);
 							console.log(template);
 						}}
 					/>
@@ -97,7 +97,7 @@ export const Templates = () => {
 						label="Duur helft"
 						type="number"
 						onChange={(event: React.FormEvent<HTMLInputElement>) => {
-							updateNewTemplate("duurHelft", event.currentTarget.value);
+							updateNewTemplate("duration", event.currentTarget.value);
 							console.log(template);
 						}}
 					/>
