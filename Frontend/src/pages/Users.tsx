@@ -35,8 +35,8 @@ export const Users = () => {
 		console.log(json);
 	};
 
-	for (const template of state.templates) {
-		userlist.push(<User userName={template.username} />);
+	for (const user of state.users) {
+		userlist.push(<User userName={user.username} />);
 	}
 
 	const handleClickNewUser = async () => {
