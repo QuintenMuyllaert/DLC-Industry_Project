@@ -10,6 +10,7 @@ import { LooseObject } from "../utils/Interfaces";
 
 export const Users = () => {
 	const user: LooseObject = {
+		serial: "X3462L7L",
 		username: "",
 		password: "password",
 	};
@@ -38,7 +39,7 @@ export const Users = () => {
 	}
 
 	const handleClickNewUser = async () => {
-		const res = await fetch(`https://industryproject.computernetwork.be/register?serial=X3462L7L`, {
+		const res = await fetch(`${document.location.origin}/register`, {
 			mode: "no-cors",
 			method: "POST",
 			headers: {
