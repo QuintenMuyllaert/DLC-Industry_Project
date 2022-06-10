@@ -41,6 +41,7 @@ export const Templates = () => {
 		naam: "",
 		aantalHelften: 0,
 		duurHelft: 0,
+		serial: state.serial,
 	};
 
 	const [newTemplate, setnewTemplate] = useState(template);
