@@ -14,6 +14,7 @@ export const defaultState: LooseObject = {
 	ub: "black",
 	uo: "black",
 	timer: 0,
+	timerRunning: false,
 	message: "",
 	screen: "P0",
 	serial: "N/A",

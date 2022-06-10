@@ -66,10 +66,15 @@ export const Score = () => {
 		}
 	};
 
+	const setTimer = () => {
+		//scoreboardInterface.runTimer(!state.timerRunning);
+		updateState("timerRunning", !state.timerRunning);
+	};
+
 	return (
 		<>
 			<div className="p-score">
-				<Clock time={state.timer}></Clock>
+				<Clock time={state.timer} onClick={setTimer}></Clock>
 				<div className="scorevalue-container">
 					<Flag top={state.hb} bottom={state.ho} handleClickPopup={handleClickTeam1Color} />
 					<div className="empty"></div>
