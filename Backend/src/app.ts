@@ -316,7 +316,7 @@ app.delete("/template", async (req: Request, res: Response) => {
 	res.status(202).send("TEMPLATE OK");
 });
 
-app.get("/users", async (req: Request, res: Response) => {
+app.get("/user", async (req: Request, res: Response) => {
 	const token = extractToken(req);
 	if (!token) {
 		res.status(401).send("No token");
