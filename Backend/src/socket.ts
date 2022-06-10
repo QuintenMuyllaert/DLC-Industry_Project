@@ -11,6 +11,8 @@ import { LooseObject, Scoreboard, defaultScoreboard } from "./schema/schema";
 const namespaces: LooseObject = {};
 const gengetNamespace = async (serial: string, allowGeneration: boolean) => {
 	if (!namespaces[serial]) {
+		namespaces[serial] = true;
+
 		let reply: any[] = await database.read("scoreboards", { serial });
 		if (!reply.length && allowGeneration) {
 			const newScoreboard: Scoreboard = { ...defaultScoreboard, serial };
