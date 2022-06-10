@@ -17,13 +17,17 @@ export const Templates = () => {
 
 	const handleClickNewTemplate = async () => {
 		// const res = await fetch(`/template?serial=X3462L7L`, { mode: "no-cors", method: "POST", body: JSON.stringify(template) });
-		console.log("dddddddddd", newTemplate);
-		const res = await fetch(`https://industryproject.computernetwork.be/template?serial=X3462L7L`, {
-			mode: "no-cors",
+		// console.log("dddddddddd", newTemplate);
+		const res = await fetch(`/template?serial=X3462L7L`, {
+			mode: "cors",
 			method: "POST",
+			cache: "no-cache",
+			credentials: "same-origin",
 			headers: {
 				"content-type": "application/json",
 			},
+			redirect: "follow",
+			referrerPolicy: "no-referrer",
 			body: JSON.stringify(newTemplate),
 		});
 	};
