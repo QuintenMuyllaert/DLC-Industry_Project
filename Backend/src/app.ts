@@ -93,6 +93,7 @@ app.post("/register", async (req: Request, res: Response) => {
 			isAdmin: true,
 			firstLogin: false,
 		};
+		await database.update("scoreboards", { serial }, { ...scoreboarddata, hasAdmin: true });
 		await database.create("accounts", newUser);
 		res.redirect("/auth");
 	} else {
@@ -326,12 +327,11 @@ app.get("/users", async (req: Request, res: Response) => {
 		res.status(401).send("Invalid token");
 		return;
 	}
-	const { serial } = body;
-	if (!serial) {
+	const { serial, isAdmin } = body;
+	if (!serial || !isAdmin) {
 		res.status(401).send("No serial");
 		return;
 	}
-
 	const users = [];
 	const usersDB = await database.read("accounts", { serial });
 	for (const user of usersDB) {
