@@ -14,7 +14,12 @@ export const dbConnect = async () => {
 	console.log("Connected to database");
 };
 
-export const dbCreate = async (collectionName: CollectionName, data: any) => {
+export const dbCreate = async (collectionName: CollectionName, data: any, unique: boolean = true) => {
+	if (unique && (await dbExists(collectionName, data))) {
+		console.log("Already exists");
+		return;
+	}
+
 	await dbConnect();
 	const db = database.db(dbName);
 	const collection = db.collection(collectionName);
