@@ -1,4 +1,8 @@
 export const User = ({ userName }: { userName: string }) => {
+	const getRandomPassword = () => {
+		//return randomized password
+	};
+
 	const handleClickDeleteUser = async () => {
 		const res = await fetch(`${document.location.origin}/register`, {
 			mode: "no-cors",
