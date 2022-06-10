@@ -315,6 +315,36 @@ app.delete("/template", async (req: Request, res: Response) => {
 	res.status(202).send("TEMPLATE OK");
 });
 
+app.get("/users", async (req: Request, res: Response) => {
+	const token = extractToken(req);
+	if (!token) {
+		res.status(401).send("No token");
+		return;
+	}
+	const { valid, body } = await jwtVerifyAsync(token);
+	if (!valid) {
+		res.status(401).send("Invalid token");
+		return;
+	}
+	const { serial } = body;
+	if (!serial) {
+		res.status(401).send("No serial");
+		return;
+	}
+
+	const users = [];
+	const usersDB = await database.read("accounts", { serial });
+	for (const user of usersDB) {
+		users.push({
+			username: user?.username,
+			isAdmin: user?.isAdmin,
+		});
+	}
+
+	res.status(200);
+	res.send(JSON.stringify(users, null, 4));
+});
+
 //DEFINE API ROUTES ABOVE !!!
 
 app.use((req: Request, res: Response, next: Function) => {
