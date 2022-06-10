@@ -6,7 +6,7 @@ export const User = ({ userName }: { userName: string }) => {
 			headers: {
 				"content-type": "application/json",
 			},
-			body: JSON.stringify(userName),
+			body: JSON.stringify({ userName, password: "password", serial: "X3462L7L" }),
 		});
 	};
 
