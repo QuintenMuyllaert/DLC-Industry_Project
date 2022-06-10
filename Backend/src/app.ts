@@ -345,6 +345,35 @@ app.get("/users", async (req: Request, res: Response) => {
 	res.send(JSON.stringify(users, null, 4));
 });
 
+app.delete("/user", async (req: Request, res: Response) => {
+	const token = extractToken(req);
+	if (!token) {
+		res.status(401).send("No token");
+		return;
+	}
+	const { valid, body } = await jwtVerifyAsync(token);
+	if (!valid) {
+		res.status(401).send("Invalid token");
+		return;
+	}
+	const { serial, isAdmin } = body;
+	if (!serial || !isAdmin) {
+		res.status(401).send("No serial");
+		return;
+	}
+
+	const { username } = req.body;
+	if (!username) {
+		console.log("Missing params on user");
+		res.status(400); // Bad Request
+		res.send("Invalid / Missing username");
+		return;
+	}
+
+	await database.delete("accounts", { serial, username, isAdmin: false });
+	res.status(202).send("USER OK");
+});
+
 //DEFINE API ROUTES ABOVE !!!
 
 app.use((req: Request, res: Response, next: Function) => {
