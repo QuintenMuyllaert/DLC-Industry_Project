@@ -1,4 +1,15 @@
 export const User = ({ userName }: { userName: string }) => {
+	const handleClickDeleteUser = async () => {
+		const res = await fetch(`${document.location.origin}/register`, {
+			mode: "no-cors",
+			method: "DELETE",
+			headers: {
+				"content-type": "application/json",
+			},
+			body: JSON.stringify(userName),
+		});
+	};
+
 	return (
 		<article className="c-user">
 			<div className="card">
@@ -6,6 +17,7 @@ export const User = ({ userName }: { userName: string }) => {
 					<p>{userName}</p>
 				</div>
 				<svg
+					onClick={handleClickDeleteUser}
 					className="icon"
 					xmlns="http://www.w3.org/2000/svg"
 					width="24"

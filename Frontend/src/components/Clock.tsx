@@ -1,4 +1,4 @@
-export const Clock = ({ time }: { time: number | `${number}:${number}` }) => {
+export const Clock = ({ time, onClick }: { time: number | `${number}:${number}`; onClick?: (event?: any) => any }) => {
 	let display = "";
 
 	if (typeof time === "string") {
