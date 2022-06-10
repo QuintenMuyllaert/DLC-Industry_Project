@@ -29,9 +29,10 @@ export const Users = () => {
 	};
 
 	const fetchUsers = async () => {
-		const res = await fetch(`/register?serial=X3462L7L`, { mode: "no-cors", method: "GET" });
+		const res = await fetch(`/users?serial=X3462L7L`, { mode: "no-cors", method: "GET" });
 		const json = await res.json();
 		updateState("users", json);
+		console.log(json);
 	};
 
 	for (const template of state.templates) {
