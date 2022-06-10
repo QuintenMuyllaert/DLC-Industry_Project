@@ -29,14 +29,15 @@ export const Users = () => {
 	};
 
 	const fetchUsers = async () => {
-		const res = await fetch(`/users?serial=X3462L7L`, { mode: "no-cors", method: "GET" });
+		const res = await fetch(`/user?serial=X3462L7L`, { mode: "no-cors", method: "GET" });
 		const json = await res.json();
 		updateState("users", json);
 		console.log(json);
 	};
 
-	for (const user of state.users) {
-		userlist.push(<User userName={user.username} />);
+	for (const userInList of state.users) {
+		userlist.push(<User userName={userInList.username} />);
+		console.log(userInList);
 	}
 
 	const handleClickNewUser = async () => {
