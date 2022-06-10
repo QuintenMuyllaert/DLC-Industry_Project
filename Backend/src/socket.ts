@@ -10,6 +10,7 @@ import { LooseObject, Scoreboard, defaultScoreboard } from "./schema/schema";
 // WS(S) server
 const namespaces: LooseObject = {};
 const gengetNamespace = async (serial: string, allowGeneration: boolean) => {
+	console.log(serial);
 	if (!namespaces[serial]) {
 		namespaces[serial] = true;
 

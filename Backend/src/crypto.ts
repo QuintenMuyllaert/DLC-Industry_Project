@@ -2,6 +2,9 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import cookie from "cookie";
 
+import database from "./database";
+import { LooseObject } from "./schema/schema";
+
 export type Connection = Request | any;
 
 export const hash = async (str: string) => {
@@ -12,6 +15,7 @@ export const validateHash = async (plaintext: string, hash: string) => {
 	return await bcrypt.compare(plaintext, hash);
 };
 
+export const snowflakes: LooseObject = {};
 export const jwtVerifyAsync = async (token: string) => {
 	let ret = { valid: false, body: {} as any };
 
@@ -29,11 +33,30 @@ export const jwtVerifyAsync = async (token: string) => {
 
 	ret.body = ret.body === undefined ? ({} as any) : ret.body;
 
+	if (ret.valid) {
+		console.log("Token valid");
+		if (!ret?.body?.snowflake) {
+			console.log("No snowflake on token");
+			ret.valid = false;
+		} else if (!snowflakes[ret?.body?.snowflake]) {
+			console.log("Snowflake not cached");
+			const [reply] = await database.read("jwt", { snowflake: ret?.body?.snowflake });
+			console.log("Snowflake from db: " + reply);
+			if (reply) {
+				console.log("Snowflake cached");
+				snowflakes[ret?.body?.snowflake] = true;
+			}
+		}
+		ret.valid = snowflakes[ret.body.snowflake];
+		console.log("Snowflake valid: " + ret.valid);
+	}
 	return ret;
 };
 
 export const jwtSignAsync = async (body: any) => {
-	return await jwt.sign(body, process.env.TOKEN_SECRET as string);
+	const snowflake = Math.random() * 10000000000000000 + ":" + Date.now();
+	await database.create("jwt", { ...body, snowflake });
+	return await jwt.sign({ ...body, snowflake }, process.env.TOKEN_SECRET as string);
 };
 
 export const hasAccess = async (body: any, requirements: any) => {

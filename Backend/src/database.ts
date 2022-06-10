@@ -7,7 +7,7 @@ const connstr = process.env.MONGO_CONNECTION as string;
 const database = new MongoClient(connstr);
 const dbName = "IndustryProject";
 
-export type CollectionName = "accounts" | "scoreboards" | "templates" | "colors";
+export type CollectionName = "accounts" | "scoreboards" | "templates" | "colors" | "jwt";
 
 export const dbConnect = async () => {
 	await database.connect();
