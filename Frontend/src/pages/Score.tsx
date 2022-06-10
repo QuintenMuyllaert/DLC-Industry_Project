@@ -67,7 +67,7 @@ export const Score = () => {
 	};
 
 	const setTimer = () => {
-		//scoreboardInterface.runTimer(!state.timerRunning);
+		scoreboardInterface.runTimer(!state.timerRunning);
 		updateState("timerRunning", !state.timerRunning);
 	};
 
