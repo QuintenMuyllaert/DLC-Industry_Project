@@ -10,9 +10,9 @@ import { LooseObject } from "../utils/Interfaces";
 
 export const Users = () => {
 	const user: LooseObject = {
-		serial: "X3462L7L",
 		username: "",
 		password: "password",
+		serial: "X3462L7L",
 	};
 
 	const [newUser, setNewUser] = useState(user);
@@ -41,6 +41,7 @@ export const Users = () => {
 	}
 
 	const handleClickNewUser = async () => {
+		console.log(newUser);
 		const res = await fetch(`${document.location.origin}/register`, {
 			mode: "no-cors",
 			method: "POST",
@@ -49,6 +50,7 @@ export const Users = () => {
 			},
 			body: JSON.stringify(newUser),
 		});
+		console.log(newUser);
 	};
 
 	return (
