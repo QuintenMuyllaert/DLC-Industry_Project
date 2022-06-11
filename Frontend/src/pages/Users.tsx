@@ -10,9 +10,9 @@ import { LooseObject } from "../utils/Interfaces";
 
 export const Users = () => {
 	const user: LooseObject = {
-		serial: "X3462L7L",
 		username: "",
 		password: "password",
+		serial: "X3462L7L",
 	};
 
 	const [newUser, setNewUser] = useState(user);
@@ -29,25 +29,32 @@ export const Users = () => {
 	};
 
 	const fetchUsers = async () => {
-		const res = await fetch(`/users?serial=X3462L7L`, { mode: "no-cors", method: "GET" });
+		const res = await fetch(`/user?serial=X3462L7L`, { mode: "no-cors", method: "GET" });
 		const json = await res.json();
 		updateState("users", json);
 		console.log(json);
 	};
 
-	for (const user of state.users) {
-		userlist.push(<User userName={user.username} />);
+	for (const userInList of state.users) {
+		userlist.push(<User userName={userInList.username} />);
+		console.log(userInList);
 	}
 
 	const handleClickNewUser = async () => {
+		console.log(newUser);
 		const res = await fetch(`${document.location.origin}/register`, {
-			mode: "no-cors",
 			method: "POST",
+			mode: "cors",
+			cache: "no-cache",
+			credentials: "same-origin",
 			headers: {
-				"content-type": "application/json",
+				"Content-Type": "application/json",
 			},
-			body: JSON.stringify(user),
+			redirect: "follow",
+			referrerPolicy: "no-referrer",
+			body: JSON.stringify(newUser),
 		});
+		console.log(newUser);
 	};
 
 	return (
