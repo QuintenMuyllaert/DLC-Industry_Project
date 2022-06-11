@@ -45,7 +45,7 @@ export const dbDelete = async (collectionName: CollectionName, query: any) => {
 	await dbConnect();
 	const db = database.db(dbName);
 	const collection = db.collection(collectionName);
-	await collection.deleteOne(query);
+	await collection.deleteMany(query);
 };
 
 export const dbExists = async (collectionName: CollectionName, query: any) => {
