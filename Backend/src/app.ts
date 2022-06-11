@@ -119,6 +119,53 @@ app.post("/register", async (req: Request, res: Response) => {
 	}
 });
 
+app.post("/changepassword", async (req: Request, res: Response) => {
+	await protect(req, res, async (body: LooseObject) => {
+		const { username } = body;
+		const { currentPassword, newPassword } = req.body;
+		if (!username || !currentPassword || !newPassword) {
+			res.status(400).send("Missing username or password");
+			return;
+		}
+		const [userdata] = await database.read("accounts", { username });
+		if (!userdata) {
+			res.status(401).send("User does not exist");
+			return;
+		}
+		const valid = await validateHash(currentPassword, userdata?.password);
+		if (!valid) {
+			res.status(401).send("Invalid password");
+			return;
+		}
+		await database.update("accounts", { username }, { ...userdata, password: await hash(newPassword) });
+		//res.status(202).send("CHANGE PASSWORD OK");
+		res.redirect("/revoke");
+	});
+});
+
+app.post("/edituser", async (req: Request, res: Response) => {
+	await protect(req, res, async (body: LooseObject) => {
+		const { serial, isAdmin } = body;
+		if (!serial || !isAdmin) {
+			res.status(400).send("Missing serial or isAdmin");
+			return;
+		}
+
+		const { currentUsername, newUsername } = req.body;
+		if (!newUsername || !currentUsername) {
+			res.status(400).send("Missing username");
+			return;
+		}
+		const [userdata] = await database.read("accounts", { serial, username: currentUsername });
+		if (!userdata) {
+			res.status(401).send("User does not exist");
+			return;
+		}
+		await database.update("accounts", { serial, username: currentUsername }, { ...userdata, username: newUsername });
+		res.redirect("/revoke");
+	});
+});
+
 app.get("/logout", async (req: Request, res: Response) => {
 	const token = extractToken(req);
 	if (token) {
