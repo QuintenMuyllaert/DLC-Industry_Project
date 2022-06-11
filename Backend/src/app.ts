@@ -31,6 +31,8 @@ const protect = async (req: Request, res: Response, onSuccess: any = () => {}) =
 
 	const { valid, body } = await jwtVerifyAsync(token);
 	if (!valid) {
+		res.clearCookie("bearer");
+		res.clearCookie("auth");
 		res.status(401).send("Invalid token");
 		return false;
 	}
