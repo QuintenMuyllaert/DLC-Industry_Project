@@ -36,8 +36,9 @@ export const Users = () => {
 	};
 
 	for (const userInList of state.users) {
-		userlist.push(<User user={userInList.username} />);
-		console.log(userInList);
+		if (userInList.IsAdmin == false) {
+			userlist.push(<User user={userInList.username} />);
+		}
 	}
 
 	const handleClickNewUser = async () => {

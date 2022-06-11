@@ -1,6 +1,13 @@
+import { LooseObject } from "../utils/Interfaces";
+
 export const User = ({ user }: { user: string }) => {
 	const getRandomPassword = () => {
 		//return randomized password
+	};
+
+	const requestBody: LooseObject = {
+		user: user,
+		serial: "X3462L7L",
 	};
 
 	const handleClickDeleteUser = async () => {
@@ -14,7 +21,7 @@ export const User = ({ user }: { user: string }) => {
 			},
 			redirect: "follow",
 			referrerPolicy: "no-referrer",
-			body: JSON.stringify(user),
+			body: JSON.stringify(requestBody),
 		});
 	};
 
