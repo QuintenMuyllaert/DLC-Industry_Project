@@ -37,8 +37,7 @@ export const Users = () => {
 
 	for (const userInList of state.users) {
 		console.log(userInList);
-		if (userInList.IsAdmin) {
-		} else {
+		if (userInList.isAdmin == false) {
 			userlist.push(<User username={userInList.username} />);
 		}
 	}
