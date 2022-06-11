@@ -1,12 +1,14 @@
 import { LooseObject } from "../utils/Interfaces";
 
-export const User = ({ user }: { user: string }) => {
+export const User = ({ username }: { username: string }) => {
+	console.log("username: ", username);
+
 	const getRandomPassword = () => {
 		//return randomized password
 	};
 
 	const requestBody: LooseObject = {
-		user: user,
+		username: username,
 		serial: "X3462L7L",
 	};
 
@@ -29,7 +31,7 @@ export const User = ({ user }: { user: string }) => {
 		<article className="c-user">
 			<div className="card">
 				<div className="username">
-					<p>{user}</p>
+					<p>{username}</p>
 				</div>
 				<svg
 					onClick={handleClickDeleteUser}
