@@ -109,10 +109,32 @@ app.post("/register", async (req: Request, res: Response) => {
 	}
 });
 
-app.get("/logout", (req: Request, res: Response) => {
+app.get("/logout", async (req: Request, res: Response) => {
+	const token = extractToken(req);
+	if (token) {
+		const { valid, body } = await jwtVerifyAsync(token);
+		if (valid) {
+			await database.delete("jwt", { snowflake: body?.snowflake });
+		}
+	}
+
 	res.clearCookie("bearer");
 	res.clearCookie("auth");
 	res.redirect("/");
+});
+
+app.get("/revoke", async (req: Request, res: Response) => {
+	const token = extractToken(req);
+	if (token) {
+		const { valid, body } = await jwtVerifyAsync(token);
+		if (valid) {
+			await database.delete("jwt", { username: body?.username });
+		}
+	}
+
+	res.clearCookie("bearer");
+	res.clearCookie("auth");
+	res.redirect("/logout");
 });
 
 app.get("/sponsors", async (req: Request, res: Response) => {
