@@ -8,7 +8,8 @@ import siofu from "socketio-file-upload";
 import { readdirSync, statSync, existsSync, unlinkSync } from "fs";
 
 import database from "./database";
-import { extractToken, hasAccess, jwtVerifyAsync, jwtSignAsync, hash, validateHash } from "./crypto";
+import { extractToken, hasAccess, jwtVerifyAsync, jwtSignAsync, hash, validateHash, generateSerial } from "./crypto";
+import { gengetNamespace } from "./socket";
 import { User, LooseObject, Template } from "./schema/schema";
 
 export const dirname = process.cwd();
@@ -81,7 +82,8 @@ app.post("/auth", async (req: Request, res: Response) => {
 });
 
 app.post("/register", async (req: Request, res: Response) => {
-	const { username, password, serial } = req.body;
+	const { username, password } = req.body;
+	let { serial } = req.body;
 	if (!username || !password || !serial) {
 		res.status(400).send("Missing username or password or serial");
 		return;
@@ -91,6 +93,11 @@ app.post("/register", async (req: Request, res: Response) => {
 	if (userExists) {
 		res.status(401).send("User exists");
 		return;
+	}
+
+	if (serial === "virtual") {
+		const serial = generateSerial("virtual-");
+		gengetNamespace(serial, true);
 	}
 
 	const scoreboardExists = await database.exists("scoreboards", { serial });

@@ -87,3 +87,9 @@ export const extractToken = (connection: Connection) => {
 	console.log("Token: ", fromHttp, fromHeader, fromSocket);
 	return token;
 };
+
+export const generateSerial = (pre = "", post = "") => {
+	const a = Math.random();
+	a.toString(36).split(".").pop();
+	return pre + a + post;
+};
