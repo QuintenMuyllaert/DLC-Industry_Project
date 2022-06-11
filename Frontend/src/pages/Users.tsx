@@ -36,7 +36,7 @@ export const Users = () => {
 	};
 
 	for (const userInList of state.users) {
-		userlist.push(<User userName={userInList.username} />);
+		userlist.push(<User user={userInList.username} />);
 		console.log(userInList);
 	}
 

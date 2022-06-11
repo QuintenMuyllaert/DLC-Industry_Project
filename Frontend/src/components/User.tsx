@@ -1,16 +1,20 @@
-export const User = ({ userName }: { userName: string }) => {
+export const User = ({ user }: { user: string }) => {
 	const getRandomPassword = () => {
 		//return randomized password
 	};
 
 	const handleClickDeleteUser = async () => {
-		const res = await fetch(`${document.location.origin}/register`, {
-			mode: "no-cors",
+		const res = await fetch(`${document.location.origin}/user`, {
 			method: "DELETE",
+			mode: "cors",
+			cache: "no-cache",
+			credentials: "same-origin",
 			headers: {
-				"content-type": "application/json",
+				"Content-Type": "application/json",
 			},
-			body: JSON.stringify({ username: userName, password: "password", serial: "X3462L7L" }),
+			redirect: "follow",
+			referrerPolicy: "no-referrer",
+			body: JSON.stringify(user),
 		});
 	};
 
@@ -18,7 +22,7 @@ export const User = ({ userName }: { userName: string }) => {
 		<article className="c-user">
 			<div className="card">
 				<div className="username">
-					<p>{userName}</p>
+					<p>{user}</p>
 				</div>
 				<svg
 					onClick={handleClickDeleteUser}
