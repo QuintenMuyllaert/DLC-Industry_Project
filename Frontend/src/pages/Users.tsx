@@ -43,11 +43,15 @@ export const Users = () => {
 	const handleClickNewUser = async () => {
 		console.log(newUser);
 		const res = await fetch(`${document.location.origin}/register`, {
-			mode: "no-cors",
 			method: "POST",
+			mode: "cors",
+			cache: "no-cache",
+			credentials: "same-origin",
 			headers: {
-				"content-type": "application/json",
+				"Content-Type": "application/json",
 			},
+			redirect: "follow",
+			referrerPolicy: "no-referrer",
 			body: JSON.stringify(newUser),
 		});
 		console.log(newUser);
