@@ -71,7 +71,13 @@ app.post("/auth", async (req: Request, res: Response) => {
 		httpOnly: true,
 	});
 	res.cookie("auth", true, { maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: false });
-	res.status(202).send("AUTH OK");
+	const obj = {
+		status: "OK",
+		firstLogin: userdata?.firstLogin,
+	};
+
+	database.update("accounts", { username }, { ...userdata, firstLogin: false });
+	res.status(202).send(JSON.stringify(obj, null, 4));
 });
 
 app.post("/register", async (req: Request, res: Response) => {
