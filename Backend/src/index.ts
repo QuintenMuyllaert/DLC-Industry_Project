@@ -22,11 +22,10 @@ dotenv.config();
 
 const server = http.createServer(app);
 
-attachSocketIO(server);
-
 if (!existsSync("./.use-https")) {
 	console.log("Starting server in HTTP mode");
 	// start the Express server
+	attachSocketIO(server);
 	server.listen(config?.port || 80, "0.0.0.0", () => {
 		console.log(`server started at http://0.0.0.0:${config?.port}`);
 	});
@@ -41,7 +40,14 @@ if (!existsSync("./.use-https")) {
 			maintainerEmail: "quinten.muyllaert@student.howest.be",
 			cluster: false,
 		})
-		// Serves on 80 and 443
-		// Get's SSL certificates magically!
-		.serve(app);
+		.ready(httpsWorker);
+
+	function httpsWorker(glx: any) {
+		var server = glx.httpsServer();
+
+		attachSocketIO(server);
+
+		// servers a node app that proxies requests to a localhost
+		glx.serveApp(app);
+	}
 }
