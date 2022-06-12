@@ -22,7 +22,7 @@ export const MatchSetup = () => {
 	};
 
 	const handleClickNewTemplate = async () => {
-		if (checked) {
+		if (checked && selectedTemplate == "") {
 			const res = await fetch(`/template?serial=X3462L7L`, {
 				mode: "cors",
 				method: "POST",
