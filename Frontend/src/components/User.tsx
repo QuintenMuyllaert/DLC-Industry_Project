@@ -1,11 +1,40 @@
-export const User = ({ userName }: { userName: string }) => {
+import { LooseObject } from "../utils/Interfaces";
+
+export const User = ({ username }: { username: string }) => {
+	console.log("username: ", username);
+
+	const getRandomPassword = () => {
+		//return randomized password
+	};
+
+	const requestBody: LooseObject = {
+		username: username,
+		serial: "X3462L7L",
+	};
+
+	const handleClickDeleteUser = async () => {
+		const res = await fetch(`${document.location.origin}/user`, {
+			method: "DELETE",
+			mode: "cors",
+			cache: "no-cache",
+			credentials: "same-origin",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			redirect: "follow",
+			referrerPolicy: "no-referrer",
+			body: JSON.stringify(requestBody),
+		});
+	};
+
 	return (
 		<article className="c-user">
 			<div className="card">
 				<div className="username">
-					<p>{userName}</p>
+					<p>{username}</p>
 				</div>
 				<svg
+					onClick={handleClickDeleteUser}
 					className="icon"
 					xmlns="http://www.w3.org/2000/svg"
 					width="24"

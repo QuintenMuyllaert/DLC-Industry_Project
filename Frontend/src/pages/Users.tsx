@@ -10,9 +10,9 @@ import { LooseObject } from "../utils/Interfaces";
 
 export const Users = () => {
 	const user: LooseObject = {
-		serial: "X3462L7L",
 		username: "",
 		password: "password",
+		serial: "X3462L7L",
 	};
 
 	const [newUser, setNewUser] = useState(user);
@@ -29,24 +29,42 @@ export const Users = () => {
 	};
 
 	const fetchUsers = async () => {
-		const res = await fetch(`/register?serial=X3462L7L`, { mode: "no-cors", method: "GET" });
+		const res = await fetch(`/user?serial=X3462L7L`, { mode: "no-cors", method: "GET" });
 		const json = await res.json();
 		updateState("users", json);
 	};
 
-	for (const template of state.templates) {
-		userlist.push(<User userName={template.username} />);
+	for (const userInList of state.users) {
+		console.log(userInList);
+		if (userInList.isAdmin == false) {
+			userlist.push(<User username={userInList.username} />);
+		}
 	}
 
 	const handleClickNewUser = async () => {
 		const res = await fetch(`${document.location.origin}/register`, {
-			mode: "no-cors",
 			method: "POST",
+			mode: "cors",
+			cache: "no-cache",
+			credentials: "same-origin",
 			headers: {
-				"content-type": "application/json",
+				"Content-Type": "application/json",
 			},
-			body: JSON.stringify(user),
+			redirect: "follow",
+			referrerPolicy: "no-referrer",
+			body: JSON.stringify(newUser),
 		});
+
+		userlist = [];
+
+		await fetchUsers;
+
+		for (const userInList of state.users) {
+			console.log(userInList);
+			if (userInList.isAdmin == false) {
+				userlist.push(<User username={userInList.username} />);
+			}
+		}
 	};
 
 	return (
