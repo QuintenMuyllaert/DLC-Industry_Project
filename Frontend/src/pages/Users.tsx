@@ -32,7 +32,6 @@ export const Users = () => {
 		const res = await fetch(`/user?serial=X3462L7L`, { mode: "no-cors", method: "GET" });
 		const json = await res.json();
 		updateState("users", json);
-		console.log(json);
 	};
 
 	for (const userInList of state.users) {
@@ -43,7 +42,6 @@ export const Users = () => {
 	}
 
 	const handleClickNewUser = async () => {
-		console.log(newUser);
 		const res = await fetch(`${document.location.origin}/register`, {
 			method: "POST",
 			mode: "cors",
@@ -56,7 +54,17 @@ export const Users = () => {
 			referrerPolicy: "no-referrer",
 			body: JSON.stringify(newUser),
 		});
-		console.log(newUser);
+
+		userlist = [];
+
+		await fetchUsers;
+
+		for (const userInList of state.users) {
+			console.log(userInList);
+			if (userInList.isAdmin == false) {
+				userlist.push(<User username={userInList.username} />);
+			}
+		}
 	};
 
 	return (
