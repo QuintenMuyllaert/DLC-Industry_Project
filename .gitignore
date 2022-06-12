@@ -27,3 +27,4 @@ dist-ssr
 # Project
 Stash/
 Backend/www/*/
+.use-https
