@@ -6,6 +6,7 @@ import { LooseObject } from "../utils/Interfaces";
 import Flag from "../components/Flag";
 import BottomTab from "../components/BottomTab";
 import { updateGlobalState as updateState, globalState as state } from "../utils/Appstate";
+import Colorpicker from "../components/Colorpicker";
 
 export const MatchSetup = () => {
 	const navigate = useNavigate();
@@ -62,18 +63,15 @@ export const MatchSetup = () => {
 	const updateNewTemplate = (key: any, value: string) => {
 		newTemplate[key] = value;
 		setnewTemplate(newTemplate);
-		console.log(newTemplate);
 	};
 
 	const handleOnchangeSelect = (selectedValue: string) => {
 		setselectedTemplate(selectedValue);
-		console.log(selectedTemplate);
 		for (const template of state.templates) {
 			if (template.name == selectedTemplate) {
 				updateNewTemplate("name", template.name);
 				updateNewTemplate("parts", template.parts);
 				updateNewTemplate("duration", template.duration);
-				console.log("hoi");
 			}
 		}
 
@@ -94,6 +92,14 @@ export const MatchSetup = () => {
 		}
 	};
 
+	const handleClickTeam1Color = () => {
+		updateState("teamColorTeam1Popup", !state.teamColorTeam1Popup);
+	};
+
+	const handleClickTeam2Color = () => {
+		updateState("teamColorTeam2Popup", !state.teamColorTeam2Popup);
+	};
+
 	return (
 		<>
 			<div className="p-matchsetup maxwidth">
@@ -101,11 +107,11 @@ export const MatchSetup = () => {
 				<div className="teamsettings-container u-grid-vertical-gap">
 					<div className="flagcontainer">
 						<p>Thuis</p>
-						<Flag top="#FF0000" bottom="#00FF66" />
+						<Flag top={state.hb} bottom={state.ho} handleClickPopup={handleClickTeam1Color} />
 					</div>
 					<div className="flagcontainer">
 						<p>uit</p>
-						<Flag top="#1900FF" bottom="#F7FF00" />
+						<Flag top={state.ub} bottom={state.uo} handleClickPopup={handleClickTeam2Color} />
 					</div>
 				</div>
 				<h1>Match instellingen</h1>
@@ -147,7 +153,6 @@ export const MatchSetup = () => {
 						inputValue={selectedTemplate != "" ? newTemplate.name : null}
 						onChange={(event: React.FormEvent<HTMLInputElement>) => {
 							updateNewTemplate("name", event.currentTarget.value);
-							console.log(template);
 						}}
 					/>
 
@@ -160,7 +165,6 @@ export const MatchSetup = () => {
 								inputValue={selectedTemplate != "" ? newTemplate.parts : null}
 								onChange={(event: React.FormEvent<HTMLInputElement>) => {
 									updateNewTemplate("parts", event.currentTarget.value);
-									console.log(template);
 								}}
 							/>
 						</div>
@@ -172,7 +176,6 @@ export const MatchSetup = () => {
 								inputValue={selectedTemplate != "" ? newTemplate.duration : null}
 								onChange={(event: React.FormEvent<HTMLInputElement>) => {
 									updateNewTemplate("duration", event.currentTarget.value);
-									console.log(template);
 								}}
 							/>
 						</div>
@@ -185,6 +188,9 @@ export const MatchSetup = () => {
 				<IconButton color="white" label="Start match" onClick={handleClickNewTemplate}></IconButton>
 			</div>
 			<BottomTab />
+
+			<Colorpicker team={1} updateScoreState={updateState} active={state.teamColorTeam1Popup} handleClickPopup={handleClickTeam1Color} />
+			<Colorpicker team={2} updateScoreState={updateState} active={state.teamColorTeam2Popup} handleClickPopup={handleClickTeam2Color} />
 		</>
 	);
 };
