@@ -4,8 +4,14 @@
 	gap: 20px;
 
 	& input {
-		width: 18px;
-		height: 18px;
-		border: var(--global-border-size) solid var(--global-color-input-border);
+		// width: 18px;
+		// height: 18px;
+		// border: var(--global-border-size) solid var(--global-color-input-border);
+		all: revert;
+	}
+
+	& label {
+		cursor: default;
+		user-select: none;
 	}
 }

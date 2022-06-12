@@ -16,8 +16,6 @@ export const Templates = () => {
 	};
 
 	const handleClickNewTemplate = async () => {
-		// const res = await fetch(`/template?serial=X3462L7L`, { mode: "no-cors", method: "POST", body: JSON.stringify(template) });
-		// console.log("dddddddddd", newTemplate);
 		const res = await fetch(`/template?serial=X3462L7L`, {
 			mode: "cors",
 			method: "POST",
@@ -110,7 +108,7 @@ export const Templates = () => {
 				<IconButton label="Toevoegen" color="white" onClick={handleClickNewTemplate} />
 
 				<h1>Bestaande templates</h1>
-				<div className="p-templates__list scrollbar"></div>
+				<div className="p-templates__list scrollbar">{templates}</div>
 			</div>
 			<BottomTab />
 		</>
