@@ -25,6 +25,10 @@
 		border-radius: var(--global-border-radius);
 		display: flex;
 		align-items: center;
+
+		&:focus {
+			border-color: #95d1b5;
+		}
 	}
 
 	& svg {

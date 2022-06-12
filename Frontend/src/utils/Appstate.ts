@@ -27,6 +27,7 @@ export const defaultState: LooseObject = {
 	sponsors: [],
 	templates: [],
 	users: [],
+	selectedTemplate: "",
 
 	isRemove: false,
 };
@@ -37,12 +38,12 @@ export const attachUseState = (state: any, setState: any) => {
 };
 
 export const setGlobalState = (val: any) => {
-	console.log("setGlobalState", val);
+	// console.log("setGlobalState", val);
 	globalSetState(val);
 };
 
 export const getGlobalState = () => {
-	console.log("getGlobalState", globalState);
+	// console.log("getGlobalState", globalState);
 	return globalState;
 };
 

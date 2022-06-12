@@ -4,9 +4,9 @@ import { getCookies } from "../utils/Utils";
 export const Protect = ({ element }: { element: any }) => {
 	const cookie = getCookies();
 
-	console.log(`Must protect "${document.location.pathname}" 💂‍♀️!`);
+	// console.log(`Must protect "${document.location.pathname}" 💂‍♀️!`);
 	if (cookie.auth && cookie.auth === true) {
-		console.log("Access granted 🔑!");
+		// console.log("Access granted 🔑!");
 		return element;
 	}
 
