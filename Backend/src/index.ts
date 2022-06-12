@@ -38,7 +38,7 @@ if (!existsSync("./.use-https")) {
 			configDir: "./greenlock.d",
 
 			// contact for security and critical bug notices
-			maintainerEmail: "jon@example.com",
+			maintainerEmail: "quinten.muyllaert@student.howest.be",
 			cluster: false,
 		})
 		// Serves on 80 and 443
