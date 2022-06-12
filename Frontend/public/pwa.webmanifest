@@ -1,7 +1,8 @@
 {
-	"name": "IndustryProject",
-	"short_name": "IndustryProject",
-	"description": "IndustryProject MCT",
+	"name": "Scoreboard",
+	"short_name": "Scoreboard",
+	"description": "Scoreboard PWA for DLC, Made by QMA",
+	"orientation": "portrait",
 	"icons": [
 		{
 			"src": "/img/favicon.png",
