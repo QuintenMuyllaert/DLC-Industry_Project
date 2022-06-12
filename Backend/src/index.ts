@@ -24,12 +24,14 @@ const server = http.createServer(app);
 
 attachSocketIO(server);
 
-if (!existsSync("./use-https")) {
+if (!existsSync("./.use-https")) {
+	console.log("Starting server in HTTP mode");
 	// start the Express server
 	server.listen(config?.port || 80, "0.0.0.0", () => {
 		console.log(`server started at http://0.0.0.0:${config?.port}`);
 	});
 } else {
+	console.log("Starting server in HTTPS mode");
 	require("greenlock-express")
 		.init({
 			packageRoot: dirname,
