@@ -31,3 +31,4 @@ Backend/www/*/
 Backend/greenlock.d/accounts
 Backend/greenlock.d/live
 Backend/greenlock.d/config.json.bak
+Backend/greenlock.d/config.json
