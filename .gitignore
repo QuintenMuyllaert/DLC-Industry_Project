@@ -28,6 +28,6 @@ dist-ssr
 Stash/
 Backend/www/*/
 .use-https
-greenlock.d/config.json.bak
-greenlock.d/live
-greenlock.d/accounts
+Backend/greenlock.d/accounts
+Backend/greenlock.d/live
+Backend/greenlock.d/config.json.bak
