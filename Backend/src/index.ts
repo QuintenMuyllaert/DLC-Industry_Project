@@ -24,7 +24,22 @@ const server = http.createServer(app);
 
 attachSocketIO(server);
 
-// start the Express server
-server.listen(config?.port || 80, "0.0.0.0", () => {
-	console.log(`server started at http://0.0.0.0:${config?.port}`);
-});
+if (!existsSync("./use-https")) {
+	// start the Express server
+	server.listen(config?.port || 80, "0.0.0.0", () => {
+		console.log(`server started at http://0.0.0.0:${config?.port}`);
+	});
+} else {
+	require("greenlock-express")
+		.init({
+			packageRoot: dirname,
+			configDir: "./greenlock.d",
+
+			// contact for security and critical bug notices
+			maintainerEmail: "jon@example.com",
+			cluster: false,
+		})
+		// Serves on 80 and 443
+		// Get's SSL certificates magically!
+		.serve(app);
+}
