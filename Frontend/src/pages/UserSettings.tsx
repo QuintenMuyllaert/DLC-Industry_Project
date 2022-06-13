@@ -75,6 +75,10 @@ export const UserSettings = () => {
 				referrerPolicy: "no-referrer",
 				body: JSON.stringify({ currentUsername: user.currentUsername, newUsername: user.newUsername }),
 			});
+
+			if (res.status == 200) {
+				document.location.href = "/logout";
+			}
 		} else {
 			console.log("De nieuwe username is dezelfde als de oude username");
 		}
@@ -105,6 +109,7 @@ export const UserSettings = () => {
 						<UserSetting
 							content="Jef"
 							id="usernameInput"
+							password={false}
 							onChange={(event: React.FormEvent<HTMLInputElement>) => {
 								updateUser("newUsername", event.currentTarget.value);
 							}}
@@ -114,6 +119,7 @@ export const UserSettings = () => {
 						<p className="title">huidig wachtwoord:</p>
 						<UserSetting
 							id="currentPasswordnput"
+							password={true}
 							onChange={(event: React.FormEvent<HTMLInputElement>) => {
 								updateUser("currentPassword", event.currentTarget.value);
 							}}
@@ -123,6 +129,7 @@ export const UserSettings = () => {
 						<p className="title">nieuw wachtwoord:</p>
 						<UserSetting
 							id="newPasswordInput"
+							password={true}
 							onChange={(event: React.FormEvent<HTMLInputElement>) => {
 								updateUser("newPassword", event.currentTarget.value);
 							}}
@@ -132,6 +139,7 @@ export const UserSettings = () => {
 						<p className="title">bevestig nieuw wachtwoord:</p>
 						<UserSetting
 							id="confirmNewPasswordInput"
+							password={true}
 							onChange={(event: React.FormEvent<HTMLInputElement>) => {
 								updateUser("checkNewPassword", event.currentTarget.value);
 							}}
