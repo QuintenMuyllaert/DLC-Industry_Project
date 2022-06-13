@@ -17,33 +17,41 @@ export const Template = ({
 
 	const [toDelete, setToDelete] = useState("");
 
-	const goToTemplateSettings = async () => {
-		// navigate("/templatesettings");
+	const [lock, setLock] = useState(false);
+
+	const goToTemplateSettings = () => {
+		navigate(`/templatesettings?template=${sportNaam}`);
+		if (lock) {
+			return;
+		}
+		console.log("hallo");
 	};
 
 	const handleClickDeletePopUp = (sportNaam: string) => {
+		setLock(true);
 		updateState("templateToDelete", sportNaam);
 		handleDeletePopup();
 		console.log(state.templateToDelete);
+		setLock(false);
 	};
 
-	const handleClickNewTemplate = async () => {
-		const res = await fetch(`/template?serial=X3462L7L`, {
-			mode: "cors",
-			method: "POST",
-			cache: "no-cache",
-			credentials: "same-origin",
-			headers: {
-				"content-type": "application/json",
-			},
-			redirect: "follow",
-			referrerPolicy: "no-referrer",
-			body: JSON.stringify(toDelete),
-		});
-	};
+	// const handleClickNewTemplate = async () => {
+	// 	const res = await fetch(`/template?serial=X3462L7L`, {
+	// 		mode: "cors",
+	// 		method: "POST",
+	// 		cache: "no-cache",
+	// 		credentials: "same-origin",
+	// 		headers: {
+	// 			"content-type": "application/json",
+	// 		},
+	// 		redirect: "follow",
+	// 		referrerPolicy: "no-referrer",
+	// 		body: JSON.stringify(toDelete),
+	// 	});
+	// };
 
 	return (
-		<article className="p-templates__list-item" onClick={goToTemplateSettings}>
+		<button className="p-templates__list-item" onClick={goToTemplateSettings}>
 			<div className="p-templates__list-info">
 				<div className="p-templates__list-naam">
 					<p>{sportNaam}</p>
@@ -123,7 +131,7 @@ export const Template = ({
 					</svg>
 				</button>
 			</div>
-		</article>
+		</button>
 	);
 };
 
