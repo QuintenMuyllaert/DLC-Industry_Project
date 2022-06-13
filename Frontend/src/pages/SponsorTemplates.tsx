@@ -1,12 +1,15 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import { updateGlobalState as updateState, globalState as state } from "../utils/Appstate";
 import BottomTab from "../components/BottomTab";
 import IconButton from "../components/IconButton";
 import Logo from "../components/Logo";
 import SponsorTemplate from "../components/sponsorTemplate";
+import { useNavigate } from "react-router-dom";
 
 export const SponsorTemplates = () => {
+	const navigate = useNavigate();
+
 	const fetchSponsors = async () => {
 		// console.log(`/sponsors?serial=X3462L7L`, { mode: "no-cors", method: "GET" });
 
@@ -14,6 +17,8 @@ export const SponsorTemplates = () => {
 		const json = await res.json();
 		updateState("sponsors", json);
 	};
+
+
 
 	useEffect(() => {
 		fetchSponsors();
@@ -23,6 +28,10 @@ export const SponsorTemplates = () => {
 	for (const sponsorBundel of state.sponsors) {
 		sponsors.push(<SponsorTemplate name={sponsorBundel.name} aantal={sponsorBundel.children.length} />);
 	}
+
+	const handleClickNewBundel = (bundelNaam: string) => {
+		navigate(`/addsponsorbundel`);
+	};
 
 	return (
 		<>
@@ -49,6 +58,7 @@ export const SponsorTemplates = () => {
 					<IconButton
 						color="white"
 						label="Bundel toevoegen"
+						onClick={handleClickNewBundel}
 						icon={
 							<svg
 								xmlns="http://www.w3.org/2000/svg"

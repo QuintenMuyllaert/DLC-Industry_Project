@@ -52,7 +52,10 @@ export const BottomTab = () => {
 			</div>
 			<div
 				className={
-					document.location.pathname == "/sponsortemplates" || document.location.pathname == "/sponsors" || document.location.pathname == "/addsponsor"
+					document.location.pathname == "/sponsortemplates" ||
+					document.location.pathname == "/sponsors" ||
+					document.location.pathname == "/addsponsor" ||
+					document.location.pathname == "/addsponsorbundel"
 						? "c-bottomtab__page c-bottomtab__page-active"
 						: "c-bottomtab__page"
 				}
