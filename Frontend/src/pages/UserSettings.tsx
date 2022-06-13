@@ -16,6 +16,13 @@ export const UserSettings = () => {
 		checkNewPassword: "",
 	};
 
+	const fetchStatus = async () => {
+		const res = await fetch(`/status`, { mode: "no-cors", method: "GET" });
+		const json = await res.json();
+		updateUser("currentUsername", json.username);
+		console.log(user);
+	};
+
 	const onThemeChange = () => {
 		console.log(refThemeSwitch.current?.checked);
 
@@ -46,10 +53,12 @@ export const UserSettings = () => {
 				referrerPolicy: "no-referrer",
 				body: JSON.stringify({ currentPassword: user.currentPassword, newPassword: user.newPassword }),
 			});
-
 			console.log("changed password");
 		} else {
 			console.log("password en bevestig password zijn niet hetzelfde!");
+		}
+
+		if (user.newUsername != user.currentUsername) {
 		}
 	};
 
