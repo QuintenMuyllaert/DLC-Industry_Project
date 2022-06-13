@@ -8,7 +8,7 @@ import IconButton from "../components/IconButton";
 
 export const UserSettings = () => {
 	const refThemeSwitch = useRef<HTMLInputElement>(null);
-	const user: LooseObject = {
+	const defaultUser: LooseObject = {
 		currentUsername: "",
 		newUsername: "",
 		currentPassword: "",
@@ -16,12 +16,13 @@ export const UserSettings = () => {
 		checkNewPassword: "",
 	};
 
+	const [user, setUser] = useState(defaultUser);
+
 	const fetchStatus = async () => {
 		const res = await fetch(`/status`, { mode: "no-cors", method: "GET" });
 		const json = await res.json();
 		updateUser("currentUsername", json.username);
 		console.log(json.username);
-		console.log(json);
 		console.log(user);
 	};
 
@@ -39,6 +40,7 @@ export const UserSettings = () => {
 
 	const updateUser = (key: any, value: string) => {
 		user[key] = value;
+		setUser(user);
 	};
 
 	const sendUpdates = async () => {
@@ -84,6 +86,10 @@ export const UserSettings = () => {
 		}
 	};
 
+	const onLogout = () => {
+		console.log("logging out");
+	};
+
 	return (
 		<>
 			<div className="p-usersettings element">
@@ -101,13 +107,13 @@ export const UserSettings = () => {
 							<circle cx="12" cy="7" r="4"></circle>
 						</svg>
 					</div>
-					<h1>Hallo Jef</h1>
+					<h1>Hallo {user.currentUsername}</h1>
 				</header>
 				<div className="content">
 					<div className="item">
 						<p className="title">name:</p>
 						<UserSetting
-							content="Jef"
+							content={user.currentUsername}
 							id="usernameInput"
 							password={false}
 							onChange={(event: React.FormEvent<HTMLInputElement>) => {
