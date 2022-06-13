@@ -44,7 +44,7 @@ export const UserSettings = () => {
 				},
 				redirect: "follow",
 				referrerPolicy: "no-referrer",
-				body: JSON.stringify(user.currentPassword, user.newPassword),
+				body: JSON.stringify({ currentPassword: user.currentPassword, newPassword: user.newPassword }),
 			});
 
 			console.log("changed password");
