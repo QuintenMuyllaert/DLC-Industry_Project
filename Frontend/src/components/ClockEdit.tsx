@@ -58,7 +58,7 @@ export const ClockEdit = ({ active }: { active: boolean }) => {
 							)
 						}
 					/>
-					<IconButton color="black" label="Send message" />
+					<IconButton color="black" label="BEVESTIG" />
 				</div>
 			</div>
 		</>
