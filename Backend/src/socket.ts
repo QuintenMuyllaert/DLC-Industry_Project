@@ -6,6 +6,7 @@ import database from "./database";
 import { SocketNamespace } from "./socketnamespace";
 import { extractToken, jwtVerifyAsync } from "./crypto";
 import { LooseObject, Scoreboard, defaultScoreboard } from "./schema/schema";
+import { delay } from "./util";
 
 // WS(S) server
 const namespaces: LooseObject = {};
@@ -23,6 +24,12 @@ export const gengetNamespace = async (serial: string, allowGeneration: boolean) 
 
 		namespaces[serial] = new SocketNamespace(serial, reply[0]);
 	}
+
+	while (namespaces[serial] === true) {
+		console.log("waiting to add to ns");
+		await delay(100);
+	}
+
 	return namespaces[serial];
 };
 

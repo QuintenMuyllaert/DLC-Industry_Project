@@ -16,31 +16,19 @@ export interface Scoreboard {
 	t2: number;
 	message: string;
 	timer: string;
-
 	nameHome: string;
 	nameOut: string;
-	timerStart: Date;
-	timerOffset: Date;
-	pauseStart: Date;
-	pauseStop: Date;
+	clockData: {
+		clockStart: number;
+		pauseStart: number;
+		pauseStop: number;
+		clockOffset: number;
+		paused: boolean;
+	};
 	serial: string;
-	lastKnownIp: string;
 	hasAdmin: boolean;
 	colors: string[];
 }
-
-/*export interface template {
-	name: number;
-	K1B: string;
-	K2B: string;
-	K1O: string;
-	K2O: string;
-	sponsers: Array<string>;
-	nameHome: number;
-	nameOut: number;
-	periods: number;
-	periodLength: number;
-}*/
 
 export interface Template {
 	serial: string;
@@ -69,11 +57,7 @@ export const defaultScoreboard: Scoreboard = {
 	timer: "00:00",
 	nameHome: "THUIS",
 	nameOut: "UIT",
-	timerStart: new Date(),
-	timerOffset: new Date(),
-	pauseStart: new Date(),
-	pauseStop: new Date(),
-	lastKnownIp: "0.0.0.0",
+	clockData: { clockStart: Date.now(), pauseStart: Date.now(), pauseStop: 0, clockOffset: 0, paused: true },
 	colors: ["green", "lightblue", "darkblue", "purple", "white", "black", "yellow", "red", "orange", "darkred"],
 	hasAdmin: false,
 };

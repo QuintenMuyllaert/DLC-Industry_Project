@@ -13,12 +13,14 @@ export const SocketNamespace = class SocketNamespace {
 		console.log("Created namespace", serial);
 		this.serial = serial;
 		this.data = data;
+		this.clock.setData(data);
 		this.clock.set(0);
 
 		setInterval(() => {
 			if (this.clock.changes) {
 				this.clock.changes = false;
 				this.emitAll("clock", this.clock.data);
+				this.data.clockData = this.clock.data;
 			}
 		}, 50);
 
