@@ -1,19 +1,30 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { updateGlobalState as updateState, globalState as state } from "../utils/Appstate";
 
-export const Template = ({ sportNaam, aantalHelften, duurHelft }: { sportNaam: string; aantalHelften: number; duurHelft: number }) => {
+export const Template = ({
+	sportNaam,
+	aantalHelften,
+	duurHelft,
+	handleDeletePopup,
+}: {
+	sportNaam: string;
+	aantalHelften: number;
+	duurHelft: number;
+	handleDeletePopup: (event?: any) => any;
+}) => {
 	const navigate = useNavigate();
 
 	const [toDelete, setToDelete] = useState("");
 
 	const goToTemplateSettings = async () => {
-		//document.location.href = "/usersettings";
 		// navigate("/templatesettings");
 	};
 
 	const handleClickDeletePopUp = (sportNaam: string) => {
-		// console.log("hallo");
-		setToDelete(sportNaam);
+		updateState("templateToDelete", sportNaam);
+		handleDeletePopup();
+		console.log(state.templateToDelete);
 	};
 
 	const handleClickNewTemplate = async () => {
@@ -92,8 +103,7 @@ export const Template = ({ sportNaam, aantalHelften, duurHelft }: { sportNaam: s
 				</button>
 				<button
 					className="c-templates__list-btn c-templates__list-delete"
-					onClick={(e) => {
-						e.preventDefault();
+					onClick={() => {
 						handleClickDeletePopUp(sportNaam);
 					}}>
 					<svg

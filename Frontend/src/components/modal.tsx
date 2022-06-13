@@ -1,4 +1,14 @@
-export const Modal = ({ active, tekst }: { active: boolean; tekst: string }) => {
+export const Modal = ({
+	active,
+	tekst,
+	handleClickDeletePopup,
+	handleDelete,
+}: {
+	active: boolean;
+	tekst: string;
+	handleClickDeletePopup?: (event?: any) => any;
+	handleDelete?: (event?: any) => any;
+}) => {
 	return (
 		<>
 			<div className={active ? "c-modal__overlay" : "c-modal__overlay c-modal__hidden"}></div>
@@ -6,7 +16,7 @@ export const Modal = ({ active, tekst }: { active: boolean; tekst: string }) => 
 				<div className="c-modal__container">
 					<div className="c-modal__header">
 						<div className="c-modal__header-btn">
-							<button>
+							<button onClick={handleClickDeletePopup}>
 								<svg
 									xmlns="http://www.w3.org/2000/svg"
 									width="24"
@@ -25,8 +35,12 @@ export const Modal = ({ active, tekst }: { active: boolean; tekst: string }) => 
 					</div>
 					<p>{tekst}</p>
 					<div className="c-modal__btns">
-						<button className="c-modal__btns-btn c-modal__btns-sec">Nee</button>
-						<button className="c-modal__btns-btn c-modal__btns-prim">Ja</button>
+						<button className="c-modal__btns-btn c-modal__btns-sec" onClick={handleClickDeletePopup}>
+							Nee
+						</button>
+						<button className="c-modal__btns-btn c-modal__btns-prim" onClick={handleDelete}>
+							Ja
+						</button>
 					</div>
 				</div>
 			</div>
