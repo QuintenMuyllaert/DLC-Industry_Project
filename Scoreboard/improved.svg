@@ -15,7 +15,7 @@
 		//$("#background").attr("style","fill: #444444");
 		var len = 16;
 
-		var socket = io('http://192.168.15.153',{
+		var socket = io('https://dlcscoreboard.westeurope.cloudapp.azure.com/',{
 			'forceNew':true
    		});
 		   
