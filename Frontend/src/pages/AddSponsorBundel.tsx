@@ -58,6 +58,7 @@ export const AddSponsorBundel = () => {
 					<IconButton label="OPSLAAN" color="white" onClick={handleClickNewSponsorBundel} />
 				</div>
 			</div>
+
 			<BottomTab />
 		</>
 	);
