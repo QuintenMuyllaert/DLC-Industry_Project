@@ -156,7 +156,7 @@ app.put("/changepassword", async (req: Request, res: Response) => {
 	});
 });
 
-app.post("/edituser", async (req: Request, res: Response) => {
+app.put("/edituser", async (req: Request, res: Response) => {
 	await protect(req, res, async (body: LooseObject) => {
 		const { serial, isAdmin } = body;
 		if (!serial || !isAdmin) {
