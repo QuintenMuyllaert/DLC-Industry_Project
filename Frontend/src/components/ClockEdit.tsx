@@ -4,6 +4,9 @@ import { updateGlobalState as updateState, globalState as state } from "../utils
 import { useState } from "react";
 
 export const ClockEdit = ({ active }: { active: boolean }) => {
+	const [minutes, setMinutes] = useState(0);
+	const [seconds, setSeconds] = useState(0);
+
 	const setTimer = () => {
 		console.log("clicker on clock");
 
@@ -16,7 +19,11 @@ export const ClockEdit = ({ active }: { active: boolean }) => {
 		}
 	};
 
-	const setNewTime = () => {};
+	const setNewTime = () => {
+		console.log("setting new timer...");
+		let totalSeconds: number = seconds + minutes * 60;
+		scoreboardInterface.setTimer(totalSeconds);
+	};
 
 	return (
 		<>
@@ -25,9 +32,25 @@ export const ClockEdit = ({ active }: { active: boolean }) => {
 				<div className="c-clockedit__container">
 					<h1 className="title">Stel een nieuwe tijd in</h1>
 					<div className="clockinput">
-						<input placeholder="00" className="side" type="number" id="inputclockleft" />
+						<input
+							onChange={(event: React.FormEvent<HTMLInputElement>) => {
+								setMinutes(parseInt(event.currentTarget.value));
+							}}
+							placeholder="00"
+							className="side"
+							type="number"
+							id="inputclockleft"
+						/>
 						<p className="middle">:</p>
-						<input placeholder="00" className="side" type="number" id="inputclockright" />
+						<input
+							onChange={(event: React.FormEvent<HTMLInputElement>) => {
+								setSeconds(parseInt(event.currentTarget.value));
+							}}
+							placeholder="00"
+							className="side"
+							type="number"
+							id="inputclockright"
+						/>
 					</div>
 					<h1 className="title">start of stop de timer</h1>
 					<IconButton
