@@ -48,6 +48,9 @@
 			background-color: var(--global-color-text);
 			color: var(--global-color-background);
 			padding: 1rem 1.125rem;
+			cursor: pointer;
+			position: relative;
+			z-index: 1;
 		}
 
 		&-naam {
@@ -73,14 +76,22 @@
 			}
 		}
 
-		&-btn {
+		&-btns {
 			display: flex;
 			gap: 0.9375rem;
+			position: absolute;
+			right: 1.25rem;
+			top: 50%;
+			transform: translateY(-50%);
 
 			& svg {
 				width: 1.5625rem;
 				cursor: pointer;
 			}
+		}
+
+		&-delete {
+			z-index: 100;
 		}
 	}
 }
