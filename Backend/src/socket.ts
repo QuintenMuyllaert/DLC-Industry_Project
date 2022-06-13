@@ -26,13 +26,6 @@ export const gengetNamespace = async (serial: string, allowGeneration: boolean) 
 	return namespaces[serial];
 };
 
-setInterval(() => {
-	const keys = Object.keys(namespaces);
-	for (const key of keys) {
-		namespaces[key].tick();
-	}
-}, 1000);
-
 export const attachSocketIO = (server: any) => {
 	const io = new Server(server);
 	io.on("connection", async (socket: any) => {

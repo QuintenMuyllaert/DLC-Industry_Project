@@ -12,6 +12,13 @@ export const SocketNamespace = class SocketNamespace {
 		this.serial = serial;
 		this.data = data;
 		this.clock.set(0);
+
+		setInterval(() => {
+			if (this.clock.changes) {
+				this.clock.changes = false;
+				this.emitAll("clock", this.clock.data);
+			}
+		}, 50);
 	}
 	addDisplay(socket: any) {
 		console.log("Added display to namespace", this.serial);
@@ -20,9 +27,11 @@ export const SocketNamespace = class SocketNamespace {
 		socket.emit("data", "#ho", "attr", "style", `fill:${this.data.ho}`);
 		socket.emit("data", "#uo", "attr", "style", `fill:${this.data.uo}`);
 		socket.emit("data", "#message", "text", this.data.message);
-		socket.emit("data", "#timer", "text", this.data.timer);
+		//socket.emit("data", "#timer", "text", this.data.timer);
 		socket.emit("data", "#t1", "text", this.data.t1);
 		socket.emit("data", "#t2", "text", this.data.t2);
+
+		socket.emit("clock", this.clock.data);
 
 		this.displays.push(socket);
 		socket.on("disconnect", () => {

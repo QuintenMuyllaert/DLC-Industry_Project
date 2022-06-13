@@ -18,9 +18,8 @@ export class InterfaceScoreboard {
 	addScore(team: "G1" | "G2", score: number) {}
 	resetTimer() {}
 	setTimer(time: number) {}
-	runTimer(time: boolean) {
-		//TODO : Implement
-	}
+	pauseTimer() {}
+	resumeTimer() {}
 	sendMessage(message: string) {}
 	getMessage() {}
 	setScreen(screen: `P${number}`) {}
@@ -60,9 +59,8 @@ export class InterfaceHTTP {
 		//TODO : Implement
 		//ISSUE : http api from DLC doesnt support this
 	}
-	runTimer(time: boolean) {
-		//TODO : Implement
-	}
+	pauseTimer() {}
+	resumeTimer() {}
 	sendMessage(message: string) {
 		ping(`${this.uri}/update?message=${encodeURI(message)}&submit=Send+message`);
 	}
@@ -95,6 +93,9 @@ export class InterfaceSocket {
 			reconnectionDelayMax: 5000,
 			reconnectionAttempts: 999999,
 		});
+
+		//@ts-ignore hack to get socket from console..
+		document.socket = this.socket;
 
 		this.socket.on("connect", async () => {
 			console.log("Connected to wss");
@@ -159,13 +160,16 @@ export class InterfaceSocket {
 		this.socket.emit("input", team, score);
 	}
 	resetTimer() {
-		this.socket.emit("input", "time", 0);
+		this.socket.emit("clock", { action: "set", value: 0 });
 	}
 	setTimer(time: number) {
-		this.socket.emit("input", "time", time);
+		this.socket.emit("clock", { action: "set", value: time });
 	}
-	runTimer(time: boolean) {
-		this.socket.emit("time", time);
+	pauseTimer() {
+		this.socket.emit("clock", { action: "pause" });
+	}
+	resumeTimer() {
+		this.socket.emit("clock", { action: "resume" });
 	}
 	sendMessage(message: string) {
 		this.message = message;

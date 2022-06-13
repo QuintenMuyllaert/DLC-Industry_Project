@@ -4,6 +4,7 @@ export const Timer = class Timer {
 	pauseStop = 0;
 	clockOffset = 0;
 	paused = true;
+	changes = true;
 	get data() {
 		return {
 			clockStart: this.clockStart,
@@ -36,15 +37,24 @@ export const Timer = class Timer {
 		this.clockStart = Date.now();
 		this.pauseStart = Date.now();
 		this.pauseStop = 0;
-		this.clockOffset = time * 1000;
+		this.clockOffset = -time * 1000;
+		this.changes = true;
 	}
 	pause() {
+		if (this.paused) {
+			return;
+		}
 		this.paused = true;
 		this.pauseStart = Date.now();
+		this.changes = true;
 	}
 	resume() {
+		if (!this.paused) {
+			return;
+		}
 		this.paused = false;
 		this.pauseStop = Date.now();
 		this.clockOffset += this.pauseStop - this.pauseStart;
+		this.changes = true;
 	}
 };

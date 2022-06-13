@@ -15,7 +15,7 @@
 		//$("#background").attr("style","fill: #444444");
 		var len = 16;
 
-		var socket = io('https://industryproject.computernetwork.be',{
+		var socket = io('https://dlcscoreboard.westeurope.cloudapp.azure.com/',{
 			'forceNew':true
    		});
 		   
@@ -37,6 +37,46 @@
 			}
 		});
 
+		var clockData = {
+			clockStart: 0,
+			pauseStart: 0,
+			pauseStop: 0,
+			clockOffset: 0,
+			paused: true,
+			clock: "00:00:00",
+		}
+
+		function clockify() {
+			var now = Date.now();
+			var ms = 0;
+			if(clockData.paused){
+				ms = clockData.pauseStart - clockData.clockStart - clockData.clockOffset;
+			}else{
+				ms = now - clockData.clockStart - clockData.clockOffset;
+			}
+			
+			var seconds = Math.floor(ms / 1000);
+			var minutes = Math.floor(seconds / 60);
+
+			function to2digits(num){
+				return num < 10 ? "0" + num : num;
+			};
+
+			return to2digits(minutes) + ":" + to2digits(seconds % 60);
+		}
+
+		socket.on("clock",function(data){
+			clockData = data;
+		});
+
+		setInterval(function(){
+			$("#timer").text(clockify());
+		},50);
+
+		socket.on("sponsor",function (uri) { 
+			$("#img").attr("xlink:href",uri);
+		})
+
 		socket.on("invokeuri",function (uri){
 			$.get(uri);
 		});
@@ -49,7 +89,8 @@
 				pos = 336;
 			}
 		},16);
-   });
+
+	   });
  ]]></script> 
  
 <rect fill="black" height="168" id="background" stroke="none" width="336"/>
@@ -62,9 +103,13 @@
 <rect fill="white" x="278" y="14" height="16" id="ub" stroke="none" width="48"/>
 <rect fill="white" x="278" y="30" height="16" id="uo" stroke="none" width="48"/>
 
-<text id="timer" x="168" y="50" font-family="DSEG7 Classic" font-size="42" text-anchor="middle" fill="white">00:00</text>
+<text id="timer" x="168" y="50" font-family="DSEG7 Classic" font-size="36" text-anchor="middle" fill="white">00:00</text>
 <text id="t1" x="84" y="100" font-family="DSEG7 Classic" font-size="36" text-anchor="middle" fill="white">0</text>
 <text id="t2" x="252" y="100" font-family="DSEG7 Classic" font-size="36" text-anchor="middle" fill="white">0</text>
+
+
+ <image id="img"  width="336" height="168" xlink:href=""  />
+  
 
 <text id="message" x="168" y="155" font-family="Raleway" font-size="32" text-anchor="left" fill="white">DLC Sportsystems</text>
 </svg>
