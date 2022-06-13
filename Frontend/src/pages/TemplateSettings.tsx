@@ -22,8 +22,8 @@ export const TemplateSettings = () => {
 	};
 
 	const updateIngeladenTemplateTemplate = (key: any, value: string) => {
-		newTemplate[key] = value;
-		setnewTemplate(newTemplate);
+		ingeladenTemplate[key] = value;
+		setnewTemplate(ingeladenTemplate);
 	};
 
 	const fetchTemplates = async () => {
@@ -38,7 +38,7 @@ export const TemplateSettings = () => {
 
 	const { template } = getQuery();
 
-	let templates = [];
+	// let templates = [];
 
 	for (const template of state.templates) {
 		if (template.name === template) {
