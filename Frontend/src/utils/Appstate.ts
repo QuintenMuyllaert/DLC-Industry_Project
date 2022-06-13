@@ -34,6 +34,7 @@ export const defaultState: LooseObject = {
 	serial: "N/A",
 	first: true,
 	messagePopup: false,
+	clockPopup: false,
 	teamColorTeam1Popup: false,
 	teamColorTeam2Popup: false,
 	colors: [],
