@@ -107,7 +107,7 @@ export const UserSettings = () => {
 							<circle cx="12" cy="7" r="4"></circle>
 						</svg>
 					</div>
-					<h1>Hallo, {user.currentUsername}</h1>
+					<h1>Hallo {user.currentUsername}</h1>
 				</header>
 				<div className="content">
 					<div className="item">
