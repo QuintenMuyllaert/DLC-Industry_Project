@@ -54,17 +54,6 @@ export const Users = () => {
 			referrerPolicy: "no-referrer",
 			body: JSON.stringify(newUser),
 		});
-
-		userlist = [];
-
-		await fetchUsers;
-
-		for (const userInList of state.users) {
-			console.log(userInList);
-			if (userInList.isAdmin == false) {
-				userlist.push(<User username={userInList.username} />);
-			}
-		}
 	};
 
 	return (

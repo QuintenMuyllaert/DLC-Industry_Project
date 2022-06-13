@@ -52,6 +52,8 @@ export const defaultState: LooseObject = {
 		clock: "00:00",
 	},
 	isRemove: false,
+	deleteTemplatePopup: false,
+	templateToDelete: "",
 };
 
 export const attachUseState = (state: any, setState: any) => {

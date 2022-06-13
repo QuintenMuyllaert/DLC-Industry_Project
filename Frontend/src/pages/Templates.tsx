@@ -37,8 +37,35 @@ export const Templates = () => {
 
 	let templates = [];
 
+	const handleClickDeletePopup = () => {
+		updateState("deleteTemplatePopup", !state.deleteTemplatePopup);
+	};
+
+	const handleDeleteTemplate = async () => {
+		const toDelete: LooseObject = {
+			name: state.templateToDelete,
+		};
+
+		const res = await fetch(`/template?serial=X3462L7L`, {
+			mode: "cors",
+			method: "DELETE",
+			cache: "no-cache",
+			credentials: "same-origin",
+			headers: {
+				"content-type": "application/json",
+			},
+			redirect: "follow",
+			referrerPolicy: "no-referrer",
+			body: JSON.stringify(toDelete),
+		});
+
+		updateState("deleteTemplatePopup", !state.deleteTemplatePopup);
+	};
+
 	for (const template of state.templates) {
-		templates.push(<Template sportNaam={template.name} aantalHelften={template.parts} duurHelft={template.duration} />);
+		templates.push(
+			<Template sportNaam={template.name} aantalHelften={template.parts} duurHelft={template.duration} handleDeletePopup={handleClickDeletePopup} />,
+		);
 	}
 
 	const template: LooseObject = {
@@ -109,13 +136,15 @@ export const Templates = () => {
 				<IconButton label="Toevoegen" color="white" onClick={handleClickNewTemplate} />
 
 				<h1>Bestaande templates</h1>
-				<div className="p-templates__list scrollbar">
-					<Template sportNaam="Test" aantalHelften={2} duurHelft={5} />
-					{/* {templates} */}
-				</div>
+				<div className="p-templates__list scrollbar">{templates}</div>
 			</div>
 			<BottomTab />
-			<Modal active={false} tekst="Ben je zeker dat je deze template wilt verwijderen?" />
+			<Modal
+				active={state.deleteTemplatePopup}
+				tekst="Ben je zeker dat je deze template wilt verwijderen?"
+				handleClickDeletePopup={handleClickDeletePopup}
+				handleDelete={handleDeleteTemplate}
+			/>
 		</>
 	);
 };

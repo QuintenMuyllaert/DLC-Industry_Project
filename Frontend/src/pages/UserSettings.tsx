@@ -7,10 +7,25 @@ import UserSetting from "../components/UserSetting";
 import IconButton from "../components/IconButton";
 
 export const UserSettings = () => {
-	const template: LooseObject = {};
-
-	const [newTemplate, setnewTemplate] = useState(template);
 	const refThemeSwitch = useRef<HTMLInputElement>(null);
+	const user: LooseObject = {
+		currentUsername: "",
+		newUsername: "",
+		currentPassword: "",
+		newPassword: "",
+		checkNewPassword: "",
+	};
+
+	const fetchStatus = async () => {
+		const res = await fetch(`/status`, { mode: "no-cors", method: "GET" });
+		const json = await res.json();
+		updateUser("currentUsername", json.username);
+		console.log(json.username);
+		console.log(json);
+		console.log(user);
+	};
+
+	fetchStatus();
 
 	const onThemeChange = () => {
 		console.log(refThemeSwitch.current?.checked);
@@ -22,9 +37,33 @@ export const UserSettings = () => {
 		}
 	};
 
-	const updateNewTemplate = (key: any, value: string) => {
-		newTemplate[key] = value;
-		setnewTemplate(newTemplate);
+	const updateUser = (key: any, value: string) => {
+		user[key] = value;
+	};
+
+	const sendUpdates = async () => {
+		console.log(user);
+
+		if (user.newPassword == user.checkNewPassword) {
+			const res = await fetch(`/changepassword`, {
+				method: "PUT",
+				mode: "cors",
+				cache: "no-cache",
+				credentials: "same-origin",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				redirect: "follow",
+				referrerPolicy: "no-referrer",
+				body: JSON.stringify({ currentPassword: user.currentPassword, newPassword: user.newPassword }),
+			});
+			console.log("changed password");
+		} else {
+			console.log("password en bevestig password zijn niet hetzelfde!");
+		}
+
+		if (user.newUsername != user.currentUsername) {
+		}
 	};
 
 	return (
@@ -49,15 +88,40 @@ export const UserSettings = () => {
 				<div className="content">
 					<div className="item">
 						<p className="title">name:</p>
-						<UserSetting content="Jef" />
+						<UserSetting
+							content="Jef"
+							id="usernameInput"
+							onChange={(event: React.FormEvent<HTMLInputElement>) => {
+								updateUser("newUsername", event.currentTarget.value);
+							}}
+						/>
 					</div>
 					<div className="item">
-						<p className="title">email:</p>
-						<UserSetting content="jef.bezos@gmail.com" />
+						<p className="title">huidig wachtwoord:</p>
+						<UserSetting
+							id="currentPasswordnput"
+							onChange={(event: React.FormEvent<HTMLInputElement>) => {
+								updateUser("currentPassword", event.currentTarget.value);
+							}}
+						/>
 					</div>
 					<div className="item">
-						<p className="title">wachtwoord:</p>
-						<UserSetting content="●●●●●●●●●●" />
+						<p className="title">nieuw wachtwoord:</p>
+						<UserSetting
+							id="newPasswordInput"
+							onChange={(event: React.FormEvent<HTMLInputElement>) => {
+								updateUser("newPassword", event.currentTarget.value);
+							}}
+						/>
+					</div>
+					<div className="item">
+						<p className="title">bevestig nieuw wachtwoord:</p>
+						<UserSetting
+							id="confirmNewPasswordInput"
+							onChange={(event: React.FormEvent<HTMLInputElement>) => {
+								updateUser("checkNewPassword", event.currentTarget.value);
+							}}
+						/>
 					</div>
 				</div>
 				<div className="buttons">
@@ -69,7 +133,7 @@ export const UserSettings = () => {
 						</label>
 					</div>
 					<div className="save">
-						<IconButton label="OPSLAAN" color="white" />
+						<IconButton label="OPSLAAN" color="white" onClick={sendUpdates} />
 					</div>
 				</div>
 			</div>
