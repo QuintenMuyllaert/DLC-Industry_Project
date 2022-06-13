@@ -101,13 +101,13 @@ export const UserSettings = () => {
 							<circle cx="12" cy="7" r="4"></circle>
 						</svg>
 					</div>
-					<h1>Hallo Jef</h1>
+					<h1>Hallo, {user.currentUsername}</h1>
 				</header>
 				<div className="content">
 					<div className="item">
 						<p className="title">name:</p>
 						<UserSetting
-							content="Jef"
+							content={user.currentUsername}
 							id="usernameInput"
 							password={false}
 							onChange={(event: React.FormEvent<HTMLInputElement>) => {
