@@ -117,7 +117,7 @@ export const AddSponsor = () => {
 				<div className="p-addSponsor__btn">
 					{/* <IconButton label="OPSLAAN" color="white" onClick={handleClickNewSponsor} /> */}
 
-					<button className="c-iconbutton white center" onClick={handleClickNewSponsor} disabled={state.fileIsUploaded}>
+					<button className="c-iconbutton white center" onClick={handleClickNewSponsor} disabled={!state.fileIsUploaded}>
 						Opslaan
 					</button>
 				</div>
