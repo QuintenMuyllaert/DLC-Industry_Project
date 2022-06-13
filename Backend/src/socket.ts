@@ -94,7 +94,7 @@ export const attachSocketIO = (server: any) => {
 					break;
 				}
 				case "screen": {
-					//NYI
+					scoreboardSocket.emitDisplays("sponsor", value);
 					break;
 				}
 				case "message": {
