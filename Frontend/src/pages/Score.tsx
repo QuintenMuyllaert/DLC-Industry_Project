@@ -67,8 +67,17 @@ export const Score = () => {
 	};
 
 	const setTimer = () => {
-		//scoreboardInterface.runTimer(!state.timerRunning);
-		updateState("timerRunning", !state.timerRunning);
+		console.log("clicker on clock");
+
+		if (state.timerPaused == false) {
+			scoreboardInterface.resumeTimer();
+			updateState("timerPaused", false);
+		}
+
+		if (state.timerPaused) {
+			scoreboardInterface.pauseTimer();
+			updateState("timerPaused", true);
+		}
 	};
 
 	return (

@@ -29,7 +29,7 @@ export const defaultState: LooseObject = {
 
 		return `${to2digits(minutes)}:${to2digits(seconds % 60)}`;
 	},
-	timerRunning: false,
+	timerPaused: false,
 	message: "",
 	screen: "P0",
 	serial: "N/A",
