@@ -63,6 +63,7 @@ export const UserSettings = () => {
 		}
 
 		if (user.newUsername != user.currentUsername) {
+			console.log("username update");
 		}
 	};
 
