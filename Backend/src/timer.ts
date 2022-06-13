@@ -16,6 +16,16 @@ export const Timer = class Timer {
 		};
 	}
 	constructor() {}
+	setData(data: any) {
+		if (!data) {
+			return;
+		}
+		this.clockStart = data.clockStart || this.clockStart;
+		this.pauseStart = data.pauseStart || this.pauseStart;
+		this.pauseStop = data.pauseStop || this.pauseStop;
+		this.clockOffset = data.clockOffset || this.clockOffset;
+		this.paused = data.paused || this.paused;
+	}
 	clockify() {
 		const now = Date.now();
 		const ms = this.paused ? this.pauseStart - this.clockStart - this.clockOffset : now - this.clockStart - this.clockOffset;

@@ -1,3 +1,5 @@
+import exp from "constants";
+
 // H ( 0 -> 360) ; S : ( 0 -> 100 ) ; L : ( 0 -> 50 )
 export const hslToHex = (h: number, s: number, l: number): string => {
 	l /= 100;
@@ -18,4 +20,8 @@ export const to2digits = (n: number): string => {
 
 export const clockify = (n: number): string => {
 	return to2digits(Math.floor(n / 60)) + ":" + to2digits(n % 60);
+};
+
+export const delay = (ms: number): Promise<void> => {
+	return new Promise((resolve) => setTimeout(resolve, ms));
 };
