@@ -1,19 +1,54 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { LooseObject } from "../utils/Interfaces";
 import BottomTab from "../components/BottomTab";
 import UserSetting from "../components/UserSetting";
 import IconButton from "../components/IconButton";
 import Logo from "../components/Logo";
+import { getQuery } from "../utils/Utils";
+import { updateGlobalState as updateState, globalState as state } from "../utils/Appstate";
 
 export const TemplateSettings = () => {
-	const template: LooseObject = {};
+	const ingeladenTemplate: LooseObject = {
+		name: "",
+		parts: 0,
+		duration: 0,
+	};
 
-	const [newTemplate, setnewTemplate] = useState(template);
+	const [newTemplate, setnewTemplate] = useState(ingeladenTemplate);
 
 	const updateNewTemplate = (key: any, value: string) => {
 		newTemplate[key] = value;
 		setnewTemplate(newTemplate);
 	};
+
+	const updateIngeladenTemplateTemplate = (key: any, value: string) => {
+		newTemplate[key] = value;
+		setnewTemplate(newTemplate);
+	};
+
+	const fetchTemplates = async () => {
+		const res = await fetch(`/template?serial=X3462L7L`, { mode: "no-cors", method: "GET" });
+		const json = await res.json();
+		updateState("templates", json);
+	};
+
+	useEffect(() => {
+		fetchTemplates();
+	}, []);
+
+	const { template } = getQuery();
+
+	let templates = [];
+
+	for (const template of state.templates) {
+		if (template.name === template) {
+			for (const sponsor of template.children) {
+				updateIngeladenTemplateTemplate("name", template.name);
+				updateIngeladenTemplateTemplate("parts", template.parts);
+				updateIngeladenTemplateTemplate("duration", template.duration);
+			}
+		}
+	}
 
 	return (
 		<>
@@ -35,20 +70,20 @@ export const TemplateSettings = () => {
 					<Logo width="4rem" height="4rem" />
 				</header>
 
-				<h1 className="pagetitle">Voetbal jeugd</h1>
+				<h1 className="pagetitle">{ingeladenTemplate.name}</h1>
 
 				<div className="content">
 					<div className="item">
 						<p className="title">template naam:</p>
-						<UserSetting content="Voetbal jeugd" />
+						<UserSetting id="name" content={ingeladenTemplate.name} />
 					</div>
 					<div className="item">
 						<p className="title">helften:</p>
-						<UserSetting content="2" />
+						<UserSetting id="parts" content={ingeladenTemplate.parts} />
 					</div>
 					<div className="item">
 						<p className="title">duur:</p>
-						<UserSetting content="30 minuten" />
+						<UserSetting id="duration" content={ingeladenTemplate.duration} />
 					</div>
 				</div>
 				<div className="p-templatesettings__btn">
