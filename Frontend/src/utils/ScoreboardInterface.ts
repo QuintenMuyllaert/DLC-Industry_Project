@@ -26,6 +26,7 @@ export class InterfaceScoreboard {
 	detect = async () => {
 		return loopback;
 	};
+	setSponsorReel(sponsor: Array<string>) {}
 	upload = (element: any) => {};
 	uploadProperties = (folder: string, name: string) => {};
 	updateColorArray(colorArray: string[]) {}
@@ -70,6 +71,7 @@ export class InterfaceHTTP {
 	setScreen(screen: `P${number}`) {
 		ping(`${this.uri}/update?Keuze=${screen}`);
 	}
+	setSponsorReel(sponsor: Array<string>) {}
 	detect = async () => {
 		const api = await findApi(true);
 		return api ? (api as string) : loopback;
@@ -184,7 +186,14 @@ export class InterfaceSocket {
 		return this.message;
 	}
 	setScreen(screen: `P${number}`) {
+		if (screen == "P0") {
+			this.socket.emit("input", "screen", null);
+			return;
+		}
 		this.socket.emit("input", "screen", screen);
+	}
+	setSponsorReel(sponsor: Array<string>) {
+		this.socket.emit("sponsors", sponsor);
 	}
 	detect = async () => {
 		return this.uri;
