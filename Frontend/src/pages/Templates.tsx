@@ -37,8 +37,33 @@ export const Templates = () => {
 
 	let templates = [];
 
+	const handleClickDeletePopup = () => {
+		updateState("deleteTemplatePopup", !state.deleteTemplatePopup);
+	};
+
+	const handleDeleteTemplate = async () => {
+		const toDelete: LooseObject = {
+			name: state.templateToDelete,
+		};
+
+		const res = await fetch(`/template?serial=X3462L7L`, {
+			mode: "cors",
+			method: "DELETE",
+			cache: "no-cache",
+			credentials: "same-origin",
+			headers: {
+				"content-type": "application/json",
+			},
+			redirect: "follow",
+			referrerPolicy: "no-referrer",
+			body: JSON.stringify(toDelete),
+		});
+	};
+
 	for (const template of state.templates) {
-		templates.push(<Template sportNaam={template.name} aantalHelften={template.parts} duurHelft={template.duration} />);
+		templates.push(
+			<Template sportNaam={template.name} aantalHelften={template.parts} duurHelft={template.duration} handleDeletePopup={handleClickDeletePopup} />,
+		);
 	}
 
 	const template: LooseObject = {
@@ -110,12 +135,18 @@ export const Templates = () => {
 
 				<h1>Bestaande templates</h1>
 				<div className="p-templates__list scrollbar">
-					<Template sportNaam="Test" aantalHelften={2} duurHelft={5} />
-					{/* {templates} */}
+					<Template sportNaam="Test" aantalHelften={2} duurHelft={5} handleDeletePopup={handleClickDeletePopup} />
+					<Template sportNaam="Teste" aantalHelften={2} duurHelft={5} handleDeletePopup={handleClickDeletePopup} />
+					{templates}
 				</div>
 			</div>
 			<BottomTab />
-			<Modal active={false} tekst="Ben je zeker dat je deze template wilt verwijderen?" />
+			<Modal
+				active={state.deleteTemplatePopup}
+				tekst="Ben je zeker dat je deze template wilt verwijderen?"
+				handleClickDeletePopup={handleClickDeletePopup}
+				handleDelete={handleDeleteTemplate}
+			/>
 		</>
 	);
 };

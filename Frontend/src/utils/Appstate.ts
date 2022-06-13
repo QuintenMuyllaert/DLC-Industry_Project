@@ -28,8 +28,9 @@ export const defaultState: LooseObject = {
 	templates: [],
 	users: [],
 	selectedTemplate: "",
-
 	isRemove: false,
+	deleteTemplatePopup: false,
+	templateToDelete: "",
 };
 
 export const attachUseState = (state: any, setState: any) => {
