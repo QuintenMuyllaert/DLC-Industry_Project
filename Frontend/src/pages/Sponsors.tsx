@@ -27,7 +27,7 @@ export const Sponsors = () => {
 	for (const sponsorBundel of state.sponsors) {
 		if (sponsorBundel.name === bundel) {
 			for (const sponsor of sponsorBundel.children) {
-				sponsors.push(<Sponsor img={sponsor} map={sponsorBundel} />);
+				sponsors.push(<Sponsor img={sponsor} map={sponsorBundel.name} />);
 			}
 		}
 	}
