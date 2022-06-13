@@ -7,12 +7,12 @@ import { scoreboardInterface } from "../utils/ScoreboardInterface";
 import { useNavigate } from "react-router-dom";
 
 export const AddSponsorBundel = () => {
+	const navigate = useNavigate();
+
 	const [bundelNaam, setBundelNaam] = useState("");
 	const [validatieNaam, setValidatieNaam] = useState(false);
 
 	const handleClickNewSponsorBundel = () => {
-		const navigate = useNavigate();
-
 		if (bundelNaam != "") {
 			scoreboardInterface.uploadProperties(bundelNaam, "");
 			navigate(`/sponsortemplates`);
