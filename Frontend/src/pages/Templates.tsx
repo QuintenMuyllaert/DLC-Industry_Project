@@ -58,6 +58,8 @@ export const Templates = () => {
 			referrerPolicy: "no-referrer",
 			body: JSON.stringify(toDelete),
 		});
+
+		updateState("deleteTemplatePopup", !state.deleteTemplatePopup);
 	};
 
 	for (const template of state.templates) {
@@ -134,11 +136,7 @@ export const Templates = () => {
 				<IconButton label="Toevoegen" color="white" onClick={handleClickNewTemplate} />
 
 				<h1>Bestaande templates</h1>
-				<div className="p-templates__list scrollbar">
-					<Template sportNaam="Test" aantalHelften={2} duurHelft={5} handleDeletePopup={handleClickDeletePopup} />
-					<Template sportNaam="Teste" aantalHelften={2} duurHelft={5} handleDeletePopup={handleClickDeletePopup} />
-					{templates}
-				</div>
+				<div className="p-templates__list scrollbar">{templates}</div>
 			</div>
 			<BottomTab />
 			<Modal
