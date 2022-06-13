@@ -75,6 +75,10 @@ export const UserSettings = () => {
 				referrerPolicy: "no-referrer",
 				body: JSON.stringify({ currentUsername: user.currentUsername, newUsername: user.newUsername }),
 			});
+
+			if (res.status == 200) {
+				document.location.href = "/logout";
+			}
 		} else {
 			console.log("De nieuwe username is dezelfde als de oude username");
 		}
