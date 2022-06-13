@@ -8,6 +8,7 @@ import Input from "../components/Input";
 import { scoreboardInterface } from "../utils/ScoreboardInterface";
 import { getQuery } from "../utils/Utils";
 import { useNavigate } from "react-router-dom";
+import { updateGlobalState as updateState, globalState as state } from "../utils/Appstate";
 
 export const AddSponsor = () => {
 	const navigate = useNavigate();
@@ -66,8 +67,15 @@ export const AddSponsor = () => {
 
 					<Logo width="4rem" height="4rem" />
 				</header>
-
-				<h1>Nieuwe sponsor</h1>
+				<div className="c-addSponsor__tekst">
+					<h1>Nieuwe sponsor</h1>
+					<p>
+						Aanbevolen aspect ratio: <strong>16:9</strong>
+					</p>
+					<p>
+						Aanbevolen bestandstype: <strong>PNG</strong>
+					</p>
+				</div>
 
 				<div className="p-addSponsor__form">
 					<div className="c-input">
@@ -107,7 +115,11 @@ export const AddSponsor = () => {
 				</div>
 
 				<div className="p-addSponsor__btn">
-					<IconButton label="OPSLAAN" color="white" onClick={handleClickNewSponsor} />
+					{/* <IconButton label="OPSLAAN" color="white" onClick={handleClickNewSponsor} /> */}
+
+					<button className="c-iconbutton white center" onClick={handleClickNewSponsor} disabled={state.fileIsUploaded}>
+						Opslaan
+					</button>
 				</div>
 			</div>
 			<BottomTab />
