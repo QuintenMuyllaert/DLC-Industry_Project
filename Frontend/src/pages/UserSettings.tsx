@@ -84,6 +84,10 @@ export const UserSettings = () => {
 		}
 	};
 
+	const onLogout = () => {
+		console.log("logging out");
+	};
+
 	return (
 		<>
 			<div className="p-usersettings element">
@@ -157,6 +161,7 @@ export const UserSettings = () => {
 					<div className="save">
 						<IconButton label="OPSLAAN" color="white" onClick={sendUpdates} />
 					</div>
+					<IconButton label="LOGOUT" color="white" onClick={onLogout} />
 				</div>
 			</div>
 			<BottomTab />
