@@ -15,12 +15,7 @@ export const Timer = class Timer {
 			clock: this.clockify(),
 		};
 	}
-	constructor() {
-		// TODO : Remove this
-		setInterval(() => {
-			console.log("Timer: " + this.clockify());
-		}, 1000);
-	}
+	constructor() {}
 	clockify() {
 		const now = Date.now();
 		const ms = this.paused ? this.pauseStart - this.clockStart - this.clockOffset : now - this.clockStart - this.clockOffset;
