@@ -52,7 +52,15 @@
 	}
 
 	h1 {
-		padding: 1.5625rem 1rem;
+		padding: 0 1rem 1rem 1rem;
+	}
+
+	p {
+		text-align: center;
+
+		strong {
+			font-weight: bold;
+		}
 	}
 
 	&__logo {

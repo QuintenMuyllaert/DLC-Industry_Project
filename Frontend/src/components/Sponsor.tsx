@@ -1,9 +1,13 @@
 import { updateGlobalState as updateState, globalState as state } from "../utils/Appstate";
 
-export const Sponsor = ({ img }: { img: string }) => {
+export const Sponsor = ({ img, map }: { img: string; map: string }) => {
+	const imgUrl = `${document.location.origin}/data/${state.serial}/${map}/${img}`;
+
 	return (
 		<article className="p-sponsors__list-item">
-			<div className="p-sponsors__list-img">{/* <img src="https://industryproject.computernetwork.be/data/{state.serial}/MAP/{img}" alt="img" /> */}</div>
+			<div className="p-sponsors__list-img">
+				<img src={imgUrl} alt={img} />
+			</div>
 			<p>{img}</p>
 			<div className="p-sponsors__list-btn">
 				<svg
