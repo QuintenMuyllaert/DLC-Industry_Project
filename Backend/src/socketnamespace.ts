@@ -47,6 +47,7 @@ export const SocketNamespace = class SocketNamespace {
 	addUser(socket: any) {
 		console.log("Added user to namespace", this.serial);
 		socket.emit("state", this.data);
+		socket.emit("clock", this.clock.data);
 		this.users.push(socket);
 		socket.on("disconnect", () => {
 			this.users.splice(this.users.indexOf(socket), 1);
