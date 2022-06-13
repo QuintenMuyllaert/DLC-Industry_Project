@@ -69,14 +69,14 @@ export const Score = () => {
 	const setTimer = () => {
 		console.log("clicker on clock");
 
-		if (state.timerPaused == false) {
+		if (state.timerPaused) {
 			scoreboardInterface.resumeTimer();
 			updateState("timerPaused", false);
-		}
-
-		if (state.timerPaused) {
+			console.log("started timer");
+		} else if (state.timerPaused == false) {
 			scoreboardInterface.pauseTimer();
 			updateState("timerPaused", true);
+			console.log("paused timer");
 		}
 	};
 
