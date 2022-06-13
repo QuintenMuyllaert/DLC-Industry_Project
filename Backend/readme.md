@@ -36,7 +36,7 @@ GET /revoke
 ///Protected
 
 //change password
-POST /changepassword
+PUT /changepassword
 body: {
     currentPassword,
     newPassword,

@@ -132,7 +132,7 @@ app.post("/register", async (req: Request, res: Response) => {
 	}
 });
 
-app.post("/changepassword", async (req: Request, res: Response) => {
+app.put("/changepassword", async (req: Request, res: Response) => {
 	await protect(req, res, async (body: LooseObject) => {
 		const { username } = body;
 		const { currentPassword, newPassword } = req.body;
