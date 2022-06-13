@@ -1,8 +1,7 @@
 import IconButton from "./IconButton";
 import { scoreboardInterface } from "../utils/ScoreboardInterface";
 import { updateGlobalState as updateState, globalState as state } from "../utils/Appstate";
-import { trigger } from "../utils/Networking";
-import Clock from "./Clock";
+import { useState } from "react";
 
 export const ClockEdit = ({ active }: { active: boolean }) => {
 	const setTimer = () => {
@@ -17,13 +16,20 @@ export const ClockEdit = ({ active }: { active: boolean }) => {
 		}
 	};
 
+	const setNewTime = () => {};
+
 	return (
 		<>
 			<div className={active ? "c-clockedit__overlay" : "c-clockedit__overlay c-clockedit__hidden"}></div>
 			<div className={active ? "c-clockedit" : "c-clockedit c-clockedit__hidden"}>
 				<div className="c-clockedit__container">
-					<Clock time={state.getClock()}></Clock>
-
+					<h1 className="title">Stel een nieuwe tijd in</h1>
+					<div className="clockinput">
+						<input placeholder="00" className="side" type="number" id="inputclockleft" />
+						<p className="middle">:</p>
+						<input placeholder="00" className="side" type="number" id="inputclockright" />
+					</div>
+					<h1 className="title">start of stop de timer</h1>
 					<IconButton
 						color="black"
 						onClick={setTimer}
@@ -58,7 +64,7 @@ export const ClockEdit = ({ active }: { active: boolean }) => {
 							)
 						}
 					/>
-					<IconButton color="black" label="BEVESTIG" />
+					<IconButton color="black" label="BEVESTIG" onClick={setNewTime} />
 				</div>
 			</div>
 		</>

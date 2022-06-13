@@ -25,6 +25,44 @@
 		max-width: 25rem;
 		display: grid;
 		gap: 1.5rem;
+		text-align: center;
+		align-items: center;
+
+		.title {
+			color: #121212;
+			font-family: Rajdhani;
+			font-size: 2rem;
+			font-weight: 600;
+		}
+
+		.clockinput {
+			border: calc(2 * var(--global-border-size)) solid #121212;
+			display: flex;
+			justify-content: space-between;
+			width: min(100%, 18rem);
+			gap: 0.5rem;
+			align-self: center;
+			justify-self: center;
+
+			.side {
+				text-align: center;
+				font-family: DSEG7-Classic;
+				font-weight: 500;
+				font-size: 3.5rem;
+				justify-self: center;
+				width: 8rem;
+				color: #121212;
+			}
+
+			.middle {
+				text-align: center;
+				font-family: DSEG7-Classic;
+				font-weight: 500;
+				font-size: 3.5rem;
+				justify-self: center;
+				color: #121212;
+			}
+		}
 	}
 
 	&__hidden {
