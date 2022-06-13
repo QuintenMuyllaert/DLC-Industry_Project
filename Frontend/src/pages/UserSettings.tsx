@@ -8,7 +8,7 @@ import IconButton from "../components/IconButton";
 
 export const UserSettings = () => {
 	const refThemeSwitch = useRef<HTMLInputElement>(null);
-	const user: LooseObject = {
+	const defaultUser: LooseObject = {
 		currentUsername: "",
 		newUsername: "",
 		currentPassword: "",
@@ -16,12 +16,13 @@ export const UserSettings = () => {
 		checkNewPassword: "",
 	};
 
+	const [user, setUser] = useState(defaultUser);
+
 	const fetchStatus = async () => {
 		const res = await fetch(`/status`, { mode: "no-cors", method: "GET" });
 		const json = await res.json();
 		updateUser("currentUsername", json.username);
 		console.log(json.username);
-		console.log(json);
 		console.log(user);
 	};
 
@@ -39,6 +40,7 @@ export const UserSettings = () => {
 
 	const updateUser = (key: any, value: string) => {
 		user[key] = value;
+		setUser(user);
 	};
 
 	const sendUpdates = async () => {
@@ -161,7 +163,6 @@ export const UserSettings = () => {
 					<div className="save">
 						<IconButton label="OPSLAAN" color="white" onClick={sendUpdates} />
 					</div>
-					<IconButton label="LOGOUT" color="white" onClick={onLogout} />
 				</div>
 			</div>
 			<BottomTab />
