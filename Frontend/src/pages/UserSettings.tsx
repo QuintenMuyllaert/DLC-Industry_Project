@@ -63,7 +63,20 @@ export const UserSettings = () => {
 		}
 
 		if (user.newUsername != user.currentUsername) {
-			console.log("username update");
+			const res = await fetch(`/edituser`, {
+				method: "PUT",
+				mode: "cors",
+				cache: "no-cache",
+				credentials: "same-origin",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				redirect: "follow",
+				referrerPolicy: "no-referrer",
+				body: JSON.stringify({ currentUsername: user.currentUsername, newUsername: user.newUsername }),
+			});
+		} else {
+			console.log("De nieuwe username is dezelfde als de oude username");
 		}
 	};
 
