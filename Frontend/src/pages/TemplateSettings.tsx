@@ -6,8 +6,11 @@ import IconButton from "../components/IconButton";
 import Logo from "../components/Logo";
 import { getQuery } from "../utils/Utils";
 import { updateGlobalState as updateState, globalState as state } from "../utils/Appstate";
+import { useNavigate } from "react-router-dom";
 
 export const TemplateSettings = () => {
+	const navigate = useNavigate();
+
 	const ingeladenTemplate: LooseObject = {
 		name: "",
 		parts: 0,
@@ -41,7 +44,22 @@ export const TemplateSettings = () => {
 
 	const { template } = getQuery();
 
-	// let templates = [];
+	const handleClickUpdateTemplate = async () => {
+		const res = await fetch(`/template?serial=X3462L7L`, {
+			mode: "cors",
+			method: "PUT",
+			cache: "no-cache",
+			credentials: "same-origin",
+			headers: {
+				"content-type": "application/json",
+			},
+			redirect: "follow",
+			referrerPolicy: "no-referrer",
+			body: JSON.stringify(newTemplate),
+		});
+
+		navigate(`/templates`);
+	};
 
 	return (
 		<>
@@ -68,19 +86,41 @@ export const TemplateSettings = () => {
 				<div className="content">
 					<div className="item">
 						<p className="title">template naam:</p>
-						<UserSetting id="name" password={false} content={newTemplate.name} />
+						<UserSetting
+							id="name"
+							password={false}
+							content={newTemplate.name}
+							onChange={(event: React.FormEvent<HTMLInputElement>) => {
+								updateNewTemplate("name", event.currentTarget.value);
+							}}
+						/>
+						{/* onChange */}
 					</div>
 					<div className="item">
 						<p className="title">helften:</p>
-						<UserSetting id="parts" password={false} content={newTemplate.parts} />
+						<UserSetting
+							id="parts"
+							password={false}
+							content={newTemplate.parts}
+							onChange={(event: React.FormEvent<HTMLInputElement>) => {
+								updateNewTemplate("parts", event.currentTarget.value);
+							}}
+						/>
 					</div>
 					<div className="item">
 						<p className="title">duur:</p>
-						<UserSetting id="duration" password={false} content={newTemplate.duration} />
+						<UserSetting
+							id="duration"
+							password={false}
+							content={newTemplate.duration}
+							onChange={(event: React.FormEvent<HTMLInputElement>) => {
+								updateNewTemplate("duration", event.currentTarget.value);
+							}}
+						/>
 					</div>
 				</div>
 				<div className="p-templatesettings__btn">
-					<IconButton label="OPSLAAN" color="white" />
+					<IconButton label="OPSLAAN" color="white" onClick={handleClickUpdateTemplate} />
 				</div>
 			</div>
 			<BottomTab />

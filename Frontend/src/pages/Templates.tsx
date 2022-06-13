@@ -7,7 +7,7 @@ import Logo from "../components/Logo";
 import Template from "../components/Template";
 import { LooseObject } from "../utils/Interfaces";
 import { updateGlobalState as updateState, globalState as state } from "../utils/Appstate";
-import Modal from "../components/modal";
+import Modal from "../components/Modal";
 
 export const Templates = () => {
 	const fetchTemplates = async () => {
