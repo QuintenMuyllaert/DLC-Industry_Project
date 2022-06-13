@@ -7,6 +7,7 @@ import Logo from "../components/Logo";
 import Template from "../components/Template";
 import { LooseObject } from "../utils/Interfaces";
 import { updateGlobalState as updateState, globalState as state } from "../utils/Appstate";
+import Modal from "../components/modal";
 
 export const Templates = () => {
 	const fetchTemplates = async () => {
@@ -108,9 +109,13 @@ export const Templates = () => {
 				<IconButton label="Toevoegen" color="white" onClick={handleClickNewTemplate} />
 
 				<h1>Bestaande templates</h1>
-				<div className="p-templates__list scrollbar">{templates}</div>
+				<div className="p-templates__list scrollbar">
+					<Template sportNaam="Test" aantalHelften={2} duurHelft={5} />
+					{/* {templates} */}
+				</div>
 			</div>
 			<BottomTab />
+			<Modal active={false} tekst="Ben je zeker dat je deze template wilt verwijderen?" />
 		</>
 	);
 };
