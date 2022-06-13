@@ -75,15 +75,15 @@ export const TemplateSettings = () => {
 				<div className="content">
 					<div className="item">
 						<p className="title">template naam:</p>
-						<UserSetting id="name" content={ingeladenTemplate.name} />
+						<UserSetting id="name" password={false} content={ingeladenTemplate.name} />
 					</div>
 					<div className="item">
 						<p className="title">helften:</p>
-						<UserSetting id="parts" content={ingeladenTemplate.parts} />
+						<UserSetting id="parts" password={false} content={ingeladenTemplate.parts} />
 					</div>
 					<div className="item">
 						<p className="title">duur:</p>
-						<UserSetting id="duration" content={ingeladenTemplate.duration} />
+						<UserSetting id="duration" password={false} content={ingeladenTemplate.duration} />
 					</div>
 				</div>
 				<div className="p-templatesettings__btn">
