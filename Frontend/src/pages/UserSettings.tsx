@@ -25,7 +25,7 @@ export const UserSettings = () => {
 		console.log(user);
 	};
 
-	fetchStatus;
+	fetchStatus();
 
 	const onThemeChange = () => {
 		console.log(refThemeSwitch.current?.checked);
