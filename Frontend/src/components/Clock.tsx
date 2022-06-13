@@ -34,7 +34,7 @@ export const Clock = ({ time, onClick }: { time: number | `${number}:${number}`;
 	}, []);
 
 	return (
-		<div className="c-clock">
+		<div className="c-clock" onClick={onClick}>
 			<h1 className="time">{value}</h1>
 		</div>
 	);
