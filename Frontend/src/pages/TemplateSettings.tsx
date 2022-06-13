@@ -42,11 +42,9 @@ export const TemplateSettings = () => {
 
 	for (const templateI of state.templates) {
 		if (templateI.name === template) {
-			for (const sponsor of templateI.children) {
-				updateIngeladenTemplateTemplate("name", templateI.name);
-				updateIngeladenTemplateTemplate("parts", templateI.parts);
-				updateIngeladenTemplateTemplate("duration", templateI.duration);
-			}
+			updateIngeladenTemplateTemplate("name", templateI.name);
+			updateIngeladenTemplateTemplate("parts", templateI.parts);
+			updateIngeladenTemplateTemplate("duration", templateI.duration);
 		}
 	}
 
