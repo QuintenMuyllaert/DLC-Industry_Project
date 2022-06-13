@@ -22,14 +22,17 @@ export const SocketNamespace = class SocketNamespace {
 			}
 		}, 50);
 
-		let i = 0;
 		setInterval(() => {
-			if (this.showSponsors) {
-				const sp = this.sponsors[i % this.sponsors.length];
-				this.emitDisplays("sponsor", sp);
-				i++;
-			}
+			this.attemptShowsponsors();
+			this.spIndex++;
 		}, 5000);
+	}
+	spIndex = 0;
+	attemptShowsponsors() {
+		if (this.showSponsors) {
+			const sp = this.sponsors[this.spIndex % this.sponsors.length];
+			this.emitDisplays("sponsor", sp);
+		}
 	}
 	addDisplay(socket: any) {
 		console.log("Added display to namespace", this.serial);
@@ -72,6 +75,7 @@ export const SocketNamespace = class SocketNamespace {
 					this.sponsors = data;
 				}
 				this.showSponsors = true;
+				this.attemptShowsponsors();
 			} else {
 				this.showSponsors = false;
 				this.emitDisplays("sponsor", "");
