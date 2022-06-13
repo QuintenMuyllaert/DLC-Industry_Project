@@ -7,6 +7,8 @@ export const SocketNamespace = class SocketNamespace {
 	data: any = {};
 	time: number = 0;
 	clock = new Timer();
+	sponsors = [];
+	showSponsors = false;
 	constructor(serial: string, data: any) {
 		console.log("Created namespace", serial);
 		this.serial = serial;
@@ -19,6 +21,15 @@ export const SocketNamespace = class SocketNamespace {
 				this.emitAll("clock", this.clock.data);
 			}
 		}, 50);
+
+		let i = 0;
+		setInterval(() => {
+			if (this.showSponsors) {
+				const sp = this.sponsors[i % this.sponsors.length];
+				this.emitDisplays("sponsor", sp);
+				i++;
+			}
+		}, 5000);
 	}
 	addDisplay(socket: any) {
 		console.log("Added display to namespace", this.serial);
@@ -32,6 +43,7 @@ export const SocketNamespace = class SocketNamespace {
 		socket.emit("data", "#t2", "text", this.data.t2);
 
 		socket.emit("clock", this.clock.data);
+		socket.emit("sponsor", "");
 
 		this.displays.push(socket);
 		socket.on("disconnect", () => {
@@ -51,6 +63,19 @@ export const SocketNamespace = class SocketNamespace {
 		this.users.push(socket);
 		socket.on("disconnect", () => {
 			this.users.splice(this.users.indexOf(socket), 1);
+		});
+
+		socket.on("sponsors", (data: Array<string>) => {
+			if (data && data.length) {
+				if (Array.isArray(data)) {
+					//@ts-ignore
+					this.sponsors = data;
+				}
+				this.showSponsors = true;
+			} else {
+				this.showSponsors = false;
+				this.emitDisplays("sponsor", "");
+			}
 		});
 
 		socket.on("clock", (data: any) => {

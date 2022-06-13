@@ -214,6 +214,7 @@ app.get("/revoke", async (req: Request, res: Response) => {
 });
 
 app.get("/sponsors", async (req: Request, res: Response) => {
+	console.log("e");
 	await protect(req, res, (body: LooseObject) => {
 		const { serial } = body;
 		const serialQ = req?.query?.serial;
