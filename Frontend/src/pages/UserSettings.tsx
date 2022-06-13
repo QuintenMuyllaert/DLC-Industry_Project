@@ -21,8 +21,11 @@ export const UserSettings = () => {
 		const json = await res.json();
 		updateUser("currentUsername", json.username);
 		console.log(json.username);
+		console.log(json);
 		console.log(user);
 	};
+
+	fetchStatus;
 
 	const onThemeChange = () => {
 		console.log(refThemeSwitch.current?.checked);
