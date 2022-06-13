@@ -3,6 +3,8 @@ import { LooseObject } from "./Interfaces";
 export let globalState: any;
 export let globalSetState: any;
 
+let time = {};
+
 export const defaultState: LooseObject = {
 	color: "dark",
 	nameHome: "THUIS",
@@ -13,7 +15,20 @@ export const defaultState: LooseObject = {
 	ho: "black",
 	ub: "black",
 	uo: "black",
-	timer: 0,
+	timer: "00:00",
+	getClock: () => {
+		const that = globalState.clockData;
+		const now = Date.now();
+		const ms = that.paused ? that.pauseStart - that.clockStart - that.clockOffset : now - that.clockStart - that.clockOffset;
+		const seconds = Math.floor(ms / 1000);
+		const minutes = Math.floor(seconds / 60);
+
+		const to2digits = (num: number) => {
+			return num < 10 ? `0${num}` : num;
+		};
+
+		return `${to2digits(minutes)}:${to2digits(seconds % 60)}`;
+	},
 	timerRunning: false,
 	message: "",
 	screen: "P0",
@@ -28,6 +43,14 @@ export const defaultState: LooseObject = {
 	templates: [],
 	users: [],
 	selectedTemplate: "",
+	clockData: {
+		clockStart: Date.now(),
+		pauseStart: Date.now(),
+		pauseStop: 0,
+		clockOffset: 0,
+		paused: true,
+		clock: "00:00",
+	},
 	isRemove: false,
 	deleteTemplatePopup: false,
 	templateToDelete: "",

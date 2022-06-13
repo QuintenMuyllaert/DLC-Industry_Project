@@ -62,7 +62,7 @@ export const Scoreboard = () => {
 							<Flag top={globalState.hb} bottom={globalState.ho} />
 						</div>
 					</div>
-					<Clock time={globalState.timer} />
+					<Clock time={globalState.getClock()} />
 					<div className="team">
 						<div className="flag">
 							<Flag top={globalState.ub} bottom={globalState.uo} />

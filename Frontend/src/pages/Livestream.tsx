@@ -19,7 +19,7 @@ export const Livestream = () => {
 						<p className="score">{globalState.t1}</p>
 					</div>
 					<div className="time-container">
-						<p className="time">{globalState.timer}</p>
+						<p className="time">{globalState.getClock()}</p>
 					</div>
 					<div className="score-container">
 						<p className="score">{globalState.t2}</p>

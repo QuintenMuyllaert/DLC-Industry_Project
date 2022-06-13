@@ -148,6 +148,10 @@ export class InterfaceSocket {
 		this.socket.on("state", (data: any) => {
 			Appstate.mergeGlobalState(data);
 		});
+
+		this.socket.on("clock", (data: any) => {
+			Appstate.mergeGlobalState({ clockData: data });
+		});
 	}
 	changeColor(team: `${1 | 2}${"B" | "O"}`, color: string) {
 		this.socket.emit("input", team, color);
