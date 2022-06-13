@@ -154,6 +154,10 @@ export class InterfaceSocket {
 		this.socket.on("clock", (data: any) => {
 			Appstate.mergeGlobalState({ clockData: data });
 		});
+
+		this.socket.on("uploaded", () => {
+			Appstate.updateGlobalState("fileIsUploaded", true);
+		});
 	}
 	changeColor(team: `${1 | 2}${"B" | "O"}`, color: string) {
 		this.socket.emit("input", team, color);
@@ -204,6 +208,7 @@ export class InterfaceSocket {
 		}, 1000);
 	};
 	uploadProperties = (folder: string, name: string) => {
+		Appstate.updateGlobalState("fileIsUploaded", false);
 		this.socket.emit("upload", folder, name);
 	};
 	updateColorArray(colorArray: string[]) {
