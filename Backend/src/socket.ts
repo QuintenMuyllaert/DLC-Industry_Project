@@ -206,6 +206,8 @@ export const attachSocketIO = (server: any) => {
 						console.log(e);
 					}
 				}
+
+				socket.emit("uploaded", true);
 			});
 			uploader.on("error", function (event: any) {
 				console.log("Error from uploader", event);

@@ -54,6 +54,7 @@ export const defaultState: LooseObject = {
 	isRemove: false,
 	deleteTemplatePopup: false,
 	templateToDelete: "",
+	fileIsUploaded: false,
 };
 
 export const attachUseState = (state: any, setState: any) => {
