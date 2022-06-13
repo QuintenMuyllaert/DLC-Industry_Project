@@ -158,13 +158,19 @@ app.put("/changepassword", async (req: Request, res: Response) => {
 
 app.put("/edituser", async (req: Request, res: Response) => {
 	await protect(req, res, async (body: LooseObject) => {
-		const { serial, isAdmin } = body;
-		if (!serial || !isAdmin) {
-			res.status(400).send("Missing serial or isAdmin");
+		const { serial, username } = body;
+		if (!serial) {
+			res.status(400).send("Missing serial");
 			return;
 		}
 
 		const { currentUsername, newUsername } = req.body;
+
+		if (username != currentUsername) {
+			res.status(400).send("Invalid username (not the same)");
+			return;
+		}
+
 		if (!newUsername || !currentUsername) {
 			res.status(400).send("Missing username");
 			return;
