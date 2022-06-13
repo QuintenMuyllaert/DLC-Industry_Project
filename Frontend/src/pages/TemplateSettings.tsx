@@ -21,11 +21,6 @@ export const TemplateSettings = () => {
 		setnewTemplate(newTemplate);
 	};
 
-	const updateIngeladenTemplateTemplate = (key: any, value: string) => {
-		ingeladenTemplate[key] = value;
-		setnewTemplate(ingeladenTemplate);
-	};
-
 	const fetchTemplates = async () => {
 		const res = await fetch(`/template?serial=X3462L7L`, { mode: "no-cors", method: "GET" });
 		const json = await res.json();
@@ -37,9 +32,9 @@ export const TemplateSettings = () => {
 
 		for (const templateI of state.templates) {
 			if (templateI.name === template) {
-				updateIngeladenTemplateTemplate("name", templateI.name);
-				updateIngeladenTemplateTemplate("parts", templateI.parts);
-				updateIngeladenTemplateTemplate("duration", templateI.duration);
+				updateNewTemplate("name", templateI.name);
+				updateNewTemplate("parts", templateI.parts);
+				updateNewTemplate("duration", templateI.duration);
 			}
 		}
 	}, []);
@@ -68,20 +63,20 @@ export const TemplateSettings = () => {
 					<Logo width="4rem" height="4rem" />
 				</header>
 
-				<h1 className="pagetitle">{ingeladenTemplate.name}</h1>
+				<h1 className="pagetitle">{newTemplate.name}</h1>
 
 				<div className="content">
 					<div className="item">
 						<p className="title">template naam:</p>
-						<UserSetting id="name" password={false} content={ingeladenTemplate.name} />
+						<UserSetting id="name" password={false} content={newTemplate.name} />
 					</div>
 					<div className="item">
 						<p className="title">helften:</p>
-						<UserSetting id="parts" password={false} content={ingeladenTemplate.parts} />
+						<UserSetting id="parts" password={false} content={newTemplate.parts} />
 					</div>
 					<div className="item">
 						<p className="title">duur:</p>
-						<UserSetting id="duration" password={false} content={ingeladenTemplate.duration} />
+						<UserSetting id="duration" password={false} content={newTemplate.duration} />
 					</div>
 				</div>
 				<div className="p-templatesettings__btn">
