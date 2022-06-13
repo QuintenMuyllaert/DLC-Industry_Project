@@ -40,12 +40,12 @@ export const TemplateSettings = () => {
 
 	// let templates = [];
 
-	for (const template of state.templates) {
-		if (template.name === template) {
-			for (const sponsor of template.children) {
-				updateIngeladenTemplateTemplate("name", template.name);
-				updateIngeladenTemplateTemplate("parts", template.parts);
-				updateIngeladenTemplateTemplate("duration", template.duration);
+	for (const templateI of state.templates) {
+		if (templateI.name === template) {
+			for (const sponsor of templateI.children) {
+				updateIngeladenTemplateTemplate("name", templateI.name);
+				updateIngeladenTemplateTemplate("parts", templateI.parts);
+				updateIngeladenTemplateTemplate("duration", templateI.duration);
 			}
 		}
 	}
