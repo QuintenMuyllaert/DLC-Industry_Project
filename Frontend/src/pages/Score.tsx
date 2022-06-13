@@ -72,11 +72,13 @@ export const Score = () => {
 		if (state.timerPaused) {
 			scoreboardInterface.resumeTimer();
 			updateState("timerPaused", false);
+			console.log("started timer");
 		}
 
 		if (state.timerPaused == false) {
 			scoreboardInterface.pauseTimer();
 			updateState("timerPaused", true);
+			console.log("paused timer");
 		}
 	};
 
