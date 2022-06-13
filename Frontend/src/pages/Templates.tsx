@@ -10,7 +10,6 @@ import { updateGlobalState as updateState, globalState as state } from "../utils
 import Modal from "../components/modal";
 
 export const Templates = () => {
-	
 	const fetchTemplates = async () => {
 		const res = await fetch(`/template?serial=X3462L7L`, { mode: "no-cors", method: "GET" });
 		const json = await res.json();
@@ -137,10 +136,7 @@ export const Templates = () => {
 				<IconButton label="Toevoegen" color="white" onClick={handleClickNewTemplate} />
 
 				<h1>Bestaande templates</h1>
-				<div className="p-templates__list scrollbar">
-					<Template sportNaam="test" aantalHelften={5} duurHelft={5} handleDeletePopup={handleClickDeletePopup} />
-					{templates}
-				</div>
+				<div className="p-templates__list scrollbar">{templates}</div>
 			</div>
 			<BottomTab />
 			<Modal

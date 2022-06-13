@@ -7,7 +7,6 @@
 	overflow: hidden;
 	width: 100%;
 	max-width: 450px;
-	cursor: pointer;
 
 	&__header {
 		display: flex;
@@ -47,6 +46,7 @@
 			background-color: var(--global-color-text);
 			color: var(--global-color-background);
 			padding: 1rem 1.125rem;
+			cursor: pointer;
 		}
 
 		&-btn {

@@ -5,6 +5,7 @@ import { IconButton } from "../components/IconButton";
 import { BottomTab } from "../components/BottomTab";
 import Colorpicker from "../components/Colorpicker";
 import TextEdit from "../components/TextEdit";
+import ClockEdit from "../components/ClockEdit";
 
 import { scoreboardInterface } from "../utils/ScoreboardInterface";
 
@@ -44,6 +45,11 @@ export const Score = () => {
 		updateState("messagePopup", !state.messagePopup);
 	};
 
+	const handleClickClock = () => {
+		console.log("click clock");
+		updateState("clockPopup", !state.clockPopup);
+	};
+
 	const handleClickSendMessage = (message: string) => {
 		updateState("messagePopup", !state.messagePopup);
 		scoreboardInterface.sendMessage(message);
@@ -66,24 +72,10 @@ export const Score = () => {
 		}
 	};
 
-	const setTimer = () => {
-		console.log("clicker on clock");
-
-		if (state.timerPaused) {
-			scoreboardInterface.resumeTimer();
-			updateState("timerPaused", false);
-			console.log("started timer");
-		} else if (state.timerPaused == false) {
-			scoreboardInterface.pauseTimer();
-			updateState("timerPaused", true);
-			console.log("paused timer");
-		}
-	};
-
 	return (
 		<>
 			<div className="p-score">
-				<Clock time={state.getClock()} onClick={setTimer}></Clock>
+				<Clock time={state.getClock()} onClick={handleClickClock}></Clock>
 				<div className="scorevalue-container">
 					<Flag top={state.hb} bottom={state.ho} handleClickPopup={handleClickTeam1Color} />
 					<div className="empty"></div>
@@ -142,6 +134,7 @@ export const Score = () => {
 
 			<Colorpicker team={1} updateScoreState={updateState} active={state.teamColorTeam1Popup} handleClickPopup={handleClickTeam1Color} />
 			<Colorpicker team={2} updateScoreState={updateState} active={state.teamColorTeam2Popup} handleClickPopup={handleClickTeam2Color} />
+			<ClockEdit active={state.clockPopup} />
 			<TextEdit active={state.messagePopup} handleClickMessage={handleClickMessage} handleClickSendMessage={handleClickSendMessage} />
 		</>
 	);

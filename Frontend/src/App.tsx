@@ -21,6 +21,7 @@ import SponsorTemplates from "./pages/SponsorTemplates";
 import Sponsors from "./pages/Sponsors";
 import TemplateSettings from "./pages/TemplateSettings";
 import AddSponsor from "./pages/AddSponsor";
+import AddSponsorBundel from "./pages/AddSponsorBundel";
 
 export const App = () => {
 	Appstate.attachUseState(...useState(Appstate.defaultState));
@@ -46,6 +47,7 @@ export const App = () => {
 					<Route path="/sponsortemplates" element={<Protect element={<SponsorTemplates />} />} />
 					<Route path="/sponsors" element={<Protect element={<Sponsors />} />} />
 					<Route path="/addsponsor" element={<Protect element={<AddSponsor />} />} />
+					<Route path="/addsponsorbundel" element={<Protect element={<AddSponsorBundel />} />} />
 				</Routes>
 			</div>
 		</Router>

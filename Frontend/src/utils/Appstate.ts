@@ -29,12 +29,12 @@ export const defaultState: LooseObject = {
 
 		return `${to2digits(minutes)}:${to2digits(seconds % 60)}`;
 	},
-	timerPaused: false,
 	message: "",
 	screen: "P0",
 	serial: "N/A",
 	first: true,
 	messagePopup: false,
+	clockPopup: false,
 	teamColorTeam1Popup: false,
 	teamColorTeam2Popup: false,
 	colors: [],
