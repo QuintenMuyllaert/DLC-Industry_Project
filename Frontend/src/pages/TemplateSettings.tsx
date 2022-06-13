@@ -34,19 +34,19 @@ export const TemplateSettings = () => {
 
 	useEffect(() => {
 		fetchTemplates();
+
+		for (const templateI of state.templates) {
+			if (templateI.name === template) {
+				updateIngeladenTemplateTemplate("name", templateI.name);
+				updateIngeladenTemplateTemplate("parts", templateI.parts);
+				updateIngeladenTemplateTemplate("duration", templateI.duration);
+			}
+		}
 	}, []);
 
 	const { template } = getQuery();
 
 	// let templates = [];
-
-	for (const templateI of state.templates) {
-		if (templateI.name === template) {
-			updateIngeladenTemplateTemplate("name", templateI.name);
-			updateIngeladenTemplateTemplate("parts", templateI.parts);
-			updateIngeladenTemplateTemplate("duration", templateI.duration);
-		}
-	}
 
 	return (
 		<>
