@@ -1,9 +1,9 @@
-export const UserSetting = ({ content, id, onChange }: { content?: string; id: string; onChange?: (event?: any) => any }) => {
+export const UserSetting = ({ content, id, password, onChange }: { content?: string; id: string; password: boolean; onChange?: (event?: any) => any }) => {
 	return (
 		<article className="c-usersetting">
 			<div className="card">
 				<div className="content">
-					<input id={id} type="text" placeholder={content} onChange={onChange} />
+					<input type={password ? "password" : "text"} id={id} placeholder={content} onChange={onChange} />
 				</div>
 				<svg
 					className="icon"
