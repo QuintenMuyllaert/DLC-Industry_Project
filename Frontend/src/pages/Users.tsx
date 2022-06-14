@@ -39,16 +39,16 @@ export const Users = () => {
 		const res = await fetch(`/user?serial=${state.serial}`, { mode: "no-cors", method: "GET" });
 		const json = await res.json();
 		updateState("users", json);
-	};
 
-	for (const userInList of state.users) {
-		const tempUserList: JSX.Element[] = [];
-		console.log(userInList);
-		if (userInList.isAdmin == false) {
-			tempUserList.push(<User username={userInList.username} />);
+		for (const userInList of state.users) {
+			const tempUserList: JSX.Element[] = [];
+			console.log(userInList);
+			if (userInList.isAdmin == false) {
+				tempUserList.push(<User username={userInList.username} />);
+			}
+			setNewUserlist(tempUserList);
 		}
-		setNewUserlist(tempUserList);
-	}
+	};
 
 	const handleClickNewUser = async () => {
 		const p = generatePassword();
@@ -66,6 +66,8 @@ export const Users = () => {
 			referrerPolicy: "no-referrer",
 			body: JSON.stringify(newUser),
 		});
+
+		fetchUsers();
 
 		if (navigator.share) {
 			navigator

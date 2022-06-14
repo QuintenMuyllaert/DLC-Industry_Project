@@ -6,7 +6,7 @@ export let globalSetState: any;
 let time = {};
 
 export const defaultState: LooseObject = {
-	color: "dark",
+	color: localStorage.getItem("theme") || "dark",
 	nameHome: "THUIS",
 	nameOut: "UIT",
 	t1: 0,
