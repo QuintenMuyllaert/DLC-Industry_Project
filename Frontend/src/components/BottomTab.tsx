@@ -42,7 +42,9 @@ export const BottomTab = () => {
 
 	const goToSponsors = async () => {
 		//document.location.href = "/usersettings";
-		navigate("/sponsortemplates");
+		if (admin) {
+			navigate("/sponsortemplates");
+		}
 	};
 
 	return (
@@ -78,7 +80,7 @@ export const BottomTab = () => {
 					document.location.pathname == "/addsponsor" ||
 					document.location.pathname == "/addsponsorbundel"
 						? "c-bottomtab__page c-bottomtab__page-active"
-						: "c-bottomtab__page"
+						: `c-bottomtab__page ${admin ? "" : "c-bottomtab__hidden"}`
 				}
 				onClick={goToSponsors}>
 				<svg
