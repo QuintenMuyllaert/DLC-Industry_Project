@@ -41,6 +41,7 @@ export const AddSponsor = () => {
 
 	const handleClickNewSponsor = () => {
 		if (sponsorNaam) {
+			console.log(sponsorNaam);
 			scoreboardInterface.uploadProperties(bundel, sponsorNaam);
 			// navigate(`/sponsors?bundel=${bundel}`);
 		} else {

@@ -16,9 +16,7 @@ export const Sponsors = () => {
 		updateState("sponsors", json);
 	};
 
-	useEffect(() => {
-		fetchSponsors();
-	}, []);
+	fetchSponsors();
 
 	const { bundel } = getQuery();
 
