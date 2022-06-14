@@ -22,6 +22,8 @@ export const Sponsors = () => {
 	};
 
 	const handleDeleteSponsor = async () => {
+		handleClickDeletePopup();
+		console.log(state.deleteSponsorPopup);
 		const res = await fetch(`/sponsors?serial=${state.serial}&bundle=${state.sponsorToDelete.bundel}&file=${state.sponsorToDelete.sponsor}`, {
 			mode: "cors",
 			method: "DELETE",
@@ -30,8 +32,6 @@ export const Sponsors = () => {
 			redirect: "follow",
 			referrerPolicy: "no-referrer",
 		});
-		handleClickDeletePopup();
-		console.log(state.deleteSponsorPopup);
 	};
 
 	const { bundel } = getQuery();
