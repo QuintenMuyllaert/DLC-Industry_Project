@@ -134,7 +134,7 @@ export const Templates = () => {
 				</div>
 
 				<h1>Bestaande templates</h1>
-				<div className="p-templates__list scrollbar">{}</div>
+				<div className="p-templates__list scrollbar">{templates}</div>
 			</div>
 			<BottomTab />
 			<ModalConfirm
