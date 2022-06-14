@@ -41,6 +41,10 @@ export const ToggleSponsors = ({ handleClickToggle }: { handleClickToggle: (even
 		sponsors.push(<option value={sponsorBundel.name}>{sponsorBundel.name}</option>);
 	}
 
+	const handleClickToggleScorebord = () => {
+		scoreboardInterface.setSponsorReel([]);
+	};
+
 	return (
 		<div className="c-scorebordToggle">
 			<div className={`c-scorebordToggle__active c-scorebordToggle__active-${state.scorbordSponsorsToggle}`}></div>
@@ -49,6 +53,7 @@ export const ToggleSponsors = ({ handleClickToggle }: { handleClickToggle: (even
 					className="c-scorebordToggle__btn c-scorebordToggle__scorebord"
 					onClick={() => {
 						handleClickToggle("left");
+						handleClickToggleScorebord();
 					}}>
 					Scorebord
 				</button>
