@@ -10,9 +10,6 @@ import { updateGlobalState as updateState, globalState as state } from "../utils
 import ModalConfirm from "../components/ModalConfirm";
 
 export const Templates = () => {
-	const [allTemplates, setAllTemplates] = useState([]);
-	let templates: any = [];
-
 	const fetchTemplates = async () => {
 		const res = await fetch(`/template?serial=${state.serial}`, { mode: "no-cors", method: "GET" });
 		const json = await res.json();
@@ -64,6 +61,9 @@ export const Templates = () => {
 
 		updateState("deleteTemplatePopup", !state.deleteTemplatePopup);
 	};
+
+	const [allTemplates, setAllTemplates] = useState([]);
+	let templates: any = [];
 
 	for (const template of state.templates) {
 		templates.push(
