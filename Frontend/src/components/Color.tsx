@@ -40,16 +40,12 @@ export const Color = ({
 				onClick
 					? onClick
 					: () => {
-							console.log(state);
-
 							if (state.isRemove) {
 								let index = state.colors.indexOf(color);
 								let newColorArray: string[] = state.colors;
 								newColorArray.splice(index, 1);
-								console.log("updating state...");
 								updateState("colors", newColorArray);
-								console.log("deleting color...");
-								scoreboardInterface.updateColorArray(newColorArray);
+								scoreboardInterface.updateColorArray(state.colors);
 								console.log(state.colors);
 							} else {
 								updateColorState(SetValue(team, side), Ecolor);
