@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Input } from "../components/Input";
 import { Logo } from "../components/Logo";
 import { IconButton } from "../components/IconButton";
@@ -8,11 +8,13 @@ import { LooseObject } from "../utils/Interfaces";
 export const ChangePassword = () => {
 	const localState: LooseObject = {
 		currentUsername: "",
+		oldPassword: "",
 		password: "",
 		checkPassword: "",
 	};
 
 	const [state, setState] = useState(localState);
+	const navigate = useNavigate();
 
 	const fetchStatus = async () => {
 		const res = await fetch(`/status`, { mode: "no-cors", method: "GET" });
@@ -28,6 +30,7 @@ export const ChangePassword = () => {
 	};
 
 	const onChangePassword = async () => {
+		updateState("oldPassword", sessionStorage.getItem("password"));
 		if (state.password == state.checkPassword) {
 			const res = await fetch(`/changepassword`, {
 				method: "PUT",
@@ -39,9 +42,28 @@ export const ChangePassword = () => {
 				},
 				redirect: "follow",
 				referrerPolicy: "no-referrer",
-				body: JSON.stringify({ currentPassword: state.currentPassword, newPassword: state.password }),
+				body: JSON.stringify({ currentPassword: state.oldPassword, newPassword: state.password }),
 			});
+
+			await res.json;
+
 			console.log("changed password");
+			const res2 = await fetch(`/auth`, {
+				method: "POST",
+				mode: "cors",
+				cache: "no-cache",
+				credentials: "same-origin",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				redirect: "follow",
+				referrerPolicy: "no-referrer",
+				body: JSON.stringify({ username: state.currentUsername, password: state.password }),
+			});
+
+			await res2.json;
+
+			navigate("/score");
 		} else {
 			console.log("password and confirm password are not the same");
 		}

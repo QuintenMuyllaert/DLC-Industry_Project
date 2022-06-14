@@ -39,8 +39,15 @@ export const Login = () => {
 			body: JSON.stringify(state),
 		});
 
-		if (res.status === 202) {
-			console.log(res);
+		const body = await res.json();
+
+		if (res.status <= 200 && res.status < 300) {
+			if (body.firstLogin) {
+				sessionStorage.setItem("password", state.password);
+				document.location.href = "/changepassword";
+			} else {
+				document.location.href = "/score"; // Socket needs to reconnect after login
+			}
 		}
 	};
 
