@@ -51,12 +51,12 @@ export const Color = ({
 								console.log("deleting color...");
 								scoreboardInterface.updateColorArray(newColorArray);
 								console.log(state.colors);
+							} else {
+								updateColorState(SetValue(team, side), Ecolor);
+								updateScoreState(SetValue(team, side), Ecolor);
+
+								scoreboardInterface.changeColor(`${team}${side}`, Ecolor);
 							}
-
-							updateColorState(SetValue(team, side), Ecolor);
-							updateScoreState(SetValue(team, side), Ecolor);
-
-							scoreboardInterface.changeColor(`${team}${side}`, Ecolor);
 					  }
 			}>
 			<svg
