@@ -1,4 +1,4 @@
-export const Modal = ({
+export const ModalConfirm = ({
 	active,
 	tekst,
 	handleClickDeletePopup,
@@ -48,4 +48,4 @@ export const Modal = ({
 	);
 };
 
-export default Modal;
+export default ModalConfirm;
