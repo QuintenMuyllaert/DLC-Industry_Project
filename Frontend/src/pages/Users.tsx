@@ -65,8 +65,8 @@ export const Users = () => {
 			navigator
 				.share({
 					title: "web.dev",
-					text: `Log nu in met deze user: username: ${newUser.username}, wachtwoord: ${newUser.password}`,
-					url: "https://dlcscoreboard.westeurope.cloudapp.azure.com/login",
+					text: `Log nu in met deze user:\nusername: ${newUser.username}\nwachtwoord: ${newUser.password}`,
+					url: `${document.location.origin}/login`,
 				})
 				.then(() => console.log("Successful share"))
 				.catch((error) => console.log("Error sharing", error));
