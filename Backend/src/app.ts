@@ -5,7 +5,7 @@ import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 //@ts-ignore
 import siofu from "socketio-file-upload";
-import { readdirSync, statSync, existsSync, unlinkSync } from "fs";
+import { readdirSync, statSync, existsSync, unlinkSync, rmdirSync } from "fs";
 
 import database from "./database";
 import { extractToken, hasAccess, jwtVerifyAsync, jwtSignAsync, hash, validateHash, generateSerial } from "./crypto";
@@ -273,6 +273,35 @@ app.delete("/sponsors", async (req: Request, res: Response) => {
 
 		unlinkSync(`www/${serial}/${bundle}/${file}`);
 		res.status(200);
+	});
+});
+
+app.delete("/folder", async (req: Request, res: Response) => {
+	await protect(req, res, (body: LooseObject) => {
+		const { serial } = body;
+		if (!serial) {
+			res.status(401).send("No serial");
+			return;
+		}
+
+		const queryParams = req.query;
+		const { bundle } = queryParams;
+		if (!bundle) {
+			res.status(404);
+			res.send("Invalid / Missing bundle");
+			return;
+		}
+
+		const exists = existsSync(`www/${serial}/${bundle}`);
+		if (!exists) {
+			res.status(404);
+			res.send("Folder not found");
+			return;
+		}
+
+		rmdirSync(`www/${serial}/${bundle}`, { recursive: true });
+		res.status(200);
+		res.send(`Folder ${bundle} deleted`);
 	});
 });
 
