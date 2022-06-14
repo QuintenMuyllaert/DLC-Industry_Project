@@ -1,5 +1,3 @@
-import { useEffect } from "react";
-
 import { updateGlobalState as updateState, globalState as state } from "../utils/Appstate";
 import BottomTab from "../components/BottomTab";
 import Logo from "../components/Logo";
@@ -7,7 +5,6 @@ import Sponsor from "../components/Sponsor";
 import { getQuery } from "../utils/Utils";
 import { useNavigate } from "react-router-dom";
 import ModalConfirm from "../components/ModalConfirm";
-import { LooseObject } from "../utils/Interfaces";
 
 export const Sponsors = () => {
 	const navigate = useNavigate();
@@ -21,8 +18,7 @@ export const Sponsors = () => {
 	fetchSponsors();
 
 	const handleClickDeletePopup = () => {
-		console.log("hallo");
-		updateState("deleteSponsorPopup", !state.deleteTemplatePopup);
+		updateState("deleteSponsorPopup", !state.deleteSponsorPopup);
 	};
 
 	const handleDeleteSponsor = async () => {
@@ -34,8 +30,8 @@ export const Sponsors = () => {
 			redirect: "follow",
 			referrerPolicy: "no-referrer",
 		});
+		await res.json;
 		handleClickDeletePopup();
-		// updateState("deleteSponsorPopup", !state.deleteTemplatePopup);
 	};
 
 	const { bundel } = getQuery();

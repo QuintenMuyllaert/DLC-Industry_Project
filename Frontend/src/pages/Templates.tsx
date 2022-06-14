@@ -10,6 +10,9 @@ import { updateGlobalState as updateState, globalState as state } from "../utils
 import ModalConfirm from "../components/ModalConfirm";
 
 export const Templates = () => {
+	const [allTemplates, setAllTemplates] = useState([]);
+	let templates: any = [];
+
 	const fetchTemplates = async () => {
 		const res = await fetch(`/template?serial=${state.serial}`, { mode: "no-cors", method: "GET" });
 		const json = await res.json();
@@ -29,13 +32,13 @@ export const Templates = () => {
 			referrerPolicy: "no-referrer",
 			body: JSON.stringify(newTemplate),
 		});
+
+		setAllTemplates(templates + newTemplate);
 	};
 
 	useEffect(() => {
 		fetchTemplates();
 	}, []);
-
-	let templates = [];
 
 	const handleClickDeletePopup = () => {
 		updateState("deleteTemplatePopup", !state.deleteTemplatePopup);
@@ -66,6 +69,7 @@ export const Templates = () => {
 		templates.push(
 			<Template sportNaam={template.name} aantalHelften={template.parts} duurHelft={template.duration} handleDeletePopup={handleClickDeletePopup} />,
 		);
+		setAllTemplates(templates);
 	}
 
 	const template: LooseObject = {
@@ -138,7 +142,7 @@ export const Templates = () => {
 				</div>
 
 				<h1>Bestaande templates</h1>
-				<div className="p-templates__list scrollbar">{templates}</div>
+				<div className="p-templates__list scrollbar">{allTemplates}</div>
 			</div>
 			<BottomTab />
 			<ModalConfirm
