@@ -32,9 +32,19 @@
 		}
 	}
 
-	::placeholder {
-		color: red !important;
-		//var(--global-color-text)
+	//::placeholder {
+	//	color: red !important;
+	//var(--global-color-text)
+	//opacity: 1;
+	//}
+
+	::-webkit-input-placeholder {
+		color: red;
+		opacity: 1;
+	}
+
+	:-moz-placeholder {
+		color: red;
 		opacity: 1;
 	}
 }
