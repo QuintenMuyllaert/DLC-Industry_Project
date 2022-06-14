@@ -11,8 +11,8 @@ import { LooseObject } from "../utils/Interfaces";
 export const Users = () => {
 	const generatePassword = () => {
 		const a = Math.random();
-		a.toString(36).split(".").pop();
-		return a;
+		const b = a.toString(36).split(".").pop();
+		return b;
 	};
 
 	const user: LooseObject = {
