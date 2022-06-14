@@ -10,7 +10,19 @@ export const Sponsors = () => {
 	const navigate = useNavigate();
 
 	const fetchSponsors = async () => {
+		if (!state.serial || state.serial === "N/A") {
+			//TODO : get serial
+			console.log("No serial found");
+			return;
+		}
+
 		const res = await fetch(`/sponsors?serial=${state.serial}`, { mode: "no-cors", method: "GET" });
+
+		if (res.status >= 400) {
+			console.log("Invalid reply from server");
+			return;
+		}
+
 		const json = await res.json();
 		updateState("sponsors", json);
 	};
