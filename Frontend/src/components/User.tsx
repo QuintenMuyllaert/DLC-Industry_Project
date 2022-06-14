@@ -1,5 +1,5 @@
 import { LooseObject } from "../utils/Interfaces";
-import { globalState as state } from "../utils/Appstate";
+import { globalState as state, updateGlobalState as updateState } from "../utils/Appstate";
 
 export const User = ({ username }: { username: string }) => {
 	const requestBody: LooseObject = {
@@ -21,8 +21,21 @@ export const User = ({ username }: { username: string }) => {
 			body: JSON.stringify(requestBody),
 		});
 
-		//TODO : refetch instead
-		document.location.href = document.location.href;
+		const fetchUsers = async () => {
+			const res = await fetch(`/user?serial=${state.serial}`, { mode: "no-cors", method: "GET" });
+			const json = await res.json();
+			//updateState("users", json);
+			const userList: any[] = [];
+			for (const userInList of json) {
+				if (userInList.isAdmin == false) {
+					userList.push(<User username={userInList.username} />);
+				}
+			}
+
+			updateState("users", userList);
+		};
+
+		fetchUsers();
 	};
 
 	return (
