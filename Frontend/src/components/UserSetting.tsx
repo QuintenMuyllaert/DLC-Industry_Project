@@ -3,7 +3,7 @@ export const UserSetting = ({ content, id, password, onChange }: { content?: str
 		<article className="c-usersetting">
 			<div className="card">
 				<div className="content">
-					<input type={password ? "password" : "text"} id={id} placeholder={content} onChange={onChange} />
+					<input className="input" type={password ? "password" : "text"} id={id} placeholder={content} onChange={onChange} />
 				</div>
 				<svg
 					className="icon"
