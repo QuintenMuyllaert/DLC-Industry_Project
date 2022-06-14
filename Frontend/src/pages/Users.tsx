@@ -27,7 +27,7 @@ export const Users = () => {
 
 	useEffect(() => {
 		fetchUsers();
-	}, []);
+	}, [newUser.password]);
 
 	const updateNewUser = (key: any, value: string) => {
 		newUser[key] = value;
