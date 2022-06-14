@@ -6,6 +6,7 @@
 	gap: 0.5rem;
 	grid-template-rows: auto auto 1fr auto 1fr;
 	overflow: hidden;
+	max-width: 450px;
 
 	&__header {
 		display: flex;
