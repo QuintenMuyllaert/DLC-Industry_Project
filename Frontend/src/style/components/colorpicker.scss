@@ -17,7 +17,7 @@
 
 	&__container {
 		padding: 1.25rem;
-		background-color: #eeeeee;
+		background-color: var(--color-white);
 		height: 90vh;
 		overflow-y: auto;
 		width: 90%;
@@ -31,13 +31,13 @@
 
 			.close {
 				& svg {
-					stroke: #121212;
+					stroke: var(--color-black);
 				}
 			}
 
 			.garbage {
 				& svg {
-					stroke: #121212;
+					stroke: var(--color-black);
 				}
 			}
 		}
@@ -52,7 +52,7 @@
 	}
 
 	& p {
-		color: #121212;
+		color: var(--color-black);
 		text-align: center;
 		margin-bottom: 1.25rem;
 	}
@@ -89,7 +89,7 @@
 			}
 
 			.delete-icon {
-				stroke: #121212;
+				stroke: var(--color-black);
 				opacity: 60%;
 			}
 		}
@@ -103,19 +103,19 @@
 			display: flex;
 			justify-content: center;
 			align-items: center;
-			background-color: #121212;
+			background-color: var(--color-black);
 			opacity: 0.5;
 			border-radius: 0.5rem;
 			outline: #00000000;
 		}
 
 		&-colorAdd {
-			background-color: #121212;
+			background-color: var(--color-black);
 			opacity: 0.5;
 			border-radius: 0.5rem;
 			width: 3.75rem;
 			height: 3.75rem;
-			border: var(--global-border-size) dashed #eee;
+			border: var(--global-border-size) dashed var(--color-white);
 			display: grid;
 			justify-content: center;
 			align-items: center;
@@ -158,7 +158,7 @@
 
 			& svg {
 				stroke-width: 0.25rem;
-				stroke: #eee;
+				stroke: var(--color-white);
 
 				@media screen and (max-width: 460px) {
 					stroke-width: 0.125rem;

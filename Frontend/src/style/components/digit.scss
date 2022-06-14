@@ -45,7 +45,7 @@
 		background-color: transparent;
 
 		& svg {
-			stroke: #95d1b5;
+			stroke: var(--color--alpha);
 			width: 4.5rem;
 			height: 4.5rem;
 		}

@@ -17,7 +17,7 @@
 
 	&__container {
 		padding: 1.25rem;
-		background-color: #eeeeee;
+		background-color: var(--color-white);
 		overflow-y: auto;
 		width: 90%;
 		margin: auto;
@@ -37,14 +37,14 @@
 		}
 
 		.title {
-			color: #121212;
+			color: var(--color-black);
 			font-family: Rajdhani;
 			font-size: 2rem;
 			font-weight: 600;
 		}
 
 		.clockinput {
-			border: calc(2 * var(--global-border-size)) solid #121212;
+			border: calc(2 * var(--global-border-size)) solid var(--color-black);
 			display: flex;
 			justify-content: space-between;
 			width: min(100%, 18rem);
@@ -59,7 +59,7 @@
 				font-size: 3.5rem;
 				justify-self: center;
 				width: 8rem;
-				color: #121212;
+				color: var(--color-black);
 			}
 
 			.middle {
@@ -68,7 +68,7 @@
 				font-weight: 500;
 				font-size: 3.5rem;
 				justify-self: center;
-				color: #121212;
+				color: var(--color-black);
 			}
 		}
 	}
@@ -82,11 +82,11 @@
 		justify-content: space-between;
 
 		& p {
-			color: #121212;
+			color: var(--color-black);
 		}
 
 		& svg {
-			color: #121212;
+			color: var(--color-black);
 		}
 
 		&-btn {
@@ -96,7 +96,7 @@
 	}
 
 	.c-clock {
-		color: #121212;
-		border: calc(2 * var(--global-border-size)) solid #121212;
+		color: var(--color-black);
+		border: calc(2 * var(--global-border-size)) solid var(--color-black);
 	}
 }
