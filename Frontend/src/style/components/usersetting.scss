@@ -23,7 +23,7 @@
 			font-weight: bold;
 			padding-left: 1rem;
 
-			.input::placeholder {
+			input::placeholder {
 				color: red;
 				//var(--global-color-text)
 				opacity: 1;
