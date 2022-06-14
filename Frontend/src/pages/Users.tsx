@@ -51,7 +51,7 @@ export const Users = () => {
 	const fetchUsers = async () => {
 		const res = await fetch(`/user?serial=${state.serial}`, { mode: "no-cors", method: "GET" });
 		const json = await res.json();
-		updateState("users", json);
+		//updateState("users", json);
 
 		for (const userInList of state.users) {
 			if (userInList.isAdmin == false) {
@@ -59,6 +59,8 @@ export const Users = () => {
 			}
 			setAllUsers(allUsers + userInList);
 		}
+
+		updateState("users", userList);
 	};
 
 	const handleClickNewUser = async () => {
@@ -124,7 +126,7 @@ export const Users = () => {
 
 				{/* <div className="userlist"> */}
 				<h1 className="subtitle">Deze mensen hebben toegang</h1>
-				<div className="list scrollbar">{allUsers.toString()}</div>
+				<div className="list scrollbar">{state.users || []}</div>
 				{/* </div> */}
 			</div>
 			<BottomTab />
