@@ -35,7 +35,7 @@ export const Users = () => {
 	};
 
 	const fetchUsers = async () => {
-		const res = await fetch(`/user?serial=X3462L7L`, { mode: "no-cors", method: "GET" });
+		const res = await fetch(`/user?serial=${state.serial}`, { mode: "no-cors", method: "GET" });
 		const json = await res.json();
 		updateState("users", json);
 	};
