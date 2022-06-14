@@ -44,6 +44,7 @@ export const Login = () => {
 
 		if (res.status <= 200 && res.status < 300) {
 			if (body.firstLogin) {
+				console.log("fistlogin is true --> in if");
 				sessionStorage.setItem("password", state.password);
 				document.location.href = "/changepassword";
 			} else {

@@ -63,7 +63,7 @@ export const ChangePassword = () => {
 
 			await res2.json;
 
-			sessionStorage.setItem("password", undefined);
+			sessionStorage.setItem("password", "");
 
 			navigate("/score");
 		} else {
