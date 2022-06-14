@@ -11,6 +11,7 @@ import database from "./database";
 import { extractToken, hasAccess, jwtVerifyAsync, jwtSignAsync, hash, validateHash, generateSerial } from "./crypto";
 import { gengetNamespace } from "./socket";
 import { User, LooseObject, Template } from "./schema/schema";
+import { delay } from "./util";
 
 export const dirname = process.cwd();
 export const app = express();
@@ -98,6 +99,7 @@ app.post("/register", async (req: Request, res: Response) => {
 	if (serial === "virtual") {
 		const serial = generateSerial("virtual-");
 		await gengetNamespace(serial, true);
+		await delay(500);
 	}
 
 	const scoreboardExists = await database.exists("scoreboards", { serial });
