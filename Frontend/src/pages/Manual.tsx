@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Input } from "../components/Input";
 import { Logo } from "../components/Logo";
+import Header from "../components/Header";
 import { IconButton } from "../components/IconButton";
 import { LooseObject } from "../utils/Interfaces";
 
@@ -91,23 +92,7 @@ export const Manual = () => {
 
 	return (
 		<div className="p-manual">
-			<div className="p-manual__header">
-				<svg
-					xmlns="http://www.w3.org/2000/svg"
-					width="24"
-					height="24"
-					viewBox="0 0 24 24"
-					fill="none"
-					stroke="white"
-					strokeWidth="2"
-					strokeLinecap="round"
-					strokeLinejoin="round">
-					<line x1="19" y1="12" x2="5" y2="12"></line>
-					<polyline points="12 19 5 12 12 5"></polyline>
-				</svg>
-
-				<Logo width="4rem" height="4rem" />
-			</div>
+			<Header />
 			<div className="content">
 				<div className="u-grid-vertical-gap">
 					<Input
