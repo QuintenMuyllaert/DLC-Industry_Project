@@ -116,7 +116,7 @@ export const Users = () => {
 							updateNewUser("username", event.currentTarget.value);
 						}}
 					/>
-					<p className={validationState.display ? "validatie" : "hidden"}>{validationState.message}</p>
+					<p className={validation.display ? "validatie" : "hidden"}>{validation.message}</p>
 				</div>
 				<div className="p-users__button">
 					<IconButton label="Toevoegen" color="white" onClick={handleClickNewUser} />
@@ -124,7 +124,7 @@ export const Users = () => {
 
 				{/* <div className="userlist"> */}
 				<h1 className="subtitle">Deze mensen hebben toegang</h1>
-				<div className="list scrollbar">{userList}</div>
+				<div className="list scrollbar">{userList.toString()}</div>
 				{/* </div> */}
 			</div>
 			<BottomTab />
