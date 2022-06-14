@@ -12,20 +12,10 @@ import { updateGlobalState as updateState, globalState as state } from "../utils
 
 export const AddSponsor = () => {
 	const navigate = useNavigate();
-	// const template: LooseObject = {};
 
-	// const [newTemplate, setnewTemplate] = useState(template);
 	const [sponsorNaam, setSponsorNaam] = useState("");
 	const [disabled, setDisabled] = useState(true);
 	const [validatieNaam, setValidatieNaam] = useState(false);
-
-	// const updateNewTemplate = (key: any, value: string) => {
-	// 	newTemplate[key] = value;
-	// 	setnewTemplate(newTemplate);
-	// };
-
-	//TODO : ⬇ implement this in UI
-	// scoreboardInterface.uploadProperties("sponsormap", "sponsornaam");
 
 	const inputEl = useRef(null);
 	scoreboardInterface.upload(inputEl);
@@ -41,8 +31,9 @@ export const AddSponsor = () => {
 
 	const handleClickNewSponsor = () => {
 		if (sponsorNaam) {
+			console.log(sponsorNaam);
 			scoreboardInterface.uploadProperties(bundel, sponsorNaam);
-			// navigate(`/sponsors?bundel=${bundel}`);
+			// navigate(`/sponsors?bundel=${bundel}?serial=${state.serial}`);
 		} else {
 			setValidatieNaam(true);
 		}

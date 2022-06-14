@@ -1,10 +1,11 @@
 import { useNavigate } from "react-router-dom";
+import { updateGlobalState as updateState, globalState as state } from "../utils/Appstate";
 
 export const SponsorTemplate = ({ name, aantal }: { name: string; aantal: number }) => {
 	const navigate = useNavigate();
 
 	const goToSponsor = async (bundelNaam: string) => {
-		navigate(`/sponsors?bundel=${bundelNaam}`);
+		navigate(`/sponsors?bundel=${bundelNaam}&serial=${state.serial}`);
 	};
 
 	return (
