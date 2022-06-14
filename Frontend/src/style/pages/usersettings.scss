@@ -1,11 +1,25 @@
 .p-usersettings {
-	width: min(24rem, 100%);
-	padding: 0 1rem 1rem 1rem;
+	width: 100%;
+	padding: 0 0 1rem 0;
 	height: 100%;
 	display: grid;
 	grid-template-rows: fit-content 1fr;
 	grid-template-columns: 1fr;
 	overflow: hidden;
+
+	&__header {
+		display: flex;
+		justify-content: space-between;
+		align-items: flex-start;
+		background-color: #121212;
+		padding: 0.5rem;
+		height: fit-content;
+
+		&-btn {
+			stroke: #eee;
+			fill: none;
+		}
+	}
 
 	.logout {
 		height: fit-content;
@@ -18,30 +32,13 @@
 		}
 	}
 
-	.userheader {
-		width: 100%;
-		justify-items: center;
-		display: grid;
-		grid-template-columns: 1fr;
-		grid-template-rows: 1fr;
-		height: fit-content;
-
-		.iconcontainer {
-			grid-area: 1/1/1/1;
-			width: fit-content;
-			height: fit-content;
-			padding: 3vmin;
-			padding-top: 6vmin;
-
-			.icon {
-				width: 15vmin;
-				height: 15vmin;
-				stroke: var(--global-color-text);
-			}
-		}
+	& h1 {
+		padding: 0 1rem;
 	}
 
 	.content {
+		padding: 0 1rem;
+
 		.item {
 			padding-bottom: 2vmin;
 
@@ -57,6 +54,7 @@
 	.buttons {
 		display: flex;
 		justify-content: space-between;
+		padding: 0 1rem;
 
 		.save {
 			padding-top: 1.5rem;
