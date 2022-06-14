@@ -55,7 +55,7 @@ export const App = () => {
 
 	return (
 		<Router>
-			<div className={`App ${state.color}`}>
+			<div className={`App ${state.color} ${state.bottomtab}`}>
 				<Routes>
 					<Route path="/" element={<Root />} />
 					<Route path="/login" element={<Login />} />

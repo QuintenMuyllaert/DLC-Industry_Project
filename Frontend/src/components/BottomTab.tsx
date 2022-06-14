@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { updateGlobalState } from "../utils/Appstate";
 
 export const BottomTab = () => {
 	const navigate = useNavigate();
@@ -14,6 +15,13 @@ export const BottomTab = () => {
 
 	useEffect(() => {
 		fetchStatus();
+		console.log("hello bottomtab");
+		updateGlobalState("bottomtab", "withbottom-tab");
+
+		return () => {
+			console.log("woosh bottomtab");
+			updateGlobalState("bottomtab", "");
+		};
 	}, []);
 
 	//Navigate is faster, but doesn't check auth. (TODO: Check auth)
