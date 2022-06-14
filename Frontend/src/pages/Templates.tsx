@@ -58,6 +58,9 @@ export const Templates = () => {
 			referrerPolicy: "no-referrer",
 			body: JSON.stringify(newTemplate),
 		});
+
+		//TODO : refetch instead
+		document.location.href = document.location.href;
 	};
 
 	useEffect(() => {
