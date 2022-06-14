@@ -7,6 +7,17 @@
 	grid-template-columns: 1fr;
 	overflow: hidden;
 
+	.logout {
+		height: fit-content;
+
+		.logout-icon {
+			padding-top: 1rem;
+			stroke: var(--global-color-text);
+			width: 3rem;
+			height: 3rem;
+		}
+	}
+
 	.userheader {
 		width: 100%;
 		justify-items: center;
