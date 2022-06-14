@@ -23,7 +23,7 @@
 			font-weight: bold;
 			padding-left: 1rem;
 
-			::placeholder {
+			input::placeholder {
 				color: red;
 				//var(--global-color-text)
 			}
