@@ -47,7 +47,7 @@ export const ChangePassword = () => {
 
 			await res.json;
 
-			console.log("changed password");
+			console.log("changed password: ", state.password);
 			const res2 = await fetch(`/auth`, {
 				method: "POST",
 				mode: "cors",
