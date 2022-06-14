@@ -48,6 +48,9 @@ export const Users = () => {
 	}
 
 	const handleClickNewUser = async () => {
+		const p = generatePassword();
+		updateNewUser("password", String(p));
+
 		const res = await fetch(`${document.location.origin}/register`, {
 			method: "POST",
 			mode: "cors",
