@@ -41,19 +41,28 @@
 		flex-direction: column;
 		gap: 1.25rem;
 
+		&-info {
+			width: 100%;
+			padding: 1rem 1.125rem;
+			padding-right: 0;
+		}
+
 		&-item {
-			display: flex;
-			justify-content: space-between;
-			align-items: center;
+			display: grid;
+			grid-template-columns: auto auto;
+			//justify-content: space-between;
+			//align-items: center;
 			background-color: var(--global-color-text);
 			color: var(--global-color-background);
-			padding: 1rem 1.125rem;
+			//padding: 1rem 1.125rem;
 			cursor: pointer;
 			position: relative;
 			z-index: 1;
 		}
 
 		&-naam {
+			width: fit-content;
+			margin: 0;
 			& p {
 				font-family: Raleway, "sans-serif";
 				font-size: 1.3125rem;
@@ -63,6 +72,8 @@
 
 		&-detail {
 			display: flex;
+			width: fit-content;
+			margin: 0;
 			gap: 1.25rem;
 
 			&_helften {
