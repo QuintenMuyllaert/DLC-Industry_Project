@@ -6,9 +6,9 @@ export const ToggleSponsors = ({ handleClickToggle }: { handleClickToggle: (even
 	const [selectedSponsorbundel, setSelectedSponsorbundel] = useState("");
 
 	const fetchSponsors = async () => {
-		console.log(`/sponsors?serial=X3462L7L`, { mode: "no-cors", method: "GET" });
+		console.log(`/sponsors?serial=${state.serial}`, { mode: "no-cors", method: "GET" });
 
-		const res = await fetch(`/sponsors?serial=X3462L7L`, { mode: "no-cors", method: "GET" });
+		const res = await fetch(`/sponsors?serial=${state.serial}`, { mode: "no-cors", method: "GET" });
 		const json = await res.json();
 		updateState("sponsors", json);
 	};

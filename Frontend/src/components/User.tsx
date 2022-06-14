@@ -1,9 +1,10 @@
 import { LooseObject } from "../utils/Interfaces";
+import { globalState as state } from "../utils/Appstate";
 
 export const User = ({ username }: { username: string }) => {
 	const requestBody: LooseObject = {
 		username: username,
-		serial: "X3462L7L",
+		serial: state.serial,
 	};
 
 	const handleClickDeleteUser = async () => {

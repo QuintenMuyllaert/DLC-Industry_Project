@@ -11,13 +11,13 @@ import ModalConfirm from "../components/ModalConfirm";
 
 export const Templates = () => {
 	const fetchTemplates = async () => {
-		const res = await fetch(`/template?serial=X3462L7L`, { mode: "no-cors", method: "GET" });
+		const res = await fetch(`/template?serial=${state.serial}`, { mode: "no-cors", method: "GET" });
 		const json = await res.json();
 		updateState("templates", json);
 	};
 
 	const handleClickNewTemplate = async () => {
-		const res = await fetch(`/template?serial=X3462L7L`, {
+		const res = await fetch(`/template?serial=${state.serial}`, {
 			mode: "cors",
 			method: "POST",
 			cache: "no-cache",
@@ -46,7 +46,7 @@ export const Templates = () => {
 			name: state.templateToDelete,
 		};
 
-		const res = await fetch(`/template?serial=X3462L7L`, {
+		const res = await fetch(`/template?serial=${state.serial}`, {
 			mode: "cors",
 			method: "DELETE",
 			cache: "no-cache",

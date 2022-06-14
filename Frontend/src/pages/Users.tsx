@@ -18,7 +18,7 @@ export const Users = () => {
 	const user: LooseObject = {
 		username: "",
 		password: generatePassword(),
-		serial: "X3462L7L",
+		serial: state.serial,
 	};
 
 	const [newUser, setNewUser] = useState(user);
