@@ -6,6 +6,7 @@
 	grid-template-rows: fit-content 1fr;
 	grid-template-columns: 1fr;
 	overflow: hidden;
+	max-width: 450px;
 
 	&__header {
 		display: flex;

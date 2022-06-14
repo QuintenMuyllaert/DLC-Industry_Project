@@ -1,12 +1,6 @@
 import { LooseObject } from "../utils/Interfaces";
 
 export const User = ({ username }: { username: string }) => {
-	console.log("username: ", username);
-
-	const getRandomPassword = () => {
-		//return randomized password
-	};
-
 	const requestBody: LooseObject = {
 		username: username,
 		serial: "X3462L7L",
