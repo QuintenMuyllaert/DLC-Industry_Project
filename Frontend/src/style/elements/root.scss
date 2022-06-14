@@ -25,6 +25,15 @@
 		/*Button*/
 		--global-color-button-border: #121212;
 	}
+
+	.withbottom-tab {
+		.dark {
+			--global-color-background: #202020;
+		}
+		.light {
+			--global-color-background: #eee;
+		}
+	}
 }
 
 /*
