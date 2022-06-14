@@ -148,7 +148,7 @@ export const Templates = () => {
 				</div>
 
 				<h1>Bestaande templates</h1>
-				<div className="p-templates__list scrollbar">{allTemplates}</div>
+				<div className="p-templates__list scrollbar">{allTemplates.toString()}</div>
 			</div>
 			<BottomTab />
 			<ModalConfirm
