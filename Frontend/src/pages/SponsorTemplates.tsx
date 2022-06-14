@@ -12,6 +12,13 @@ export const SponsorTemplates = () => {
 	const navigate = useNavigate();
 
 	const fetchSponsors = async () => {
+		if (!state.serial || state.serial === "N/A") {
+			const res = await fetch("/status");
+			const body = await res.json();
+			state.serial = body.serial;
+			updateState("serial", body.serial);
+		}
+
 		const res = await fetch(`/sponsors?serial=${state.serial}`, { mode: "no-cors", method: "GET" });
 		const json = await res.json();
 		updateState("sponsors", json);
