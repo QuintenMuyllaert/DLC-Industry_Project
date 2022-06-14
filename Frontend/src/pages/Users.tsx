@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { ReactElement, useEffect, useState } from "react";
 import BottomTab from "../components/BottomTab";
 import IconButton from "../components/IconButton";
 import { updateGlobalState as updateState, globalState as state } from "../utils/Appstate";
@@ -28,8 +28,7 @@ export const Users = () => {
 
 	const [newUser, setNewUser] = useState(user);
 	const [validationState, setValidation] = useState(validation);
-	const defaultUserList: JSX.Element[] = [];
-	const [userlist, setNewUserlist] = useState(defaultUserList);
+	let userList: ReactElement[] = [];
 
 	useEffect(() => {
 		fetchUsers();
@@ -51,11 +50,9 @@ export const Users = () => {
 		updateState("users", json);
 
 		for (const userInList of state.users) {
-			const tempUserList: JSX.Element[] = [];
 			if (userInList.isAdmin == false) {
-				tempUserList.push(<User username={userInList.username} />);
+				userList.push(<User username={userInList.username} />);
 			}
-			setNewUserlist(tempUserList);
 		}
 	};
 
@@ -128,7 +125,7 @@ export const Users = () => {
 
 				{/* <div className="userlist"> */}
 				<h1 className="subtitle">Deze mensen hebben toegang</h1>
-				<div className="list scrollbar">{userlist}</div>
+				<div className="list scrollbar">{userList}</div>
 				{/* </div> */}
 			</div>
 			<BottomTab />
