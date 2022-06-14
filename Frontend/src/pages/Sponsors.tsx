@@ -30,6 +30,7 @@ export const Sponsors = () => {
 			redirect: "follow",
 			referrerPolicy: "no-referrer",
 		});
+		await res.json;
 		handleClickDeletePopup();
 	};
 
