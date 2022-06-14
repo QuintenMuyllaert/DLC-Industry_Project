@@ -114,7 +114,7 @@ export const MatchSetup = () => {
 		<>
 			<div className="p-matchsetup maxwidth">
 				<Header />
-				<h1>Team instellingen</h1>
+				<h1>Match instellen</h1>
 				<div className="teamsettings-container u-grid-vertical-gap">
 					<div className="flagcontainer">
 						<p>Thuis</p>
@@ -125,7 +125,6 @@ export const MatchSetup = () => {
 						<Flag top={state.ub} bottom={state.uo} handleClickPopup={handleClickTeam2Color} />
 					</div>
 				</div>
-				<h1>Match instellingen</h1>
 				<div className="matchsettings-container">
 					<div className="c-option">
 						<label htmlFor="selectedTemplate">Template selecteren</label>

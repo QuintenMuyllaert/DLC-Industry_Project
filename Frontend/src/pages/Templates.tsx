@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { ReactElement, ReactEventHandler, useEffect, useState } from "react";
 import BottomTab from "../components/BottomTab";
 import IconButton from "../components/IconButton";
 
@@ -11,10 +11,34 @@ import ModalConfirm from "../components/ModalConfirm";
 import Header from "../components/Header";
 
 export const Templates = () => {
+	const template: LooseObject = {
+		name: "",
+		parts: 0,
+		duration: 0,
+	};
+
+	let templates: ReactElement[] = [];
+	const [newTemplate, setnewTemplate] = useState(template);
+
+	const updateNewTemplate = (key: any, value: string) => {
+		newTemplate[key] = value;
+		setnewTemplate(newTemplate);
+	};
+
 	const fetchTemplates = async () => {
 		const res = await fetch(`/template?serial=${state.serial}`, { mode: "no-cors", method: "GET" });
 		const json = await res.json();
-		updateState("templates", json);
+
+		for (const template of json) {
+			templates.push(
+				<Template sportNaam={template.name} aantalHelften={template.parts} duurHelft={template.duration} handleDeletePopup={handleClickDeletePopup} />,
+			);
+
+			console.log("single template: ", template);
+		}
+		console.log("list of templates: ", templates);
+		updateState("templates", templates);
+		console.log("templates state: ", state.templates);
 	};
 
 	const handleClickNewTemplate = async () => {
@@ -30,20 +54,11 @@ export const Templates = () => {
 			referrerPolicy: "no-referrer",
 			body: JSON.stringify(newTemplate),
 		});
-
-		setAllTemplates(templates + newTemplate);
 	};
 
 	useEffect(() => {
 		(async () => {
 			await fetchTemplates();
-			//
-			for (const template of state.templates) {
-				templates.push(
-					<Template sportNaam={template.name} aantalHelften={template.parts} duurHelft={template.duration} handleDeletePopup={handleClickDeletePopup} />,
-				);
-				setAllTemplates(templates);
-			}
 		})();
 
 		//
@@ -75,24 +90,6 @@ export const Templates = () => {
 
 		//TODO : refetch instead
 		document.location.href = document.location.href;
-	};
-
-	const defaultTemplate: any[] = [];
-
-	const [allTemplates, setAllTemplates] = useState(defaultTemplate);
-	let templates: any = [];
-
-	const template: LooseObject = {
-		name: "",
-		parts: 0,
-		duration: 0,
-	};
-
-	const [newTemplate, setnewTemplate] = useState(template);
-
-	const updateNewTemplate = (key: any, value: string) => {
-		newTemplate[key] = value;
-		setnewTemplate(newTemplate);
 	};
 
 	return (
@@ -137,7 +134,7 @@ export const Templates = () => {
 				</div>
 
 				<h1>Bestaande templates</h1>
-				<div className="p-templates__list scrollbar">{allTemplates.toString()}</div>
+				<div className="p-templates__list scrollbar">{}</div>
 			</div>
 			<BottomTab />
 			<ModalConfirm

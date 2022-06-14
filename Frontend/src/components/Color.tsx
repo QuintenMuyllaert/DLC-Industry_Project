@@ -48,11 +48,11 @@ export const Color = ({
 								scoreboardInterface.updateColorArray(state.colors);
 								console.log(state.colors);
 							} else {
-								updateColorState(SetValue(team, side), Ecolor);
-								updateScoreState(SetValue(team, side), Ecolor);
-
 								scoreboardInterface.changeColor(`${team}${side}`, Ecolor);
 							}
+
+							updateColorState(SetValue(team, side), Ecolor);
+							updateScoreState(SetValue(team, side), Ecolor);
 					  }
 			}>
 			<svg

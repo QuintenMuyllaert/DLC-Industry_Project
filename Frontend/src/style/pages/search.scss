@@ -23,13 +23,13 @@
 	.p-search-iconcontainer {
 		padding: 2rem;
 		padding-top: 6rem;
-		background-color: #121212;
+		background-color: var(--color-black);
 		z-index: 1;
 		padding-bottom: 1.5rem;
 
 		.icon,
 		.icon * {
-			stroke: white;
+			stroke: var(--color-white);
 		}
 	}
 
@@ -38,7 +38,7 @@
 		top: 0;
 		left: 0;
 		height: 11rem;
-		background-color: #121212;
+		background-color: var(--color-black);
 		width: 100vw;
 	}
 
