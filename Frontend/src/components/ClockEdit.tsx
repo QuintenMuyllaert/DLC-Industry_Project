@@ -25,10 +25,10 @@ export const ClockEdit = ({ active }: { active: boolean }) => {
 		if (totalSeconds >= 0) {
 			scoreboardInterface.setTimer(totalSeconds);
 		} else {
-			console.log("timer cant go below 0");
+			scoreboardInterface.setTimer(0);
 		}
 
-		updateState("state.clockPopup", !state.clockPopup);
+		updateState("clockPopup", !state.clockPopup);
 	};
 
 	return (
