@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import Appstate from "./utils/Appstate";
@@ -26,7 +26,32 @@ import Refetch from "./pages/Refetch";
 
 export const App = () => {
 	Appstate.attachUseState(...useState(Appstate.defaultState));
+
+	const [refetch, setRefetch] = useState(false);
+	Appstate.attachRefetch(refetch, setRefetch);
 	const state = Appstate.getGlobalState();
+
+	useEffect(() => {
+		(async () => {
+			console.log("App useEffect");
+			const status = await fetch("/status");
+			const json = await status.json();
+			console.log(json);
+			Appstate.mergeGlobalState(json);
+
+			const templates = await fetch(`/template?serial=${encodeURI(json.serial)}`);
+			const templatesJson = await templates.json();
+			console.log(templatesJson);
+
+			Appstate.updateGlobalState("templates", templatesJson);
+
+			const sponsors = await fetch(`/sponsors?serial=${encodeURI(json.serial)}`);
+			const sponsorsJson = await sponsors.json();
+			console.log(sponsorsJson);
+
+			Appstate.updateGlobalState("sponsors", sponsorsJson);
+		})();
+	}, [refetch]);
 
 	return (
 		<Router>
