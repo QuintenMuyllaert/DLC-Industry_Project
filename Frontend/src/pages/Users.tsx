@@ -109,7 +109,7 @@ export const Users = () => {
 				<Header />
 
 				<h1>Mensen toevoegen</h1>
-				<div>
+				<div className="grid">
 					<Input
 						id="newUsername"
 						label="Naam"
