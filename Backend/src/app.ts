@@ -99,11 +99,12 @@ app.post("/register", async (req: Request, res: Response) => {
 	if (serial === "virtual") {
 		const serial = await generateSerial("virtual-");
 		await gengetNamespace(serial, true);
+		await delay(100); //DB delay? :/
 	}
 
 	const scoreboardExists = await database.exists("scoreboards", { serial });
 	if (!scoreboardExists) {
-		res.status(401).send("Scoreboard does not exist");
+		res.status(401).send(`Scoreboard does not exist : ${serial}`);
 		return;
 	}
 
@@ -119,7 +120,7 @@ app.post("/register", async (req: Request, res: Response) => {
 		};
 		await database.update("scoreboards", { serial }, { ...scoreboarddata, hasAdmin: true });
 		await database.create("accounts", newUser);
-		res.redirect("/auth");
+		res.status(202).send("REGISTER ADMIN OK");
 	} else {
 		const newUser: User = {
 			username,
@@ -129,7 +130,7 @@ app.post("/register", async (req: Request, res: Response) => {
 			firstLogin: true,
 		};
 		await database.create("accounts", newUser);
-		res.status(202).send("REGISTER OK");
+		res.status(202).send("REGISTER USER OK");
 	}
 });
 
