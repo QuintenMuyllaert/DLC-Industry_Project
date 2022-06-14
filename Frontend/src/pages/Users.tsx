@@ -41,8 +41,8 @@ export const Users = () => {
 	};
 
 	const updateValidation = (key: any, value: any) => {
-		validationState[key] = value;
-		setValidation(validationState);
+		validation[key] = value;
+		setValidation(validation);
 	};
 
 	const fetchUsers = async () => {

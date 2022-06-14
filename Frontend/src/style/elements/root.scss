@@ -26,13 +26,8 @@
 		--global-color-button-border: #121212;
 	}
 
-	.withbottom-tab {
-		.dark {
-			--global-color-background: #202020;
-		}
-		.light {
-			--global-color-background: #eee;
-		}
+	.withbottom-tab.dark {
+		--global-color-background: #202020;
 	}
 
 	--color-black: #202020;
