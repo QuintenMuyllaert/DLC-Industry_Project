@@ -76,6 +76,8 @@ export const Users = () => {
 			body: JSON.stringify(newUser),
 		});
 
+		fetchUsers();
+
 		const message = await res.text();
 		updateValidation("message", message);
 
