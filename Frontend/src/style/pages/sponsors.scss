@@ -44,8 +44,10 @@
 			align-items: center;
 
 			& p {
-				font-size: 25px;
+				font-size: 1.25rem;
 				font-weight: bold;
+				max-width: 11.25rem;
+				overflow-x: hidden;
 			}
 		}
 

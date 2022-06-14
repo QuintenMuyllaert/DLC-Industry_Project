@@ -39,7 +39,7 @@ export const AddSponsor = () => {
 
 	return (
 		<>
-			<div className="p-addSponsor element">
+			<div className="p-addSponsor element withbottom-tab">
 				<header className="p-addSponsor__header">
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
