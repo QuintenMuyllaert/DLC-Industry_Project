@@ -22,6 +22,11 @@
 			font-size: 1.2rem;
 			font-weight: bold;
 			padding-left: 1rem;
+
+			::placeholder {
+				color: red;
+				//var(--global-color-text)
+			}
 		}
 
 		.icon {
@@ -30,11 +35,5 @@
 			height: 2.5rem;
 			width: 2.5rem;
 		}
-	}
-
-	::placeholder {
-		color: red !important;
-		//var(--global-color-text)
-		opacity: 1;
 	}
 }
