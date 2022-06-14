@@ -47,6 +47,7 @@ export const App = () => {
 					<Route path="/sponsors" element={<Protect element={<Sponsors />} />} />
 					<Route path="/addsponsor" element={<Protect element={<AddSponsor />} />} />
 					<Route path="/addsponsorbundel" element={<Protect element={<AddSponsorBundel />} />} />
+					<Route path="/changepassword" element={<Protect element={<ChangePassword />} />} />
 				</Routes>
 			</div>
 		</Router>

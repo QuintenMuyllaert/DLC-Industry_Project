@@ -40,8 +40,7 @@ export const Login = () => {
 		});
 
 		if (res.status === 202) {
-			//navigate("/score");
-			document.location.href = "/score"; // Socket needs to reconnect after login
+			console.log(res);
 		}
 	};
 

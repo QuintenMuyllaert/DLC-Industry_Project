@@ -6,12 +6,46 @@ import { IconButton } from "../components/IconButton";
 import { LooseObject } from "../utils/Interfaces";
 
 export const ChangePassword = () => {
-	const defaultState: LooseObject = {
-		username: "",
+	const localState: LooseObject = {
+		currentUsername: "",
 		password: "",
+		checkPassword: "",
 	};
 
-	const [state, setState] = useState(defaultState);
+	const [state, setState] = useState(localState);
+
+	const fetchStatus = async () => {
+		const res = await fetch(`/status`, { mode: "no-cors", method: "GET" });
+		const json = await res.json();
+		updateState("currentUsername", json.username);
+	};
+
+	fetchStatus();
+
+	const updateState = (key: string, value: any) => {
+		state[key] = value;
+		setState({ ...state });
+	};
+
+	const onChangePassword = async () => {
+		if (state.password == state.checkPassword) {
+			const res = await fetch(`/changepassword`, {
+				method: "PUT",
+				mode: "cors",
+				cache: "no-cache",
+				credentials: "same-origin",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				redirect: "follow",
+				referrerPolicy: "no-referrer",
+				body: JSON.stringify({ currentPassword: state.currentPassword, newPassword: state.password }),
+			});
+			console.log("changed password");
+		} else {
+			console.log("password and confirm password are not the same");
+		}
+	};
 
 	return (
 		<div className="p-manual">
@@ -35,12 +69,26 @@ export const ChangePassword = () => {
 			<div className="content">
 				<div className="u-grid-vertical-gap">
 					<div className="text">
-						<p>Welkom Jef!</p>
+						<p>Welkom {state.currentUsername}!</p>
 						<p>Kies hier je nieuwe wachtwoord</p>
 					</div>
 
-					<Input id="password" label="wachtwoord" type="password" />
-					<Input id="confpassword" label="bevestig wachtwoord" type="password" />
+					<Input
+						id="password"
+						label="wachtwoord"
+						type="password"
+						onChange={(event: React.FormEvent<HTMLInputElement>) => {
+							updateState("password", event.currentTarget.value);
+						}}
+					/>
+					<Input
+						id="confpassword"
+						label="bevestig wachtwoord"
+						type="password"
+						onChange={(event: React.FormEvent<HTMLInputElement>) => {
+							updateState("checkPassword", event.currentTarget.value);
+						}}
+					/>
 				</div>
 				<div className="button">
 					<IconButton
@@ -62,6 +110,7 @@ export const ChangePassword = () => {
 						}
 						label="BEVESTIGEN"
 						color="white"
+						onClick={onChangePassword}
 					/>
 				</div>
 			</div>
