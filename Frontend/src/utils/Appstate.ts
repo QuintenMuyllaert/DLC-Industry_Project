@@ -6,7 +6,7 @@ export let globalSetState: any;
 let time = {};
 
 export const defaultState: LooseObject = {
-	color: "dark",
+	color: localStorage.getItem("theme") || "dark",
 	nameHome: "THUIS",
 	nameOut: "UIT",
 	t1: 0,
@@ -55,6 +55,11 @@ export const defaultState: LooseObject = {
 	deleteTemplatePopup: false,
 	templateToDelete: "",
 	fileIsUploaded: false,
+	deleteSponsorPopup: false,
+	sponsorToDelete: {
+		bundel: "",
+		sponsor: "",
+	},
 };
 
 export const attachUseState = (state: any, setState: any) => {

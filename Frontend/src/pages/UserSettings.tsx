@@ -1,4 +1,4 @@
-import { ChangeEvent, useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { LooseObject } from "../utils/Interfaces";
 import { updateGlobalState as updateState, globalState as state } from "../utils/Appstate";
 
@@ -33,8 +33,10 @@ export const UserSettings = () => {
 		console.log(refThemeSwitch.current?.checked);
 
 		if (refThemeSwitch.current?.checked) {
+			localStorage.setItem("theme", "dark");
 			updateState("color", "dark");
 		} else {
+			localStorage.setItem("theme", "light");
 			updateState("color", "light");
 		}
 	};
@@ -166,7 +168,7 @@ export const UserSettings = () => {
 					<div>
 						<p className="title">theme:</p>
 						<label className="switch">
-							<input ref={refThemeSwitch} type="checkbox" defaultChecked={true} onChange={onThemeChange} />
+							<input ref={refThemeSwitch} type="checkbox" defaultChecked={state.color === "dark"} onChange={onThemeChange} />
 							<span className="slider"></span>
 						</label>
 					</div>

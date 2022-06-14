@@ -6,6 +6,8 @@ import Logo from "../components/Logo";
 import Sponsor from "../components/Sponsor";
 import { getQuery } from "../utils/Utils";
 import { useNavigate } from "react-router-dom";
+import ModalConfirm from "../components/ModalConfirm";
+import { LooseObject } from "../utils/Interfaces";
 
 export const Sponsors = () => {
 	const navigate = useNavigate();
@@ -18,6 +20,23 @@ export const Sponsors = () => {
 
 	fetchSponsors();
 
+	const handleClickDeletePopup = () => {
+		updateState("deleteSponsorPopup", !state.deleteTemplatePopup);
+	};
+
+	const handleDeleteSponsor = async () => {
+		const res = await fetch(`/sponsors?serial=${state.serial}&bundle=${state.sponsorToDelete.bundel}&file=${state.sponsorToDelete.sponsor}`, {
+			mode: "cors",
+			method: "DELETE",
+			cache: "no-cache",
+			credentials: "same-origin",
+			redirect: "follow",
+			referrerPolicy: "no-referrer",
+		});
+
+		updateState("deleteSponsorPopup", !state.deleteTemplatePopup);
+	};
+
 	const { bundel } = getQuery();
 
 	let sponsors = [];
@@ -25,7 +44,7 @@ export const Sponsors = () => {
 	for (const sponsorBundel of state.sponsors) {
 		if (sponsorBundel.name === bundel) {
 			for (const sponsor of sponsorBundel.children) {
-				sponsors.push(<Sponsor img={sponsor} map={sponsorBundel.name} />);
+				sponsors.push(<Sponsor img={sponsor} map={sponsorBundel.name} handleClickDeletePopup={handleClickDeletePopup} />);
 			}
 		}
 	}
@@ -82,6 +101,12 @@ export const Sponsors = () => {
 				</button>
 			</div>
 			<BottomTab />
+			<ModalConfirm
+				active={state.deleteSponsorPopup}
+				tekst="Ben je zeker dat je deze sponsor wilt verwijderen?"
+				handleClickDeletePopup={handleClickDeletePopup}
+				handleDelete={handleDeleteSponsor}
+			/>
 		</>
 	);
 };
