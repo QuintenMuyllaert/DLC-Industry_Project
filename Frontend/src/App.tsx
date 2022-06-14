@@ -35,7 +35,6 @@ export const App = () => {
 					<Route path="/login" element={<Login />} />
 					<Route path="/livestream" element={<Livestream />} />
 					<Route path="/scoreboard" element={<Scoreboard />} />
-					<Route path="/changepassword" element={<ChangePassword />} />
 					<Route path="/score" element={<Protect element={<Score />} />} />
 					<Route path="/templates" element={<Protect element={<Templates />} />} />
 					<Route path="/templatesettings" element={<Protect element={<TemplateSettings />} />} />

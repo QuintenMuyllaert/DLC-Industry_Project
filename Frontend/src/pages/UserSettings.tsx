@@ -22,8 +22,6 @@ export const UserSettings = () => {
 		const res = await fetch(`/status`, { mode: "no-cors", method: "GET" });
 		const json = await res.json();
 		updateUser("currentUsername", json.username);
-		console.log(json.username);
-		console.log(user);
 	};
 
 	fetchStatus();

@@ -1,17 +1,33 @@
 .p-matchsetup {
 	height: fit-content;
-	// padding-bottom: 3rem;
-
 	display: grid;
-	gap: 1rem;
+	gap: 0.39rem;
 	grid-template-rows: auto;
+	width: 100%;
+	padding: 0 0 1rem 0;
 
-	width: min(24rem, 100%);
-	padding: 0.5rem 1rem;
+	&__header {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		background-color: #121212;
+		padding: 0.5rem;
+
+		& svg {
+			stroke: #eee;
+			align-self: start;
+		}
+
+		& svg:last-of-type {
+			fill: #eee;
+			stroke: none;
+		}
+	}
 
 	.teamsettings-container {
 		display: flex;
 		justify-content: space-around;
+		padding: 0 1rem;
 
 		.flagcontainer {
 			text-align: center;
@@ -19,10 +35,15 @@
 		}
 	}
 
+	&__button {
+		padding: 0 1rem;
+	}
+
 	.matchsettings-container {
 		// padding-bottom: 3rem;
 		display: grid;
 		gap: 1rem;
+		padding: 0 1rem;
 
 		.match-helft {
 			display: flex;
@@ -40,12 +61,12 @@
 	}
 
 	h1 {
-		// padding-top: 2rem;
 		height: fit-content;
 		font-family: Rajdhani;
 		font-size: 1.9rem;
 		font-weight: 600;
 		text-align: center;
+		padding: 0 1rem;
 	}
 
 	p {

@@ -1,6 +1,6 @@
 .p-users {
 	width: min(24rem, 100%);
-	padding: 0 1rem 1rem 1rem;
+	padding: 0 0 1rem 0;
 	height: 100%;
 	display: grid;
 	gap: 1rem;
@@ -13,6 +13,7 @@
 		align-items: center;
 		background-color: #121212;
 		padding: 0.5rem;
+		height: fit-content;
 
 		& svg {
 			stroke: #eee;
@@ -26,12 +27,20 @@
 	}
 
 	h1 {
-		padding: 1.6rem 0;
+		padding: 0 1rem;
+	}
+
+	.c-input {
+		padding: 0 1rem;
 	}
 
 	.subtitle {
 		padding-bottom: 1rem;
 		font-size: 1.5rem;
+	}
+
+	&__button {
+		padding: 0 1rem;
 	}
 
 	.list {
@@ -40,6 +49,7 @@
 		display: flex;
 		flex-direction: column;
 		gap: 1.25rem;
+		padding: 0 1rem;
 	}
 
 	.userlist {

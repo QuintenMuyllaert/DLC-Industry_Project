@@ -85,12 +85,16 @@ export const Users = () => {
 						updateNewUser("username", event.currentTarget.value);
 					}}
 				/>
-
-				<IconButton label="Toevoegen" color="white" onClick={handleClickNewUser} />
+				<div className="p-users__button">
+					<IconButton label="Toevoegen" color="white" onClick={handleClickNewUser} />
+				</div>
 
 				{/* <div className="userlist"> */}
 				<h1 className="subtitle">Deze mensen hebben toegang</h1>
-				<div className="list scrollbar">{userlist}</div>
+				<div className="list scrollbar">
+					<User username="{userInList.username}" />
+					{userlist}
+				</div>
 				{/* </div> */}
 			</div>
 			<BottomTab />

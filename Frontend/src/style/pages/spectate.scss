@@ -1,16 +1,16 @@
 .p-spectate {
 	height: 100%;
-	padding-inline: 1rem;
-
 	display: grid;
-	grid-template-rows: auto 1fr 1fr;
-
-	width: min(24rem, 100%);
-	padding-top: 2rem;
+	grid-template-rows: auto;
+	width: 100%;
 	overflow: hidden;
+	max-width: 450px;
+	padding: 1rem;
 
 	.team {
-		padding-top: 2rem;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
 
 		.teamname {
 			height: fit-content;
@@ -18,20 +18,15 @@
 			font-size: 2rem;
 			text-align: center;
 		}
-
-		.flag {
-			padding-bottom: 2rem;
-		}
 	}
 
 	p {
 		font-family: DSEG7 Classic;
-		font-size: 6.9rem;
-		margin-bottom: 1rem;
+		font-size: 5rem;
 		text-align: center;
 	}
 
-	.maxwidth {
-		width: min(18rem, 70%);
+	.c-clock {
+		height: fit-content;
 	}
 }

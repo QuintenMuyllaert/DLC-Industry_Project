@@ -6,13 +6,11 @@
 	overflow: hidden;
 
 	&__header {
-		padding-block: 4rem;
-		padding-inline: 2rem;
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
-		max-height: 1rem;
 		background-color: #121212;
+		padding: 0.5rem;
 	}
 
 	.content {

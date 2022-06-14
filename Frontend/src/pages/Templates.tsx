@@ -83,7 +83,7 @@ export const Templates = () => {
 
 	return (
 		<>
-			<div className="p-templates">
+			<div className="p-templates element">
 				<div className="p-templates__header">
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
@@ -101,39 +101,41 @@ export const Templates = () => {
 					<Logo width="4rem" height="4rem" />
 				</div>
 				<h1>Nieuwe template toevoegen</h1>
-				<Input
-					id="naamTemplate"
-					label="Naam sport"
-					type="text"
-					onChange={(event: React.FormEvent<HTMLInputElement>) => {
-						updateNewTemplate("name", event.currentTarget.value);
-						console.log(template);
-					}}
-				/>
-
-				<div className="p-templates__formgroup">
+				<div className="p-templates__form">
 					<Input
-						id="aantalHelften"
-						label="Aantal helften"
-						type="number"
+						id="naamTemplate"
+						label="Naam sport"
+						type="text"
 						onChange={(event: React.FormEvent<HTMLInputElement>) => {
-							updateNewTemplate("parts", event.currentTarget.value);
+							updateNewTemplate("name", event.currentTarget.value);
 							console.log(template);
 						}}
 					/>
 
-					<Input
-						id="duurHelft"
-						label="Duur helft"
-						type="number"
-						onChange={(event: React.FormEvent<HTMLInputElement>) => {
-							updateNewTemplate("duration", event.currentTarget.value);
-							console.log(template);
-						}}
-					/>
+					<div className="p-templates__formgroup">
+						<Input
+							id="aantalHelften"
+							label="Aantal helften"
+							type="number"
+							onChange={(event: React.FormEvent<HTMLInputElement>) => {
+								updateNewTemplate("parts", event.currentTarget.value);
+								console.log(template);
+							}}
+						/>
+
+						<Input
+							id="duurHelft"
+							label="Duur helft"
+							type="number"
+							onChange={(event: React.FormEvent<HTMLInputElement>) => {
+								updateNewTemplate("duration", event.currentTarget.value);
+								console.log(template);
+							}}
+						/>
+					</div>
+
+					<IconButton label="Toevoegen" color="white" onClick={handleClickNewTemplate} />
 				</div>
-
-				<IconButton label="Toevoegen" color="white" onClick={handleClickNewTemplate} />
 
 				<h1>Bestaande templates</h1>
 				<div className="p-templates__list scrollbar">

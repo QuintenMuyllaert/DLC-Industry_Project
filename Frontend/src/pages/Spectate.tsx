@@ -5,7 +5,7 @@ import { globalState } from "../utils/Appstate";
 export const Spectate = () => {
 	return (
 		<>
-			<div className="p-spectate maxwidth">
+			<div className="p-spectate">
 				<Clock time={globalState.getClock()} />
 				<div className="team">
 					<div className="flag">
