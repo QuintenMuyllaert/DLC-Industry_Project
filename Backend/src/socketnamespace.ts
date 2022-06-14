@@ -96,6 +96,13 @@ export const SocketNamespace = class SocketNamespace {
 			}
 			this.emitAll("clock", this.clock.data);
 		});
+
+		socket.on("startmatch", (data: any) => {
+			this.data.isPlaying = data ? true : false;
+			this.emitUsers("startmatch", this.data.isPlaying);
+		});
+
+		socket.emit("startmatch", this.data.isPlaying);
 	}
 	emitAll(event: string, ...args: any[]) {
 		//console.log(`Sending to ${this.displays.length} displays & ${this.users.length} users in ${this.serial}`);
