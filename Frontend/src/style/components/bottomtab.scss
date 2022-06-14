@@ -21,6 +21,10 @@
 	align-items: center;
 	gap: 0;
 
+	&__hidden {
+		display: none;
+	}
+
 	&__page {
 		display: flex;
 		align-items: center;
