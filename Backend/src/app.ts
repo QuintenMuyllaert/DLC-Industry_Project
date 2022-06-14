@@ -97,9 +97,8 @@ app.post("/register", async (req: Request, res: Response) => {
 	}
 
 	if (serial === "virtual") {
-		const serial = generateSerial("virtual-");
+		const serial = await generateSerial("virtual-");
 		await gengetNamespace(serial, true);
-		await delay(500);
 	}
 
 	const scoreboardExists = await database.exists("scoreboards", { serial });
