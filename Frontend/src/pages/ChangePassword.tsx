@@ -75,28 +75,14 @@ export const ChangePassword = () => {
 	};
 
 	return (
-		<div className="p-manual">
+		<div className="p-manual element">
 			<div className="p-manual__header">
-				<svg
-					xmlns="http://www.w3.org/2000/svg"
-					width="24"
-					height="24"
-					viewBox="0 0 24 24"
-					fill="none"
-					stroke="white"
-					strokeWidth="2"
-					strokeLinecap="round"
-					strokeLinejoin="round">
-					<line x1="19" y1="12" x2="5" y2="12"></line>
-					<polyline points="12 19 5 12 12 5"></polyline>
-				</svg>
-
 				<Logo width="4rem" height="4rem" />
 			</div>
 			<div className="content">
 				<div className="u-grid-vertical-gap">
 					<div className="text">
-						<p>Welkom {state.currentUsername}!</p>
+						<h1>Welkom {state.currentUsername}!</h1>
 						<p>Kies hier je nieuwe wachtwoord</p>
 					</div>
 
