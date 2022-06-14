@@ -7,7 +7,7 @@ import Logo from "../components/Logo";
 import Template from "../components/Template";
 import { LooseObject } from "../utils/Interfaces";
 import { updateGlobalState as updateState, globalState as state } from "../utils/Appstate";
-import Modal from "../components/modal";
+import ModalConfirm from "../components/ModalConfirm";
 
 export const Templates = () => {
 	const fetchTemplates = async () => {
@@ -142,7 +142,7 @@ export const Templates = () => {
 				</div>
 			</div>
 			<BottomTab />
-			<Modal
+			<ModalConfirm
 				active={state.deleteTemplatePopup}
 				tekst="Ben je zeker dat je deze template wilt verwijderen?"
 				handleClickDeletePopup={handleClickDeletePopup}
