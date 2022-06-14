@@ -13,7 +13,18 @@ export const Manual = () => {
 		hasScoreboard: true,
 	};
 
+	const validation: LooseObject = {
+		message: "",
+		display: false,
+	};
+
+	const [validationState, setValidation] = useState(validation);
 	const [state, setState] = useState(defaultState);
+
+	const updateValidation = (key: any, value: any) => {
+		validation[key] = value;
+		setValidation(validation);
+	};
 
 	const updateState = (key: string, value: any) => {
 		state[key] = value;
@@ -51,7 +62,15 @@ export const Manual = () => {
 				body: JSON.stringify({ ...state }),
 			});
 
-			if (res.status === 202 || res.status === 201) {
+			const message = await res.text();
+			updateValidation("message", message);
+
+			if (res.status >= 400) {
+				updateValidation("display", true);
+			}
+
+			if (res.status >= 200 && res.status < 300) {
+				updateValidation("display", false);
 				document.location.href = "/score";
 			}
 		} else if (state.hasScoreboard == false) {
@@ -119,6 +138,7 @@ export const Manual = () => {
 							updateState("serial", event.currentTarget.value);
 						}}
 					/>
+					<p className={validationState.display ? "validatie" : "hidden"}>{validationState.message}</p>
 					<Input
 						id="username"
 						label="username"
