@@ -91,7 +91,7 @@ export const Users = () => {
 			if (navigator.share) {
 				navigator
 					.share({
-						title: "web.dev",
+						title: "DLC Scoreboard - Account",
 						text: `Log nu in met deze user:\nusername: ${newUser.username}\nwachtwoord: ${newUser.password}`,
 						url: `${document.location.origin}/login`,
 					})
