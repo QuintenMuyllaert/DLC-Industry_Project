@@ -49,7 +49,7 @@ export const UserSettings = () => {
 	const sendUpdates = async () => {
 		console.log(user);
 
-		if (user.newPassword == user.checkNewPassword) {
+		if (user.newPassword && user.newPassword == user.checkNewPassword) {
 			const res = await fetch(`/changepassword`, {
 				method: "PUT",
 				mode: "cors",
@@ -67,7 +67,7 @@ export const UserSettings = () => {
 			console.log("password en bevestig password zijn niet hetzelfde!");
 		}
 
-		if (user.newUsername != user.currentUsername) {
+		if (user.newUsername && user.newUsername != user.currentUsername) {
 			const res = await fetch(`/edituser`, {
 				method: "PUT",
 				mode: "cors",
