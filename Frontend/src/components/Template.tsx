@@ -51,8 +51,8 @@ export const Template = ({
 	// };
 
 	return (
-		<button className="p-templates__list-item" onClick={goToTemplateSettings}>
-			<div className="p-templates__list-info">
+		<div className="p-templates__list-item" onClick={goToTemplateSettings}>
+			<button className="p-templates__list-info">
 				<div className="p-templates__list-naam">
 					<p>{sportNaam}</p>
 				</div>
@@ -92,7 +92,7 @@ export const Template = ({
 						<p>{duurHelft}:00</p>
 					</div>
 				</div>
-			</div>
+			</button>
 			<div className="p-templates__list-btns">
 				<button className="c-templates__list-btn">
 					<svg
@@ -131,7 +131,7 @@ export const Template = ({
 					</svg>
 				</button>
 			</div>
-		</button>
+		</div>
 	);
 };
 
