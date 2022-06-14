@@ -117,6 +117,7 @@ export const Manual = () => {
 			<Header />
 			<div className="content">
 				<div className="u-grid-vertical-gap">
+					<p className={validationState.display ? "validatie" : "hidden"}>{validationState.message}</p>
 					<Input
 						id="serienummer"
 						label="serienummer"
@@ -154,7 +155,6 @@ export const Manual = () => {
 						<input type="checkbox" id="noScoreboaard" name="noScoreboaard" value="no" onClick={onCheck} />
 						<label htmlFor="saveTemplate">Ik heb geen scorebord</label>
 					</div>
-					<p className={validationState.display ? "validatie" : "hidden"}>{validationState.message}</p>
 				</div>
 				<div className="button">
 					<IconButton
