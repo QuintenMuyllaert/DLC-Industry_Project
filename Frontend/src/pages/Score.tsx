@@ -1,3 +1,4 @@
+import { Navigate } from "react-router-dom";
 import { Flag } from "../components/Flag";
 import { Clock } from "../components/Clock";
 import { Digit } from "../components/Digit";
@@ -29,6 +30,10 @@ export const Score = () => {
 		scoreboardInterface.changeColor("2O", state.uo);
 	}
 	*/
+
+	if (!state.isPlaying) {
+		return <Navigate to={`/matchsetup`} />;
+	}
 
 	const score = (team: string, amt: number) => {
 		const name = team == "t1" ? "G1" : "G2";

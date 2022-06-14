@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Navigate } from "react-router-dom";
 import { Input } from "../components/Input";
 import { IconButton } from "../components/IconButton";
 import { LooseObject } from "../utils/Interfaces";
@@ -9,8 +9,13 @@ import { updateGlobalState as updateState, globalState as state } from "../utils
 import Colorpicker from "../components/Colorpicker";
 import Logo from "../components/Logo";
 import Header from "../components/Header";
+import { scoreboardInterface } from "../utils/ScoreboardInterface";
 
 export const MatchSetup = () => {
+	if (state.isPlaying) {
+		return <Navigate to={`/score`} />;
+	}
+
 	const navigate = useNavigate();
 
 	const [checked, setChecked] = useState(false);
@@ -23,7 +28,7 @@ export const MatchSetup = () => {
 		updateState("templates", json);
 	};
 
-	const handleClickNewTemplate = async () => {
+	const handleClickMatchStart = async () => {
 		if (checked && selectedTemplate == "") {
 			const res = await fetch(`/template?serial=${state.serial}`, {
 				mode: "cors",
@@ -38,10 +43,13 @@ export const MatchSetup = () => {
 				body: JSON.stringify(newTemplate),
 			});
 
-			navigate(`/score`);
+			//navigate(`/score`);
 		} else {
-			navigate(`/score`);
+			//navigate(`/score`);
 		}
+
+		await scoreboardInterface.startMatch();
+		navigate(`/score`);
 	};
 
 	useEffect(() => {
@@ -189,7 +197,7 @@ export const MatchSetup = () => {
 					</div>
 				</div>
 				<div className="p-matchsetup__button">
-					<IconButton color="white" label="Start match" onClick={handleClickNewTemplate}></IconButton>
+					<IconButton color="white" label="Start match" onClick={handleClickMatchStart}></IconButton>
 				</div>
 			</div>
 			<BottomTab />

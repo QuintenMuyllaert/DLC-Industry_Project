@@ -30,6 +30,7 @@ export class InterfaceScoreboard {
 	upload = (element: any) => {};
 	uploadProperties = (folder: string, name: string) => {};
 	updateColorArray(colorArray: string[]) {}
+	async startMatch() {}
 }
 
 export class InterfaceHTTP {
@@ -79,6 +80,7 @@ export class InterfaceHTTP {
 	upload = (element: any) => {};
 	uploadProperties = (folder: string, name: string) => {};
 	updateColorArray(colorArray: string[]) {}
+	async startMatch() {}
 }
 
 export class InterfaceSocket {
@@ -158,6 +160,10 @@ export class InterfaceSocket {
 		this.socket.on("uploaded", () => {
 			Appstate.updateGlobalState("fileIsUploaded", true);
 		});
+
+		this.socket.on("startmatch", (data: boolean) => {
+			Appstate.updateGlobalState("isPlaying", data);
+		});
 	}
 	changeColor(team: `${1 | 2}${"B" | "O"}`, color: string) {
 		this.socket.emit("input", team, color);
@@ -213,6 +219,24 @@ export class InterfaceSocket {
 	};
 	updateColorArray(colorArray: string[]) {
 		this.socket.emit("input", "COLORS", colorArray);
+	}
+	async startMatch() {
+		//Screen to scoreboard
+		this.socket.emit("startmatch", true);
+
+		const state = Appstate.getGlobalState();
+		//scoreboardInterface.setScreen("P0");
+
+		scoreboardInterface.resetScore();
+		scoreboardInterface.pauseTimer();
+		scoreboardInterface.resetTimer();
+
+		scoreboardInterface.changeColor("1B", state.hb);
+		scoreboardInterface.changeColor("1O", state.ho);
+		scoreboardInterface.changeColor("2B", state.ub);
+		scoreboardInterface.changeColor("2O", state.uo);
+
+		scoreboardInterface.setSponsorReel([]);
 	}
 }
 
