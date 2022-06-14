@@ -17,7 +17,7 @@ export const Templates = () => {
 		duration: 0,
 	};
 
-	let templates: ReactElement[] = [];
+	let templates: any[] = [];
 	const [newTemplate, setnewTemplate] = useState(template);
 
 	const updateNewTemplate = (key: any, value: string) => {
