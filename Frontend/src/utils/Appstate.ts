@@ -60,6 +60,8 @@ export const defaultState: LooseObject = {
 		bundel: "",
 		sponsor: "",
 	},
+	deleteSponsorbundelPopup: false,
+	sponsorbundelToDelete: "",
 };
 
 export const attachUseState = (state: any, setState: any) => {
