@@ -23,12 +23,10 @@
 			font-weight: bold;
 			padding-left: 1rem;
 
-			.input {
-				::placeholder {
-					color: red;
-					//var(--global-color-text)
-					opacity: 1;
-				}
+			.input::placeholder {
+				color: red;
+				//var(--global-color-text)
+				opacity: 1;
 			}
 		}
 
