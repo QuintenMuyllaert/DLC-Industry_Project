@@ -91,10 +91,7 @@ export const Users = () => {
 
 				{/* <div className="userlist"> */}
 				<h1 className="subtitle">Deze mensen hebben toegang</h1>
-				<div className="list scrollbar">
-					<User username="{userInList.username}" />
-					{userlist}
-				</div>
+				<div className="list scrollbar">{userlist}</div>
 				{/* </div> */}
 			</div>
 			<BottomTab />

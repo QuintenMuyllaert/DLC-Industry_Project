@@ -5,6 +5,7 @@ import { updateGlobalState as updateState, globalState as state } from "../utils
 import BottomTab from "../components/BottomTab";
 import UserSetting from "../components/UserSetting";
 import IconButton from "../components/IconButton";
+import Logo from "../components/Logo";
 
 export const UserSettings = () => {
 	const refThemeSwitch = useRef<HTMLInputElement>(null);
@@ -92,37 +93,30 @@ export const UserSettings = () => {
 	return (
 		<>
 			<div className="p-usersettings element">
-				<div className="logout">
-					<svg
-						className="logout-icon"
-						xmlns="http://www.w3.org/2000/svg"
-						viewBox="0 0 24 24"
-						fill="none"
-						stroke="currentColor"
-						stroke-width="2"
-						stroke-linecap="round"
-						stroke-linejoin="round">
-						<path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
-						<polyline points="16 17 21 12 16 7"></polyline>
-						<line x1="21" y1="12" x2="9" y2="12"></line>
-					</svg>
-				</div>
-				<header className="userheader">
-					<div className="iconcontainer">
+				<header className="p-usersettings__header">
+					<button onClick={onLogout}>
 						<svg
-							className="icon"
 							xmlns="http://www.w3.org/2000/svg"
+							width="24"
+							height="24"
 							viewBox="0 0 24 24"
 							fill="none"
+							stroke="currentColor"
 							stroke-width="2"
 							stroke-linecap="round"
-							stroke-linejoin="round">
-							<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-							<circle cx="12" cy="7" r="4"></circle>
+							stroke-linejoin="round"
+							className="p-usersettings__header-btn">
+							<path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+							<polyline points="16 17 21 12 16 7"></polyline>
+							<line x1="21" y1="12" x2="9" y2="12"></line>
 						</svg>
-					</div>
-					<h1>Hallo {user.currentUsername}</h1>
+					</button>
+
+					<Logo width="4rem" height="4rem" />
 				</header>
+
+				<h1>Hallo {user.currentUsername}</h1>
+
 				<div className="content">
 					<div className="item">
 						<p className="title">name:</p>
