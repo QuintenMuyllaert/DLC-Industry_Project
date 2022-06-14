@@ -30,7 +30,9 @@ export const BottomTab = () => {
 
 	const goToUsers = async () => {
 		//document.location.href = "/users";
-		navigate("/users");
+		if (admin) {
+			navigate("/users");
+		}
 	};
 
 	const goToUserSettings = async () => {
@@ -113,7 +115,9 @@ export const BottomTab = () => {
 				<p className="c-bottomtab__page-name">Match</p>
 			</div>
 			<div
-				className={document.location.pathname == "/users" ? "c-bottomtab__page c-bottomtab__page-active" : `c-bottomtab__page ${admin ? "" : "hidden"}`}
+				className={
+					document.location.pathname == "/users" ? "c-bottomtab__page c-bottomtab__page-active" : `c-bottomtab__page ${admin ? "" : "c-bottomtab__hidden"}`
+				}
 				onClick={goToUsers}>
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
