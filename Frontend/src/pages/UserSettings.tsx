@@ -1,4 +1,4 @@
-import { ChangeEvent, useLayoutEffect, useRef, useState } from "react";
+import { ChangeEvent, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { LooseObject } from "../utils/Interfaces";
 import { updateGlobalState as updateState, globalState as state } from "../utils/Appstate";
 
@@ -25,7 +25,9 @@ export const UserSettings = () => {
 		updateUser("currentUsername", json.username);
 	};
 
-	fetchStatus();
+	useEffect(() => {
+		fetchStatus();
+	}, []);
 
 	const onThemeChange = () => {
 		console.log(refThemeSwitch.current?.checked);

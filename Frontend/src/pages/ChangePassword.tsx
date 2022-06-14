@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Input } from "../components/Input";
 import { Logo } from "../components/Logo";
@@ -22,14 +22,18 @@ export const ChangePassword = () => {
 		updateState("currentUsername", json.username);
 	};
 
-	fetchStatus();
+	useEffect(() => {
+		fetchStatus();
+	}, []);
 
 	const updateState = (key: string, value: any) => {
 		state[key] = value;
 		setState({ ...state });
 	};
 
-	const fetchChangePassword = async () => {
+	const onChangePassword = async () => {
+		updateState("oldPassword", sessionStorage.getItem("password"));
+
 		if (state.password == state.checkPassword) {
 			const res = await fetch(`/changepassword`, {
 				method: "PUT",
@@ -68,12 +72,6 @@ export const ChangePassword = () => {
 		} else {
 			console.log("password and confirm password are not the same");
 		}
-	};
-
-	const onChangePassword = async () => {
-		updateState("oldPassword", sessionStorage.getItem("password"));
-
-		await fetchChangePassword();
 	};
 
 	return (
