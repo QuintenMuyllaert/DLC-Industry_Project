@@ -33,8 +33,12 @@ export const Templates = () => {
 			templates.push(
 				<Template sportNaam={template.name} aantalHelften={template.parts} duurHelft={template.duration} handleDeletePopup={handleClickDeletePopup} />,
 			);
+
+			console.log("single template: ", template);
 		}
+		console.log("list of templates: ", templates);
 		updateState("templates", templates);
+		console.log("templates state: ", state.templates);
 	};
 
 	const handleClickNewTemplate = async () => {
@@ -130,7 +134,7 @@ export const Templates = () => {
 				</div>
 
 				<h1>Bestaande templates</h1>
-				<div className="p-templates__list scrollbar">{state.templates || []}</div>
+				<div className="p-templates__list scrollbar">{}</div>
 			</div>
 			<BottomTab />
 			<ModalConfirm
