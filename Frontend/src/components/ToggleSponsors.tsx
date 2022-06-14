@@ -42,7 +42,8 @@ export const ToggleSponsors = ({ handleClickToggle }: { handleClickToggle: (even
 	}
 
 	const handleClickToggleScorebord = () => {
-		scoreboardInterface.setSponsorReel([]);
+		let legeArray: string[] = [];
+		scoreboardInterface.setSponsorReel(legeArray);
 	};
 
 	return (
