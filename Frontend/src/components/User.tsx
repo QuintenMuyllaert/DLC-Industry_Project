@@ -20,6 +20,9 @@ export const User = ({ username }: { username: string }) => {
 			referrerPolicy: "no-referrer",
 			body: JSON.stringify(requestBody),
 		});
+
+		//TODO : refetch instead
+		document.location.href = document.location.href;
 	};
 
 	return (
