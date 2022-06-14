@@ -42,7 +42,7 @@ export const Login = () => {
 		const body = await res.json();
 		console.log(body);
 
-		if (res.status <= 200 && res.status < 300) {
+		if (body.status == "OK") {
 			if (body.firstLogin) {
 				console.log("fistlogin is true --> in if");
 				sessionStorage.setItem("password", state.password);
