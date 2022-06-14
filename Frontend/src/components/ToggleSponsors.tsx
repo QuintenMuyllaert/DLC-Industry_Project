@@ -70,9 +70,6 @@ export const ToggleSponsors = ({ handleClickToggle }: { handleClickToggle: (even
 					name="sponsorBundel"
 					id="sponsorBundel"
 					value="0"
-					// onChange={(e) => {
-					// 	handleClickSelect(e.target.value);
-					// }}
 					onChange={(e) => {
 						if (e.target.value != "0") {
 							handleClickSelect(e.target.value);
@@ -81,7 +78,6 @@ export const ToggleSponsors = ({ handleClickToggle }: { handleClickToggle: (even
 						}
 					}}>
 					<option value="0"></option>
-					<option value="test">test</option>
 					{sponsors}
 				</select>
 			</div>
