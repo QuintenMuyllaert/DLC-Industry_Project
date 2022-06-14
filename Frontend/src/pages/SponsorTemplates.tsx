@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 import { updateGlobalState as updateState, globalState as state } from "../utils/Appstate";
 import BottomTab from "../components/BottomTab";
