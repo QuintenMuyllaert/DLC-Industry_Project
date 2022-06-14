@@ -33,6 +33,16 @@
 		padding: 0 1rem;
 	}
 
+	.validatie {
+		padding-top: 0.3rem;
+		color: red;
+		text-align: center;
+	}
+
+	.hidden {
+		display: none;
+	}
+
 	.userlist {
 		padding-top: 4rem;
 		overflow-y: hidden;

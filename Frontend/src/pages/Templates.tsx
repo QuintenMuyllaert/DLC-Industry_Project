@@ -72,6 +72,9 @@ export const Templates = () => {
 		});
 
 		updateState("deleteTemplatePopup", !state.deleteTemplatePopup);
+
+		//TODO : refetch instead
+		document.location.href = document.location.href;
 	};
 
 	const defaultTemplate: any[] = [];

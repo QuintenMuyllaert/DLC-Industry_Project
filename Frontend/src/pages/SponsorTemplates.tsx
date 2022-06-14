@@ -53,6 +53,9 @@ export const SponsorTemplates = () => {
 			redirect: "follow",
 			referrerPolicy: "no-referrer",
 		});
+
+		//TODO : refetch instead
+		document.location.href = document.location.href;
 	};
 
 	return (
