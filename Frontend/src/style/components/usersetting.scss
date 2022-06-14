@@ -23,7 +23,7 @@
 			font-weight: bold;
 			padding-left: 1rem;
 
-			input:autofill {
+			input:-webkit-autofill {
 				color: red;
 				//var(--global-color-text)
 			}
