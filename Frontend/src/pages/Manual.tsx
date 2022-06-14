@@ -11,37 +11,71 @@ export const Manual = () => {
 		username: "",
 		password: "",
 		confirmPassword: "",
-		email: "",
+		hasScoreboard: true,
 	};
 
 	const [state, setState] = useState(defaultState);
 
-	const updateState = (key: string, value: string) => {
+	const updateState = (key: string, value: any) => {
 		state[key] = value;
-		setState(state);
+		setState({ ...state });
+	};
+
+	const onCheck = () => {
+		console.log("test");
+
+		updateState("hasScoreboard", !state.hasScoreboard);
 	};
 
 	const sendRegisterRequest = async () => {
+		console.log(state.hasScoreboard);
+
 		if (state.password !== state.confirmPassword) {
 			//TODO : Add an error message
 			return;
 		}
 
-		const res = await fetch(`${document.location.origin}/register`, {
-			method: "POST",
-			mode: "cors",
-			cache: "no-cache",
-			credentials: "same-origin",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			redirect: "follow",
-			referrerPolicy: "no-referrer",
-			body: JSON.stringify({ ...state }),
-		});
+		if (state.hasScoreboard) {
+			if (state.password !== state.confirmPassword) {
+				//TODO : Add an error message
+				return;
+			}
 
-		if (res.status === 202 || res.status === 201) {
-			document.location.href = "/score";
+			const res = await fetch(`${document.location.origin}/register`, {
+				method: "POST",
+				mode: "cors",
+				cache: "no-cache",
+				credentials: "same-origin",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				redirect: "follow",
+				referrerPolicy: "no-referrer",
+				body: JSON.stringify({ ...state }),
+			});
+
+			if (res.status === 202 || res.status === 201) {
+				document.location.href = "/score";
+			}
+		} else if (state.hasScoreboard == false) {
+			updateState("serial", "virtual");
+
+			const res = await fetch(`${document.location.origin}/register`, {
+				method: "POST",
+				mode: "cors",
+				cache: "no-cache",
+				credentials: "same-origin",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				redirect: "follow",
+				referrerPolicy: "no-referrer",
+				body: JSON.stringify({ ...state }),
+			});
+
+			if (res.status === 202 || res.status === 201) {
+				document.location.href = "/score";
+			}
 		}
 	};
 
@@ -70,13 +104,14 @@ export const Manual = () => {
 						id="serienummer"
 						label="serienummer"
 						type="text"
+						disabled={!state.hasScoreboard}
 						onChange={(event: React.FormEvent<HTMLInputElement>) => {
 							updateState("serial", event.currentTarget.value);
 						}}
 					/>
 					<Input
 						id="username"
-						label="e-mail"
+						label="username"
 						type="text"
 						onChange={(event: React.FormEvent<HTMLInputElement>) => {
 							updateState("username", event.currentTarget.value);
@@ -98,6 +133,10 @@ export const Manual = () => {
 							updateState("confirmPassword", event.currentTarget.value);
 						}}
 					/>
+					<div className="c-checkbox">
+						<input type="checkbox" id="noScoreboaard" name="noScoreboaard" value="no" onClick={onCheck} />
+						<label htmlFor="saveTemplate">Ik heb geen scorebord</label>
+					</div>
 				</div>
 				<div className="button">
 					<IconButton
