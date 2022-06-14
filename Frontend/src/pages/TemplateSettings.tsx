@@ -59,6 +59,9 @@ export const TemplateSettings = () => {
 		});
 
 		navigate(`/templates`);
+
+		//TODO : refetch instead
+		document.location.href = document.location.href;
 	};
 
 	const goToTemplates = () => {
