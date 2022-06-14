@@ -73,7 +73,9 @@ export const Templates = () => {
 		updateState("deleteTemplatePopup", !state.deleteTemplatePopup);
 	};
 
-	const [allTemplates, setAllTemplates] = useState([]);
+	const defaultTemplate: any[] = [];
+
+	const [allTemplates, setAllTemplates] = useState(defaultTemplate);
 	let templates: any = [];
 
 	const template: LooseObject = {
