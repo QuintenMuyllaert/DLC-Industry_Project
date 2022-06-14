@@ -93,7 +93,7 @@ export const Login = () => {
 					color="white"
 					onClick={sendAuthRequest}
 				/>
-				<IconButton
+				{/* <IconButton
 					icon={
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
@@ -113,7 +113,7 @@ export const Login = () => {
 					onClick={() => {
 						navigate("/spectate");
 					}}
-				/>
+				/> */}
 				<IconButton
 					icon={
 						<svg
