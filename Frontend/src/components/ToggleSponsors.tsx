@@ -26,7 +26,7 @@ export const ToggleSponsors = ({ handleClickToggle }: { handleClickToggle: (even
 		for (const sponsorBundel of state.sponsors) {
 			if (sponsorBundel.name === selectedValue) {
 				for (const sponsor of sponsorBundel.children) {
-					let uri = `${document.location.origin}/data/${state.serial}/${sponsorBundel}/${sponsor}`;
+					let uri = `${document.location.origin}/data/${state.serial}/${sponsorBundel.name}/${sponsor}`;
 					sponsorsSelected.push(uri);
 				}
 			}
