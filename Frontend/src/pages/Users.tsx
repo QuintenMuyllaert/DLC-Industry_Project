@@ -22,12 +22,13 @@ export const Users = () => {
 	};
 
 	const [newUser, setNewUser] = useState(user);
+	const defaultUserList: JSX.Element[] = [];
 
-	let userlist = [];
+	const [userlist, setNewUserlist] = useState(defaultUserList);
 
 	useEffect(() => {
 		fetchUsers();
-	}, [newUser.password]);
+	}, []);
 
 	const updateNewUser = (key: any, value: string) => {
 		newUser[key] = value;
@@ -41,10 +42,12 @@ export const Users = () => {
 	};
 
 	for (const userInList of state.users) {
+		const tempUserList: JSX.Element[] = [];
 		console.log(userInList);
 		if (userInList.isAdmin == false) {
-			userlist.push(<User username={userInList.username} />);
+			tempUserList.push(<User username={userInList.username} />);
 		}
+		setNewUserlist(tempUserList);
 	}
 
 	const handleClickNewUser = async () => {

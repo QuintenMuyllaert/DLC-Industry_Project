@@ -1,7 +1,28 @@
+import { useState } from "react";
 import { updateGlobalState as updateState, globalState as state } from "../utils/Appstate";
+import { LooseObject } from "../utils/Interfaces";
 
-export const Sponsor = ({ img, map }: { img: string; map: string }) => {
+export const Sponsor = ({ img, map, handleClickDeletePopup }: { img: string; map: string; handleClickDeletePopup: (event?: any) => any }) => {
 	const imgUrl = `${document.location.origin}/data/${state.serial}/${map}/${img}`;
+
+	const toDelete: LooseObject = {
+		bundel: "",
+		sponsor: "",
+	};
+
+	const [sponsorToDelete, setSponsorToDelete] = useState(toDelete);
+
+	const updateSponsorToDelete = (key: any, value: string) => {
+		sponsorToDelete[key] = value;
+		setSponsorToDelete(sponsorToDelete);
+	};
+
+	const handleClickDeleteBtn = (sponsorBundel: string, sponsor: string) => {
+		updateSponsorToDelete("bundel", map);
+		updateSponsorToDelete("sponsor", img);
+		updateState("sponsorToDelete", sponsorToDelete);
+		handleClickDeletePopup();
+	};
 
 	return (
 		<article className="p-sponsors__list-item">
@@ -9,7 +30,11 @@ export const Sponsor = ({ img, map }: { img: string; map: string }) => {
 				<img src={imgUrl} alt={img} />
 			</div>
 			<p>{img}</p>
-			<div className="p-sponsors__list-btn">
+			<button
+				className="p-sponsors__list-btn"
+				onClick={() => {
+					handleClickDeleteBtn(map, img);
+				}}>
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
 					width="30"
@@ -25,7 +50,7 @@ export const Sponsor = ({ img, map }: { img: string; map: string }) => {
 					<line x1="10" y1="11" x2="10" y2="17"></line>
 					<line x1="14" y1="11" x2="14" y2="17"></line>
 				</svg>
-			</div>
+			</button>
 		</article>
 	);
 };
