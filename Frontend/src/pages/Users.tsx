@@ -9,9 +9,15 @@ import User from "../components/User";
 import { LooseObject } from "../utils/Interfaces";
 
 export const Users = () => {
+	const generatePassword = () => {
+		const a = Math.random();
+		a.toString(36).split(".").pop();
+		return a;
+	};
+
 	const user: LooseObject = {
 		username: "",
-		password: "password",
+		password: generatePassword(),
 		serial: "X3462L7L",
 	};
 
@@ -54,6 +60,17 @@ export const Users = () => {
 			referrerPolicy: "no-referrer",
 			body: JSON.stringify(newUser),
 		});
+
+		if (navigator.share) {
+			navigator
+				.share({
+					title: "web.dev",
+					text: `Log nu in met deze user: username: ${newUser.username}, wachtwoord: ${newUser.password}`,
+					url: "https://dlcscoreboard.westeurope.cloudapp.azure.com/login",
+				})
+				.then(() => console.log("Successful share"))
+				.catch((error) => console.log("Error sharing", error));
+		}
 	};
 
 	return (
