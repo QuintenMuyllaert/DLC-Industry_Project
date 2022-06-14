@@ -48,13 +48,15 @@ export const Users = () => {
 	const fetchUsers = async () => {
 		const res = await fetch(`/user?serial=${state.serial}`, { mode: "no-cors", method: "GET" });
 		const json = await res.json();
-		updateState("users", json);
+		//updateState("users", json);
 
-		for (const userInList of state.users) {
+		for (const userInList of json) {
 			if (userInList.isAdmin == false) {
 				userList.push(<User username={userInList.username} />);
 			}
 		}
+
+		updateState("users", userList);
 	};
 
 	const handleClickNewUser = async () => {
@@ -77,12 +79,8 @@ export const Users = () => {
 		const message = await res.text();
 		updateValidation("message", message);
 
-		console.log("message: ", message, ", status: ", res.status);
-
 		if (res.status >= 400) {
 			updateValidation("display", true);
-			console.log("setting validation true");
-			console.log(validation);
 		}
 
 		if (res.status < 400) {
@@ -107,7 +105,7 @@ export const Users = () => {
 				<Header />
 
 				<h1>Mensen toevoegen</h1>
-				<div>
+				<div className="grid">
 					<Input
 						id="newUsername"
 						label="Naam"
@@ -124,7 +122,7 @@ export const Users = () => {
 
 				{/* <div className="userlist"> */}
 				<h1 className="subtitle">Deze mensen hebben toegang</h1>
-				<div className="list scrollbar">{userList.toString()}</div>
+				<div className="list scrollbar">{state.users || []}</div>
 				{/* </div> */}
 			</div>
 			<BottomTab />

@@ -12,7 +12,16 @@
 	}
 
 	.c-input {
-		padding: 0 1rem;
+		// dont edit padding it breaks label
+		//	padding: 0 1rem;
+
+		width: calc(100% - 2rem);
+		justify-self: center;
+	}
+
+	.grid {
+		display: grid;
+		grid-template-rows: auto;
 	}
 
 	.subtitle {
