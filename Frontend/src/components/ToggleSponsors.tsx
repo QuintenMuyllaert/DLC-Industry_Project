@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-
+import { scoreboardInterface } from "../utils/ScoreboardInterface";
 import { updateGlobalState as updateState, globalState as state } from "../utils/Appstate";
 
 export const ToggleSponsors = ({ handleClickToggle }: { handleClickToggle: (event?: any) => any }) => {
@@ -32,10 +32,8 @@ export const ToggleSponsors = ({ handleClickToggle }: { handleClickToggle: (even
 			}
 		}
 
-		console.log(sponsorsSelected);
+		scoreboardInterface.setSponsorReel(sponsorsSelected);
 	};
-
-	//const uri = `${document.location.origin}/data/${serial}/${map}/${child}`
 
 	let sponsors = [];
 
