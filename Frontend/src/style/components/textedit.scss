@@ -17,7 +17,7 @@
 
 	&__container {
 		padding: 1.25rem;
-		background-color: #eeeeee;
+		background-color: var(--color-white);
 		overflow-y: auto;
 		width: 90%;
 		margin: auto;
@@ -36,11 +36,11 @@
 		justify-content: space-between;
 
 		& p {
-			color: #121212;
+			color: var(--color-black);
 		}
 
 		& svg {
-			color: #121212;
+			color: var(--color-black);
 		}
 
 		&-btn {
@@ -53,15 +53,15 @@
 		position: relative;
 		width: 100%;
 		height: min-content;
-		color: #121212;
+		color: var(--color-black);
 
 		label {
 			position: absolute;
 			top: 0;
 			left: 1rem;
 			padding-inline: 0.5rem;
-			background-color: #eee;
-			color: #121212;
+			background-color: var(--color-white);
+			color: var(--color-black);
 			font-size: 1rem;
 		}
 
@@ -69,8 +69,8 @@
 			width: 100%;
 			font-size: 1rem;
 			margin-top: 0.75rem;
-			border: var(--global-border-size) solid #121212;
-			background-color: #eee;
+			border: var(--global-border-size) solid var(--color-black);
+			background-color: var(--color-white);
 			height: 13.125rem;
 			padding-inline: 1rem;
 			border-radius: var(--global-border-radius);

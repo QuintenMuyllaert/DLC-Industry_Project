@@ -8,7 +8,7 @@
 	height: fit-content;
 
 	&__back {
-		stroke: #eee;
+		stroke: var(--color-white);
 		align-self: start;
 		cursor: pointer;
 	}
