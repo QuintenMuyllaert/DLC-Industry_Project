@@ -21,8 +21,7 @@ export const Sponsors = () => {
 	fetchSponsors();
 
 	const handleClickDeletePopup = () => {
-		console.log("hallo");
-		updateState("deleteSponsorPopup", !state.deleteTemplatePopup);
+		updateState("deleteSponsorPopup", !state.deleteSponsorPopup);
 	};
 
 	const handleDeleteSponsor = async () => {
@@ -34,8 +33,8 @@ export const Sponsors = () => {
 			redirect: "follow",
 			referrerPolicy: "no-referrer",
 		});
-		handleClickDeletePopup();
-		// updateState("deleteSponsorPopup", !state.deleteTemplatePopup);
+
+		updateState("deleteSponsorPopup", !state.deleteSponsorPopup);
 	};
 
 	const { bundel } = getQuery();
