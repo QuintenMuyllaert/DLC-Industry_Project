@@ -32,7 +32,13 @@ export const BottomTab = () => {
 
 	return (
 		<div className="c-bottomtab">
-			<div className={document.location.pathname == "/templates" ? "c-bottomtab__page c-bottomtab__page-active" : "c-bottomtab__page"} onClick={goToTemplates}>
+			<div
+				className={
+					document.location.pathname == "/templates" || document.location.pathname == "/templatesettings"
+						? "c-bottomtab__page c-bottomtab__page-active"
+						: "c-bottomtab__page"
+				}
+				onClick={goToTemplates}>
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
 					width="24"
@@ -53,7 +59,7 @@ export const BottomTab = () => {
 			<div
 				className={
 					document.location.pathname == "/sponsortemplates" ||
-					document.location.pathname == "/sponsors" ||
+					document.location.pathname == "/sponsor" ||
 					document.location.pathname == "/addsponsor" ||
 					document.location.pathname == "/addsponsorbundel"
 						? "c-bottomtab__page c-bottomtab__page-active"
