@@ -20,8 +20,8 @@ export const defaultState: LooseObject = {
 		const that = globalState.clockData;
 		const now = Date.now();
 		const ms = that.paused ? that.pauseStart - that.clockStart - that.clockOffset : now - that.clockStart - that.clockOffset;
-		const seconds = Math.floor(ms / 1000);
-		const minutes = Math.floor(seconds / 60);
+		const seconds = Math.max(0, Math.floor(ms / 1000));
+		const minutes = Math.max(0, Math.floor(seconds / 60));
 
 		const to2digits = (num: number) => {
 			return num < 10 ? `0${num}` : num;
