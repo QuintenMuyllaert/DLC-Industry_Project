@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import { updateGlobalState as updateState, globalState as state } from "../utils/Appstate";
 
 export const ToggleSponsors = ({ handleClickToggle }: { handleClickToggle: (event?: any) => any }) => {
+	const [selectedSponsorbundel, setSelectedSponsorbundel] = useState("");
+
 	const fetchSponsors = async () => {
 		console.log(`/sponsors?serial=X3462L7L`, { mode: "no-cors", method: "GET" });
 
@@ -15,9 +17,25 @@ export const ToggleSponsors = ({ handleClickToggle }: { handleClickToggle: (even
 		fetchSponsors();
 	}, []);
 
-	const handleClickSelect = () => {
+	let sponsorsSelected: Array<string> = [];
+
+	const handleClickSelect = (selectedValue: string) => {
 		handleClickToggle("right");
+		setSelectedSponsorbundel(selectedValue);
+
+		for (const sponsorBundel of state.sponsors) {
+			if (sponsorBundel.name === selectedValue) {
+				for (const sponsor of sponsorBundel.children) {
+					let uri = `${document.location.origin}/data/${state.serial}/${sponsorBundel}/${sponsor}`;
+					sponsorsSelected.push(uri);
+				}
+			}
+		}
+
+		console.log(sponsorsSelected);
 	};
+
+	//const uri = `${document.location.origin}/data/${serial}/${map}/${child}`
 
 	let sponsors = [];
 
@@ -45,8 +63,22 @@ export const ToggleSponsors = ({ handleClickToggle }: { handleClickToggle: (even
 				</button>
 			</div>
 			<div className="c-scorebordToggle__select">
-				<select name="sponsorBundel" id="sponsorBundel" value="0" onChange={handleClickSelect}>
+				<select
+					name="sponsorBundel"
+					id="sponsorBundel"
+					value="0"
+					// onChange={(e) => {
+					// 	handleClickSelect(e.target.value);
+					// }}
+					onChange={(e) => {
+						if (e.target.value != "0") {
+							handleClickSelect(e.target.value);
+						} else {
+							handleClickSelect("");
+						}
+					}}>
 					<option value="0"></option>
+					<option value="test">test</option>
 					{sponsors}
 				</select>
 			</div>
