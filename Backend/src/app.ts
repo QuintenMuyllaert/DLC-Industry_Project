@@ -43,31 +43,39 @@ const protect = async (req: Request, res: Response, onSuccess: any = () => {}) =
 };
 
 app.get("/status", async (req: Request, res: Response) => {
+	console.log("Got status request");
 	await protect(req, res, (body: LooseObject) => {
+		console.log("Permission granted");
+		console.log("Sending status", body);
 		res.send(body);
 	});
 });
 
 app.post("/auth", async (req: Request, res: Response) => {
+	console.log("Got auth request");
 	const { username, password } = req.body;
 	if (!username || !password) {
+		console.log("Missing username or password");
 		res.status(400).send("Missing username or password");
 		return;
 	}
 	const userExists = await database.exists("accounts", { username });
 	if (!userExists) {
+		console.log(username + " does not exist");
 		res.status(401).send("Invalid username or password");
 		return;
 	}
 	const [userdata] = await database.read("accounts", { username });
 	const valid = await validateHash(password, userdata?.password);
 	if (!valid) {
+		console.log(username + " hash does not match");
 		res.status(401).send("Hash does not match");
 		return;
 	}
 
-	const token = await jwtSignAsync({ username: userdata?.username, serial: userdata?.serial, isAdmin: userdata?.isAdmin });
-
+	const tokenBody = { username: userdata?.username, serial: userdata?.serial, isAdmin: userdata?.isAdmin };
+	const token = await jwtSignAsync(tokenBody);
+	console.log("Signing token", tokenBody);
 	res.cookie("bearer", token, {
 		maxAge: 30 * 24 * 60 * 60 * 1000,
 		httpOnly: true,
@@ -78,6 +86,7 @@ app.post("/auth", async (req: Request, res: Response) => {
 		firstLogin: userdata?.firstLogin,
 	};
 
+	console.log("Sending auth", username, obj);
 	database.update("accounts", { username }, { ...userdata, firstLogin: false });
 	res.status(202).send(JSON.stringify(obj, null, 4));
 });
@@ -86,24 +95,29 @@ app.post("/register", async (req: Request, res: Response) => {
 	const { username, password } = req.body;
 	let { serial } = req.body;
 	if (!username || !password || !serial) {
+		console.log("Missing username or password or serial");
+		console.log({ username, serial });
 		res.status(400).send("Missing username or password or serial");
 		return;
 	}
 
 	const userExists = await database.exists("accounts", { username });
 	if (userExists) {
+		console.log(username + " already exists");
 		res.status(401).send("User exists");
 		return;
 	}
 
 	if (serial === "virtual") {
-		const serial = await generateSerial("virtual-");
+		console.log("Generating virtual scoreboard");
+		serial = await generateSerial("virtual-");
 		await gengetNamespace(serial, true);
-		await delay(100); //DB delay? :/
+		console.log("Generated virtual scoreboard", serial);
 	}
 
 	const scoreboardExists = await database.exists("scoreboards", { serial });
 	if (!scoreboardExists) {
+		console.log("Scoreboard does not exist" + serial);
 		res.status(401).send(`Scoreboard does not exist : ${serial}`);
 		return;
 	}
@@ -111,6 +125,7 @@ app.post("/register", async (req: Request, res: Response) => {
 	const [scoreboarddata] = await database.read("scoreboards", { serial });
 
 	if (!scoreboarddata.hasAdmin) {
+		console.log("Scoreboard does not have admin");
 		const newUser: User = {
 			username,
 			password: await hash(password),
@@ -122,6 +137,7 @@ app.post("/register", async (req: Request, res: Response) => {
 		await database.create("accounts", newUser);
 		res.status(202).send("REGISTER ADMIN OK");
 	} else {
+		console.log("Scoreboard already has admin, making user");
 		const newUser: User = {
 			username,
 			password: await hash(password),
