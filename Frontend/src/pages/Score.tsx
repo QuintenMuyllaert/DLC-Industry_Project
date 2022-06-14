@@ -46,7 +46,6 @@ export const Score = () => {
 	};
 
 	const handleClickClock = () => {
-		console.log("click clock");
 		updateState("clockPopup", !state.clockPopup);
 	};
 

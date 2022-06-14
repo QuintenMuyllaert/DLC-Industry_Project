@@ -19,13 +19,17 @@ export const ClockEdit = ({ active }: { active: boolean }) => {
 		}
 	};
 
+	const handleClickPopup = () => {
+		updateState("clockPopup", !state.clockPopup);
+	};
+
 	const setNewTime = () => {
 		console.log("setting new timer...");
 		let totalSeconds: number = seconds + minutes * 60;
 		if (totalSeconds >= 0) {
 			scoreboardInterface.setTimer(totalSeconds);
 		} else {
-			scoreboardInterface.setTimer(0.1);
+			scoreboardInterface.setTimer(0);
 		}
 
 		updateState("clockPopup", !state.clockPopup);
@@ -36,6 +40,21 @@ export const ClockEdit = ({ active }: { active: boolean }) => {
 			<div className={active ? "c-clockedit__overlay" : "c-clockedit__overlay c-clockedit__hidden"}></div>
 			<div className={active ? "c-clockedit" : "c-clockedit c-clockedit__hidden"}>
 				<div className="c-clockedit__container">
+					<button className="close" onClick={handleClickPopup}>
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							width="24"
+							height="24"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							strokeWidth="3"
+							strokeLinecap="round"
+							strokeLinejoin="round">
+							<line x1="18" y1="6" x2="6" y2="18"></line>
+							<line x1="6" y1="6" x2="18" y2="18"></line>
+						</svg>
+					</button>
 					<h1 className="title">Stel een nieuwe tijd in</h1>
 					<div className="clockinput">
 						<input

@@ -61,22 +61,29 @@ export const TemplateSettings = () => {
 		navigate(`/templates`);
 	};
 
+	const goToTemplates = () => {
+		navigate(`/templates`);
+	};
+
 	return (
 		<>
 			<div className="p-templatesettings element">
-				<header className="header">
-					<svg
-						xmlns="http://www.w3.org/2000/svg"
-						width="24"
-						height="24"
-						viewBox="0 0 24 24"
-						fill="none"
-						strokeWidth="2"
-						strokeLinecap="round"
-						strokeLinejoin="round">
-						<line x1="19" y1="12" x2="5" y2="12"></line>
-						<polyline points="12 19 5 12 12 5"></polyline>
-					</svg>
+				<header className="p-templatesettings__header">
+					<button onClick={goToTemplates}>
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							width="24"
+							height="24"
+							viewBox="0 0 24 24"
+							fill="none"
+							strokeWidth="2"
+							strokeLinecap="round"
+							strokeLinejoin="round"
+							className="p-templatesettings__header-back">
+							<line x1="19" y1="12" x2="5" y2="12"></line>
+							<polyline points="12 19 5 12 12 5"></polyline>
+						</svg>
+					</button>
 
 					<Logo width="4rem" height="4rem" />
 				</header>

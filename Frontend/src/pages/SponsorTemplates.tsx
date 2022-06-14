@@ -12,6 +12,13 @@ export const SponsorTemplates = () => {
 	const navigate = useNavigate();
 
 	const fetchSponsors = async () => {
+		if (!state.serial || state.serial === "N/A") {
+			const res = await fetch("/status");
+			const body = await res.json();
+			state.serial = body.serial;
+			updateState("serial", body.serial);
+		}
+
 		const res = await fetch(`/sponsors?serial=${state.serial}`, { mode: "no-cors", method: "GET" });
 		const json = await res.json();
 		updateState("sponsors", json);
@@ -51,19 +58,6 @@ export const SponsorTemplates = () => {
 		<>
 			<div className="p-sponsorTemplates element">
 				<div className="p-sponsorTemplates__header">
-					<svg
-						xmlns="http://www.w3.org/2000/svg"
-						width="24"
-						height="24"
-						viewBox="0 0 24 24"
-						fill="none"
-						strokeWidth="2"
-						strokeLinecap="round"
-						strokeLinejoin="round">
-						<line x1="19" y1="12" x2="5" y2="12"></line>
-						<polyline points="12 19 5 12 12 5"></polyline>
-					</svg>
-
 					<Logo width="4rem" height="4rem" />
 				</div>
 				<h1>Sponsor bundels</h1>

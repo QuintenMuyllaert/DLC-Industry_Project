@@ -10,7 +10,7 @@
 
 	&__header {
 		display: flex;
-		justify-content: space-between;
+		justify-content: flex-end;
 		align-items: center;
 		background-color: #121212;
 		padding: 0.5rem;
@@ -49,8 +49,9 @@
 
 		&-btn {
 			display: flex;
+			padding: 0 1rem 0 0;
 			gap: 20px;
-			justify-content: center;
+			justify-content: end;
 			align-items: center;
 
 			& svg {

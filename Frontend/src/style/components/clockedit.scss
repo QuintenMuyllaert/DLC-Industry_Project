@@ -28,6 +28,14 @@
 		text-align: center;
 		align-items: center;
 
+		.close {
+			display: flex;
+			justify-content: baseline;
+			& svg {
+				stroke: var(--color-black);
+			}
+		}
+
 		.title {
 			color: #121212;
 			font-family: Rajdhani;
