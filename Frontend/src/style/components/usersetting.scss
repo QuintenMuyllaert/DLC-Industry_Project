@@ -25,7 +25,8 @@
 
 			.input {
 				::placeholder {
-					color: var(--global-color-text);
+					color: red;
+					//var(--global-color-text)
 					opacity: 1;
 				}
 			}
