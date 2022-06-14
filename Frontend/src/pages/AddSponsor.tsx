@@ -31,7 +31,7 @@ export const AddSponsor = () => {
 
 	const handleClickNewSponsor = () => {
 		if (sponsorNaam) {
-			navigate(`/sponsor?bundel=${bundel}?serial=${state.serial}`);
+			navigate(`/sponsor?bundel=${bundel}&serial=${state.serial}`);
 		} else {
 			setValidatieNaam(true);
 		}
