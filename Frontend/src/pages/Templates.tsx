@@ -34,7 +34,18 @@ export const Templates = () => {
 	};
 
 	useEffect(() => {
-		fetchTemplates();
+		(async () => {
+			await fetchTemplates();
+			//
+			for (const template of state.templates) {
+				templates.push(
+					<Template sportNaam={template.name} aantalHelften={template.parts} duurHelft={template.duration} handleDeletePopup={handleClickDeletePopup} />,
+				);
+				setAllTemplates(templates);
+			}
+		})();
+
+		//
 	}, []);
 
 	const handleClickDeletePopup = () => {
@@ -64,13 +75,6 @@ export const Templates = () => {
 
 	const [allTemplates, setAllTemplates] = useState([]);
 	let templates: any = [];
-
-	for (const template of state.templates) {
-		templates.push(
-			<Template sportNaam={template.name} aantalHelften={template.parts} duurHelft={template.duration} handleDeletePopup={handleClickDeletePopup} />,
-		);
-		setAllTemplates(templates);
-	}
 
 	const template: LooseObject = {
 		name: "",
