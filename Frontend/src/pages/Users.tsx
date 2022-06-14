@@ -16,8 +16,6 @@ export const Users = () => {
 		return b;
 	};
 
-	const defaultUsers: any[] = [];
-
 	const user: LooseObject = {
 		username: "",
 		password: generatePassword(),
@@ -31,7 +29,6 @@ export const Users = () => {
 
 	const [newUser, setNewUser] = useState(user);
 	const [validationState, setValidation] = useState(validation);
-	const [allUsers, setAllUsers] = useState(defaultUsers);
 	let userList: ReactElement[] = [];
 
 	useEffect(() => {
@@ -53,11 +50,10 @@ export const Users = () => {
 		const json = await res.json();
 		//updateState("users", json);
 
-		for (const userInList of state.users) {
+		for (const userInList of json) {
 			if (userInList.isAdmin == false) {
 				userList.push(<User username={userInList.username} />);
 			}
-			setAllUsers(allUsers + userInList);
 		}
 
 		updateState("users", userList);
