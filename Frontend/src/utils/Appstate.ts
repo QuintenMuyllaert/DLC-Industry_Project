@@ -69,6 +69,19 @@ export const attachUseState = (state: any, setState: any) => {
 	globalSetState = setState;
 };
 
+export let refetch = false;
+export let setRefetch = (a: boolean) => {
+	console.log("setRefetch", a);
+};
+
+export const attachRefetch = (state: any, setState: any) => {
+	refetch = state;
+	setRefetch = (a: boolean) => {
+		console.log("refetch");
+		setState(a);
+	};
+};
+
 export const setGlobalState = (val: any) => {
 	// console.log("setGlobalState", val);
 	globalSetState(val);
@@ -106,4 +119,7 @@ export default {
 	updateGlobalState,
 	mergeGlobalState,
 	defaultState,
+	attachRefetch,
+	setRefetch,
+	refetch,
 };
