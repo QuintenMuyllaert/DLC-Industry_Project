@@ -41,8 +41,8 @@ export const Users = () => {
 	};
 
 	const updateValidation = (key: any, value: any) => {
-		validationState[key] = value;
-		setValidation(validationState);
+		validation[key] = value;
+		setValidation(validation);
 	};
 
 	const fetchUsers = async () => {
@@ -116,7 +116,7 @@ export const Users = () => {
 							updateNewUser("username", event.currentTarget.value);
 						}}
 					/>
-					<p className={validation.display ? "validatie" : "hidden"}>{validation.message}</p>
+					<p className={validationState.display ? "validatie" : "hidden"}>{validationState.message}</p>
 				</div>
 				<div className="p-users__button">
 					<IconButton label="Toevoegen" color="white" onClick={handleClickNewUser} />
