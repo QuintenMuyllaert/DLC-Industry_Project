@@ -67,9 +67,7 @@ export const Users = () => {
 			body: JSON.stringify(newUser),
 		});
 
-		fetchUsers();
-
-		if (navigator.share) {
+		if (navigator.share && res.status < 400) {
 			navigator
 				.share({
 					title: "web.dev",
