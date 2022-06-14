@@ -1,7 +1,20 @@
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export const BottomTab = () => {
 	const navigate = useNavigate();
+
+	const [admin, setAdmin] = useState(false);
+
+	const fetchStatus = async () => {
+		const res = await fetch(`/status`, { mode: "no-cors", method: "GET" });
+		const json = await res.json();
+		setAdmin(json.isAdmin);
+	};
+
+	useEffect(() => {
+		fetchStatus();
+	}, []);
 
 	//Navigate is faster, but doesn't check auth. (TODO: Check auth)
 	//Altho no pages show bottom tabs when using is not logged in, so it should be fine.
@@ -17,7 +30,9 @@ export const BottomTab = () => {
 
 	const goToUsers = async () => {
 		//document.location.href = "/users";
-		navigate("/users");
+		if (admin) {
+			navigate("/users");
+		}
 	};
 
 	const goToUserSettings = async () => {
@@ -99,7 +114,11 @@ export const BottomTab = () => {
 				</svg>
 				<p className="c-bottomtab__page-name">Match</p>
 			</div>
-			<div className={document.location.pathname == "/users" ? "c-bottomtab__page c-bottomtab__page-active" : "c-bottomtab__page"} onClick={goToUsers}>
+			<div
+				className={
+					document.location.pathname == "/users" ? "c-bottomtab__page c-bottomtab__page-active" : `c-bottomtab__page ${admin ? "" : "c-bottomtab__hidden"}`
+				}
+				onClick={goToUsers}>
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
 					width="24"

@@ -25,7 +25,7 @@ export const TemplateSettings = () => {
 	};
 
 	const fetchTemplates = async () => {
-		const res = await fetch(`/template?serial=X3462L7L`, { mode: "no-cors", method: "GET" });
+		const res = await fetch(`/template?serial=${state.serial}`, { mode: "no-cors", method: "GET" });
 		const json = await res.json();
 		updateState("templates", json);
 	};
@@ -45,7 +45,7 @@ export const TemplateSettings = () => {
 	const { template } = getQuery();
 
 	const handleClickUpdateTemplate = async () => {
-		const res = await fetch(`/template?serial=X3462L7L`, {
+		const res = await fetch(`/template?serial=${state.serial}`, {
 			mode: "cors",
 			method: "PUT",
 			cache: "no-cache",

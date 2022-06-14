@@ -11,7 +11,7 @@ export const Sponsors = () => {
 	const navigate = useNavigate();
 
 	const fetchSponsors = async () => {
-		const res = await fetch(`/sponsors?serial=X3462L7L`, { mode: "no-cors", method: "GET" });
+		const res = await fetch(`/sponsors?serial=${state.serial}`, { mode: "no-cors", method: "GET" });
 		const json = await res.json();
 		updateState("sponsors", json);
 	};

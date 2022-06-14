@@ -35,21 +35,6 @@ export const Template = ({
 		setLock(false);
 	};
 
-	// const handleClickNewTemplate = async () => {
-	// 	const res = await fetch(`/template?serial=X3462L7L`, {
-	// 		mode: "cors",
-	// 		method: "POST",
-	// 		cache: "no-cache",
-	// 		credentials: "same-origin",
-	// 		headers: {
-	// 			"content-type": "application/json",
-	// 		},
-	// 		redirect: "follow",
-	// 		referrerPolicy: "no-referrer",
-	// 		body: JSON.stringify(toDelete),
-	// 	});
-	// };
-
 	return (
 		<div className="p-templates__list-item">
 			<button className="p-templates__list-info" onClick={goToTemplateSettings}>
