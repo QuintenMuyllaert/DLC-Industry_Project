@@ -16,6 +16,8 @@ export const Users = () => {
 		return b;
 	};
 
+	const defaultUsers: any[] = [];
+
 	const user: LooseObject = {
 		username: "",
 		password: generatePassword(),
@@ -29,6 +31,7 @@ export const Users = () => {
 
 	const [newUser, setNewUser] = useState(user);
 	const [validationState, setValidation] = useState(validation);
+	const [allUsers, setAllUsers] = useState(defaultUsers);
 	let userList: ReactElement[] = [];
 
 	useEffect(() => {
@@ -54,6 +57,7 @@ export const Users = () => {
 			if (userInList.isAdmin == false) {
 				userList.push(<User username={userInList.username} />);
 			}
+			setAllUsers(allUsers + userInList);
 		}
 	};
 
@@ -77,12 +81,8 @@ export const Users = () => {
 		const message = await res.text();
 		updateValidation("message", message);
 
-		console.log("message: ", message, ", status: ", res.status);
-
 		if (res.status >= 400) {
 			updateValidation("display", true);
-			console.log("setting validation true");
-			console.log(validation);
 		}
 
 		if (res.status < 400) {
@@ -124,7 +124,7 @@ export const Users = () => {
 
 				{/* <div className="userlist"> */}
 				<h1 className="subtitle">Deze mensen hebben toegang</h1>
-				<div className="list scrollbar">{userList.toString()}</div>
+				<div className="list scrollbar">{allUsers.toString()}</div>
 				{/* </div> */}
 			</div>
 			<BottomTab />
