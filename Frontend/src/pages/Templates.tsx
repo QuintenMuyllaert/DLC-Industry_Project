@@ -17,8 +17,9 @@ export const Templates = () => {
 		duration: 0,
 	};
 
-	let templates: any[] = [];
 	const [newTemplate, setnewTemplate] = useState(template);
+
+	const [templatesList, setTemplateList] = useState(state.templates);
 
 	const updateNewTemplate = (key: any, value: string) => {
 		newTemplate[key] = value;
@@ -28,7 +29,7 @@ export const Templates = () => {
 	const fetchTemplates = async () => {
 		const res = await fetch(`/template?serial=${state.serial}`, { mode: "no-cors", method: "GET" });
 		const json = await res.json();
-
+		const templates = [];
 		for (const template of json) {
 			templates.push(
 				<Template sportNaam={template.name} aantalHelften={template.parts} duurHelft={template.duration} handleDeletePopup={handleClickDeletePopup} />,
@@ -36,8 +37,11 @@ export const Templates = () => {
 
 			console.log("single template: ", template);
 		}
+
+		setTemplateList(json);
+
 		console.log("list of templates: ", templates);
-		updateState("templates", templates);
+		//updateState("templates", templates);
 		console.log("templates state: ", state.templates);
 	};
 
@@ -92,6 +96,16 @@ export const Templates = () => {
 		document.location.href = document.location.href;
 	};
 
+	const generateTemplates = (templates: any[]) => {
+		const reactObj = [];
+		for (const template of templates) {
+			reactObj.push(
+				<Template sportNaam={template.name} aantalHelften={template.parts} duurHelft={template.duration} handleDeletePopup={handleClickDeletePopup} />,
+			);
+		}
+		return reactObj;
+	};
+
 	return (
 		<>
 			<div className="p-templates element">
@@ -134,7 +148,7 @@ export const Templates = () => {
 				</div>
 
 				<h1>Bestaande templates</h1>
-				<div className="p-templates__list scrollbar">{templates}</div>
+				<div className="p-templates__list scrollbar">{generateTemplates(templatesList)}</div>
 			</div>
 			<BottomTab />
 			<ModalConfirm
