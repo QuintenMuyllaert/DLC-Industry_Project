@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Input } from "../components/Input";
 import { Logo } from "../components/Logo";
+import Header from "../components/Header";
 import { IconButton } from "../components/IconButton";
 import { LooseObject } from "../utils/Interfaces";
 
@@ -13,7 +14,18 @@ export const Manual = () => {
 		hasScoreboard: true,
 	};
 
+	const validation: LooseObject = {
+		message: "",
+		display: false,
+	};
+
+	const [validationState, setValidation] = useState(validation);
 	const [state, setState] = useState(defaultState);
+
+	const updateValidation = (key: any, value: any) => {
+		validation[key] = value;
+		setValidation(validation);
+	};
 
 	const updateState = (key: string, value: any) => {
 		state[key] = value;
@@ -28,13 +40,13 @@ export const Manual = () => {
 		console.log(state.hasScoreboard);
 
 		if (state.password !== state.confirmPassword) {
-			//TODO : Add an error message
+			updateValidation("message", "wachtwoord is niet gelijk aan bevestig wachtwoord");
 			return;
 		}
 
 		if (state.hasScoreboard) {
 			if (state.password !== state.confirmPassword) {
-				//TODO : Add an error message
+				updateValidation("message", "wachtwoord is niet gelijk aan bevestig wachtwoord");
 				return;
 			}
 
@@ -51,7 +63,15 @@ export const Manual = () => {
 				body: JSON.stringify({ ...state }),
 			});
 
-			if (res.status === 202 || res.status === 201) {
+			const message = await res.text();
+			updateValidation("message", message);
+
+			if (res.status >= 400) {
+				updateValidation("display", true);
+			}
+
+			if (res.status >= 200 && res.status < 300) {
+				updateValidation("display", false);
 				document.location.href = "/score";
 			}
 		} else if (state.hasScoreboard == false) {
@@ -91,25 +111,10 @@ export const Manual = () => {
 
 	return (
 		<div className="p-manual">
-			<div className="p-manual__header">
-				<svg
-					xmlns="http://www.w3.org/2000/svg"
-					width="24"
-					height="24"
-					viewBox="0 0 24 24"
-					fill="none"
-					stroke="white"
-					strokeWidth="2"
-					strokeLinecap="round"
-					strokeLinejoin="round">
-					<line x1="19" y1="12" x2="5" y2="12"></line>
-					<polyline points="12 19 5 12 12 5"></polyline>
-				</svg>
-
-				<Logo width="4rem" height="4rem" />
-			</div>
+			<Header />
 			<div className="content">
 				<div className="u-grid-vertical-gap">
+					<p className={validationState.display ? "validatie" : "hidden"}>{validationState.message}</p>
 					<Input
 						id="serienummer"
 						label="serienummer"
