@@ -22,8 +22,11 @@ export const ClockEdit = ({ active }: { active: boolean }) => {
 	const setNewTime = () => {
 		console.log("setting new timer...");
 		let totalSeconds: number = seconds + minutes * 60;
-		scoreboardInterface.setTimer(totalSeconds);
-
+		if (totalSeconds == 0) {
+			scoreboardInterface.setTimer(totalSeconds);
+		} else {
+			console.log("set new time is empty");
+		}
 		updateState("state.clockPopup", !state.clockPopup);
 	};
 
