@@ -39,13 +39,13 @@ export const Manual = () => {
 		console.log(state.hasScoreboard);
 
 		if (state.password !== state.confirmPassword) {
-			//TODO : Add an error message
+			updateValidation("message", "wachtwoord is niet gelijk aan bevestig wachtwoord");
 			return;
 		}
 
 		if (state.hasScoreboard) {
 			if (state.password !== state.confirmPassword) {
-				//TODO : Add an error message
+				updateValidation("message", "wachtwoord is niet gelijk aan bevestig wachtwoord");
 				return;
 			}
 
@@ -129,6 +129,7 @@ export const Manual = () => {
 			</div>
 			<div className="content">
 				<div className="u-grid-vertical-gap">
+					<p className={validationState.display ? "validatie" : "hidden"}>{validationState.message}</p>
 					<Input
 						id="serienummer"
 						label="serienummer"
@@ -138,7 +139,6 @@ export const Manual = () => {
 							updateState("serial", event.currentTarget.value);
 						}}
 					/>
-					<p className={validationState.display ? "validatie" : "hidden"}>{validationState.message}</p>
 					<Input
 						id="username"
 						label="username"

@@ -26,10 +26,11 @@
 			padding-top: 0.3rem;
 			color: red;
 			text-align: center;
+			opacity: 1;
 		}
 
 		.hidden {
-			display: none;
+			opacity: 0;
 		}
 
 		.text {
