@@ -52,7 +52,6 @@ export const Users = () => {
 
 		for (const userInList of state.users) {
 			const tempUserList: JSX.Element[] = [];
-			console.log(userInList);
 			if (userInList.isAdmin == false) {
 				tempUserList.push(<User username={userInList.username} />);
 			}
@@ -84,6 +83,7 @@ export const Users = () => {
 
 		if (res.status >= 400) {
 			updateValidation("display", true);
+			console.log("setting validation true");
 		}
 
 		if (res.status < 400) {
