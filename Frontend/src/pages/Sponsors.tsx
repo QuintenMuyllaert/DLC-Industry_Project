@@ -44,6 +44,9 @@ export const Sponsors = () => {
 			redirect: "follow",
 			referrerPolicy: "no-referrer",
 		});
+
+		//TODO : refetch instead
+		document.location.href = document.location.href;
 	};
 
 	const { bundel } = getQuery();
