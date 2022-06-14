@@ -4,6 +4,7 @@ import { Input } from "../components/Input";
 import { Logo } from "../components/Logo";
 import { IconButton } from "../components/IconButton";
 import { LooseObject } from "../utils/Interfaces";
+import Header from "../components/Header";
 
 export const ChangePassword = () => {
 	const localState: LooseObject = {
@@ -76,9 +77,7 @@ export const ChangePassword = () => {
 
 	return (
 		<div className="p-manual element">
-			<div className="p-manual__header">
-				<Logo width="4rem" height="4rem" />
-			</div>
+			<Header />
 			<div className="content">
 				<div className="u-grid-vertical-gap">
 					<div className="text">
