@@ -26,7 +26,7 @@ export const Login = () => {
 	};
 
 	const sendAuthRequest = async () => {
-		const res = await fetch(`${document.location.origin}/auth`, {
+		const res = await fetch(`/auth`, {
 			method: "POST",
 			mode: "cors",
 			cache: "no-cache",
