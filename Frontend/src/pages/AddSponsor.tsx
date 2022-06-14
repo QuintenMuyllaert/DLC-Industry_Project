@@ -33,7 +33,7 @@ export const AddSponsor = () => {
 		if (sponsorNaam) {
 			console.log(sponsorNaam);
 			scoreboardInterface.uploadProperties(bundel, sponsorNaam);
-			// navigate(`/sponsors?bundel=${bundel}?serial=${state.serial}`);
+			// navigate(`/sponsor?bundel=${bundel}?serial=${state.serial}`);
 		} else {
 			setValidatieNaam(true);
 		}
