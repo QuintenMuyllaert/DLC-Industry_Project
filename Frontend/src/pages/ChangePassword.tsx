@@ -29,8 +29,7 @@ export const ChangePassword = () => {
 		setState({ ...state });
 	};
 
-	const onChangePassword = async () => {
-		updateState("oldPassword", sessionStorage.getItem("password"));
+	const fetchChangePassword = async () => {
 		if (state.password == state.checkPassword) {
 			const res = await fetch(`/changepassword`, {
 				method: "PUT",
@@ -69,6 +68,12 @@ export const ChangePassword = () => {
 		} else {
 			console.log("password and confirm password are not the same");
 		}
+	};
+
+	const onChangePassword = async () => {
+		updateState("oldPassword", sessionStorage.getItem("password"));
+
+		await fetchChangePassword();
 	};
 
 	return (
