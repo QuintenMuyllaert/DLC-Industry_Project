@@ -5,7 +5,7 @@ export const SponsorTemplate = ({ name, aantal }: { name: string; aantal: number
 	const navigate = useNavigate();
 
 	const goToSponsor = async (bundelNaam: string) => {
-		navigate(`/sponsors?bundel=${bundelNaam}&serial=${state.serial}`);
+		navigate(`/sponsor?bundel=${bundelNaam}&serial=${state.serial}`);
 	};
 
 	return (

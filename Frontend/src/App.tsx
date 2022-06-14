@@ -44,7 +44,7 @@ export const App = () => {
 					<Route path="/users" element={<Protect element={<Users />} />} />
 					<Route path="/usersettings" element={<Protect element={<UserSettings />} />} />
 					<Route path="/sponsortemplates" element={<Protect element={<SponsorTemplates />} />} />
-					<Route path="/sponsors" element={<Protect element={<Sponsors />} />} />
+					<Route path="/sponsor" element={<Protect element={<Sponsors />} />} />
 					<Route path="/addsponsor" element={<Protect element={<AddSponsor />} />} />
 					<Route path="/addsponsorbundel" element={<Protect element={<AddSponsorBundel />} />} />
 					<Route path="/changepassword" element={<Protect element={<ChangePassword />} />} />

@@ -32,8 +32,8 @@ export const AddSponsor = () => {
 	const handleClickNewSponsor = () => {
 		if (sponsorNaam) {
 			console.log(sponsorNaam);
-			scoreboardInterface.uploadProperties(bundel, sponsorNaam);
-			// navigate(`/sponsors?bundel=${bundel}?serial=${state.serial}`);
+			// scoreboardInterface.uploadProperties(bundel, sponsorNaam);
+			// navigate(`/sponsor?bundel=${bundel}?serial=${state.serial}`);
 		} else {
 			setValidatieNaam(true);
 		}
@@ -76,6 +76,7 @@ export const AddSponsor = () => {
 							type="text"
 							onChange={(event: React.FormEvent<HTMLInputElement>) => {
 								setSponsorNaam(event.currentTarget.value);
+								scoreboardInterface.uploadProperties(bundel, sponsorNaam);
 								enableInput(event.currentTarget.value);
 							}}
 						/>
