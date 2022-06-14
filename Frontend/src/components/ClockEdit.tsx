@@ -29,7 +29,7 @@ export const ClockEdit = ({ active }: { active: boolean }) => {
 		if (totalSeconds >= 0) {
 			scoreboardInterface.setTimer(totalSeconds);
 		} else {
-			scoreboardInterface.setTimer(0.1);
+			scoreboardInterface.setTimer(0);
 		}
 
 		updateState("clockPopup", !state.clockPopup);
