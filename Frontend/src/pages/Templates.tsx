@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { ReactElement, ReactEventHandler, useEffect, useState } from "react";
 import BottomTab from "../components/BottomTab";
 import IconButton from "../components/IconButton";
 
@@ -17,7 +17,7 @@ export const Templates = () => {
 		duration: 0,
 	};
 
-	let templates: any[] = [];
+	let templates: ReactElement[] = [];
 	const [newTemplate, setnewTemplate] = useState(template);
 
 	const updateNewTemplate = (key: any, value: string) => {
