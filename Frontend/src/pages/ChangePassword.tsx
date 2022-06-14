@@ -63,6 +63,8 @@ export const ChangePassword = () => {
 
 			await res2.json;
 
+			sessionStorage.setItem("password", undefined);
+
 			navigate("/score");
 		} else {
 			console.log("password and confirm password are not the same");
