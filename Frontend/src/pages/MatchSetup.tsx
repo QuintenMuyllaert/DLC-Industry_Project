@@ -105,19 +105,6 @@ export const MatchSetup = () => {
 		<>
 			<div className="p-matchsetup maxwidth">
 				<div className="p-matchsetup__header">
-					<svg
-						xmlns="http://www.w3.org/2000/svg"
-						width="24"
-						height="24"
-						viewBox="0 0 24 24"
-						fill="none"
-						strokeWidth="2"
-						strokeLinecap="round"
-						strokeLinejoin="round">
-						<line x1="19" y1="12" x2="5" y2="12"></line>
-						<polyline points="12 19 5 12 12 5"></polyline>
-					</svg>
-
 					<Logo width="4rem" height="4rem" />
 				</div>
 				<h1>Team instellingen</h1>

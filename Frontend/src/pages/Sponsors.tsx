@@ -62,25 +62,32 @@ export const Sponsors = () => {
 		navigate(`/addsponsor?bundel=${bundel}`);
 	};
 
+	const goToSponsorTemplates = () => {
+		navigate(`/sponsortemplates`);
+	};
+
 	return (
 		<>
 			<div className="p-sponsors element">
-				<div className="p-sponsorTemplates__header">
-					<svg
-						xmlns="http://www.w3.org/2000/svg"
-						width="24"
-						height="24"
-						viewBox="0 0 24 24"
-						fill="none"
-						strokeWidth="2"
-						strokeLinecap="round"
-						strokeLinejoin="round">
-						<line x1="19" y1="12" x2="5" y2="12"></line>
-						<polyline points="12 19 5 12 12 5"></polyline>
-					</svg>
+				<header className="p-addSponsor__header">
+					<button onClick={goToSponsorTemplates}>
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							width="24"
+							height="24"
+							viewBox="0 0 24 24"
+							fill="none"
+							strokeWidth="2"
+							strokeLinecap="round"
+							strokeLinejoin="round"
+							className="p-addSponsor__header-back">
+							<line x1="19" y1="12" x2="5" y2="12"></line>
+							<polyline points="12 19 5 12 12 5"></polyline>
+						</svg>
+					</button>
 
 					<Logo width="4rem" height="4rem" />
-				</div>
+				</header>
 
 				<h1>{bundel}</h1>
 
