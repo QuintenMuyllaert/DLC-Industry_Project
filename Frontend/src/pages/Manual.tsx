@@ -41,12 +41,14 @@ export const Manual = () => {
 
 		if (state.password !== state.confirmPassword) {
 			updateValidation("message", "wachtwoord is niet gelijk aan bevestig wachtwoord");
+			updateValidation("display", true);
 			return;
 		}
 
 		if (state.hasScoreboard) {
 			if (state.password !== state.confirmPassword) {
 				updateValidation("message", "wachtwoord is niet gelijk aan bevestig wachtwoord");
+				updateValidation("display", true);
 				return;
 			} else {
 				const res = await fetch(`/register`, {
@@ -89,6 +91,7 @@ export const Manual = () => {
 					});
 
 					if (res.status === 202 || res.status === 201) {
+						updateValidation("display", false);
 						const res = await fetch(`/auth`, {
 							method: "POST",
 							mode: "cors",
