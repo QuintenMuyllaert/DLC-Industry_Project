@@ -80,6 +80,8 @@ export const Users = () => {
 		const message = await res.text();
 		updateValidation("message", message);
 
+		console.log("message: ", message, ", status: ", res.status);
+
 		if (res.status >= 400) {
 			updateValidation("display", true);
 		}
