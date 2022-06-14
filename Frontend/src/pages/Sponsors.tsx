@@ -30,8 +30,8 @@ export const Sponsors = () => {
 			redirect: "follow",
 			referrerPolicy: "no-referrer",
 		});
-		await res.json;
 		handleClickDeletePopup();
+		console.log(state.deleteSponsorPopup);
 	};
 
 	const { bundel } = getQuery();
@@ -45,10 +45,6 @@ export const Sponsors = () => {
 			}
 		}
 	}
-
-	// 	const handleClickNewSponsor = () {
-	//  onClick={handleClickNewSponsor}
-	// 	}
 
 	const handleClickNewSponsor = async () => {
 		navigate(`/addsponsor?bundel=${bundel}`);
