@@ -47,50 +47,8 @@ export const Manual = () => {
 			if (state.password !== state.confirmPassword) {
 				updateValidation("message", "wachtwoord is niet gelijk aan bevestig wachtwoord");
 				return;
-			}
-
-			const res = await fetch(`${document.location.origin}/register`, {
-				method: "POST",
-				mode: "cors",
-				cache: "no-cache",
-				credentials: "same-origin",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				redirect: "follow",
-				referrerPolicy: "no-referrer",
-				body: JSON.stringify({ ...state }),
-			});
-
-			const message = await res.text();
-			updateValidation("message", message);
-
-			if (res.status >= 400) {
-				updateValidation("display", true);
-			}
-
-			if (res.status >= 200 && res.status < 300) {
-				updateValidation("display", false);
-				document.location.href = "/score";
-			}
-		} else if (state.hasScoreboard == false) {
-			updateState("serial", "virtual");
-
-			const res = await fetch(`${document.location.origin}/register`, {
-				method: "POST",
-				mode: "cors",
-				cache: "no-cache",
-				credentials: "same-origin",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				redirect: "follow",
-				referrerPolicy: "no-referrer",
-				body: JSON.stringify({ ...state }),
-			});
-
-			if (res.status === 202 || res.status === 201) {
-				const res = await fetch(`/auth`, {
+			} else {
+				const res = await fetch(`/register`, {
 					method: "POST",
 					mode: "cors",
 					cache: "no-cache",
@@ -100,10 +58,52 @@ export const Manual = () => {
 					},
 					redirect: "follow",
 					referrerPolicy: "no-referrer",
-					body: JSON.stringify({ username: state.username, password: state.password }),
+					body: JSON.stringify({ ...state }),
 				});
 
-				document.location.href = "/score";
+				const message = await res.text();
+				updateValidation("message", message);
+
+				if (res.status >= 400) {
+					updateValidation("display", true);
+				}
+
+				if (res.status >= 200 && res.status < 300) {
+					updateValidation("display", false);
+					document.location.href = "/score";
+				} else if (state.hasScoreboard == false) {
+					updateState("serial", "virtual");
+
+					const res = await fetch(`${document.location.origin}/register`, {
+						method: "POST",
+						mode: "cors",
+						cache: "no-cache",
+						credentials: "same-origin",
+						headers: {
+							"Content-Type": "application/json",
+						},
+						redirect: "follow",
+						referrerPolicy: "no-referrer",
+						body: JSON.stringify({ ...state }),
+					});
+
+					if (res.status === 202 || res.status === 201) {
+						const res = await fetch(`/auth`, {
+							method: "POST",
+							mode: "cors",
+							cache: "no-cache",
+							credentials: "same-origin",
+							headers: {
+								"Content-Type": "application/json",
+							},
+							redirect: "follow",
+							referrerPolicy: "no-referrer",
+							body: JSON.stringify({ username: state.username, password: state.password }),
+						});
+
+						document.location.href = "/score";
+					}
+				}
 			}
 		}
 	};
