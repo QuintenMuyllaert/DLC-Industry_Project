@@ -8,6 +8,7 @@ import BottomTab from "../components/BottomTab";
 import { updateGlobalState as updateState, globalState as state } from "../utils/Appstate";
 import Colorpicker from "../components/Colorpicker";
 import Logo from "../components/Logo";
+import Header from "../components/Header";
 
 export const MatchSetup = () => {
 	const navigate = useNavigate();
@@ -104,9 +105,7 @@ export const MatchSetup = () => {
 	return (
 		<>
 			<div className="p-matchsetup maxwidth">
-				<div className="p-matchsetup__header">
-					<Logo width="4rem" height="4rem" />
-				</div>
+				<Header />
 				<h1>Team instellingen</h1>
 				<div className="teamsettings-container u-grid-vertical-gap">
 					<div className="flagcontainer">

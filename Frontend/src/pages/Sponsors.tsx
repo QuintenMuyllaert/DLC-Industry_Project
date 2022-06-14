@@ -5,6 +5,7 @@ import Sponsor from "../components/Sponsor";
 import { getQuery } from "../utils/Utils";
 import { useNavigate } from "react-router-dom";
 import ModalConfirm from "../components/ModalConfirm";
+import Header from "../components/Header";
 
 export const Sponsors = () => {
 	const navigate = useNavigate();
@@ -69,8 +70,8 @@ export const Sponsors = () => {
 	return (
 		<>
 			<div className="p-sponsors element">
-				<header className="p-addSponsor__header">
-					<button onClick={goToSponsorTemplates}>
+				<Header
+					icon={
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							width="24"
@@ -80,14 +81,13 @@ export const Sponsors = () => {
 							strokeWidth="2"
 							strokeLinecap="round"
 							strokeLinejoin="round"
-							className="p-addSponsor__header-back">
+							className="c-header__back">
 							<line x1="19" y1="12" x2="5" y2="12"></line>
 							<polyline points="12 19 5 12 12 5"></polyline>
 						</svg>
-					</button>
-
-					<Logo width="4rem" height="4rem" />
-				</header>
+					}
+					page={goToSponsorTemplates}
+				/>
 
 				<h1>{bundel}</h1>
 

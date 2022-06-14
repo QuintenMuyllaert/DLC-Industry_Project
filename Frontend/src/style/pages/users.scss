@@ -7,25 +7,6 @@
 	grid-template-rows: auto;
 	overflow: hidden;
 
-	.header {
-		display: flex;
-		justify-content: flex-end;
-		align-items: center;
-		background-color: #121212;
-		padding: 0.5rem;
-		height: fit-content;
-
-		& svg {
-			stroke: #eee;
-			align-self: start;
-		}
-
-		& svg:last-of-type {
-			fill: #eee;
-			stroke: none;
-		}
-	}
-
 	h1 {
 		padding: 0 1rem;
 	}

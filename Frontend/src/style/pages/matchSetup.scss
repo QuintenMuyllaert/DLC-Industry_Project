@@ -5,24 +5,7 @@
 	grid-template-rows: auto;
 	width: 100%;
 	padding: 0 0 1rem 0;
-
-	&__header {
-		display: flex;
-		justify-content: flex-end;
-		align-items: center;
-		background-color: #121212;
-		padding: 0.5rem;
-
-		& svg {
-			stroke: #eee;
-			align-self: start;
-		}
-
-		& svg:last-of-type {
-			fill: #eee;
-			stroke: none;
-		}
-	}
+	max-width: 450px;
 
 	.teamsettings-container {
 		display: flex;
