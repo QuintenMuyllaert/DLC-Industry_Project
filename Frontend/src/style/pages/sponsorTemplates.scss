@@ -40,18 +40,18 @@
 		padding: 0 1rem;
 
 		&-item {
-			display: flex;
-			justify-content: space-between;
-			align-items: center;
+			display: grid;
+			grid-template-columns: auto auto;
 			background-color: var(--global-color-text);
 			color: var(--global-color-background);
-			padding: 1rem 1.125rem;
 			cursor: pointer;
 		}
 
 		&-btn {
 			display: flex;
 			gap: 20px;
+			justify-content: center;
+			align-items: center;
 
 			& svg {
 				cursor: pointer;
@@ -61,6 +61,10 @@
 		&-title {
 			font-size: 1.3125rem;
 			font-weight: bold;
+		}
+
+		&-tekst {
+			padding: 1rem 0 1rem 1rem;
 		}
 	}
 

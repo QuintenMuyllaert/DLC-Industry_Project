@@ -21,8 +21,6 @@ export const Manual = () => {
 	};
 
 	const onCheck = () => {
-		console.log("test");
-
 		updateState("hasScoreboard", !state.hasScoreboard);
 	};
 
@@ -73,6 +71,19 @@ export const Manual = () => {
 			});
 
 			if (res.status === 202 || res.status === 201) {
+				const res = await fetch(`/auth`, {
+					method: "POST",
+					mode: "cors",
+					cache: "no-cache",
+					credentials: "same-origin",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					redirect: "follow",
+					referrerPolicy: "no-referrer",
+					body: JSON.stringify({ username: state.username, password: state.password }),
+				});
+
 				document.location.href = "/score";
 			}
 		}

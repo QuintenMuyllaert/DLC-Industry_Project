@@ -6,6 +6,7 @@ import IconButton from "../components/IconButton";
 import Logo from "../components/Logo";
 import SponsorTemplate from "../components/sponsorTemplate";
 import { useNavigate } from "react-router-dom";
+import ModalConfirm from "../components/ModalConfirm";
 
 export const SponsorTemplates = () => {
 	const navigate = useNavigate();
@@ -20,13 +21,30 @@ export const SponsorTemplates = () => {
 		fetchSponsors();
 	}, []);
 
-	let sponsors = [];
-	for (const sponsorBundel of state.sponsors) {
-		sponsors.push(<SponsorTemplate name={sponsorBundel.name} aantal={sponsorBundel.children.length} />);
-	}
-
 	const handleClickNewBundel = (bundelNaam: string) => {
 		navigate(`/addsponsorbundel`);
+	};
+
+	const handleClickDeletePopup = () => {
+		updateState("deleteSponsorbundelPopup", !state.deleteSponsorbundelPopup);
+	};
+
+	let sponsors = [];
+	for (const sponsorBundel of state.sponsors) {
+		sponsors.push(<SponsorTemplate name={sponsorBundel.name} aantal={sponsorBundel.children.length} handleClickDeletePopup={handleClickDeletePopup} />);
+	}
+
+	const handleDeleteSponsorbundel = async () => {
+		handleClickDeletePopup();
+		console.log(state.deleteSponsorPopup);
+		const res = await fetch(`/folder?serial=${state.serial}&bundle=${state.sponsorbundelToDelete}`, {
+			mode: "cors",
+			method: "DELETE",
+			cache: "no-cache",
+			credentials: "same-origin",
+			redirect: "follow",
+			referrerPolicy: "no-referrer",
+		});
 	};
 
 	return (
@@ -73,6 +91,12 @@ export const SponsorTemplates = () => {
 				</div>
 			</div>
 			<BottomTab />
+			<ModalConfirm
+				active={state.deleteSponsorbundelPopup}
+				tekst="Ben je zeker dat je deze sponsorbundel wilt verwijderen?"
+				handleClickDeletePopup={handleClickDeletePopup}
+				handleDelete={handleDeleteSponsorbundel}
+			/>
 		</>
 	);
 };
