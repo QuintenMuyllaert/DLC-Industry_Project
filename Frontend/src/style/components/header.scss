@@ -1,0 +1,15 @@
+.c-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	background-color: #202020;
+	padding: 0.5rem;
+	align-items: flex-start;
+	height: fit-content;
+
+	&__back {
+		stroke: #eee;
+		align-self: start;
+		cursor: pointer;
+	}
+}

@@ -5,6 +5,7 @@ import UserSetting from "../components/UserSetting";
 import IconButton from "../components/IconButton";
 import Logo from "../components/Logo";
 import Input from "../components/Input";
+import Header from "../components/Header";
 import { scoreboardInterface } from "../utils/ScoreboardInterface";
 import { getQuery } from "../utils/Utils";
 import { useNavigate } from "react-router-dom";
@@ -44,8 +45,8 @@ export const AddSponsor = () => {
 	return (
 		<>
 			<div className="p-addSponsor element withbottom-tab">
-				<header className="p-addSponsor__header">
-					<button onClick={goToSponsorTemplates}>
+				<Header
+					icon={
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							width="24"
@@ -55,14 +56,14 @@ export const AddSponsor = () => {
 							strokeWidth="2"
 							strokeLinecap="round"
 							strokeLinejoin="round"
-							className="p-addSponsor__header-back">
+							className="c-header__back">
 							<line x1="19" y1="12" x2="5" y2="12"></line>
 							<polyline points="12 19 5 12 12 5"></polyline>
 						</svg>
-					</button>
+					}
+					page={goToSponsorTemplates}
+				/>
 
-					<Logo width="4rem" height="4rem" />
-				</header>
 				<div className="c-addSponsor__tekst">
 					<h1>Nieuwe sponsor</h1>
 					<p>

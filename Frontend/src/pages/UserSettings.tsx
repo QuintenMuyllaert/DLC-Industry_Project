@@ -6,6 +6,7 @@ import BottomTab from "../components/BottomTab";
 import UserSetting from "../components/UserSetting";
 import IconButton from "../components/IconButton";
 import Logo from "../components/Logo";
+import Header from "../components/Header";
 
 export const UserSettings = () => {
 	const refThemeSwitch = useRef<HTMLInputElement>(null);
@@ -97,8 +98,8 @@ export const UserSettings = () => {
 	return (
 		<>
 			<div className="p-usersettings element">
-				<header className="p-usersettings__header">
-					<button onClick={onLogout}>
+				<Header
+					icon={
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							width="24"
@@ -109,15 +110,14 @@ export const UserSettings = () => {
 							stroke-width="2"
 							stroke-linecap="round"
 							stroke-linejoin="round"
-							className="p-usersettings__header-btn">
+							className="c-header__back">
 							<path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
 							<polyline points="16 17 21 12 16 7"></polyline>
 							<line x1="21" y1="12" x2="9" y2="12"></line>
 						</svg>
-					</button>
-
-					<Logo width="4rem" height="4rem" />
-				</header>
+					}
+					page={onLogout}
+				/>
 
 				<h1>Hallo {user.currentUsername}</h1>
 

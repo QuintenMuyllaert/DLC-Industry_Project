@@ -8,6 +8,7 @@ import Template from "../components/Template";
 import { LooseObject } from "../utils/Interfaces";
 import { updateGlobalState as updateState, globalState as state } from "../utils/Appstate";
 import ModalConfirm from "../components/ModalConfirm";
+import Header from "../components/Header";
 
 export const Templates = () => {
 	const fetchTemplates = async () => {
@@ -97,9 +98,7 @@ export const Templates = () => {
 	return (
 		<>
 			<div className="p-templates element">
-				<div className="p-templates__header">
-					<Logo width="4rem" height="4rem" />
-				</div>
+				<Header />
 				<h1>Nieuwe template toevoegen</h1>
 				<div className="p-templates__form">
 					<Input

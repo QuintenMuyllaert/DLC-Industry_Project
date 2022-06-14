@@ -8,20 +8,6 @@
 	overflow: hidden;
 	max-width: 450px;
 
-	&__header {
-		display: flex;
-		justify-content: space-between;
-		align-items: flex-start;
-		background-color: #121212;
-		padding: 0.5rem;
-		height: fit-content;
-
-		&-btn {
-			stroke: #eee;
-			fill: none;
-		}
-	}
-
 	.logout {
 		height: fit-content;
 

@@ -7,6 +7,7 @@ import Logo from "../components/Logo";
 import { getQuery } from "../utils/Utils";
 import { updateGlobalState as updateState, globalState as state } from "../utils/Appstate";
 import { useNavigate } from "react-router-dom";
+import Header from "../components/Header";
 
 export const TemplateSettings = () => {
 	const navigate = useNavigate();
@@ -71,8 +72,8 @@ export const TemplateSettings = () => {
 	return (
 		<>
 			<div className="p-templatesettings element">
-				<header className="p-templatesettings__header">
-					<button onClick={goToTemplates}>
+				<Header
+					icon={
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							width="24"
@@ -82,14 +83,13 @@ export const TemplateSettings = () => {
 							strokeWidth="2"
 							strokeLinecap="round"
 							strokeLinejoin="round"
-							className="p-templatesettings__header-back">
+							className="c-header__back">
 							<line x1="19" y1="12" x2="5" y2="12"></line>
 							<polyline points="12 19 5 12 12 5"></polyline>
 						</svg>
-					</button>
-
-					<Logo width="4rem" height="4rem" />
-				</header>
+					}
+					page={goToTemplates}
+				/>
 
 				<h1 className="pagetitle">{newTemplate.name}</h1>
 

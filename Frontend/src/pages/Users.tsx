@@ -7,6 +7,7 @@ import Input from "../components/Input";
 import Logo from "../components/Logo";
 import User from "../components/User";
 import { LooseObject } from "../utils/Interfaces";
+import Header from "../components/Header";
 
 export const Users = () => {
 	const generatePassword = () => {
@@ -103,9 +104,7 @@ export const Users = () => {
 	return (
 		<>
 			<div className="p-users element">
-				<div className="header">
-					<Logo width="4rem" height="4rem" />
-				</div>
+				<Header />
 
 				<h1>Mensen toevoegen</h1>
 				<div>

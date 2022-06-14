@@ -7,27 +7,7 @@
 	overflow: hidden;
 	width: 100%;
 	max-width: 450px;
-
 	overflow: hidden;
-
-	&__header {
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		background-color: #202020;
-		padding: 0.5rem;
-		align-items: flex-start;
-
-		// & svg {
-		// 	stroke: #eee;
-		// 	align-self: start;
-		// }
-
-		&-back {
-			stroke: #eee;
-			align-self: start;
-		}
-	}
 
 	.content {
 		align-self: center;

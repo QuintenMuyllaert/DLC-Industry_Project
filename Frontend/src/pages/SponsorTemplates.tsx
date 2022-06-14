@@ -7,6 +7,7 @@ import Logo from "../components/Logo";
 import SponsorTemplate from "../components/sponsorTemplate";
 import { useNavigate } from "react-router-dom";
 import ModalConfirm from "../components/ModalConfirm";
+import Header from "../components/Header";
 
 export const SponsorTemplates = () => {
 	const navigate = useNavigate();
@@ -60,9 +61,7 @@ export const SponsorTemplates = () => {
 	return (
 		<>
 			<div className="p-sponsorTemplates element">
-				<div className="p-sponsorTemplates__header">
-					<Logo width="4rem" height="4rem" />
-				</div>
+				<Header />
 				<h1>Sponsor bundels</h1>
 				<div className="p-sponsorTemplates__list">{sponsors}</div>
 				<div className="p-sponsorTemplates__btn">
@@ -80,7 +79,8 @@ export const SponsorTemplates = () => {
 								stroke="currentColor"
 								strokeWidth="2"
 								strokeLinecap="round"
-								strokeLinejoin="round">
+								strokeLinejoin="round"
+								className="c-header__back">
 								<line x1="12" y1="5" x2="12" y2="19"></line>
 								<line x1="5" y1="12" x2="19" y2="12"></line>
 							</svg>
