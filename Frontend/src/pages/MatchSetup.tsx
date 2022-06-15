@@ -29,7 +29,7 @@ export const MatchSetup = () => {
 	};
 
 	const handleClickMatchStart = async () => {
-		updateState("clockPopup", !state.clockPopup);
+		updateState("clockPopup", false);
 
 		if (checked && selectedTemplate == "") {
 			const res = await fetch(`/template?serial=${state.serial}`, {
