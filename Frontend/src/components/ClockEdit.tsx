@@ -44,6 +44,7 @@ export const ClockEdit = ({ active }: { active: boolean }) => {
 	};
 
 	const stopTimer = () => {
+		updateState("clockPopup", !state.clockPopup);
 		scoreboardInterface.stopMatch();
 	};
 
