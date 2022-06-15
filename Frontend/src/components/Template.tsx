@@ -20,19 +20,16 @@ export const Template = ({
 	const [lock, setLock] = useState(false);
 
 	const goToTemplateSettings = () => {
-		navigate(`/templatesettings?template=${sportNaam}`);
-		if (lock) {
-			return;
-		}
-		console.log("hallo");
+		//encodeURI = van string naar link
+		//decodeURI = van link naar string
+
+		navigate(`/templatesettings?template=${encodeURI(sportNaam)}`);
 	};
 
 	const handleClickDeletePopUp = (sportNaam: string) => {
 		setLock(true);
 		updateState("templateToDelete", sportNaam);
 		handleDeletePopup();
-		console.log(state.templateToDelete);
-		setLock(false);
 	};
 
 	return (
