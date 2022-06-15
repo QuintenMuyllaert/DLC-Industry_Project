@@ -62,4 +62,10 @@ export const Timer = class Timer {
 		this.clockOffset += this.pauseStop - this.pauseStart;
 		this.changes = true;
 	}
+	getSecondsPassed() {
+		const now = Date.now();
+		const ms = this.paused ? this.pauseStart - this.clockStart - this.clockOffset : now - this.clockStart - this.clockOffset;
+
+		return Math.floor(ms / 1000);
+	}
 };
