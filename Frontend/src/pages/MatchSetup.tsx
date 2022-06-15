@@ -149,11 +149,11 @@ export const MatchSetup = () => {
 						<select
 							id="selectedTemplate"
 							onChange={(e) => {
-								if (e.target.value != "0") {
-									handleOnchangeSelect(e.currentTarget.value);
-									handleOnchangeSelect(e.currentTarget.value);
+								//@ts-ignore
+								const val = document.querySelector("#selectedTemplate")?.value || e.target.value;
+								if (val != "0") {
+									handleOnchangeSelect(val);
 								} else {
-									handleOnchangeSelect("");
 									handleOnchangeSelect("");
 								}
 							}}>
