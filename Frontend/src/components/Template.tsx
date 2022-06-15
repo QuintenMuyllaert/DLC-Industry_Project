@@ -6,13 +6,11 @@ export const Template = ({
 	aantalHelften,
 	duurHelft,
 	handleDeletePopup,
-	handleDeleteTemplate,
 }: {
 	sportNaam: string;
 	aantalHelften: number;
 	duurHelft: number;
 	handleDeletePopup: (event?: any) => any;
-	handleDeleteTemplate: (event?: any) => any;
 }) => {
 	const navigate = useNavigate();
 
@@ -21,9 +19,8 @@ export const Template = ({
 		handleDeletePopup();
 	};
 
-	const handleClickDelete = (sportNaam: string) => {
+	const handleClickTemplate = (sportNaam: string) => {
 		updateState("templateToDelete", sportNaam);
-		handleDeleteTemplate();
 		navigate(`/templatesettings?template=${encodeURI(sportNaam)}`);
 	};
 
@@ -32,7 +29,7 @@ export const Template = ({
 			<button
 				className="p-templates__list-info"
 				onClick={() => {
-					handleClickDelete(sportNaam);
+					handleClickTemplate(sportNaam);
 				}}>
 				<div className="p-templates__list-naam">
 					<p>{sportNaam}</p>
@@ -78,7 +75,7 @@ export const Template = ({
 				<button
 					className="c-templates__list-btn"
 					onClick={() => {
-						handleClickDelete(sportNaam);
+						handleClickTemplate(sportNaam);
 					}}>
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
