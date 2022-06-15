@@ -73,7 +73,7 @@ export const MatchSetup = () => {
 
 	const updateNewTemplate = (key: any, value: string) => {
 		newTemplate[key] = value;
-		setnewTemplate(newTemplate);
+		setnewTemplate({ ...newTemplate });
 	};
 
 	const templateBackend: LooseObject = {
@@ -85,7 +85,7 @@ export const MatchSetup = () => {
 
 	const updateTemplateBackend = (key: any, value: string) => {
 		templateBack[key] = value;
-		setnewTemplate(templateBack);
+		setnewTemplate({ ...templateBack });
 	};
 
 	const handleOnchangeSelect = async (selectedValue: string) => {
@@ -95,6 +95,7 @@ export const MatchSetup = () => {
 				updateNewTemplate("name", template.name);
 				updateNewTemplate("parts", template.parts);
 				updateNewTemplate("duration", template.duration);
+
 				updateTemplateBackend("parts", template.parts);
 				updateTemplateBackend("duration", template.duration);
 			}
