@@ -51,29 +51,44 @@ export const Manual = () => {
 				updateValidation("display", true);
 				return;
 			} else {
-				const res = await fetch(`/register`, {
-					method: "POST",
-					mode: "cors",
-					cache: "no-cache",
-					credentials: "same-origin",
-					headers: {
-						"Content-Type": "application/json",
-					},
-					redirect: "follow",
-					referrerPolicy: "no-referrer",
-					body: JSON.stringify({ ...state }),
-				});
+				if (state.hasScoreboard) {
+					const res = await fetch(`/register`, {
+						method: "POST",
+						mode: "cors",
+						cache: "no-cache",
+						credentials: "same-origin",
+						headers: {
+							"Content-Type": "application/json",
+						},
+						redirect: "follow",
+						referrerPolicy: "no-referrer",
+						body: JSON.stringify({ ...state }),
+					});
 
-				const message = await res.text();
-				updateValidation("message", message);
+					const message = await res.text();
+					updateValidation("message", message);
 
-				if (res.status >= 400) {
-					updateValidation("display", true);
-				}
+					if (res.status >= 200 && res.status < 300) {
+						updateValidation("display", false);
+						const res = await fetch(`/auth`, {
+							method: "POST",
+							mode: "cors",
+							cache: "no-cache",
+							credentials: "same-origin",
+							headers: {
+								"Content-Type": "application/json",
+							},
+							redirect: "follow",
+							referrerPolicy: "no-referrer",
+							body: JSON.stringify({ username: state.username, password: state.password }),
+						});
 
-				if (res.status >= 200 && res.status < 300) {
-					updateValidation("display", false);
-					document.location.href = "/score";
+						document.location.href = "/score";
+					}
+
+					if (res.status >= 400) {
+						updateValidation("display", true);
+					}
 				}
 				if (state.hasScoreboard == false) {
 					updateState("serial", "virtual");
@@ -91,7 +106,10 @@ export const Manual = () => {
 						body: JSON.stringify({ ...state }),
 					});
 
-					if (res.status === 202 || res.status === 201) {
+					const message = await res.text();
+					updateValidation("message", message);
+
+					if (res.status >= 200 && res.status < 300) {
 						updateValidation("display", false);
 						const res = await fetch(`/auth`, {
 							method: "POST",
