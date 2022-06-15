@@ -181,6 +181,7 @@ export const MatchSetup = () => {
 						inputValue={selectedTemplate != "" ? newTemplate.name : null}
 						onChange={(event: React.FormEvent<HTMLInputElement>) => {
 							updateNewTemplate("name", event.currentTarget.value);
+							updateNewTemplate("name", event.currentTarget.value);
 						}}
 					/>
 
@@ -193,6 +194,7 @@ export const MatchSetup = () => {
 								inputValue={selectedTemplate != "" ? newTemplate.parts : null}
 								onChange={(event: React.FormEvent<HTMLInputElement>) => {
 									updateNewTemplate("parts", event.currentTarget.value);
+									updateNewTemplate("parts", event.currentTarget.value);
 								}}
 							/>
 						</div>
@@ -203,6 +205,7 @@ export const MatchSetup = () => {
 								id="helften-tijd"
 								inputValue={selectedTemplate != "" ? newTemplate.duration : null}
 								onChange={(event: React.FormEvent<HTMLInputElement>) => {
+									updateNewTemplate("duration", event.currentTarget.value);
 									updateNewTemplate("duration", event.currentTarget.value);
 								}}
 							/>
