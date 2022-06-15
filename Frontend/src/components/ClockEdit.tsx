@@ -10,6 +10,7 @@ export const ClockEdit = ({ active }: { active: boolean }) => {
 
 	const [minutes, setMinutes] = useState(sec);
 	const [seconds, setSeconds] = useState(min);
+	const [changedValue, setChangedValue] = useState(false);
 
 	const setTimer = () => {
 		console.log("clicker on clock");
@@ -28,15 +29,18 @@ export const ClockEdit = ({ active }: { active: boolean }) => {
 	};
 
 	const setNewTime = () => {
-		console.log("setting new timer...");
-		let totalSeconds: number = seconds + minutes * 60;
-		if (totalSeconds >= 0) {
-			scoreboardInterface.setTimer(totalSeconds);
-		} else {
-			scoreboardInterface.setTimer(0);
+		if (changedValue) {
+			console.log("setting new timer...");
+			let totalSeconds: number = seconds + minutes * 60;
+			if (totalSeconds >= 0) {
+				scoreboardInterface.setTimer(totalSeconds);
+			} else {
+				scoreboardInterface.setTimer(0);
+			}
 		}
 
 		updateState("clockPopup", !state.clockPopup);
+		setChangedValue(false);
 	};
 
 	const stopTimer = () => {
@@ -68,8 +72,9 @@ export const ClockEdit = ({ active }: { active: boolean }) => {
 						<input
 							onChange={(event: React.FormEvent<HTMLInputElement>) => {
 								setMinutes(parseInt(event.currentTarget.value));
+								setChangedValue(true);
 							}}
-							placeholder={minutes}
+							placeholder="00"
 							className="side"
 							type="number"
 							id="inputclockleft"
@@ -78,8 +83,9 @@ export const ClockEdit = ({ active }: { active: boolean }) => {
 						<input
 							onChange={(event: React.FormEvent<HTMLInputElement>) => {
 								setSeconds(parseInt(event.currentTarget.value));
+								setChangedValue(true);
 							}}
-							placeholder={seconds}
+							placeholder="00"
 							className="side"
 							type="number"
 							id="inputclockright"
