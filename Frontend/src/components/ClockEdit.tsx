@@ -35,6 +35,10 @@ export const ClockEdit = ({ active }: { active: boolean }) => {
 		updateState("clockPopup", !state.clockPopup);
 	};
 
+	const stopTimer = () => {
+		scoreboardInterface.stopMatch();
+	};
+
 	return (
 		<>
 			<div className={active ? "c-clockedit__overlay" : "c-clockedit__overlay c-clockedit__hidden"}></div>
@@ -78,11 +82,46 @@ export const ClockEdit = ({ active }: { active: boolean }) => {
 						/>
 					</div>
 					<h1 className="title">start of stop de timer</h1>
-					<IconButton
-						color="black"
-						onClick={setTimer}
-						icon={
-							state.clockData.paused ? (
+					<div className="c-clockedit__btns">
+						<IconButton
+							color="black"
+							onClick={setTimer}
+							icon={
+								state.clockData.paused ? (
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										width="24"
+										height="24"
+										viewBox="0 0 24 24"
+										fill="none"
+										stroke="currentColor"
+										stroke-width="2"
+										stroke-linecap="round"
+										stroke-linejoin="round">
+										<polygon points="5 3 19 12 5 21 5 3"></polygon>
+									</svg>
+								) : (
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										width="24"
+										height="24"
+										viewBox="0 0 24 24"
+										fill="none"
+										stroke="currentColor"
+										stroke-width="2"
+										stroke-linecap="round"
+										stroke-linejoin="round">
+										<rect x="6" y="4" width="4" height="16"></rect>
+										<rect x="14" y="4" width="4" height="16"></rect>
+									</svg>
+								)
+							}
+						/>
+
+						<IconButton
+							color="black"
+							onClick={stopTimer}
+							icon={
 								<svg
 									xmlns="http://www.w3.org/2000/svg"
 									width="24"
@@ -93,25 +132,15 @@ export const ClockEdit = ({ active }: { active: boolean }) => {
 									stroke-width="2"
 									stroke-linecap="round"
 									stroke-linejoin="round">
-									<polygon points="5 3 19 12 5 21 5 3"></polygon>
+									<path d="M10 2h4"></path>
+									<path d="M7.43 7.433A8 8 0 0 1 18.566 18.57M4.582 11A8 8 0 0 0 15 21.419"></path>
+									<path d="m2 2 20 20"></path>
+									<path d="M12 12v-2"></path>
 								</svg>
-							) : (
-								<svg
-									xmlns="http://www.w3.org/2000/svg"
-									width="24"
-									height="24"
-									viewBox="0 0 24 24"
-									fill="none"
-									stroke="currentColor"
-									stroke-width="2"
-									stroke-linecap="round"
-									stroke-linejoin="round">
-									<rect x="6" y="4" width="4" height="16"></rect>
-									<rect x="14" y="4" width="4" height="16"></rect>
-								</svg>
-							)
-						}
-					/>
+							}
+						/>
+					</div>
+
 					<IconButton color="black" label="BEVESTIG" onClick={setNewTime} />
 				</div>
 			</div>

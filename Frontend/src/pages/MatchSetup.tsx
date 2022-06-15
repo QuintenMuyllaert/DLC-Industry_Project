@@ -48,6 +48,7 @@ export const MatchSetup = () => {
 			//navigate(`/score`);
 		}
 
+		///
 		await scoreboardInterface.startMatch();
 		navigate(`/score`);
 	};
@@ -75,13 +76,27 @@ export const MatchSetup = () => {
 		setnewTemplate(newTemplate);
 	};
 
-	const handleOnchangeSelect = (selectedValue: string) => {
+	const templateBackend: LooseObject = {
+		parts: 0,
+		duration: 0,
+	};
+
+	const [templateBack, setTemplateBack] = useState(templateBackend);
+
+	const updateTemplateBackend = (key: any, value: string) => {
+		templateBack[key] = value;
+		setnewTemplate(templateBack);
+	};
+
+	const handleOnchangeSelect = async (selectedValue: string) => {
 		setselectedTemplate(selectedValue);
 		for (const template of state.templates) {
 			if (template.name == selectedTemplate) {
 				updateNewTemplate("name", template.name);
 				updateNewTemplate("parts", template.parts);
 				updateNewTemplate("duration", template.duration);
+				updateTemplateBackend("parts", template.parts);
+				updateTemplateBackend("duration", template.duration);
 			}
 		}
 
@@ -92,6 +107,8 @@ export const MatchSetup = () => {
 			setChecked(false);
 			setDisabled(false);
 		}
+
+		await scoreboardInterface.setMatchData(templateBackend);
 	};
 
 	const handleChecked = () => {
