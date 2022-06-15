@@ -65,7 +65,7 @@ export const Login = () => {
 			<div className="u-grid-vertical-gap p-login-maxwidth">
 				<Input
 					id="username"
-					label="e-mail"
+					label="username"
 					type="text"
 					onChange={(event: React.FormEvent<HTMLInputElement>) => {
 						updateState("username", event.currentTarget.value);
