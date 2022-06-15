@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { updateGlobalState as updateState, globalState as state } from "../utils/Appstate";
 
@@ -7,37 +6,34 @@ export const Template = ({
 	aantalHelften,
 	duurHelft,
 	handleDeletePopup,
+	handleDeleteTemplate,
 }: {
 	sportNaam: string;
 	aantalHelften: number;
 	duurHelft: number;
 	handleDeletePopup: (event?: any) => any;
+	handleDeleteTemplate: (event?: any) => any;
 }) => {
 	const navigate = useNavigate();
 
-	const [toDelete, setToDelete] = useState("");
-
-	const [lock, setLock] = useState(false);
-
-	const goToTemplateSettings = () => {
-		navigate(`/templatesettings?template=${sportNaam}`);
-		if (lock) {
-			return;
-		}
-		console.log("hallo");
-	};
-
 	const handleClickDeletePopUp = (sportNaam: string) => {
-		setLock(true);
 		updateState("templateToDelete", sportNaam);
 		handleDeletePopup();
-		console.log(state.templateToDelete);
-		setLock(false);
+	};
+
+	const handleClickDelete = (sportNaam: string) => {
+		updateState("templateToDelete", sportNaam);
+		handleDeleteTemplate();
+		navigate(`/templatesettings?template=${encodeURI(sportNaam)}`);
 	};
 
 	return (
 		<div className="p-templates__list-item">
-			<button className="p-templates__list-info" onClick={goToTemplateSettings}>
+			<button
+				className="p-templates__list-info"
+				onClick={() => {
+					handleClickDelete(sportNaam);
+				}}>
 				<div className="p-templates__list-naam">
 					<p>{sportNaam}</p>
 				</div>
@@ -79,7 +75,11 @@ export const Template = ({
 				</div>
 			</button>
 			<div className="p-templates__list-btns">
-				<button className="c-templates__list-btn" onClick={goToTemplateSettings}>
+				<button
+					className="c-templates__list-btn"
+					onClick={() => {
+						handleClickDelete(sportNaam);
+					}}>
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
 						width="24"
