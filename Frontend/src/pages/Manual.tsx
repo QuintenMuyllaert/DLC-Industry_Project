@@ -50,7 +50,8 @@ export const Manual = () => {
 				updateValidation("message", "wachtwoord is niet gelijk aan bevestig wachtwoord");
 				updateValidation("display", true);
 				return;
-			} else {
+			}
+			if (state.password === state.confirmPassword) {
 				if (state.hasScoreboard) {
 					const res = await fetch(`/register`, {
 						method: "POST",
