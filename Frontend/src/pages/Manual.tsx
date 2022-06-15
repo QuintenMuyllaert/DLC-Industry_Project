@@ -74,7 +74,8 @@ export const Manual = () => {
 				if (res.status >= 200 && res.status < 300) {
 					updateValidation("display", false);
 					document.location.href = "/score";
-				} else if (state.hasScoreboard == false) {
+				}
+				if (state.hasScoreboard == false) {
 					updateState("serial", "virtual");
 
 					const res = await fetch(`${document.location.origin}/register`, {
@@ -106,6 +107,10 @@ export const Manual = () => {
 						});
 
 						document.location.href = "/score";
+					}
+
+					if (res.status >= 400) {
+						updateValidation("display", true);
 					}
 				}
 			}
