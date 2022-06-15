@@ -69,7 +69,7 @@ export const ClockEdit = ({ active }: { active: boolean }) => {
 							onChange={(event: React.FormEvent<HTMLInputElement>) => {
 								setMinutes(parseInt(event.currentTarget.value));
 							}}
-							placeholder="00"
+							placeholder={minutes}
 							className="side"
 							type="number"
 							id="inputclockleft"
@@ -79,7 +79,7 @@ export const ClockEdit = ({ active }: { active: boolean }) => {
 							onChange={(event: React.FormEvent<HTMLInputElement>) => {
 								setSeconds(parseInt(event.currentTarget.value));
 							}}
-							placeholder="00"
+							placeholder={seconds}
 							className="side"
 							type="number"
 							id="inputclockright"
