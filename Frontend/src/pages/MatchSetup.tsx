@@ -151,7 +151,9 @@ export const MatchSetup = () => {
 							onChange={(e) => {
 								if (e.target.value != "0") {
 									handleOnchangeSelect(e.currentTarget.value);
+									handleOnchangeSelect(e.currentTarget.value);
 								} else {
+									handleOnchangeSelect("");
 									handleOnchangeSelect("");
 								}
 							}}>
