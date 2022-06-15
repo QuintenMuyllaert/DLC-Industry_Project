@@ -143,8 +143,7 @@ export const MatchSetup = () => {
 			}
 		}
 		//setstate inputs
-
-
+		scoreboardInterface.setMatchData(templateBackend);
 	};
 
 	return (
@@ -167,14 +166,13 @@ export const MatchSetup = () => {
 						<label htmlFor="selectedTemplate">Template selecteren</label>
 						<select
 							id="selectedTemplate"
-
 							onChange={(e) => {
-						if (e.target.value != "0") {
-							handleClickSelect(e.target.value);
-						} else {
-							handleClickSelect("");
-						}
-					}}>
+								if (e.target.value != "0") {
+									handleClickSelect(e.target.value);
+								} else {
+									handleClickSelect("");
+								}
+							}}>
 							<option value="0" selected>
 								Selecteer een template
 							</option>
