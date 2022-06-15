@@ -34,6 +34,8 @@ export const MatchSetup = () => {
 	};
 
 	const handleClickMatchStart = async () => {
+		updateState("clockPopup", false);
+
 		if (checked && selectedTemplate == "") {
 			const res = await fetch(`/template?serial=${state.serial}`, {
 				mode: "cors",
@@ -85,8 +87,8 @@ export const MatchSetup = () => {
 	};
 
 	const templateBackend: LooseObject = {
-		parts: 0,
-		duration: 0,
+		halfs: 0,
+		halfLength: 0,
 	};
 
 	const [templateBack, setTemplateBack] = useState(templateBackend);
