@@ -128,6 +128,25 @@ export const MatchSetup = () => {
 		updateState("teamColorTeam2Popup", !state.teamColorTeam2Popup);
 	};
 
+	const handleClickSelect = (selectedValue: string) => {
+		setselectedTemplate(selectedValue);
+
+		//get template by name
+		for (const template of state.templates) {
+			if (template.name == selectedValue) {
+				updateNewTemplate("name", template.name);
+				updateNewTemplate("parts", template.parts);
+				updateNewTemplate("duration", template.duration);
+
+				updateTemplateBackend("parts", template.parts);
+				updateTemplateBackend("duration", template.duration);
+			}
+		}
+		//setstate inputs
+
+
+	};
+
 	return (
 		<>
 			<div className="p-matchsetup maxwidth">
@@ -148,20 +167,14 @@ export const MatchSetup = () => {
 						<label htmlFor="selectedTemplate">Template selecteren</label>
 						<select
 							id="selectedTemplate"
-							onChange={(e) => {
-								const nightmare = () => {
-									//@ts-ignore
-									const val = document.querySelector("#selectedTemplate")?.value || e.target.value;
-									if (val != "0") {
-										handleOnchangeSelect(val);
-									} else {
-										handleOnchangeSelect("");
-									}
-								};
 
-								nightmare();
-								setTimeout(nightmare, 10);
-							}}>
+							onChange={(e) => {
+						if (e.target.value != "0") {
+							handleClickSelect(e.target.value);
+						} else {
+							handleClickSelect("");
+						}
+					}}>
 							<option value="0" selected>
 								Selecteer een template
 							</option>
