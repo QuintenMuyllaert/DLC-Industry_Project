@@ -33,7 +33,7 @@ export const MatchSetup = () => {
 
 		if (checked && selectedTemplate == "") {
 			const res = await fetch(`/template?serial=${state.serial}`, {
-				mode: "cors",
+				mode: "no-cors",
 				method: "POST",
 				cache: "no-cache",
 				credentials: "same-origin",
