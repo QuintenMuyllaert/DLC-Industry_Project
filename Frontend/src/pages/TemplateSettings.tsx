@@ -12,6 +12,7 @@ export const TemplateSettings = () => {
 	const navigate = useNavigate();
 
 	const ingeladenTemplate: LooseObject = {
+		currentName: "",
 		name: "",
 		parts: 0,
 		duration: 0,
@@ -38,7 +39,7 @@ export const TemplateSettings = () => {
 				updateNewTemplate("name", templateI.name);
 				updateNewTemplate("parts", templateI.parts);
 				updateNewTemplate("duration", templateI.duration);
-				console.log(newTemplate);
+				updateNewTemplate("currentName", templateI.name);
 			}
 		}
 	}, []);
@@ -48,7 +49,7 @@ export const TemplateSettings = () => {
 	const handleClickNewTemplate = async () => {
 		const res = await fetch(`/template?serial=${state.serial}`, {
 			mode: "cors",
-			method: "POST",
+			method: "PUT",
 			cache: "no-cache",
 			credentials: "same-origin",
 			headers: {
