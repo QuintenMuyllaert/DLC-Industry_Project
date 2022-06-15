@@ -37,24 +37,33 @@ export const Manual = () => {
 	};
 
 	const sendRegisterRequest = async () => {
-		console.log(state.hasScoreboard);
-
 		if (state.password !== state.confirmPassword) {
 			updateValidation("message", "wachtwoord is niet gelijk aan bevestig wachtwoord");
 			updateValidation("display", true);
 			return;
 		}
 
-		if (state.hasScoreboard) {
-			if (state.password !== state.confirmPassword) {
-				updateValidation("message", "wachtwoord is niet gelijk aan bevestig wachtwoord");
-				updateValidation("display", true);
-				return;
-			}
+		if (state.password === state.confirmPassword) {
+			if (state.hasScoreboard) {
+				const res = await fetch(`/register`, {
+					method: "POST",
+					mode: "cors",
+					cache: "no-cache",
+					credentials: "same-origin",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					redirect: "follow",
+					referrerPolicy: "no-referrer",
+					body: JSON.stringify({ ...state }),
+				});
 
-			if (state.password === state.confirmPassword) {
-				if (state.hasScoreboard) {
-					const res = await fetch(`/register`, {
+				const message = await res.text();
+				updateValidation("message", message);
+
+				if (res.status >= 200 && res.status < 300) {
+					updateValidation("display", false);
+					const res = await fetch(`/auth`, {
 						method: "POST",
 						mode: "cors",
 						cache: "no-cache",
@@ -64,43 +73,39 @@ export const Manual = () => {
 						},
 						redirect: "follow",
 						referrerPolicy: "no-referrer",
-						body: JSON.stringify({ ...state }),
+						body: JSON.stringify({ username: state.username, password: state.password }),
 					});
 
-					const message = await res.text();
-					updateValidation("message", message);
-
-					if (res.status >= 200 && res.status < 300) {
-						updateValidation("display", false);
-						const res = await fetch(`/auth`, {
-							method: "POST",
-							mode: "cors",
-							cache: "no-cache",
-							credentials: "same-origin",
-							headers: {
-								"Content-Type": "application/json",
-							},
-							redirect: "follow",
-							referrerPolicy: "no-referrer",
-							body: JSON.stringify({ username: state.username, password: state.password }),
-						});
-
-						document.location.href = "/score";
-					}
-
-					if (res.status >= 400) {
-						updateValidation("display", true);
-					}
+					document.location.href = "/score";
 				}
 
-				console.log("checking if hasscoreboard = false");
+				if (res.status >= 400) {
+					updateValidation("display", true);
+				}
+			}
 
-				if (state.hasScoreboard == false) {
-					updateState("serial", "virtual");
+			if (state.hasScoreboard == false) {
+				updateState("serial", "virtual");
 
-					console.log("doing fetch when no serial");
+				const res = await fetch(`${document.location.origin}/register`, {
+					method: "POST",
+					mode: "cors",
+					cache: "no-cache",
+					credentials: "same-origin",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					redirect: "follow",
+					referrerPolicy: "no-referrer",
+					body: JSON.stringify({ ...state }),
+				});
 
-					const res = await fetch(`${document.location.origin}/register`, {
+				const message = await res.text();
+				updateValidation("message", message);
+
+				if (res.status >= 200 && res.status < 300) {
+					updateValidation("display", false);
+					const res = await fetch(`/auth`, {
 						method: "POST",
 						mode: "cors",
 						cache: "no-cache",
@@ -110,36 +115,14 @@ export const Manual = () => {
 						},
 						redirect: "follow",
 						referrerPolicy: "no-referrer",
-						body: JSON.stringify({ ...state }),
+						body: JSON.stringify({ username: state.username, password: state.password }),
 					});
 
-					const message = await res.text();
-					updateValidation("message", message);
+					document.location.href = "/score";
+				}
 
-					console.log("message: ", message);
-					console.log("status: ", res.status);
-
-					if (res.status >= 200 && res.status < 300) {
-						updateValidation("display", false);
-						const res = await fetch(`/auth`, {
-							method: "POST",
-							mode: "cors",
-							cache: "no-cache",
-							credentials: "same-origin",
-							headers: {
-								"Content-Type": "application/json",
-							},
-							redirect: "follow",
-							referrerPolicy: "no-referrer",
-							body: JSON.stringify({ username: state.username, password: state.password }),
-						});
-
-						document.location.href = "/score";
-					}
-
-					if (res.status >= 400) {
-						updateValidation("display", true);
-					}
+				if (res.status >= 400) {
+					updateValidation("display", true);
 				}
 			}
 		}
