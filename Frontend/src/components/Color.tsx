@@ -46,6 +46,7 @@ export const Color = ({
 								newColorArray.splice(index, 1);
 								updateState("colors", newColorArray);
 								scoreboardInterface.updateColorArray(state.colors);
+								updateState("colors", state.colors);
 								console.log(state.colors);
 							} else {
 								scoreboardInterface.changeColor(`${team}${side}`, Ecolor);
