@@ -198,7 +198,7 @@ export const MatchSetup = () => {
 						id="sport"
 						label="Naam sport"
 						type="text"
-						inputValue={selectedTemplate != "" ? newTemplate.name : null}
+						inputValue={newTemplate.name || ""}
 						onChange={(event: React.FormEvent<HTMLInputElement>) => {
 							updateNewTemplate("name", event.currentTarget.value);
 						}}
