@@ -150,7 +150,7 @@ export const MatchSetup = () => {
 							id="selectedTemplate"
 							onChange={(e) => {
 								if (e.target.value != "0") {
-									handleOnchangeSelect(e.target.value);
+									handleOnchangeSelect(e.currentTarget.value);
 								} else {
 									handleOnchangeSelect("");
 								}
