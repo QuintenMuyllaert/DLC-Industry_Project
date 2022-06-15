@@ -22,6 +22,11 @@ export const MatchSetup = () => {
 	const [disabled, setDisabled] = useState(false);
 	const [selectedTemplate, setselectedTemplate] = useState("");
 
+	const [dataForBackend, setDataForBackend] = useState({
+		halfs: 99999999999999999999,
+		halfLength: 99999999999999999999,
+	});
+
 	const fetchTemplates = async () => {
 		const res = await fetch(`/template?serial=${state.serial}`, { mode: "no-cors", method: "GET" });
 		const json = await res.json();
@@ -51,6 +56,9 @@ export const MatchSetup = () => {
 		}
 
 		///
+		const template = selectedTemplate;
+		scoreboardInterface.setMatchData(dataForBackend);
+
 		await scoreboardInterface.startMatch();
 		navigate(`/score`);
 	};
@@ -98,8 +106,15 @@ export const MatchSetup = () => {
 				updateNewTemplate("parts", template.parts);
 				updateNewTemplate("duration", template.duration);
 
-				updateTemplateBackend("halfs", template.parts);
-				updateTemplateBackend("halfLength", template.duration);
+				updateTemplateBackend("parts", template.parts);
+				updateTemplateBackend("duration", template.duration);
+
+				const a = {
+					halfs: template.parts,
+					halfLength: template.duration,
+				};
+
+				setDataForBackend(a);
 			}
 		}
 
@@ -142,10 +157,9 @@ export const MatchSetup = () => {
 
 				updateTemplateBackend("parts", template.parts);
 				updateTemplateBackend("duration", template.duration);
+				//setstate inputs
 			}
 		}
-		//setstate inputs
-		scoreboardInterface.setMatchData(templateBackend);
 	};
 
 	return (
