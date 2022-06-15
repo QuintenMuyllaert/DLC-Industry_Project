@@ -51,6 +51,7 @@ export const Manual = () => {
 				updateValidation("display", true);
 				return;
 			}
+
 			if (state.password === state.confirmPassword) {
 				if (state.hasScoreboard) {
 					const res = await fetch(`/register`, {
@@ -91,6 +92,9 @@ export const Manual = () => {
 						updateValidation("display", true);
 					}
 				}
+
+				console.log("checking if hasscoreboard = false");
+
 				if (state.hasScoreboard == false) {
 					updateState("serial", "virtual");
 
