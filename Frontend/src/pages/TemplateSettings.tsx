@@ -38,16 +38,17 @@ export const TemplateSettings = () => {
 				updateNewTemplate("name", templateI.name);
 				updateNewTemplate("parts", templateI.parts);
 				updateNewTemplate("duration", templateI.duration);
+				console.log(newTemplate);
 			}
 		}
 	}, []);
 
 	const { template } = getQuery();
 
-	const handleClickUpdateTemplate = async () => {
+	const handleClickNewTemplate = async () => {
 		const res = await fetch(`/template?serial=${state.serial}`, {
 			mode: "cors",
-			method: "PUT",
+			method: "POST",
 			cache: "no-cache",
 			credentials: "same-origin",
 			headers: {
@@ -59,7 +60,6 @@ export const TemplateSettings = () => {
 		});
 
 		navigate(`/templates`);
-
 		document.location.href = document.location.href;
 	};
 
@@ -128,7 +128,7 @@ export const TemplateSettings = () => {
 					</div>
 				</div>
 				<div className="p-templatesettings__btn">
-					<IconButton label="OPSLAAN" color="white" onClick={handleClickUpdateTemplate} />
+					<IconButton label="OPSLAAN" color="white" onClick={handleClickNewTemplate} />
 				</div>
 			</div>
 			<BottomTab />

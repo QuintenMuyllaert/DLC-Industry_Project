@@ -32,7 +32,13 @@ export const Templates = () => {
 		const templates = [];
 		for (const template of json) {
 			templates.push(
-				<Template sportNaam={template.name} aantalHelften={template.parts} duurHelft={template.duration} handleDeletePopup={handleClickDeletePopup} />,
+				<Template
+					sportNaam={template.name}
+					aantalHelften={template.parts}
+					duurHelft={template.duration}
+					handleDeletePopup={handleClickDeletePopup}
+					handleDeleteTemplate={handleDeleteTemplate}
+				/>,
 			);
 
 			console.log("single template: ", template);
@@ -103,7 +109,13 @@ export const Templates = () => {
 		const reactObj = [];
 		for (const template of templates) {
 			reactObj.push(
-				<Template sportNaam={template.name} aantalHelften={template.parts} duurHelft={template.duration} handleDeletePopup={handleClickDeletePopup} />,
+				<Template
+					sportNaam={template.name}
+					aantalHelften={template.parts}
+					duurHelft={template.duration}
+					handleDeletePopup={handleClickDeletePopup}
+					handleDeleteTemplate={handleDeleteTemplate}
+				/>,
 			);
 		}
 		return reactObj;
