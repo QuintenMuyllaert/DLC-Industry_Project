@@ -95,6 +95,15 @@
 		}
 	}
 
+	&__btns {
+		display: flex;
+		justify-content: space-between;
+
+		& .c-iconbutton {
+			width: 48%;
+		}
+	}
+
 	.c-clock {
 		color: var(--color-black);
 		border: calc(2 * var(--global-border-size)) solid var(--color-black);
