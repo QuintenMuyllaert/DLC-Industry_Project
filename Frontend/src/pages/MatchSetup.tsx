@@ -149,13 +149,18 @@ export const MatchSetup = () => {
 						<select
 							id="selectedTemplate"
 							onChange={(e) => {
-								if (e.target.value != "0") {
-									handleOnchangeSelect(e.currentTarget.value);
-									handleOnchangeSelect(e.currentTarget.value);
-								} else {
-									handleOnchangeSelect("");
-									handleOnchangeSelect("");
-								}
+								const nightmare = () => {
+									//@ts-ignore
+									const val = document.querySelector("#selectedTemplate")?.value || e.target.value;
+									if (val != "0") {
+										handleOnchangeSelect(val);
+									} else {
+										handleOnchangeSelect("");
+									}
+								};
+
+								nightmare();
+								setTimeout(nightmare, 10);
 							}}>
 							<option value="0" selected>
 								Selecteer een template
