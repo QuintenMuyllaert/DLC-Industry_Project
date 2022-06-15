@@ -37,20 +37,14 @@ export const Manual = () => {
 	};
 
 	const sendRegisterRequest = async () => {
-		console.log(state.hasScoreboard);
-
 		if (state.password !== state.confirmPassword) {
 			updateValidation("message", "wachtwoord is niet gelijk aan bevestig wachtwoord");
 			updateValidation("display", true);
 			return;
 		}
 
-		if (state.hasScoreboard) {
-			if (state.password !== state.confirmPassword) {
-				updateValidation("message", "wachtwoord is niet gelijk aan bevestig wachtwoord");
-				updateValidation("display", true);
-				return;
-			} else {
+		if (state.password === state.confirmPassword) {
+			if (state.hasScoreboard) {
 				const res = await fetch(`/register`, {
 					method: "POST",
 					mode: "cors",
@@ -67,17 +61,9 @@ export const Manual = () => {
 				const message = await res.text();
 				updateValidation("message", message);
 
-				if (res.status >= 400) {
-					updateValidation("display", true);
-				}
-
 				if (res.status >= 200 && res.status < 300) {
 					updateValidation("display", false);
-					document.location.href = "/score";
-				} else if (state.hasScoreboard == false) {
-					updateState("serial", "virtual");
-
-					const res = await fetch(`${document.location.origin}/register`, {
+					const res = await fetch(`/auth`, {
 						method: "POST",
 						mode: "cors",
 						cache: "no-cache",
@@ -87,26 +73,56 @@ export const Manual = () => {
 						},
 						redirect: "follow",
 						referrerPolicy: "no-referrer",
-						body: JSON.stringify({ ...state }),
+						body: JSON.stringify({ username: state.username, password: state.password }),
 					});
 
-					if (res.status === 202 || res.status === 201) {
-						updateValidation("display", false);
-						const res = await fetch(`/auth`, {
-							method: "POST",
-							mode: "cors",
-							cache: "no-cache",
-							credentials: "same-origin",
-							headers: {
-								"Content-Type": "application/json",
-							},
-							redirect: "follow",
-							referrerPolicy: "no-referrer",
-							body: JSON.stringify({ username: state.username, password: state.password }),
-						});
+					document.location.href = "/score";
+				}
 
-						document.location.href = "/score";
-					}
+				if (res.status >= 400) {
+					updateValidation("display", true);
+				}
+			}
+
+			if (state.hasScoreboard == false) {
+				updateState("serial", "virtual");
+
+				const res = await fetch(`${document.location.origin}/register`, {
+					method: "POST",
+					mode: "cors",
+					cache: "no-cache",
+					credentials: "same-origin",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					redirect: "follow",
+					referrerPolicy: "no-referrer",
+					body: JSON.stringify({ ...state }),
+				});
+
+				const message = await res.text();
+				updateValidation("message", message);
+
+				if (res.status >= 200 && res.status < 300) {
+					updateValidation("display", false);
+					const res = await fetch(`/auth`, {
+						method: "POST",
+						mode: "cors",
+						cache: "no-cache",
+						credentials: "same-origin",
+						headers: {
+							"Content-Type": "application/json",
+						},
+						redirect: "follow",
+						referrerPolicy: "no-referrer",
+						body: JSON.stringify({ username: state.username, password: state.password }),
+					});
+
+					document.location.href = "/score";
+				}
+
+				if (res.status >= 400) {
+					updateValidation("display", true);
 				}
 			}
 		}

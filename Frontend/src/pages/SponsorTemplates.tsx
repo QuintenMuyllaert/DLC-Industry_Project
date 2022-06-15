@@ -67,7 +67,7 @@ export const SponsorTemplates = () => {
 				<div className="p-sponsorTemplates__btn">
 					<IconButton
 						color="white"
-						label="Bundel toevoegen"
+						label="Nieuwe bundel"
 						onClick={handleClickNewBundel}
 						icon={
 							<svg
