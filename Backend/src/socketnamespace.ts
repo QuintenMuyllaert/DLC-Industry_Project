@@ -26,6 +26,7 @@ export const SocketNamespace = class SocketNamespace {
 				if (this.halfs > 0 && this.pauseAt >= 0) {
 					const timeP = this.clock.getSecondsPassed();
 					if (timeP >= this.pauseAt) {
+						console.log("PAUSE!!!!");
 						this.clock.pause();
 						this.clock.set(this.pauseAt);
 						this.halfs--;
@@ -124,9 +125,13 @@ export const SocketNamespace = class SocketNamespace {
 		socket.on("matchtemplate", (data: any) => {
 			const { halfs, halfLength } = data;
 			this.useTemplateSystem = true;
+			console.log("TEMPLATE", data);
 			if (halfs && halfLength) {
-				this.pauseAt = halfLength;
-				this.halfs = halfs;
+				console.log("Apply template");
+				this.pauseAt = parseInt(halfLength);
+				this.halfs = parseInt(halfs);
+			} else {
+				console.log("Reject template");
 			}
 		});
 	}
