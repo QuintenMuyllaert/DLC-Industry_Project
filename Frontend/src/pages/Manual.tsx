@@ -94,6 +94,8 @@ export const Manual = () => {
 				if (state.hasScoreboard == false) {
 					updateState("serial", "virtual");
 
+					console.log("doing fetch when no serial");
+
 					const res = await fetch(`${document.location.origin}/register`, {
 						method: "POST",
 						mode: "cors",
@@ -109,6 +111,9 @@ export const Manual = () => {
 
 					const message = await res.text();
 					updateValidation("message", message);
+
+					console.log("message: ", message);
+					console.log("status: ", res.status);
 
 					if (res.status >= 200 && res.status < 300) {
 						updateValidation("display", false);
