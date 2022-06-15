@@ -3,7 +3,6 @@ import { LooseObject } from "../utils/Interfaces";
 import BottomTab from "../components/BottomTab";
 import UserSetting from "../components/UserSetting";
 import IconButton from "../components/IconButton";
-import Logo from "../components/Logo";
 import { getQuery } from "../utils/Utils";
 import { updateGlobalState as updateState, globalState as state } from "../utils/Appstate";
 import { useNavigate } from "react-router-dom";
@@ -13,6 +12,7 @@ export const TemplateSettings = () => {
 	const navigate = useNavigate();
 
 	const ingeladenTemplate: LooseObject = {
+		currentName: "",
 		name: "",
 		parts: 0,
 		duration: 0,
@@ -35,17 +35,18 @@ export const TemplateSettings = () => {
 		fetchTemplates();
 
 		for (const templateI of state.templates) {
-			if (templateI.name === template) {
+			if (templateI.name === decodeURI(template)) {
 				updateNewTemplate("name", templateI.name);
 				updateNewTemplate("parts", templateI.parts);
 				updateNewTemplate("duration", templateI.duration);
+				updateNewTemplate("currentName", templateI.name);
 			}
 		}
 	}, []);
 
 	const { template } = getQuery();
 
-	const handleClickUpdateTemplate = async () => {
+	const handleClickNewTemplate = async () => {
 		const res = await fetch(`/template?serial=${state.serial}`, {
 			mode: "cors",
 			method: "PUT",
@@ -60,8 +61,6 @@ export const TemplateSettings = () => {
 		});
 
 		navigate(`/templates`);
-
-		//TODO : refetch instead
 		document.location.href = document.location.href;
 	};
 
@@ -130,7 +129,7 @@ export const TemplateSettings = () => {
 					</div>
 				</div>
 				<div className="p-templatesettings__btn">
-					<IconButton label="OPSLAAN" color="white" onClick={handleClickUpdateTemplate} />
+					<IconButton label="OPSLAAN" color="white" onClick={handleClickNewTemplate} />
 				</div>
 			</div>
 			<BottomTab />

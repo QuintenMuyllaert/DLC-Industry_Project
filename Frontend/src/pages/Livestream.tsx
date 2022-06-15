@@ -1,7 +1,18 @@
+import { useEffect } from "react";
 import { updateGlobalState, globalState } from "../utils/Appstate";
 
 export const Livestream = () => {
 	updateGlobalState("color", "png");
+
+	useEffect(() => {
+		const interval = setInterval(() => {
+			updateGlobalState("timer", globalState.getClock());
+		});
+
+		return () => {
+			clearInterval(interval);
+		};
+	}, []);
 
 	return (
 		<main

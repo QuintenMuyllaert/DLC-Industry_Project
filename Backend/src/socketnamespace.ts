@@ -9,6 +9,11 @@ export const SocketNamespace = class SocketNamespace {
 	clock = new Timer();
 	sponsors = [];
 	showSponsors = false;
+
+	pauseAt: number = -1;
+	halfLength: number = -1;
+	halfs: number = -1;
+	useTemplateSystem: boolean = false;
 	constructor(serial: string, data: any) {
 		console.log("Created namespace", serial);
 		this.serial = serial;
@@ -17,6 +22,18 @@ export const SocketNamespace = class SocketNamespace {
 		this.clock.set(0);
 
 		setInterval(() => {
+			if (this.useTemplateSystem) {
+				if (this.halfs > 0 && this.pauseAt >= 0) {
+					const timeP = this.clock.getSecondsPassed();
+					if (timeP >= this.pauseAt) {
+						this.clock.pause();
+						this.clock.set(this.pauseAt);
+						this.halfs--;
+						this.pauseAt += this.halfLength;
+					}
+				}
+			}
+
 			if (this.clock.changes) {
 				this.clock.changes = false;
 				this.emitAll("clock", this.clock.data);
@@ -103,6 +120,15 @@ export const SocketNamespace = class SocketNamespace {
 		});
 
 		socket.emit("startmatch", this.data.isPlaying);
+
+		socket.on("matchtemplate", (data: any) => {
+			const { halfs, halfLength } = data;
+			this.useTemplateSystem = true;
+			if (halfs && halfLength) {
+				this.pauseAt = halfLength;
+				this.halfs = halfs;
+			}
+		});
 	}
 	emitAll(event: string, ...args: any[]) {
 		//console.log(`Sending to ${this.displays.length} displays & ${this.users.length} users in ${this.serial}`);

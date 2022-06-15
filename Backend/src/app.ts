@@ -372,11 +372,11 @@ app.put("/template", async (req: Request, res: Response) => {
 			return;
 		}
 
-		const { name, parts, duration } = req.body;
-		if (!(name && parts && duration)) {
+		const { name, parts, duration, currentName } = req.body;
+		if (!(name && parts && duration && currentName)) {
 			console.log("Missing params on template");
 			res.status(400); // Bad Request
-			res.send("Invalid / Missing username and/or password");
+			res.send("Invalid / Missing username and/or password or currentName");
 			return;
 		}
 
@@ -387,7 +387,7 @@ app.put("/template", async (req: Request, res: Response) => {
 			serial,
 		};
 
-		await database.update("templates", { serial }, newTemplate);
+		await database.update("templates", { serial, name: currentName }, newTemplate);
 		res.status(202).send("TEMPLATE OK");
 	});
 });

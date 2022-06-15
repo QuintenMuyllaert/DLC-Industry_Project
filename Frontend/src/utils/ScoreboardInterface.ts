@@ -31,6 +31,8 @@ export class InterfaceScoreboard {
 	uploadProperties = (folder: string, name: string) => {};
 	updateColorArray(colorArray: string[]) {}
 	async startMatch() {}
+	setMatchData(matchData: any) {}
+	async stopMatch() {}
 }
 
 export class InterfaceHTTP {
@@ -81,6 +83,8 @@ export class InterfaceHTTP {
 	uploadProperties = (folder: string, name: string) => {};
 	updateColorArray(colorArray: string[]) {}
 	async startMatch() {}
+	setMatchData(matchData: any) {}
+	async stopMatch() {}
 }
 
 export class InterfaceSocket {
@@ -237,6 +241,18 @@ export class InterfaceSocket {
 		scoreboardInterface.changeColor("2O", state.uo);
 
 		scoreboardInterface.setSponsorReel([]);
+	}
+	async stopMatch() {
+		//Screen to scoreboard
+		this.socket.emit("startmatch", false);
+	}
+	setMatchData(data: { halfs: number; halfLength: number }) {
+		const { halfs, halfLength } = data;
+		if (!halfs || !halfLength) {
+			console.log("Invalid data", data);
+			return;
+		}
+		this.socket.emit("matchtemplate", data);
 	}
 }
 
