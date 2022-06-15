@@ -4,8 +4,12 @@ import { updateGlobalState as updateState, globalState as state } from "../utils
 import { useState } from "react";
 
 export const ClockEdit = ({ active }: { active: boolean }) => {
-	const [minutes, setMinutes] = useState(0);
-	const [seconds, setSeconds] = useState(0);
+	const clockDigi = state.getClock();
+	const sec = clockDigi.split(":").pop();
+	const min = clockDigi.split(":")[0];
+
+	const [minutes, setMinutes] = useState(sec);
+	const [seconds, setSeconds] = useState(min);
 
 	const setTimer = () => {
 		console.log("clicker on clock");
