@@ -209,9 +209,11 @@ export class InterfaceSocket {
 		this.socket.emit("input", "screen", screen);
 	}
 	setSponsorReel(sponsor: Array<string>) {
+		console.log("reel", sponsor);
 		this.socket.emit("sponsors", sponsor);
 	}
 	setFullScreenSponsors(value: boolean) {
+		console.log("fullscreen", value);
 		this.socket.emit("fullscreen", value);
 	}
 	detect = async () => {
