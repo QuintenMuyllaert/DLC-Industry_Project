@@ -245,6 +245,7 @@ export class InterfaceSocket {
 	async stopMatch() {
 		//Screen to scoreboard
 		this.socket.emit("startmatch", false);
+		scoreboardInterface.setSponsorReel([]);
 	}
 	setMatchData(data: { halfs: number; halfLength: number }) {
 		const { halfs, halfLength } = data;
