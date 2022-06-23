@@ -27,6 +27,7 @@ export class InterfaceScoreboard {
 		return loopback;
 	};
 	setSponsorReel(sponsor: Array<string>) {}
+	setFullScreenSponsors(value: boolean) {}
 	upload = (element: any) => {};
 	uploadProperties = (folder: string, name: string) => {};
 	updateColorArray(colorArray: string[]) {}
@@ -75,6 +76,7 @@ export class InterfaceHTTP {
 		ping(`${this.uri}/update?Keuze=${screen}`);
 	}
 	setSponsorReel(sponsor: Array<string>) {}
+	setFullScreenSponsors(value: boolean) {}
 	detect = async () => {
 		const api = await findApi(true);
 		return api ? (api as string) : loopback;
@@ -209,6 +211,9 @@ export class InterfaceSocket {
 	setSponsorReel(sponsor: Array<string>) {
 		this.socket.emit("sponsors", sponsor);
 	}
+	setFullScreenSponsors(value: boolean) {
+		this.socket.emit("fullscreen", value);
+	}
 	detect = async () => {
 		return this.uri;
 	};
@@ -240,12 +245,14 @@ export class InterfaceSocket {
 		scoreboardInterface.changeColor("2B", state.ub);
 		scoreboardInterface.changeColor("2O", state.uo);
 
+		scoreboardInterface.setFullScreenSponsors(false);
 		scoreboardInterface.setSponsorReel([]);
 	}
 	async stopMatch() {
 		//Screen to scoreboard
 		this.socket.emit("startmatch", false);
-		scoreboardInterface.setSponsorReel([]);
+		scoreboardInterface.setFullScreenSponsors(true);
+		scoreboardInterface.setSponsorReel(["QMA"]);
 	}
 	setMatchData(data: { halfs: number; halfLength: number }) {
 		const { halfs, halfLength } = data;
