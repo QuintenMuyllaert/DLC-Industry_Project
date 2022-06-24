@@ -102,6 +102,10 @@ export const SocketNamespace = class SocketNamespace {
 			}
 		});
 
+		socket.on("fullscreen", (value: boolean) => {
+			this.emitDisplays("fullscreen", value ? true : false);
+		});
+
 		socket.on("clock", (data: any) => {
 			if (data.action === "set") {
 				this.clock.set(data.value || 0);
